@@ -1,0 +1,42 @@
+(set! //t/r_/separate_/left (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/separate_/left 1)
+  "Separate_Left")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/separate_/left 1)
+  "Separate_Left")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/separate_/left 1)
+  @separate_left_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/separate_/left 1)
+  @separate_left_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/separate_/left 1)
+  (list "Reorder"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/separate_/left 1)
+  "Separate_Left will take code out to the left of the selected structure. As much code as possible will be taken out; if all the statements are taken out then the original containing structure will be removed.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/separate_/left 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/separate_/left 1)
+  "")
+

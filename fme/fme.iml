@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
+    <option name="activeLocationsIds">
+      <option value="bundled-sun-checks" />
+    </option>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" packagePrefix="fme" />
+      <excludeFolder url="file://$MODULE_DIR$/codemr/fme 1/html" />
+      <excludeFolder url="file://$MODULE_DIR$/codemr/fme 2/html" />
+      <excludeFolder url="file://$MODULE_DIR$/codemr/fme 3/html" />
+      <excludeFolder url="file://$MODULE_DIR$/codemr/fme/html" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="12417dac-018d-435e-a9d2-512ad4d17762" />
+  </component>
+</module>

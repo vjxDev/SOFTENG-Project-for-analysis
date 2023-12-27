@@ -1,0 +1,43 @@
+(set! //t/r_/ifmatch_/processing
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/ifmatch_/processing 1)
+  "Ifmatch_Processing")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/ifmatch_/processing 1)
+  "Ifmatch_Processing")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/ifmatch_/processing 1)
+  @ifmatch_processing_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/ifmatch_/processing 1)
+  @ifmatch_processing_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/ifmatch_/processing 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/ifmatch_/processing 1)
+  "Convert an IFMATCH statement to a @New_Match call.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/ifmatch_/processing 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/ifmatch_/processing 1)
+  "")
+

@@ -1,0 +1,42 @@
+(set! //t/r_/unfold_/proc_/call (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/unfold_/proc_/call 1)
+  "Unfold_Proc_Call")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/unfold_/proc_/call 1)
+  @unfold_proc_call_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/unfold_/proc_/call 1)
+  @unfold_proc_call_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/unfold_/proc_/call 1)
+  "Unfold Proc Call")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/unfold_/proc_/call 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/unfold_/proc_/call 1)
+  "Unfold the selected procedure call, replacing it with a copy of the procedure body.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/unfold_/proc_/call 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/unfold_/proc_/call 1)
+  "")
+

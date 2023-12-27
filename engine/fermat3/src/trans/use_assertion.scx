@@ -1,0 +1,132 @@
+(define (@use_assertion_test)
+  (cond ((not (= (@st (@i)) //t_/assert))
+         (@fail "The selected item is not an assertion."))
+        ((not (@right?))
+         (@fail "No statements after the assertion"))
+        (#t (@pass))))
+
+(define (@use_assertion_code //data)
+  (let ((//a (list-ref (@i) (+ 1 1))))
+    (cond ((@right?) (@right) (@ua_process //a)))))
+
+(define (@ua_process //a)
+  (let ((//b '()))
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (cond ((or (= (@st (@i)) //t_/cond)
+                          (= (@st (@i)) //t_/d_/if))
+                      (@down)
+                      (set! /fl_flag1 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag1 0)
+                               (begin
+                                 (set! //b (list-ref (@i) (+ 1 1)))
+                                 (cond ((@implies? //a //b)
+                                        (@delete_rest)
+                                        (@down_to 2)
+                                        (@down)
+                                        (@ua_process (@and //a //b))
+                                        (@up)
+                                        (@up)
+                                        (set! /fl_flag1 1))
+                                       ((= (@st (@and //a //b)) //t_/false)
+                                        (@delete)
+                                        (cond ((> (@posn_n) (@size (@parent)))
+                                               (set! /fl_flag1 1))
+                                              (#t (set! /fl_flag1 0))))
+                                       (#t
+                                        (@down)
+                                        (@paste_over
+                                          (@simplify_using (@i) //a 20))
+                                        (@right)
+                                        (@down)
+                                        (let ((/posn (@posn)))
+                                          (@ua_process (@and //a //b))
+                                          (@goto /posn))
+                                        (@up)
+                                        (@up)
+                                        (cond ((not (@right?))
+                                               (set! /fl_flag1 1))
+                                              (#t
+                                               (@right)
+                                               (set! /fl_flag1 0))))))
+                               (while-loop))
+                              (#t #t)))
+                      (@up)
+                      (cond ((not (@cs? (@i))) (@clever_delete))
+                            ((= (@size (@i)) 1)
+                             (@splice_over
+                               (@cs (list-ref
+                                      (list-ref (@i) (+ 1 1))
+                                      (+ 1 2)))))))
+                     ((= (@st (@i)) //t_/while)
+                      (cond ((= (@st (@and //a (list-ref (@i) (+ 1 1))))
+                                //t_/false)
+                             (@paste_over (@skip)))
+                            (#t (@ua_while //a))))
+                     ((= (@st (@i)) //t_/assignment)
+                      (@down)
+                      (cond ((null? (@set_intersect
+                                      (@assigned (@i))
+                                      (@used (@i))))
+                             (set! //b
+                               (@make //t_/equal
+                                      '()
+                                      (list (@lvalue_to_expn
+                                              (list-ref (@i) (+ 1 1)))
+                                            (list-ref (@i) (+ 1 2)))))
+                             (cond ((@implies? //a //b) (@delete)))))
+                      (let while-loop ()
+                        (cond ((@right?)
+                               (begin
+                                 (@right)
+                                 (cond ((null? (@set_intersect
+                                                 (@assigned (@i))
+                                                 (@used (@i))))
+                                        (set! //b
+                                          (@make //t_/equal
+                                                 '()
+                                                 (list (@lvalue_to_expn
+                                                         (list-ref
+                                                           (@i)
+                                                           (+ 1 1)))
+                                                       (list-ref
+                                                         (@i)
+                                                         (+ 1 2)))))
+                                        (cond ((@implies? //a //b)
+                                               (@delete))))))
+                               (while-loop))
+                              (#t #t)))
+                      (@up)
+                      (cond ((= (@size (@i)) 0) (@paste_over (@skip))))))
+               (cond ((member (@st (@i)) //call_/types_/set)
+                      (set! /fl_flag2 1))
+                     ((not (null? (@set_intersect
+                                    (@assigned (@i))
+                                    (@used //a))))
+                      (set! /fl_flag2 1))
+                     ((@right?) (@right) (set! /fl_flag2 0))
+                     (#t (set! /fl_flag2 1))))
+             (while-loop))
+            (#t #t)))))
+
+(define (@ua_while //a)
+  (cond ((null? (@set_intersect (@assigned (@i)) (@used //a)))
+         (@down)
+         (@paste_over (@simplify_using (@i) //a 20))
+         (@right)
+         (@down)
+         (@ua_process //a))
+        ((@set_subset?
+           (@stat_types (list-ref (@i) (+ 1 2)))
+           //w/p_/types_/set)
+         (cond ((@implies? //a (@wp (list-ref (@i) (+ 1 2)) //a))
+                (@down_to 2)
+                (@down)
+                (@ua_process //a))))
+        (#t)))
+
+#t
+

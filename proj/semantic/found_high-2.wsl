@@ -1,0 +1,3 @@
+i := 1;
+WHILE A[i] <= high AND i <= n DO i := i + 1 OD;
+IF i <= n THEN found_high := 1 FI

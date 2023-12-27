@@ -1,0 +1,79 @@
+(define (/foreach-var_pars_to_val_pars-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/proc_/call)
+         (cond ((not (null? (gethash /new_vals (@v (list-ref (@i) (+ 1 1))))))
+                (set! /new
+                  (concat
+                    (@cs (list-ref (@i) (+ 1 2)))
+                    (let ((l (@cs (@ss_filter
+                                    (list-ref (@i) (+ 1 3))
+                                    (gethash
+                                      /new_vals
+                                      (@v (list-ref (@i) (+ 1 1)))))))
+                          (map-result '()))
+                      (let while-loop ()
+                        (cond ((not (null? l))
+                               (set! map-result
+                                 (cons (@lvalue_to_expn (car l)) map-result))
+                               (set! l (cdr l))
+                               (while-loop))
+                              (#t #t)))
+                      (reverse map-result))))
+                (@down_to 2)
+                (@paste_over (@make //t_/expressions '() /new)))))))
+
+(define (@var_pars_to_val_pars_test)
+  (cond ((= (@st (@i)) //t_/where) (@pass))
+        (#t
+         (@fail "Select a WHERE clause to process all the procedures."))))
+
+(define (@var_pars_to_val_pars_code //data)
+  (let ((/new_vals-save /new_vals)
+        (/extra '())
+        (/new-save /new))
+    (set! /new_vals (my-make-hash-table 16))
+    (set! /new '())
+    (@down_last)
+    (@down)
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (cond ((= (@st (@i)) //t_/proc)
+                      (set! /extra
+                        (@set_difference
+                          (@elements (list-ref (@i) (+ 1 3)))
+                          (@elements (list-ref (@i) (+ 1 2)))))
+                      (puthash
+                        /new_vals
+                        (@v (list-ref (@i) (+ 1 1)))
+                        (@ss_keep (@cs (list-ref (@i) (+ 1 3))) /extra))
+                      (set! /new
+                        (concat
+                          (@cs (list-ref (@i) (+ 1 2)))
+                          (@cs (@ss_filter
+                                 (list-ref (@i) (+ 1 3))
+                                 (gethash
+                                   /new_vals
+                                   (@v (list-ref (@i) (+ 1 1))))))))
+                      (@down_to 2)
+                      (@paste_over (@make //t_/lvalues '() /new))
+                      (@up)))
+               (cond ((not (@right?)) (set! /fl_flag1 1))
+                     (#t (@right) (set! /fl_flag1 0))))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (@up)
+    (@foreach_statement
+      /foreach-var_pars_to_val_pars-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /new_vals /new_vals-save)
+    (set! /new /new-save)))
+
+#t
+

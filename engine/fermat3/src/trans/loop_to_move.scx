@@ -1,0 +1,1269 @@
+(define (/foreach-loop_to_move-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/comment) (@delete))))
+
+(define (/foreach-loop_to_move-2 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/comment)
+         (set! /comments (cons (@i) /comments))
+         (@delete))))
+
+(define /%const__loop_to_move__1
+  (@make 318
+         '()
+         (list (@make 217 -1 '()) (@make 205 0 '()))))
+
+(define /%const__loop_to_move__2
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '())
+                            (@make 210
+                                   '()
+                                   (list (@make 207 (@make_name "a") '())
+                                         (@make 10
+                                                '()
+                                                (list (@make 217
+                                                             -2
+                                                             '()))))))))))
+
+(define /%const__loop_to_move__3
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 502
+                                   '()
+                                   (list (@make 501 (@make_name "a") '())
+                                         (@make 10
+                                                '()
+                                                (list (@make 217 -1 '())))))
+                            (@make 217 -2 '()))))))
+
+(define /%const__loop_to_move__4
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 502
+                                   '()
+                                   (list (@make 501 (@make_name "a") '())
+                                         (@make 10
+                                                '()
+                                                (list (@make 217 -1 '())))))
+                            (@make 210
+                                   '()
+                                   (list (@make 207 (@make_name "a") '())
+                                         (@make 10
+                                                '()
+                                                (list (@make 217
+                                                             -2
+                                                             '()))))))))))
+
+(define /%const__loop_to_move__5
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '())
+                            (@make 220
+                                   '()
+                                   (list (@make 263 -1 '())
+                                         (@make 205 1 '()))))))))
+
+(define /%const__loop_to_move__6
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '())
+                            (@make 221
+                                   '()
+                                   (list (@make 263 -1 '())
+                                         (@make 205 1 '()))))))))
+
+(define /%const__loop_to_move__7
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 504
+                                   '()
+                                   (list (@make 501 (@make_name "a") '())
+                                         (@make 217 -1 '())
+                                         (@make 205 256 '())))
+                            (@make 212
+                                   '()
+                                   (list (@make 207 (@make_name "a") '())
+                                         (@make 217 -2 '())
+                                         (@make 205 256 '()))))))))
+
+(define /%const__loop_to_move__8
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '())
+                            (@make 220
+                                   '()
+                                   (list (@make 263 -1 '())
+                                         (@make 205 256 '()))))))))
+
+(define /%const__loop_to_move__9
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 510 '() (list (@make 205 1 '())))
+                            (@make 221
+                                   '()
+                                   (list (@make 261
+                                                '()
+                                                (list (@make 205 2 '())))
+                                         (@make 205 256 '()))))))))
+
+(define /%const__loop_to_move__10
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 510 '() (list (@make 205 1 '())))
+                            (@make 220
+                                   '()
+                                   (list (@make 261
+                                                '()
+                                                (list (@make 205 2 '())))
+                                         (@make 205 256 '()))))))))
+
+(define /%const__loop_to_move__11
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 318
+                                   '()
+                                   (list (@make 261
+                                                '()
+                                                (list (@make 205 1 '())))
+                                         (@make 205 0 '())))
+                            (@make 17
+                                   '()
+                                   (list (@make 110
+                                                '()
+                                                (list (@make 6
+                                                             '()
+                                                             (list (@make 504
+                                                                          '()
+                                                                          (list (@make 501
+                                                                                       (@make_name
+                                                                                         "a")
+                                                                                       '())
+                                                                                (@make 261
+                                                                                       '()
+                                                                                       (list (@make 205
+                                                                                                    2
+                                                                                                    '())))
+                                                                                (@make 261
+                                                                                       '()
+                                                                                       (list (@make 205
+                                                                                                    3
+                                                                                                    '())))))
+                                                                   (@make 212
+                                                                          '()
+                                                                          (list (@make 207
+                                                                                       (@make_name
+                                                                                         "a")
+                                                                                       '())
+                                                                                (@make 261
+                                                                                       '()
+                                                                                       (list (@make 205
+                                                                                                    4
+                                                                                                    '())))
+                                                                                (@make 261
+                                                                                       '()
+                                                                                       (list (@make 205
+                                                                                                    5
+                                                                                                    '())))))))))
+                                         (@make 107 -6 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define /%const__loop_to_move__12
+  (@make 133
+         '()
+         (list (@make 17
+                      '()
+                      (list (@make 107 -1 '())
+                            (@make 114
+                                   '()
+                                   (list (@make 7
+                                                '()
+                                                (list (@make 313
+                                                             '()
+                                                             (list (@make 217
+                                                                          -2
+                                                                          '())
+                                                                   (@make 205
+                                                                          0
+                                                                          '())))
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 117
+                                                                          1
+                                                                          '())))))
+                                         (@make 7
+                                                '()
+                                                (list (@make 308 '() '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 145
+                                                                          '()
+                                                                          '()))))))))))))
+
+(define /%const__loop_to_move__13
+  (@make 133
+         '()
+         (list (@make 17
+                      '()
+                      (list (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 504
+                                                             '()
+                                                             (list (@make 501
+                                                                          (@make_name
+                                                                            "a")
+                                                                          '())
+                                                                   (@make 217
+                                                                          -1
+                                                                          '())
+                                                                   (@make 217
+                                                                          -2
+                                                                          '())))
+                                                      (@make 212
+                                                             '()
+                                                             (list (@make 207
+                                                                          (@make_name
+                                                                            "a")
+                                                                          '())
+                                                                   (@make 217
+                                                                          -3
+                                                                          '())
+                                                                   (@make 263
+                                                                          -2
+                                                                          '())))))))
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 506 -4 '())
+                                                      (@make 220
+                                                             '()
+                                                             (list (@make 263
+                                                                          -4
+                                                                          '())
+                                                                   (@make 263
+                                                                          -2
+                                                                          '())))))))
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 506 -5 '())
+                                                      (@make 220
+                                                             '()
+                                                             (list (@make 263
+                                                                          -5
+                                                                          '())
+                                                                   (@make 263
+                                                                          -2
+                                                                          '())))))))
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 510
+                                                             '()
+                                                             (list (@make 205
+                                                                          6
+                                                                          '())))
+                                                      (@make 221
+                                                             '()
+                                                             (list (@make 261
+                                                                          '()
+                                                                          (list (@make 205
+                                                                                       7
+                                                                                       '())))
+                                                                   (@make 205
+                                                                          1
+                                                                          '())))))))
+                            (@make 114
+                                   '()
+                                   (list (@make 7
+                                                '()
+                                                (list (@make 313
+                                                             '()
+                                                             (list (@make 261
+                                                                          '()
+                                                                          (list (@make 205
+                                                                                       8
+                                                                                       '())))
+                                                                   (@make 205
+                                                                          0
+                                                                          '())))
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 117
+                                                                          1
+                                                                          '())))))
+                                         (@make 7
+                                                '()
+                                                (list (@make 308 '() '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 145
+                                                                          '()
+                                                                          '()))))))))))))
+
+(set! //l/t/m_/types
+  (@make_set
+    (list //t_/comment
+          //t_/assignment
+          //t_/cond
+          //t_/exit
+          //t_/skip)))
+
+(define (@loop_to_move_test)
+  (let ((/assert '()))
+    (cond ((and (not (= (@st (@i)) //t_/floop))
+                (not (= (@st (@i)) //t_/while)))
+           (@fail "Selected item is not a DO...OD or WHILE loop."))
+          ((and (= (@st (@i)) //t_/floop)
+                (not (@set_subset?
+                       (@stat_types (list-ref (@i) (+ 1 1)))
+                       //l/t/m_/types)))
+           (@fail "DO...OD loop body contains unsuitable types"))
+          ((and (= (@st (@i)) //t_/while)
+                (not (@set_subset?
+                       (@stat_types (list-ref (@i) (+ 1 2)))
+                       //l/t/m_/types)))
+           (@fail "WHILE loop body contains unsuitable types"))
+          ((and (= (@st (@i)) //t_/floop)
+                (@ltm_group_test?))
+           (@pass))
+          ((= (@st (@i)) //t_/floop)
+           (set! /assert (@look_for_assertion /assert))
+           (@edit_parent)
+           (@floop_to_while_sub "-" /assert)
+           (cond ((= (@st (@i)) //t_/while)
+                  (@loop_to_move_sub)
+                  (cond ((and (= (@st (@i)) //t_/while)
+                              (= (@st (list-ref (@i) (+ 1 1)))
+                                 //t_/greater_/eq)
+                              (= (@st (list-ref
+                                        (list-ref (@i) (+ 1 1))
+                                        (+ 1 2)))
+                                 //t_/number)
+                              (= (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2)))
+                                 0))
+                         (@loop_to_move_sub2
+                           (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))))
+                  (cond ((= (@st (@i)) //t_/while)
+                         (@fail "Could not process the WHILE loop"))
+                        (#t (@pass))))
+                 (#t (@fail "Could not convert the DO...OD loop")))
+           (@undo_edit))
+          ((= (@st (@i)) //t_/while)
+           (@edit_parent)
+           (@loop_to_move_sub)
+           (cond ((= (@st (@i)) //t_/while)
+                  (@fail "Could not process the WHILE loop"))
+                 (#t (@pass)))
+           (@undo_edit))
+          (#t (@fail "Internal error!!!")))))
+
+(define (@loop_to_move_code //data)
+  (let ((/assert '()))
+    (cond ((and (= (@st (@i)) //t_/floop)
+                (@ltm_group_test?))
+           (@ltm_group))
+          ((= (@st (@i)) //t_/floop)
+           (set! /assert (@look_for_assertion /assert))
+           (@edit_parent)
+           (@floop_to_while_sub "-" /assert)
+           (cond ((= (@st (@i)) //t_/while)
+                  (@loop_to_move_sub)
+                  (cond ((and (= (@st (@i)) //t_/while)
+                              (= (@st (list-ref (@i) (+ 1 1)))
+                                 //t_/greater_/eq)
+                              (= (@st (list-ref
+                                        (list-ref (@i) (+ 1 1))
+                                        (+ 1 2)))
+                                 //t_/number)
+                              (= (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2)))
+                                 0))
+                         (@loop_to_move_sub2
+                           (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))))
+                  (cond ((= (@st (@i)) //t_/while)
+                         (error "@Loop_To_Move_Code: Could not process the WHILE loop"))
+                        (#t (@pass))))
+                 (#t (@fail "Could not convert the DO...OD loop")))
+           (@end_edit))
+          ((= (@st (@i)) //t_/while)
+           (@edit_parent)
+           (@loop_to_move_sub)
+           (cond ((= (@st (@i)) //t_/while)
+                  (error "@Loop_To_Move_Code: Could not process the WHILE loop"))
+                 (#t (@pass)))
+           (@end_edit))
+          (#t
+           (error "@Loop_To_Move_Code: Internal error!!!")))))
+
+(define (@loop_to_move_sub)
+  (let ((/count '())
+        (/p1 '())
+        (/p2 '())
+        (/var '())
+        (/i1 0)
+        (/i2 0)
+        (/i3 0)
+        (/d1 0)
+        (/d2 0)
+        (//o/k-save //o/k)
+        (/match-save /match)
+        (/comments-save /comments)
+        (/p 0))
+    (set! //o/k 1)
+    (set! /match 0)
+    (set! /comments '())
+    (@down)
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__loop_to_move__1
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__v_save /v))
+               (set! /v (vector-ref /__/match_array 0))
+               (set! /count /v)
+               (set! /v /__v_save)))
+            (#t (set! //o/k 0))))
+    (@up)
+    (cond ((= //o/k 1)
+           (@down_to 2)
+           (@down)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (set! /match 0)
+                      (cond ((= (@st (@i)) //t_/comment)
+                             (set! /match 1)
+                             (set! /comments (cons (@i) /comments)))
+                            ((= (@st (@i)) //t_/skip) (set! /match 1)))
+                      (let ((/__/o/k 1))
+                        (set! /__/o/k
+                          (@new_match
+                            /%const__loop_to_move__2
+                            (@i)
+                            /__/o/k))
+                        (cond ((= /__/o/k 1)
+                               (let ((/__e2_save /e2) (/__v_save /v))
+                                 (set! /e2 (vector-ref /__/match_array 1))
+                                 (set! /v (vector-ref /__/match_array 0))
+                                 (cond ((or (= (@st /v) //t_/var_/lvalue)
+                                            (= (@st /v) //t_/struct_/lvalue)
+                                            (and (= (@st /v) //t_/aref_/lvalue)
+                                                 (= (@st (list-ref
+                                                           (list-ref /v (+ 1 2))
+                                                           (+ 1 1)))
+                                                    //t_/number)))
+                                        (set! /match 1)
+                                        (set! /var /v)
+                                        (cond ((null? /p2) (set! /p2 /e2))
+                                              ((not (@equal? /p2 /e2))
+                                               (set! //o/k 0)))))
+                                 (set! /e2 /__e2_save)
+                                 (set! /v /__v_save)))))
+                      (let ((/__/o/k 1))
+                        (set! /__/o/k
+                          (@new_match
+                            /%const__loop_to_move__3
+                            (@i)
+                            /__/o/k))
+                        (cond ((= /__/o/k 1)
+                               (let ((/__v_save /v) (/__e1_save /e1))
+                                 (set! /v (vector-ref /__/match_array 1))
+                                 (set! /e1 (vector-ref /__/match_array 0))
+                                 (cond ((and (not (null? /var))
+                                             (@lr_equal? /var /v))
+                                        (set! /match 1)
+                                        (cond ((null? /p1) (set! /p1 /e1))
+                                              ((not (@equal? /p1 /e1))
+                                               (set! //o/k 0)))))
+                                 (set! /v /__v_save)
+                                 (set! /e1 /__e1_save)))))
+                      (cond ((= /match 0)
+                             (let ((/__/o/k 1))
+                               (set! /__/o/k
+                                 (@new_match
+                                   /%const__loop_to_move__4
+                                   (@i)
+                                   /__/o/k))
+                               (cond ((= /__/o/k 1)
+                                      (let ((/__e2_save /e2) (/__e1_save /e1))
+                                        (set! /e2
+                                          (vector-ref /__/match_array 1))
+                                        (set! /e1
+                                          (vector-ref /__/match_array 0))
+                                        (set! /match 1)
+                                        (cond ((null? /p1) (set! /p1 /e1))
+                                              ((not (@equal? /p1 /e1))
+                                               (set! //o/k 0)))
+                                        (cond ((null? /p2) (set! /p2 /e2))
+                                              ((not (@equal? /p2 /e2))
+                                               (set! //o/k 0)))
+                                        (set! /e2 /__e2_save)
+                                        (set! /e1 /__e1_save)))))))
+                      (let ((/__/o/k 1))
+                        (set! /__/o/k
+                          (@new_match
+                            /%const__loop_to_move__5
+                            (@i)
+                            /__/o/k))
+                        (cond ((= /__/o/k 1)
+                               (let ((/__e1_save /e1))
+                                 (set! /e1 (vector-ref /__/match_array 0))
+                                 (set! /match 1)
+                                 (cond ((and (not (null? /p1))
+                                             (@lr_equal? /e1 /p1))
+                                        (set! /i1 1))
+                                       ((and (not (null? /p2))
+                                             (@lr_equal? /e1 /p2))
+                                        (set! /i2 1))
+                                       (#t (set! //o/k 0)))
+                                 (set! /e1 /__e1_save)))))
+                      (let ((/__/o/k 1))
+                        (set! /__/o/k
+                          (@new_match
+                            /%const__loop_to_move__6
+                            (@i)
+                            /__/o/k))
+                        (cond ((= /__/o/k 1)
+                               (let ((/__e1_save /e1))
+                                 (set! /e1 (vector-ref /__/match_array 0))
+                                 (set! /match 1)
+                                 (cond ((@lr_equal? /e1 /count) (set! /i3 1))
+                                       ((and (not (null? /p1))
+                                             (@lr_equal? /e1 /p1))
+                                        (set! /d1 1))
+                                       ((and (not (null? /p2))
+                                             (@lr_equal? /e1 /p2))
+                                        (set! /d2 1))
+                                       (#t (set! //o/k 0)))
+                                 (set! /e1 /__e1_save)))))
+                      (cond ((and #f
+                                  (and (not (= (@st (@i)) //t_/skip))
+                                       (not (= (@st (@i)) //t_/comment))))
+                             (begin (display "") (newline) (force-output))
+                             (@pp_item (@i) 80 "")
+                             (begin
+                               (display "match = ")
+                               (begin
+                                 (display /match)
+                                 (newline)
+                                 (force-output)))
+                             (begin
+                               (display "p1 = ")
+                               (begin (display /p1) (newline) (force-output)))
+                             (begin
+                               (display "p2 = ")
+                               (begin (display /p2) (newline) (force-output)))
+                             (begin
+                               (display "var = ")
+                               (begin (display /var) (newline) (force-output)))
+                             (begin
+                               (display "i1 = ")
+                               (begin
+                                 (display /i1)
+                                 (begin
+                                   (display " i2 = ")
+                                   (begin
+                                     (display /i2)
+                                     (begin
+                                       (display " i3 = ")
+                                       (begin
+                                         (display /i3)
+                                         (newline)
+                                         (force-output)))))))
+                             (begin
+                               (display "d1 = ")
+                               (begin
+                                 (display /d1)
+                                 (begin
+                                   (display " d2 = ")
+                                   (begin
+                                     (display /d2)
+                                     (newline)
+                                     (force-output)))))))
+                      (cond ((= /match 0) (set! //o/k 0)))
+                      (cond ((= //o/k 0) (set! /fl_flag1 1))
+                            ((not (@right?)) (set! /fl_flag1 1))
+                            (#t (@right) (set! /fl_flag1 0))))
+                    (while-loop))
+                   (#t #t)))
+           (@up)
+           (@up)
+           (cond ((or (and (or (= /i1 0) (= /i2 0))
+                           (or (= /d1 0) (= /d2 0)))
+                      (= /i3 0))
+                  (set! //o/k 0)))
+           (cond ((or (null? /p1) (null? /p2)) (set! //o/k 0)))
+           (cond ((and (= /i1 1) (= /i2 1) (= /i3 1))
+                  (set! /p (@posn_n))
+                  (@splice_over
+                    (@cs (@make 17
+                                '()
+                                (list (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@make 504
+                                                                       '()
+                                                                       (list (@make 501
+                                                                                    (@make_name
+                                                                                      "a")
+                                                                                    '())
+                                                                             (@var_to_expn
+                                                                               /p1)
+                                                                             (@var_to_expn
+                                                                               /count)))
+                                                                (@make 212
+                                                                       '()
+                                                                       (list (@make 207
+                                                                                    (@make_name
+                                                                                      "a")
+                                                                                    '())
+                                                                             (@var_to_expn
+                                                                               /p2)
+                                                                             (@var_to_expn
+                                                                               /count)))))))
+                                      (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@expn_to_var
+                                                                  /p1)
+                                                                (@make 220
+                                                                       '()
+                                                                       (list (@var_to_expn
+                                                                               /p1)
+                                                                             (@var_to_expn
+                                                                               /count)))))))
+                                      (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@expn_to_var
+                                                                  /p2)
+                                                                (@make 220
+                                                                       '()
+                                                                       (list (@var_to_expn
+                                                                               /p2)
+                                                                             (@var_to_expn
+                                                                               /count)))))))))))
+                  (@right)
+                  (@right)
+                  (cond ((not (null? /var))
+                         (@paste_after
+                           (@make 110
+                                  '()
+                                  (list (@make 6
+                                               '()
+                                               (list (@expn_to_var /var)
+                                                     (@make 210
+                                                            '()
+                                                            (list (@make 207
+                                                                         (@make_name
+                                                                           "a")
+                                                                         '())
+                                                                  (@make 10
+                                                                         '()
+                                                                         (list (@make 221
+                                                                                      '()
+                                                                                      (list (@var_to_expn
+                                                                                              /p2)
+                                                                                            (@make 205
+                                                                                                   1
+                                                                                                   '()))))))))))))
+                         (@right)))
+                  (@paste_after
+                    (@make 110
+                           '()
+                           (list (@make 6
+                                        '()
+                                        (list (@expn_to_var /count)
+                                              (@make 205 0 '()))))))
+                  (@to /p)
+                  (@splice_before (reverse /comments))
+                  (@to (+ /p
+                          (if (vector? /comments)
+                            (vector-length /comments)
+                            (length /comments)))))
+                 ((and (= /d1 1) (= /d2 1) (= /i3 1))
+                  (set! /p (@posn_n))
+                  (@splice_over
+                    (@cs (@make 17
+                                '()
+                                (list (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@expn_to_var
+                                                                  /p1)
+                                                                (@make 221
+                                                                       '()
+                                                                       (list (@var_to_expn
+                                                                               /p1)
+                                                                             (@var_to_expn
+                                                                               /count)))))))
+                                      (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@expn_to_var
+                                                                  /p2)
+                                                                (@make 221
+                                                                       '()
+                                                                       (list (@var_to_expn
+                                                                               /p2)
+                                                                             (@var_to_expn
+                                                                               /count)))))))
+                                      (@make 110
+                                             '()
+                                             (list (@make 6
+                                                          '()
+                                                          (list (@make 504
+                                                                       '()
+                                                                       (list (@make 501
+                                                                                    (@make_name
+                                                                                      "a")
+                                                                                    '())
+                                                                             (@make 220
+                                                                                    '()
+                                                                                    (list (@var_to_expn
+                                                                                            /p1)
+                                                                                          (@make 205
+                                                                                                 1
+                                                                                                 '())))
+                                                                             (@var_to_expn
+                                                                               /count)))
+                                                                (@make 212
+                                                                       '()
+                                                                       (list (@make 207
+                                                                                    (@make_name
+                                                                                      "a")
+                                                                                    '())
+                                                                             (@make 220
+                                                                                    '()
+                                                                                    (list (@var_to_expn
+                                                                                            /p2)
+                                                                                          (@make 205
+                                                                                                 1
+                                                                                                 '())))
+                                                                             (@var_to_expn
+                                                                               /count)))))))))))
+                  (@right)
+                  (@right)
+                  (cond ((not (null? /var))
+                         (@paste_after
+                           (@make 110
+                                  '()
+                                  (list (@make 6
+                                               '()
+                                               (list (@expn_to_var /var)
+                                                     (@make 210
+                                                            '()
+                                                            (list (@make 207
+                                                                         (@make_name
+                                                                           "a")
+                                                                         '())
+                                                                  (@make 10
+                                                                         '()
+                                                                         (list (@make 221
+                                                                                      '()
+                                                                                      (list (@var_to_expn
+                                                                                              /p2)
+                                                                                            (@make 205
+                                                                                                   1
+                                                                                                   '()))))))))))))
+                         (@right)))
+                  (@paste_after
+                    (@make 110
+                           '()
+                           (list (@make 6
+                                        '()
+                                        (list (@expn_to_var /count)
+                                              (@make 205 0 '()))))))
+                  (@to /p)
+                  (@splice_before (reverse /comments))
+                  (@to (+ /p
+                          (if (vector? /comments)
+                            (vector-length /comments)
+                            (length /comments))))))))
+    (set! //o/k //o/k-save)
+    (set! /match /match-save)
+    (set! /comments /comments-save)))
+
+(define (@loop_to_move_sub2 /count)
+  (let ((/dest '())
+        (/src '())
+        (/i1 0)
+        (/i2 0)
+        (/i3 0)
+        (//o/k-save //o/k)
+        (/p (@posn_n))
+        (/p1 0)
+        (/p2 0))
+    (set! //o/k 1)
+    (@down_to 2)
+    (@down)
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (set! /match 0)
+               (cond ((= (@st (@i)) //t_/comment)
+                      (set! /match 1)
+                      (set! /comments (cons (@i) /comments)))
+                     ((= (@st (@i)) //t_/skip) (set! /match 1)))
+               (let ((/__/o/k 1))
+                 (set! /__/o/k
+                   (@new_match
+                     /%const__loop_to_move__7
+                     (@i)
+                     /__/o/k))
+                 (cond ((= /__/o/k 1)
+                        (let ((/__e2_save /e2) (/__e1_save /e1))
+                          (set! /e2 (vector-ref /__/match_array 1))
+                          (set! /e1 (vector-ref /__/match_array 0))
+                          (set! /match 1)
+                          (cond ((null? /dest) (set! /dest /e1))
+                                ((not (@equal? /dest /e1)) (set! //o/k 0)))
+                          (cond ((null? /src) (set! /src /e2))
+                                ((not (@equal? /src /e2)) (set! //o/k 0)))
+                          (set! /e2 /__e2_save)
+                          (set! /e1 /__e1_save)))))
+               (let ((/__/o/k 1))
+                 (set! /__/o/k
+                   (@new_match
+                     /%const__loop_to_move__8
+                     (@i)
+                     /__/o/k))
+                 (cond ((= /__/o/k 1)
+                        (let ((/__v_save /v))
+                          (set! /v (vector-ref /__/match_array 0))
+                          (set! /match 1)
+                          (cond ((or (null? /dest) (null? /src)) (set! //o/k 0))
+                                ((@lr_equal? /v /dest) (set! /i1 (+ /i1 1)))
+                                ((@lr_equal? /v /src) (set! /i2 (+ /i2 1)))
+                                (#t (set! //o/k 0)))
+                          (set! /v /__v_save)))))
+               (let ((/__/o/k 1))
+                 (vector-set! /__/match_array 1 /count)
+                 (vector-set! /__/match_array 0 /count)
+                 (set! /__/o/k
+                   (@new_match
+                     /%const__loop_to_move__9
+                     (@i)
+                     /__/o/k))
+                 (cond ((= /__/o/k 1)
+                        (set! /match 1)
+                        (set! /i3 (+ /i3 1)))))
+               (cond ((and #f
+                           (and (not (= (@st (@i)) //t_/skip))
+                                (not (= (@st (@i)) //t_/comment))))
+                      (begin (display "") (newline) (force-output))
+                      (@pp_item (@i) 80 "")
+                      (begin
+                        (display "match = ")
+                        (begin (display /match) (newline) (force-output)))
+                      (begin
+                        (display "dest = ")
+                        (begin (display /dest) (newline) (force-output)))
+                      (begin
+                        (display "src  = ")
+                        (begin (display /src) (newline) (force-output)))
+                      (begin
+                        (display "i1 = ")
+                        (begin
+                          (display /i1)
+                          (begin
+                            (display " i2 = ")
+                            (begin
+                              (display /i2)
+                              (begin
+                                (display " i3 = ")
+                                (begin
+                                  (display /i3)
+                                  (newline)
+                                  (force-output)))))))))
+               (cond ((= /match 0) (set! //o/k 0)))
+               (cond ((= //o/k 0) (set! /fl_flag1 1))
+                     ((not (@right?)) (set! /fl_flag1 1))
+                     (#t (@right) (set! /fl_flag1 0))))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (@up)
+    (cond ((and (= //o/k 1) (= /i1 1) (= /i2 1) (= /i3 1))
+           (cond ((@left?) (@left)))
+           (let while-loop ()
+             (cond ((and (= (@st (@i)) //t_/comment) (@left?))
+                    (@left)
+                    (while-loop))
+                   (#t #t)))
+           (let ((/__/o/k 1))
+             (vector-set! /__/match_array 1 /count)
+             (vector-set! /__/match_array 0 /count)
+             (set! /__/o/k
+               (@new_match
+                 /%const__loop_to_move__9
+                 (@i)
+                 /__/o/k))
+             (cond ((= /__/o/k 1) (set! /p1 (@posn_n)))
+                   (#t (set! //o/k 0))))
+           (@to /p)
+           (cond ((@right?) (@right)))
+           (let while-loop ()
+             (cond ((and (= (@st (@i)) //t_/comment) (@right?))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))
+           (let ((/__/o/k 1))
+             (vector-set! /__/match_array 1 /count)
+             (vector-set! /__/match_array 0 /count)
+             (set! /__/o/k
+               (@new_match
+                 /%const__loop_to_move__10
+                 (@i)
+                 /__/o/k))
+             (cond ((= /__/o/k 1) (set! /p2 (@posn_n)))
+                   (#t (set! //o/k 0))))
+           (cond ((@right?) (@right)))
+           (let while-loop ()
+             (cond ((and (= (@st (@i)) //t_/comment) (@right?))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))
+           (cond (#f
+                  (begin (display "") (newline) (force-output))
+                  (begin
+                    (display "p1 = ")
+                    (begin
+                      (display /p1)
+                      (begin
+                        (display " p = ")
+                        (begin
+                          (display /p)
+                          (begin
+                            (display " p2 = ")
+                            (begin
+                              (display /p2)
+                              (begin
+                                (display " OK = ")
+                                (begin
+                                  (display //o/k)
+                                  (newline)
+                                  (force-output)))))))))
+                  (@pp_item (@i) 80 "")))
+           (cond ((and (= //o/k 1)
+                       (= (@st (@i)) //t_/cond)
+                       (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                          //t_/not_/equal))
+                  (@foreach_statement
+                    /foreach-loop_to_move-1
+                    0
+                    (@as_type)
+                    0)
+                  (cond ((null? (@program)) (@new_program (@skips))))
+                  (let ((/__/o/k 1))
+                    (vector-set! /__/match_array 4 /count)
+                    (vector-set! /__/match_array 3 /src)
+                    (vector-set! /__/match_array 2 /count)
+                    (vector-set! /__/match_array 1 /dest)
+                    (vector-set! /__/match_array 0 /count)
+                    (set! /__/o/k
+                      (@new_match
+                        /%const__loop_to_move__11
+                        (@i)
+                        /__/o/k))
+                    (cond ((= /__/o/k 1)
+                           (let ((/__/s_save //s))
+                             (set! //s (vector-ref /__/match_array 5))
+                             (@paste_over
+                               (@make 110
+                                      '()
+                                      (list (@make 6
+                                                   '()
+                                                   (list (@make 504
+                                                                '()
+                                                                (list (@make 501
+                                                                             (@make_name
+                                                                               "a")
+                                                                             '())
+                                                                      (@var_to_expn
+                                                                        /dest)
+                                                                      (@var_to_expn
+                                                                        /count)))
+                                                         (@make 212
+                                                                '()
+                                                                (list (@make 207
+                                                                             (@make_name
+                                                                               "a")
+                                                                             '())
+                                                                      (@var_to_expn
+                                                                        /src)
+                                                                      (@var_to_expn
+                                                                        /count))))))))
+                             (@splice_after //s)
+                             (@to /p1)
+                             (@paste_over (@skip))
+                             (@to /p2)
+                             (@paste_over (@skip))
+                             (@to /p)
+                             (@paste_over (@skip))
+                             (set! //s /__/s_save)))
+                          (#t (set! //o/k 0))))))
+           (@to /p)))
+    (set! //o/k //o/k-save)))
+
+(define (@ltm_group_test?)
+  (let ((//o/k-save //o/k)
+        (/e-save /e)
+        (funct-result '()))
+    (set! //o/k 0)
+    (set! /e '())
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__loop_to_move__12
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__v_save /v) (/__/s_save //s))
+               (set! /v (vector-ref /__/match_array 1))
+               (set! //s (vector-ref /__/match_array 0))
+               (cond ((and (@left?) (= (@st /v) //t_/variable))
+                      (@paste_before (@skip))
+                      (set! /e (@find_value (list (@v /v))))
+                      (@delete)
+                      (cond ((not (null? /e))
+                             (cond ((= (@st /e) //t_/number)
+                                    (set! //o/k
+                                      (@ltm_group_test_sub /v /e //o/k))))))))
+               (set! /v /__v_save)
+               (set! //s /__/s_save)))))
+    (set! funct-result (= //o/k 1))
+    (set! //o/k //o/k-save)
+    (set! /e /e-save)
+    funct-result))
+
+(define (@ltm_group_test_sub /v-par /e-par //o/k-par)
+  (let ((//o/k-save //o/k)
+        (/e-save /e)
+        (/v-save /v)
+        (funct-result '()))
+    (set! //o/k //o/k-par)
+    (set! /e /e-par)
+    (set! /v /v-par)
+    (@edit)
+    (@trans //t/r_/delete_/all_/comments "Y")
+    (let ((/__/o/k 1))
+      (vector-set! /__/match_array 7 /v)
+      (vector-set! /__/match_array 6 /v)
+      (vector-set! /__/match_array 5 /v)
+      (set! /__/o/k
+        (@new_match
+          /%const__loop_to_move__13
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__v4_save /v4)
+                   (/__v3_save /v3)
+                   (/__v2_save /v2)
+                   (/__n_save /n)
+                   (/__v1_save /v1))
+               (set! /v4 (vector-ref /__/match_array 4))
+               (set! /v3 (vector-ref /__/match_array 3))
+               (set! /v2 (vector-ref /__/match_array 2))
+               (set! /n (vector-ref /__/match_array 1))
+               (set! /v1 (vector-ref /__/match_array 0))
+               (cond ((or (and (@lr_equal? /v1 /v3) (@lr_equal? /v2 /v4))
+                          (and (@lr_equal? /v1 /v4) (@lr_equal? /v2 /v3)))
+                      (set! //o/k 1))
+                     (#t (set! //o/k 0)))
+               (set! /v4 /__v4_save)
+               (set! /v3 /__v3_save)
+               (set! /v2 /__v2_save)
+               (set! /n /__n_save)
+               (set! /v1 /__v1_save)))
+            (#t (set! //o/k 0))))
+    (@undo_edit)
+    (set! funct-result //o/k)
+    (set! //o/k //o/k-save)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@ltm_group)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__loop_to_move__12
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__v_save /v) (/__/s_save //s))
+             (set! /v (vector-ref /__/match_array 1))
+             (set! //s (vector-ref /__/match_array 0))
+             (cond ((and (@left?) (= (@st /v) //t_/variable))
+                    (@paste_before (@skip))
+                    (set! /e (@find_value (list (@v /v))))
+                    (@delete)
+                    (cond ((= (@st /e) //t_/number) (@ltm_group_sub /v /e)))))
+             (set! /v /__v_save)
+             (set! //s /__/s_save))))))
+
+(define (@ltm_group_sub /v-par /e-par)
+  (let ((/e-save /e) (/v-save /v))
+    (set! /e /e-par)
+    (set! /v /v-par)
+    (let ((/comments-save /comments))
+      (set! /comments '())
+      (@edit)
+      (@foreach_statement
+        /foreach-loop_to_move-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (let ((/__/o/k 1))
+        (vector-set! /__/match_array 7 /v)
+        (vector-set! /__/match_array 6 /v)
+        (vector-set! /__/match_array 5 /v)
+        (set! /__/o/k
+          (@new_match
+            /%const__loop_to_move__13
+            (@i)
+            /__/o/k))
+        (cond ((= /__/o/k 1)
+               (let ((/__v4_save /v4)
+                     (/__v3_save /v3)
+                     (/__v2_save /v2)
+                     (/__n_save /n)
+                     (/__v1_save /v1))
+                 (set! /v4 (vector-ref /__/match_array 4))
+                 (set! /v3 (vector-ref /__/match_array 3))
+                 (set! /v2 (vector-ref /__/match_array 2))
+                 (set! /n (vector-ref /__/match_array 1))
+                 (set! /v1 (vector-ref /__/match_array 0))
+                 (cond ((or (and (@lr_equal? /v1 /v3) (@lr_equal? /v2 /v4))
+                            (and (@lr_equal? /v1 /v4) (@lr_equal? /v2 /v3)))
+                        (@undo_edit)
+                        (begin
+                          (display "Group Move Loop found!")
+                          (newline)
+                          (force-output))
+                        (begin
+                          (display "  -- moving ")
+                          (begin
+                            (display (@v /e))
+                            (begin
+                              (display " blocks of length ")
+                              (begin
+                                (display (@v /n))
+                                (newline)
+                                (force-output)))))
+                        (let ((/len (@make //t_/number
+                                           (* (@v /e) (@v /n))
+                                           '())))
+                          (@splice_over
+                            (@cs (@make 17
+                                        '()
+                                        (list (@make 110
+                                                     '()
+                                                     (list (@make 6
+                                                                  '()
+                                                                  (list (@make 504
+                                                                               '()
+                                                                               (list (@make 501
+                                                                                            (@make_name
+                                                                                              "a")
+                                                                                            '())
+                                                                                     (@var_to_expn
+                                                                                       /v1)
+                                                                                     (@var_to_expn
+                                                                                       /len)))
+                                                                        (@make 212
+                                                                               '()
+                                                                               (list (@make 207
+                                                                                            (@make_name
+                                                                                              "a")
+                                                                                            '())
+                                                                                     (@var_to_expn
+                                                                                       /v2)
+                                                                                     (@var_to_expn
+                                                                                       /len)))))))
+                                              (@make 110
+                                                     '()
+                                                     (list (@make 6
+                                                                  '()
+                                                                  (list (@expn_to_var
+                                                                          /v1)
+                                                                        (@make 220
+                                                                               '()
+                                                                               (list (@var_to_expn
+                                                                                       /v1)
+                                                                                     (@var_to_expn
+                                                                                       /len)))))))
+                                              (@make 110
+                                                     '()
+                                                     (list (@make 6
+                                                                  '()
+                                                                  (list (@expn_to_var
+                                                                          /v2)
+                                                                        (@make 220
+                                                                               '()
+                                                                               (list (@var_to_expn
+                                                                                       /v2)
+                                                                                     (@var_to_expn
+                                                                                       /len)))))))
+                                              (@make 110
+                                                     '()
+                                                     (list (@make 6
+                                                                  '()
+                                                                  (list (@expn_to_var
+                                                                          /v)
+                                                                        (@make 205
+                                                                               0
+                                                                               '())))))))))
+                          (@splice_before (reverse /comments))))
+                       (#t
+                        (error "Internal error 1 in @LTM_Group_Sub!!!")))
+                 (set! /v4 /__v4_save)
+                 (set! /v3 /__v3_save)
+                 (set! /v2 /__v2_save)
+                 (set! /n /__n_save)
+                 (set! /v1 /__v1_save)))
+              (#t
+               (error "Internal error 2 in @LTM_Group_Sub!!!"))))
+      (set! /comments /comments-save))
+    (set! /e /e-save)
+    (set! /v /v-save)))
+
+#t
+

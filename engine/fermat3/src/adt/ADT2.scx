@@ -1,0 +1,132 @@
+(define (@v //i) (cdr (cdr //i)))
+
+(define (@cs //i) (cdr (cdr //i)))
+
+(define (@value //i)
+  (if (@has_comps_type? (car (cdr //i)))
+    '()
+    (cdr (cdr //i))))
+
+(define (@components //i)
+  (if (@has_comps_type? (car (cdr //i)))
+    (cdr (cdr //i))
+    '()))
+
+(define (@components? //i)
+  (not (null? (@components //i))))
+
+(define (@cs? //i)
+  (not (null? (@components //i))))
+
+(define (@spec_type //i) (car (cdr //i)))
+
+(define (@st //i) (car (cdr //i)))
+
+(set! //spec_/to_/gen_/type (make-vector 1999 0))
+
+(let ((var-save /i) (for-step 1) (for-end 1999))
+  (set! /i 1)
+  (let for-loop ()
+    (cond ((or (and (> 1 0) (<= /i for-end))
+               (and (< 1 0) (>= /i for-end)))
+           (vector-set!
+             //spec_/to_/gen_/type
+             (- /i 1)
+             (if (< /i 100) /i (quotient /i 100)))
+           (set! /i (+ /i for-step))
+           (for-loop))
+          (#t #t)))
+  (set! /i var-save))
+
+(define (@gen_type //i)
+  (vector-ref
+    //spec_/to_/gen_/type
+    (- (car (cdr //i)) 1)))
+
+(define (@gt //i)
+  (vector-ref
+    //spec_/to_/gen_/type
+    (- (car (cdr //i)) 1)))
+
+(define (@size //i)
+  (if (@has_comps_type? (car (cdr //i)))
+    (- (if (vector? //i)
+         (vector-length //i)
+         (length //i))
+       2)
+    0))
+
+(define (@get_l //i /n /m)
+  (firstn (+ (- /m /n) 1) (nthcdr (+ /n 1) //i)))
+
+(define (@get //i /posn)
+  (if (null? /posn)
+    //i
+    (@get (list-ref //i (+ 1 (car /posn)))
+          (cdr /posn))))
+
+(define (@make //s/t /value /comps)
+  (if (null? /value)
+    (cons '() (cons //s/t /comps))
+    (cons '() (cons //s/t /value))))
+
+(define (@set_union /a /b)
+  (if (null? /a)
+    /b
+    (if (null? /b)
+      /a
+      (if (equal? (car /a) (car /b))
+        (cons (car /a) (@set_union (cdr /a) (cdr /b)))
+        (if (@gen_less? (car /a) (car /b))
+          (cons (car /a) (@set_union (cdr /a) /b))
+          (cons (car /b) (@set_union /a (cdr /b))))))))
+
+(define (@set_intersect /a /b)
+  (if (or (null? /a) (null? /b))
+    '()
+    (if (equal? (car /a) (car /b))
+      (cons (car /a)
+            (@set_intersect (cdr /a) (cdr /b)))
+      (if (@gen_less? (car /a) (car /b))
+        (@set_intersect (cdr /a) /b)
+        (@set_intersect /a (cdr /b))))))
+
+(define (@set_difference /a /b)
+  (if (null? /a)
+    '()
+    (if (null? /b)
+      /a
+      (if (equal? (car /a) (car /b))
+        (@set_difference (cdr /a) (cdr /b))
+        (if (@gen_less? (car /a) (car /b))
+          (cons (car /a) (@set_difference (cdr /a) /b))
+          (@set_difference /a (cdr /b)))))))
+
+(define (@set_subset? /a /b)
+  (or (null? /a)
+      (and (not (null? /b))
+           (or (and (equal? (car /a) (car /b))
+                    (@set_subset? (cdr /a) (cdr /b)))
+               (and (@gen_less? (car /b) (car /a))
+                    (@set_subset? /a (cdr /b)))))))
+
+(define (@make_set //l)
+  (let ((//r '())
+        (/len (if (vector? //l)
+                (vector-length //l)
+                (length //l))))
+    (cond ((<= /len 1) (set! //r //l))
+          ((= /len 2)
+           (cond ((equal? (car //l) (car (cdr //l)))
+                  (set! //r (list (car //l))))
+                 ((@gen_less? (car //l) (car (cdr //l)))
+                  (set! //r //l))
+                 (#t (set! //r (list (car (cdr //l)) (car //l))))))
+          (#t
+           (let ((/mid (quotient /len 2)))
+             (set! //r
+               (@set_union
+                 (@make_set (@sub_seg //l 1 /mid))
+                 (@make_set (@final_seg //l (+ /mid 1))))))))
+    //r))
+

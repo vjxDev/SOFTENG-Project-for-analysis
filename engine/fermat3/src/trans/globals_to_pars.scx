@@ -1,0 +1,428 @@
+(define (/foreach-globals_to_pars-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/proc_/call)
+         (set! /name (@v (list-ref (@i) (+ 1 1))))
+         (cond ((not (null? (gethash /new_vars /name)))
+                (@down_to 3)
+                (@paste_over
+                  (@make //t_/lvalues
+                         '()
+                         (concat (@cs (@i)) (gethash /new_vars /name))))
+                (@up)))
+         (cond ((not (null? (gethash /new_vals /name)))
+                (@down_to 2)
+                (@paste_over
+                  (@make //t_/expressions
+                         '()
+                         (concat
+                           (@cs (@i))
+                           (let ((l (gethash /new_vals /name)) (map-result '()))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! map-result
+                                        (cons (@lvalue_to_expn (car l))
+                                              map-result))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             (reverse map-result)))))
+                (@up))))))
+
+(define (@globals_to_pars_test)
+  (cond ((= (@st (@i)) //t_/where) (@pass))
+        (#t
+         (@fail "Select a WHERE clause to process all the procedures."))))
+
+(define (@globals_to_pars_code //data)
+  (let ((/bodies (my-make-hash-table 16))
+        (/calls (my-make-hash-table 16))
+        (/new '())
+        (/assigned '())
+        (/used '())
+        (/pars '())
+        (/glob_assigned (my-make-hash-table 16))
+        (/glob_used (my-make-hash-table 16))
+        (/new_vars-save /new_vars)
+        (/new_vals-save /new_vals)
+        (/name-save /name)
+        (/succs (my-make-hash-table 16))
+        (/p 0)
+        (/vars '())
+        (/elts '()))
+    (set! /new_vars (my-make-hash-table 16))
+    (set! /new_vals (my-make-hash-table 16))
+    (set! /name '())
+    (cond ((string? //data)
+           (let ((/-result- (@parse_words //data /p /vars)))
+             (set! /p (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /vars (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (let ((var-save /elt) (seq-save /vars))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /elt (car for-tmp))
+                      (set! /elts
+                        (cons (let ((l /elt) (map-result '()))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! map-result
+                                           (cons (@ssa_make_name (car l))
+                                                 map-result))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                (reverse map-result))
+                              /elts))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /elt var-save))
+           (set! /elts (@make_set /elts)))
+          ((and (not (null? //data))
+                (not (sequence? (car //data))))
+           (let ((var-save /var) (seq-save //data))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /var (car for-tmp))
+                      (set! /elts (cons (list /var) /elts))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /var var-save))
+           (set! /elts (@make_set /elts)))
+          (#t (set! /elts (@make_set //data))))
+    (cond ((not (null? /elts))
+           (begin
+             (display "Converting only these global vars:")
+             (newline)
+             (force-output))
+           (@print_elts /elts)))
+    (@edit)
+    (let ((var-save //i)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //i (car for-tmp))
+               (cond ((= (@st //i) //t_/proc)
+                      (set! /name (@v (list-ref //i (+ 1 1))))
+                      (puthash /bodies /name //i)
+                      (puthash
+                        /succs
+                        /name
+                        (@make_set
+                          (let ((l (@proc_calls (list-ref //i (+ 1 4))))
+                                (map-result '()))
+                            (let while-loop ()
+                              (cond ((not (null? l))
+                                     (set! map-result
+                                       (cons (car (car l)) map-result))
+                                     (set! l (cdr l))
+                                     (while-loop))
+                                    (#t #t)))
+                            (reverse map-result))))
+                      (set! /pars
+                        (@set_union
+                          (@elts_assigned (list-ref //i (+ 1 2)))
+                          (@elts_assigned (list-ref //i (+ 1 3)))))
+                      (puthash
+                        /glob_assigned
+                        /name
+                        (@set_difference
+                          (@elts_assigned (list-ref //i (+ 1 4)))
+                          /pars))
+                      (puthash
+                        /glob_used
+                        /name
+                        (@set_difference
+                          (@elements (list-ref //i (+ 1 4)))
+                          (@set_union
+                            (@elts_assigned (list-ref //i (+ 1 4)))
+                            /pars)))
+                      (cond ((not (null? /elts))
+                             (puthash
+                               /glob_assigned
+                               /name
+                               (@set_intersect
+                                 (gethash /glob_assigned /name)
+                                 /elts))
+                             (puthash
+                               /glob_used
+                               /name
+                               (@set_intersect
+                                 (gethash /glob_used /name)
+                                 /elts))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //i var-save))
+    (set! /calls (@transitive_closure /succs))
+    (let ((var-save //i)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //i (car for-tmp))
+               (cond ((= (@st //i) //t_/proc)
+                      (set! /name (@v (list-ref //i (+ 1 1))))
+                      (set! /assigned
+                        (@elts_assigned (list-ref //i (+ 1 4))))
+                      (set! /used (@elts_used (list-ref //i (+ 1 4))))
+                      (let ((var-save /call)
+                            (seq-save (gethash /calls /name)))
+                        (if (vector? seq-save)
+                          (set! seq-save (vector-elts seq-save)))
+                        (let for-in-loop ((for-tmp seq-save))
+                          (cond ((not (null? for-tmp))
+                                 (set! /call (car for-tmp))
+                                 (begin
+                                   (set! /assigned
+                                     (@set_union
+                                       /assigned
+                                       (gethash /glob_assigned /call)))
+                                   (set! /used
+                                     (@set_union
+                                       /used
+                                       (gethash /glob_used /call))))
+                                 (for-in-loop (cdr for-tmp)))
+                                (#t #t)))
+                        (set! /call var-save))
+                      (set! /used
+                        (@gtp_trim
+                          (@set_difference
+                            /used
+                            (@set_union
+                              /assigned
+                              (@elements (list-ref //i (+ 1 2)))))))
+                      (set! /assigned
+                        (@gtp_trim
+                          (@set_difference
+                            /assigned
+                            (@elements (list-ref //i (+ 1 3))))))
+                      (cond ((not (null? /elts))
+                             (set! /used (@set_intersect /used /elts))
+                             (set! /assigned (@set_intersect /assigned /elts))))
+                      (puthash
+                        /new_vals
+                        /name
+                        (@mth_sort
+                          (let ((l /used) (map-result '()))
+                            (let while-loop ()
+                              (cond ((not (null? l))
+                                     (set! map-result
+                                       (cons (@elt_to_expn (car l)) map-result))
+                                     (set! l (cdr l))
+                                     (while-loop))
+                                    (#t #t)))
+                            (reverse map-result))))
+                      (puthash
+                        /new_vars
+                        /name
+                        (@mth_sort
+                          (let ((l /assigned) (map-result '()))
+                            (let while-loop ()
+                              (cond ((not (null? l))
+                                     (set! map-result
+                                       (cons (@elt_to_lvalue (car l))
+                                             map-result))
+                                     (set! l (cdr l))
+                                     (while-loop))
+                                    (#t #t)))
+                            (reverse map-result))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //i var-save))
+    (@down)
+    (@gtp_update_calls /new_vars /new_vals)
+    (@right)
+    (@down)
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (cond ((= (@st (@i)) //t_/proc)
+                      (set! /name (@v (list-ref (@i) (+ 1 1))))
+                      (@down_to 2)
+                      (@down_last)
+                      (@splice_after
+                        (let ((l (gethash /new_vals /name)) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@expn_to_lvalue (car l))
+                                           map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (@up)
+                      (@right)
+                      (@down_last)
+                      (@splice_after (gethash /new_vars /name))
+                      (@up)
+                      (@right)
+                      (@gtp_update_calls /new_vars /new_vals)
+                      (@up)))
+               (cond ((not (@right?)) (set! /fl_flag1 1))
+                     (#t (@right) (set! /fl_flag1 0))))
+             (while-loop))
+            (#t #t)))
+    (@end_edit)
+    (set! /new_vars /new_vars-save)
+    (set! /new_vals /new_vals-save)
+    (set! /name /name-save)))
+
+(define (@gtp_update_calls /new_vars-par /new_vals-par)
+  (let ((/new_vals-save /new_vals)
+        (/new_vars-save /new_vars))
+    (set! /new_vals /new_vals-par)
+    (set! /new_vars /new_vars-par)
+    (let ((/name-save /name))
+      (set! /name '())
+      (@foreach_statement
+        /foreach-globals_to_pars-1
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /name /name-save))
+    (set! /new_vals /new_vals-save)
+    (set! /new_vars /new_vars-save)))
+
+(define (@gtp_trim /elts)
+  (let ((/new '())
+        (/dsects '())
+        (/dsect_count (my-make-hash-table 16))
+        (/p 0)
+        (/str ""))
+    (let ((var-save /elt) (seq-save /elts))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (begin
+                 (cond ((and (number? (last-1 /elt)) (< (last-1 /elt) 0))
+                        (set! /elt (butlast-1 /elt))))
+                 (cond ((and (number? (last-1 /elt)) (> (last-1 /elt) 0))
+                        (set! /p
+                          (let ((index-result
+                                  (substring? "__" (@n_string (last-1 /elt)))))
+                            (if index-result index-result -1))))
+                       (#t (set! /p (- 1))))
+                 (cond ((> /p 0)
+                        (set! /str (@n_string (last-1 /elt)))
+                        (cond ((@digits?
+                                 (let ((s /str))
+                                   (substring s (+ /p 2) (string-length s))))
+                               (set! /str
+                                 (let ((f 0))
+                                   (substring
+                                     (@n_string (last-1 /elt))
+                                     f
+                                     (+ f /p))))
+                               (set! /elt
+                                 (concat
+                                   (butlast-1 /elt)
+                                   (list (@make_name /str))))))))
+                 (set! /new (cons /elt /new)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (set! /elts (@make_set /new))
+    (set! /new '())
+    (let ((var-save /elt) (seq-save /elts))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (cond ((and (equal?
+                             (let ((name /elt))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             /a_name)
+                           (> (if (vector? /elt)
+                                (vector-length /elt)
+                                (length /elt))
+                              1))
+                      (cond ((null? (gethash
+                                      /dsect_count
+                                      (let ((name /elt))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1))))))
+                             (puthash
+                               /dsect_count
+                               (let ((name /elt))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               1))
+                            (#t
+                             (puthash
+                               /dsect_count
+                               (let ((name /elt))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               (+ (gethash
+                                    /dsect_count
+                                    (let ((name /elt))
+                                      (if (vector? name)
+                                        (vector-ref name (- 2 1))
+                                        (list-ref name (- 2 1)))))
+                                  1))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (let ((var-save /elt) (seq-save /elts))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (cond ((@starts_with?
+                        (@n_string
+                          (let ((name /elt))
+                            (if (vector? name)
+                              (vector-ref name (- 1 1))
+                              (list-ref name (- 1 1)))))
+                        "NOTUSED_")
+                      #t)
+                     ((and (equal?
+                             (let ((name /elt))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             /a_name)
+                           (> (if (vector? /elt)
+                                (vector-length /elt)
+                                (length /elt))
+                              1)
+                           (> (gethash
+                                /dsect_count
+                                (let ((name /elt))
+                                  (if (vector? name)
+                                    (vector-ref name (- 2 1))
+                                    (list-ref name (- 2 1)))))
+                              10))
+                      (set! /dsects
+                        (@set_union
+                          (list (list (let ((name /elt))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1))))))
+                          /dsects)))
+                     (#t (set! /new (cons /elt /new))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (@set_union (@make_set /new) /dsects)))
+
+#t
+

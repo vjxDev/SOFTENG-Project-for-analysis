@@ -1,0 +1,21 @@
+(define (@reduce_multiple_loops_test)
+  (cond ((not (= (@spec_type (@item)) //t_/floop))
+         (@fail "This transformation must be applied to a `Do-Od' loop."))
+        ((or (@trans? //t/r_/double_/to_/single_/loop)
+             (@trans? //t/r_/remove_/dummy_/loop))
+         (@pass))
+        (#t
+         (@fail "It is not possible to remove any of the loops."))))
+
+(define (@reduce_multiple_loops_code //data)
+  (let while-loop ()
+    (cond ((@trans? //t/r_/double_/to_/single_/loop)
+           (@trans //t/r_/double_/to_/single_/loop "")
+           (while-loop))
+          (#t #t)))
+  (let while-loop ()
+    (cond ((@trans? //t/r_/remove_/dummy_/loop)
+           (@trans //t/r_/remove_/dummy_/loop "")
+           (while-loop))
+          (#t #t))))
+

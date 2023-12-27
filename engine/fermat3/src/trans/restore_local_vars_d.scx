@@ -1,0 +1,44 @@
+(set! //t/r_/restore_/local_/vars
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/restore_/local_/vars 1)
+  "Restore_Local_Vars")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/restore_/local_/vars 1)
+  "Restore_Local_Vars")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/restore_/local_/vars 1)
+  @restore_local_vars_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/restore_/local_/vars 1)
+  @restore_local_vars_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/restore_/local_/vars 1)
+  (list "Hidden"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/restore_/local_/vars 1)
+  "Try to restore the local var clauses
+that were converted to global variables by Rename_Local_Vars")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/restore_/local_/vars 1)
+  "Enter a prefix for the local variables [var]:")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/restore_/local_/vars 1)
+  "")
+

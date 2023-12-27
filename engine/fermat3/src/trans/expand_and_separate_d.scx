@@ -1,0 +1,43 @@
+(set! //t/r_/expand_/and_/separate
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/expand_/and_/separate 1)
+  "Expand And Separate")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/expand_/and_/separate 1)
+  "Expand_And_Separate")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/expand_/and_/separate 1)
+  @expand_and_separate_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/expand_/and_/separate 1)
+  @expand_and_separate_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/expand_/and_/separate 1)
+  (list "Reorder"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/expand_/and_/separate 1)
+  "Expand And Separate will expand the selected IF statement to include all the following statements, then separate all possible statements from the resulting IF. This is probably only useful if the IF includes a CALL, EXIT etc. which is duplicated in the following statements, otherwise it will probably achieve nothing.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/expand_/and_/separate 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/expand_/and_/separate 1)
+  "")
+

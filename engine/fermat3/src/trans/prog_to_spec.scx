@@ -1,0 +1,73 @@
+(define (@prog_to_spec_test)
+  (cond ((and (not (= (@gt (@i)) //t_/statements))
+              (not (= (@gt (@i)) //t_/statement)))
+         (@fail "Not a statement or statement sequence"))
+        ((not (@set_subset?
+                (@stat_types (@i))
+                (@make_set
+                  (list //t_/assert
+                        //t_/comment
+                        //t_/skip
+                        //t_/print
+                        //t_/prinflush
+                        //t_/abort
+                        //t_/assignment
+                        //t_/cond
+                        //t_/d_/if
+                        //t_/var
+                        //t_/spec))))
+         (@fail "Program contains an statement type for which
+this transformation is undefined."))
+        (#t (@pass))))
+
+(define (@prog_to_spec_code //data)
+  (let ((//w/p '())
+        (//w/p_/t '())
+        (//r '())
+        (/vars '())
+        (/cond '())
+        (/spec '())
+        (//budget (@string_to_num //data)))
+    (cond ((<= //budget 0) (set! //budget 50)))
+    (let ((var-save /var) (seq-save (@assigned (@i))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /var (car for-tmp))
+               (begin
+                 (set! /vars
+                   (cons (@make //t_/var_/lvalue /var '()) /vars))
+                 (set! //r
+                   (cons (@make //t_/not_/equal
+                                '()
+                                (list (@make //t_/variable /var '())
+                                      (@make //t_/primed_/var /var '())))
+                         //r)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /var var-save))
+    (set! //r (@make //t_/or '() //r))
+    (set! //w/p_/t
+      (@wp (@item) (@make //t_/true '() '())))
+    (set! //w/p
+      (@simplify (@wp (@item) //r) //budget))
+    (set! /cond
+      (@simplify
+        (@make //t_/and '() (list (@not //w/p) //w/p_/t))
+        //budget))
+    (cond ((null? /vars)
+           (set! /spec (@make //t_/assert '() (list /cond))))
+          (#t
+           (set! /spec
+             (@make //t_/spec
+                    '()
+                    (list (@make //t_/lvalues '() (@mth_sort /vars))
+                          /cond)))))
+    (cond ((= (@gt (@i)) //t_/statements)
+           (@paste_over
+             (@make //t_/statements '() (list /spec))))
+          (#t (@paste_over /spec)))))
+
+#t
+

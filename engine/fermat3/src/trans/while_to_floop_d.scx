@@ -1,0 +1,42 @@
+(set! //t/r_/while_/to_/floop (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/while_/to_/floop 1)
+  "While To Floop")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/while_/to_/floop 1)
+  "While_To_Floop")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/while_/to_/floop 1)
+  @while_to_floop_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/while_/to_/floop 1)
+  @while_to_floop_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/while_/to_/floop 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/while_/to_/floop 1)
+  "Convert any WHILE loop to a DO...OD loop")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/while_/to_/floop 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/while_/to_/floop 1)
+  "")
+

@@ -1,0 +1,43 @@
+(set! //t/r_/delete_/what_/follows
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/what_/follows 1)
+  "Delete_What_Follows")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/what_/follows 1)
+  @delete_what_follows_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/what_/follows 1)
+  @delete_what_follows_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/what_/follows 1)
+  "Delete What Follows")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/what_/follows 1)
+  (list "Use/Apply"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/what_/follows 1)
+  "Delete What Follows will delete the code which follows the selected item if it can never be executed.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/what_/follows 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/what_/follows 1)
+  "")
+

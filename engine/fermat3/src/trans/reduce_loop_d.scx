@@ -1,0 +1,42 @@
+(set! //t/r_/reduce_/loop (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/reduce_/loop 1)
+  "Reduce Loop")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/reduce_/loop 1)
+  "Reduce_Loop")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/reduce_/loop 1)
+  @reduce_loop_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/reduce_/loop 1)
+  @reduce_loop_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/reduce_/loop 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/reduce_/loop 1)
+  "Automatically make the body of a DO...OD reducible (by introducing new procedures as necessary) and either remove the loop (if it is a dummy loop) or convert the loop to a WHILE loop (if the loop is a proper sequence).")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/reduce_/loop 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/reduce_/loop 1)
+  "")
+

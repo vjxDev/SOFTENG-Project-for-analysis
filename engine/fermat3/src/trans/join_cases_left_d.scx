@@ -1,0 +1,42 @@
+(set! //t/r_/join_/cases_/left (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/join_/cases_/left 1)
+  "Join_Cases Left")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/join_/cases_/left 1)
+  "Join_Cases_Left")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/join_/cases_/left 1)
+  @join_cases_left_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/join_/cases_/left 1)
+  @join_cases_left_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/join_/cases_/left 1)
+  (list "Join"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/join_/cases_/left 1)
+  "This transformation will merge the selected Guarded clause with the one before it.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/join_/cases_/left 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/join_/cases_/left 1)
+  "")
+

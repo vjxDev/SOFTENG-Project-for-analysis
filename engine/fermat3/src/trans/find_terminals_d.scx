@@ -1,0 +1,43 @@
+(set! //t/r_/find_/terminals (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/find_/terminals 1)
+  "Find_Terminals")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/find_/terminals 1)
+  "Find_Terminals")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/find_/terminals 1)
+  @find_terminals_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/find_/terminals 1)
+  @find_terminals_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/find_/terminals 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/find_/terminals 1)
+  "Find and mark the terminal statements in the selected statement.
+If a terminal statement is a local proc call, apply recursively to the proc body.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/find_/terminals 1)
+  "Enter a string tp be included in the comment")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/find_/terminals 1)
+  "String")
+

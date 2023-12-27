@@ -1,0 +1,282 @@
+(define (/foreach-add_loop_to_action-1
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- /n)))
+         (@paste_over (@make //t_/exit (+ //depth 1) '())))))
+
+(define (@add_loop_to_action_test)
+  (cond ((not (= (@st (@i)) //t_/a_/s))
+         (@fail "Not an action system"))
+        ((not (equal? (@system_type (@i)) "Reg"))
+         (@fail "Action system is not regular"))
+        (#t (@pass))))
+
+(define (@add_loop_to_action_code //data)
+  (@edit)
+  (let ((//old_/size 0)
+        (//size (@size (list-ref (@i) (+ 1 2))))
+        (//leave_/alone_/names (@parse_string //data))
+        (//a/s_/type (@system_type (@i)))
+        (//n (@size (list-ref (@i) (+ 1 2)))))
+    (let ((//a/s_/name (@v (list-ref (@i) (+ 1 1))))
+          (//a/s_/type '())
+          (//starting_/action 0)
+          (/dispatch 0)
+          (//bodies (make-vector //n '()))
+          (//names (make-vector (+ //n 1) '()))
+          (//succs (make-vector (+ //n 1) '()))
+          (//preds (make-vector (+ //n 1) '()))
+          (//name2/num (my-make-hash-table 16))
+          (//num_/calls (my-make-hash-table 16))
+          (//leave_/alone '())
+          (/n-save /n)
+          (/m 0)
+          (//s '())
+          (//s1 '()))
+      (set! /n 0)
+      (set! //a/s_/type (@system_type (@i)))
+      (begin
+        (display
+          "Looking for an action to add a loop to")
+        (newline)
+        (force-output))
+      (begin
+        (display "Leave_Alone_Names = ")
+        (begin
+          (display
+            (@join ", "
+                   (let ((l //leave_/alone_/names) (map-result '()))
+                     (let while-loop ()
+                       (cond ((not (null? l))
+                              (set! map-result
+                                (cons (@n_string (car l)) map-result))
+                              (set! l (cdr l))
+                              (while-loop))
+                             (#t #t)))
+                     (reverse map-result))))
+          (newline)
+          (force-output)))
+      (let ((/-result-
+              (@fd_init //n //bodies //names //name2/num)))
+        (set! //bodies (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //names (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //name2/num (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (set! //leave_/alone '())
+      (let ((var-save /name)
+            (seq-save //leave_/alone_/names))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /name (car for-tmp))
+                 (set! //leave_/alone
+                   (cons (gethash //name2/num /name) //leave_/alone))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /name var-save))
+      (set! //starting_/action
+        (gethash //name2/num //a/s_/name))
+      (set! /dispatch
+        (gethash //name2/num (@make_name "dispatch")))
+      (let ((/-result-
+              (@sas_succs_and_preds
+                //n
+                //bodies
+                //starting_/action
+                //succs
+                //preds
+                //num_/calls)))
+        (set! //succs (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //preds (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //num_/calls (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (set! /n //n)
+      (set! /fl_flag1 0)
+      (let while-loop ()
+        (cond ((= /fl_flag1 0)
+               (cond ((and (not (equal? /n //starting_/action))
+                           (= (if (vector?
+                                    (let ((name //preds))
+                                      (if (vector? name)
+                                        (vector-ref name (- /n 1))
+                                        (list-ref name (- /n 1)))))
+                                (vector-length
+                                  (let ((name //preds))
+                                    (if (vector? name)
+                                      (vector-ref name (- /n 1))
+                                      (list-ref name (- /n 1)))))
+                                (length
+                                  (let ((name //preds))
+                                    (if (vector? name)
+                                      (vector-ref name (- /n 1))
+                                      (list-ref name (- /n 1))))))
+                              1)
+                           (not (equal?
+                                  (car (let ((name //preds))
+                                         (if (vector? name)
+                                           (vector-ref name (- /n 1))
+                                           (list-ref name (- /n 1)))))
+                                  /n))
+                           (not (equal?
+                                  (car (let ((name //preds))
+                                         (if (vector? name)
+                                           (vector-ref name (- /n 1))
+                                           (list-ref name (- /n 1)))))
+                                  /dispatch))
+                           (not (equal? /n /dispatch))
+                           (not (and (member
+                                       //t_/d_/if
+                                       (@stat_types
+                                         (let ((name //bodies))
+                                           (if (vector? name)
+                                             (vector-ref
+                                               name
+                                               (- (car (let ((name //preds))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- /n 1))
+                                                           (list-ref
+                                                             name
+                                                             (- /n 1)))))
+                                                  1))
+                                             (list-ref
+                                               name
+                                               (- (car (let ((name //preds))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- /n 1))
+                                                           (list-ref
+                                                             name
+                                                             (- /n 1)))))
+                                                  1))))))
+                                     (member
+                                       (@make_name "entry_point")
+                                       (@variables
+                                         (let ((name //bodies))
+                                           (if (vector? name)
+                                             (vector-ref
+                                               name
+                                               (- (car (let ((name //preds))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- /n 1))
+                                                           (list-ref
+                                                             name
+                                                             (- /n 1)))))
+                                                  1))
+                                             (list-ref
+                                               name
+                                               (- (car (let ((name //preds))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- /n 1))
+                                                           (list-ref
+                                                             name
+                                                             (- /n 1)))))
+                                                  1)))))))))
+                      (set! /fl_flag1 1))
+                     (#t
+                      (set! /n (- /n 1))
+                      (cond ((<= /n 0) (set! /fl_flag1 1))
+                            (#t (set! /fl_flag1 0)))))
+               (while-loop))
+              (#t #t)))
+      (cond ((> /n 0)
+             (set! /m
+               (car (let ((name //preds))
+                      (if (vector? name)
+                        (vector-ref name (- /n 1))
+                        (list-ref name (- /n 1))))))
+             (begin
+               (display "Unfolding ")
+               (begin
+                 (display
+                   (@n_string
+                     (let ((name //names))
+                       (if (vector? name)
+                         (vector-ref name (- /n 1))
+                         (list-ref name (- /n 1))))))
+                 (begin
+                   (display " into ")
+                   (begin
+                     (display
+                       (@n_string
+                         (let ((name //names))
+                           (if (vector? name)
+                             (vector-ref name (- /m 1))
+                             (list-ref name (- /m 1))))))
+                     (newline)
+                     (force-output)))))
+             (@new_program
+               (let ((name //bodies))
+                 (if (vector? name)
+                   (vector-ref name (- /m 1))
+                   (list-ref name (- /m 1)))))
+             (@foreach_statement
+               /foreach-add_loop_to_action-1
+               0
+               (@as_type)
+               0)
+             (cond ((null? (@program)) (@new_program (@skips))))
+             (set! //s (@cs (@program)))
+             (set! //s1 '())
+             (let while-loop ()
+               (cond ((and (not (null? //s))
+                           (not (member //t_/call (@stat_types (car //s))))
+                           (@gen_proper? (car //s) //a/s_/type))
+                      (begin
+                        (set! //s1 (cons (car //s) //s1))
+                        (set! //s (cdr //s)))
+                      (while-loop))
+                     (#t #t)))
+             (set! //s1 (reverse //s1))
+             (@paste_over
+               (@make 17
+                      '()
+                      (list (@make 133 '() (list (@make 17 '() //s))))))
+             (@down)
+             (@splice_after
+               (@cs (let ((name //bodies))
+                      (if (vector? name)
+                        (vector-ref name (- /n 1))
+                        (list-ref name (- /n 1))))))
+             (@splice_before //s1)
+             (if (vector? //bodies)
+               (vector-set! //bodies (- /m 1) (@program))
+               (set! //bodies
+                 (replace-nth //bodies /m (@program))))
+             (if (vector? //bodies)
+               (vector-set! //bodies (- /n 1) '())
+               (set! //bodies (replace-nth //bodies /n '())))))
+      (@fd_rebuild_as
+        //n
+        //bodies
+        //names
+        //a/s_/name
+        '())
+      (cond ((@syntax_ok? (@program))
+             (begin
+               (display "Syntax is OK.")
+               (newline)
+               (force-output)))
+            (#t
+             (begin
+               (display "Syntax NOT OK!")
+               (newline)
+               (force-output))))
+      (set! /n /n-save)))
+  (@end_edit)
+  (begin (display "Done") (newline) (force-output)))
+
+#t
+

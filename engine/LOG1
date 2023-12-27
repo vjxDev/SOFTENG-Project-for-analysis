@@ -1,0 +1,98 @@
+#<unspecified>
+#<unspecified>
+#<unspecified>
+#<unspecified>
+Statements
+   Var
+   :  Assigns
+   :     Assign
+   :        Var_Lvalue x
+   :        Number 0
+   :     Assign
+   :        Var_Lvalue y
+   :        Number 0
+   :  Statements
+   :     Floop
+   :     :  Statements
+   :     :     Floop
+   :     :     :  Statements
+   :     :     :     Cond
+   :     :     :     :  Guarded
+   :     :     :     :     Equal
+   :     :     :     :        Variable x
+   :     :     :     :        Number 0
+   :     :     :     :     Statements
+   :     :     :     :        Print
+   :     :     :     :        :  Expressions
+   :     :     :     :        :     String Hello World
+   :     :     :     :  Guarded
+   :     :     :     :     Greater
+   :     :     :     :        Variable x
+   :     :     :     :        Minus
+   :     :     :     :           Plus
+   :     :     :     :              Number 2
+   :     :     :     :              Variable x
+   :     :     :     :           Number 1
+   :     :     :     :     Statements
+   :     :     :     :        Print
+   :     :     :     :        :  Expressions
+   :     :     :     :        :     String Goodby cruel world
+   :     :     :     :  Guarded
+   :     :     :     :     True
+   :     :     :     :     Statements
+   :     :     :     :        Exit 2
+   :     :     :     Assignment
+   :     :     :     :  Assign
+   :     :     :     :     Var_Lvalue x
+   :     :     :     :     Plus
+   :     :     :     :        Variable x
+   :     :     :     :        Number 1
+#t
+#<unspecified>
+(18 23 28 37 57 58 80 82 92 98 106 109)
+#("Abort_Processing" "Absorb Left" "Absorb Right" "Actions to Procs" "Actions to Where" "Add Assertion" "Add Left" "Add_Loop_To_Action" "Align Nested Statements" "Align_Nested_Vars" "All_Proc_Stacks_To_Pars" "All_Push_Pop" "Apply To Right" "Array_To_Vars" "Collapse Action System" "Collapse All Action Systems" "Combine Where Structures" "Constant Propagation" "D Do To Floop" "Decrement_Statement" "Delete All Assertions" "Delete All Comments" "Delete All Redundant" "Delete All Skips" "Delete Item" "Delete Redundant Registers" "Delete Redundant Statement" "Delete Unreachable Code" "Delete What Follows" "Double to Single Loop" "`Else If' To `Elsif'" "`Elsif' To `Else If'" "Expand And Separate" "Expand And Separate All" "Expand Call" "Expand Forward" "Find_Terminals" "Flag_Removal" "Floop To While" "For_In_To_Reduce" "For_To_While" "Force Double - Single Loop" "Fully Absorb Right" "Fully Expand Forward" "Globalise_Procs" "Globals_To_Pars" "Ifmatch_Processing" "Increment_Statement" "Insert Assertion(s)" "Join All Cases" "Join_Cases Left" "Join_Cases Right" "Localise_Procs" "Loop_Doubling" "Loop_Inversion" "Loop_To_Move" "Make_Loop" "Make Procedure" "Make_Reducible" "Merge Calls in Action" "Merge Calls" "Merge_Cond_Right" "Merge Left" "Merge Right" "Meta Trans" "Move Comment Left" "Move Comment Right" "Move Comments" "Move To Left" "Move To Right" "Partially Join Cases" "Proc_To_Funct" "Prog_To_Spec" "Prune Dispatch" "Push Pop" "Recursion To Loop" "Reduce Loop" "Reduce Multiple Loops" "Refine_Spec" "Remove All Redundant Vars" "Remove Dummy Loop" "Remove Redundant Vars" "Rename_Defns" "Rename_Local_Vars" "Rename_Proc" "Replace Accs With Value" "Replace With Value" "Replace_With_Variable" "Restore_Local_Vars" "Reverse Order" "Roll_Loop" "Semantic_Slice" "Separate_Both" "Separate_Exit_Code" "Separate_Left" "Separate_Right" "Simple_Slice" "Simplify" "Simplify Action System" "Simplify If" "Simplify Item" "Sort_Procs" "Stack_To_Par" "Stack_To_Return" "Stack_To_Var" "Static_Single_Assignment" "Substitute and Delete" "Substitute and Delete List" "Syntactic_Slice" "Take Out Left" "Take Out Of Loop" "Take Out Right" "Unfold Proc Call" "Unfold Proc Calls" "Unroll_Loop" "Use_Assertion" "Var_Pars_To_Val_Pars" "While_To_Abort" "While To Floop" "While_To_For_In" "While_To_Reduce" () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () ())
+#t
+Constant_Propagation effort = 0 budget = 25600
+Call Budget = 25600
+DSECTs = 
+No constant DSECTs found
+xx 
+Simplifying the result
+#<unspecified>
+***EndOfOperation***#<unspecified>
+()
+#<unspecified>
+#<unspecified>
+Statements
+   Var
+   :  Assigns
+   :     Assign
+   :        Var_Lvalue x
+   :        Number 0
+   :     Assign
+   :        Var_Lvalue y
+   :        Number 0
+   :  Statements
+   :     Floop
+   :     :  Statements
+   :     :     Cond
+   :     :     :  Guarded
+   :     :     :     Equal
+   :     :     :        Variable x
+   :     :     :        Number 0
+   :     :     :     Statements
+   :     :     :        Print
+   :     :     :        :  Expressions
+   :     :     :        :     String Hello World
+   :     :     :  Guarded
+   :     :     :     True
+   :     :     :     Statements
+   :     :     :        Exit 1
+   :     :     Assignment
+   :     :     :  Assign
+   :     :     :     Var_Lvalue x
+   :     :     :     Plus
+   :     :     :        Variable x
+   :     :     :        Number 1
+#t
+#<unspecified>

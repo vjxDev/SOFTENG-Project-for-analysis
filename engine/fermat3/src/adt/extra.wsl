@@ -1,0 +1,26 @@
+
+C:" Extra definitions for fermat3 ";
+
+MW_FUNCT @WC_Length(I) == : SKIP;
+  (@Make(T_Number, 0, < >)) .;
+
+
+MW_PROC @Load_File(filename VAR Data_Names, Data_Lengths, Data_Origlen, Data_Repeats,
+                                Data_Fields, Data_Types, Data_Values,
+                                Init_Types, Init_Values, Init_String,
+                                Equ_Symbol, DSECT_Tag, Comment, Orig_Name,
+                                CICS_Maps) ==
+  SKIP; SKIP .;
+
+
+
+struct_p := @Make_Name("struct_p");
+
+
+
+
+
+SKIP
+
+
+

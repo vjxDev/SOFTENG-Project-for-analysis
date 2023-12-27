@@ -1,0 +1,262 @@
+(define (/foreach-rename_defns-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (not (null? (gethash
+                            //orig_/name
+                            (@v (list-ref (@i) (+ 1 1)))))))
+         (@down)
+         (@paste_over (gethash //orig_/name (@v (@i)))))
+        ((= (@st (@i)) //t_/where)
+         (@down_last)
+         (@down)
+         (cond ((and (= //t_/proc (@st (@i)))
+                     (not (null? (gethash
+                                   //orig_/name
+                                   (@v (list-ref (@i) (+ 1 1)))))))
+                (@down)
+                (@paste_over (gethash //orig_/name (@v (@i))))
+                (@up)))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((and (= //t_/proc (@st (@i)))
+                                (not (null? (gethash
+                                              //orig_/name
+                                              (@v (list-ref (@i) (+ 1 1)))))))
+                           (@down)
+                           (@paste_over (gethash //orig_/name (@v (@i))))
+                           (@up))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (@rename_defns_test)
+  (cond ((not (member //t_/where (@stat_types (@i))))
+         (@fail "No WHERE clauses in selected item."))
+        (#t
+         (let ((//defn_/count-save //defn_/count))
+           (set! //defn_/count (@count_proc_defns (@i)))
+           (let ((var-save /name)
+                 (seq-save (@hash_keys //defn_/count)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /name (car for-tmp))
+                      (cond ((> (gethash //defn_/count /name) 1) (@pass)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /name var-save))
+           (set! //defn_/count //defn_/count-save))
+         (cond ((not (@passed?))
+                (@fail "No renaming is necessary"))))))
+
+(define (@rename_defns_code //data)
+  (let ((//defn_/count-save //defn_/count)
+        (//orig_/name-save //orig_/name))
+    (set! //defn_/count (@count_proc_defns (@i)))
+    (set! //orig_/name (my-make-hash-table 16))
+    (set! //orig_/name
+      (@rename_procs //defn_/count //orig_/name))
+    (set! //defn_/count //defn_/count-save)
+    (set! //orig_/name //orig_/name-save)))
+
+(define (@count_proc_defns //i)
+  (let ((//defn_/count-save //defn_/count)
+        (funct-result '()))
+    (set! //defn_/count (my-make-hash-table 16))
+    (@rp_count_proc_defns //i '())
+    (set! funct-result //defn_/count)
+    (set! //defn_/count //defn_/count-save)
+    funct-result))
+
+(define (@rp_count_proc_defns //i /stack)
+  (cond ((and (= (@st //i) //t_/proc_/call)
+              (not (@rp_in_set_list?
+                     (@v (list-ref //i (+ 1 1)))
+                     /stack)))
+         (@inc_hash
+           (@v (list-ref //i (+ 1 1)))
+           //defn_/count))
+        ((= (@st //i) //t_/where)
+         (let ((/local '()))
+           (let ((var-save /defn)
+                 (seq-save (@cs (list-ref //i (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /defn (car for-tmp))
+                      (cond ((= (@st /defn) //t_/proc)
+                             (@inc_hash
+                               (@v (list-ref /defn (+ 1 1)))
+                               //defn_/count)
+                             (set! /local
+                               (cons (@v (list-ref /defn (+ 1 1))) /local))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /defn var-save))
+           (set! /stack (cons (@make_set /local) /stack))
+           (@rp_count_proc_defns
+             (list-ref //i (+ 1 1))
+             /stack)
+           (@rp_count_proc_defns
+             (list-ref //i (+ 1 2))
+             /stack)))
+        ((and (@cs? //i)
+              (@has_statements_type? (@gt //i)))
+         (let ((var-save /comp) (seq-save (@cs //i)))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /comp (car for-tmp))
+                    (@rp_count_proc_defns /comp /stack)
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /comp var-save)))))
+
+(define (@rename_procs
+         //defn_/count-par
+         //orig_/name-par)
+  (let ((//orig_/name-save //orig_/name)
+        (//defn_/count-save //defn_/count)
+        (funct-result '()))
+    (set! //orig_/name //orig_/name-par)
+    (set! //defn_/count //defn_/count-par)
+    (let ((//curr_/name-save //curr_/name)
+          (/tab (my-make-hash-table 16)))
+      (set! //curr_/name '())
+      (let ((var-save /name)
+            (seq-save (@hash_keys //defn_/count)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /name (car for-tmp))
+                 (cond ((> (gethash //defn_/count /name) 1)
+                        (puthash /tab /name (@make //t_/name /name '()))
+                        (puthash //defn_/count /name 1)))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /name var-save))
+      (set! //curr_/name (list /tab))
+      (@edit)
+      (@rp_rename_procs)
+      (@end_edit)
+      (set! //curr_/name //curr_/name-save))
+    (set! funct-result //orig_/name)
+    (set! //orig_/name //orig_/name-save)
+    (set! //defn_/count //defn_/count-save)
+    funct-result))
+
+(define (@rp_rename_procs)
+  (cond ((and (or (= (@st (@i)) //t_/proc_/call)
+                  (= (@st (@i)) //t_/proc))
+              (not (null? (@rp_get_name
+                            (@v (list-ref (@i) (+ 1 1)))
+                            //curr_/name))))
+         (@down)
+         (@paste_over
+           (@rp_get_name (@v (@i)) //curr_/name))
+         (@up)))
+  (cond ((= (@st (@i)) //t_/where)
+         (let ((/tab (my-make-hash-table 16))
+               (/name-save /name))
+           (set! /name '())
+           (let ((var-save /defn)
+                 (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /defn (car for-tmp))
+                      (cond ((and (= (@st /defn) //t_/proc)
+                                  (not (null? (gethash
+                                                //defn_/count
+                                                (@v (list-ref
+                                                      /defn
+                                                      (+ 1 1)))))))
+                             (set! /name (@v (list-ref /defn (+ 1 1))))
+                             (puthash
+                               /tab
+                               /name
+                               (@rp_new_name
+                                 (gethash //defn_/count /name)
+                                 /name))
+                             (puthash
+                               //orig_/name
+                               (@v (gethash /tab /name))
+                               (list-ref /defn (+ 1 1)))
+                             (puthash
+                               //defn_/count
+                               /name
+                               (+ (gethash //defn_/count /name) 1))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /defn var-save))
+           (set! //curr_/name (cons /tab //curr_/name))
+           (set! /name /name-save))
+         (@down)
+         (@rp_rename_procs)
+         (@right)
+         (@rp_rename_procs)
+         (@up)
+         (set! //curr_/name (cdr //curr_/name)))
+        ((and (@cs? (@i))
+              (@has_statements_type? (@gt (@i))))
+         (@edit)
+         (@down)
+         (@rp_rename_procs)
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin (@right) (@rp_rename_procs))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@end_edit))))
+
+(define (@rp_new_name /count /name-par)
+  (let ((/name-save /name)
+        (/new (@make_name
+                (concat
+                  (string-append (@n_string /name-par) "__")
+                  (@string /count))))
+        (funct-result '()))
+    (set! /name /name-par)
+    (let while-loop ()
+      (cond ((not (null? (gethash //defn_/count /new)))
+             (set! /new
+               (@make_name (string-append "_" (@n_string /new))))
+             (while-loop))
+            (#t #t)))
+    (set! funct-result (@make //t_/name /new '()))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@rp_get_name /name /stack)
+  (let ((//r '()))
+    (cond ((not (null? /stack))
+           (let ((/tab (car /stack)))
+             (set! //r (gethash /tab /name))
+             (cond ((null? //r)
+                    (set! //r (@rp_get_name /name (cdr /stack))))))))
+    //r))
+
+(define (@rp_in_set_list? /name //l)
+  (and (not (null? //l))
+       (or (member /name (car //l))
+           (@rp_in_set_list? /name (cdr //l)))))
+
+(define (@restore_names //orig_/name-par)
+  (let ((//orig_/name-save //orig_/name))
+    (set! //orig_/name //orig_/name-par)
+    (@foreach_statement
+      /foreach-rename_defns-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! //orig_/name //orig_/name-save)))
+
+#t
+

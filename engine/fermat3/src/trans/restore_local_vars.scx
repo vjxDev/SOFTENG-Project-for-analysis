@@ -1,0 +1,238 @@
+(define (/foreach-restore_local_vars-1
+         //depth
+         //a/s_/type)
+  (@down)
+  (cond ((and (= (@size (@i)) 1)
+              (= //t_/assignment (@st (@i)))
+              (= //t_/var_/lvalue
+                 (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))))
+         (set! /pair
+           (@rlv_parse_var
+             (@n_string
+               (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))))
+             /prefix))
+         (cond ((not (null? /pair))
+                (@rlv_process /prefix /pair)))))
+  (let while-loop ()
+    (cond ((@right?)
+           (begin
+             (@right)
+             (cond ((and (= (@size (@i)) 1)
+                         (= //t_/assignment (@st (@i)))
+                         (= //t_/var_/lvalue
+                            (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))))
+                    (set! /pair
+                      (@rlv_parse_var
+                        (@n_string
+                          (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))))
+                        /prefix))
+                    (cond ((not (null? /pair))
+                           (@rlv_process /prefix /pair))))))
+           (while-loop))
+          (#t #t)))
+  (@up))
+
+(define (@restore_local_vars_test) (@pass))
+
+(define (@restore_local_vars_code //data)
+  (let ((/prefix-save /prefix))
+    (set! /prefix (@string //data))
+    (cond ((equal? /prefix "") (set! /prefix "var")))
+    (set! /prefix (string-append /prefix "_"))
+    (@ateach_stats
+      /foreach-restore_local_vars-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /prefix /prefix-save)))
+
+(define (@rlv_parse_var /var /prefix-par)
+  (let ((/prefix-save /prefix)
+        (/p1 (string-length /prefix-par))
+        (/p2 0)
+        (//r '())
+        (funct-result '()))
+    (set! /prefix /prefix-par)
+    (cond ((and (@starts_with? /var /prefix)
+                (>= (string-length /var) (+ /p1 4)))
+           (set! /p2 /p1)
+           (let while-loop ()
+             (cond ((@digit?
+                      (let ((f /p2)) (substring /var f (+ f 1))))
+                    (set! /p2 (+ /p2 1))
+                    (while-loop))
+                   (#t #t)))
+           (cond ((and (> /p2 /p1)
+                       (> (string-length /var) (+ /p2 2))
+                       (equal?
+                         (let ((f /p2)) (substring /var f (+ f 2)))
+                         "__"))
+                  (set! //r
+                    (list (let ((f /p1))
+                            (substring /var f (+ f (- /p2 /p1))))
+                          (let ((s /var))
+                            (substring s (+ /p2 2) (string-length s)))))))))
+    (set! funct-result //r)
+    (set! /prefix /prefix-save)
+    funct-result))
+
+(define (@rlv_process /prefix-par /pair-par)
+  (let ((/pair-save /pair) (/prefix-save /prefix))
+    (set! /pair /pair-par)
+    (set! /prefix /prefix-par)
+    (let ((/assigns '())
+          (//n (let ((name /pair))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1)))))
+          (/rename '())
+          (/vars '())
+          (/body '())
+          (/p1 (@posn_n))
+          (/p2 0)
+          (/p3 0))
+      (set! /fl_flag1 0)
+      (let while-loop ()
+        (cond ((= /fl_flag1 0)
+               (begin
+                 (set! /assigns
+                   (cons (@rlv_assign
+                           (list-ref (@i) (+ 1 1))
+                           (let ((name /pair))
+                             (if (vector? name)
+                               (vector-ref name (- 2 1))
+                               (list-ref name (- 2 1)))))
+                         /assigns))
+                 (set! /vars
+                   (@set_union
+                     (list (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))))
+                     /vars))
+                 (set! /rename
+                   (cons (list (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                               (@make_name
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 2 1))
+                                     (list-ref name (- 2 1))))))
+                         /rename))
+                 (cond ((not (@right?)) (set! /fl_flag1 1))
+                       (#t
+                        (@right)
+                        (cond ((not (and (= (@st (@i)) //t_/assignment)
+                                         (= (@size (@i)) 1)
+                                         (= (@st (list-ref
+                                                   (list-ref (@i) (+ 1 1))
+                                                   (+ 1 1)))
+                                            //t_/var_/lvalue)
+                                         (not (member
+                                                (@v (list-ref
+                                                      (list-ref (@i) (+ 1 1))
+                                                      (+ 1 1)))
+                                                /vars))))
+                               (set! /fl_flag1 1))
+                              (#t
+                               (set! /pair
+                                 (@rlv_parse_var
+                                   (@n_string
+                                     (@v (list-ref
+                                           (list-ref (@i) (+ 1 1))
+                                           (+ 1 1))))
+                                   /prefix))
+                               (cond ((or (null? /pair)
+                                          (not (equal?
+                                                 (let ((name /pair))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 1 1))
+                                                     (list-ref name (- 1 1))))
+                                                 //n)))
+                                      (set! /fl_flag1 1))
+                                     (#t (set! /fl_flag1 0))))))))
+               (while-loop))
+              (#t #t)))
+      (set! /p2 (- (@posn_n) 1))
+      (@to (@size (@parent)))
+      (let while-loop ()
+        (cond ((and (>= (@posn_n) /p2)
+                    (null? (@set_intersect (@variables (@i)) /vars)))
+               (@left)
+               (while-loop))
+              (#t #t)))
+      (cond ((and (>= /p2 /p1) (> (@posn_n) /p2))
+             (set! /p3 (@posn_n))
+             (@to /p1)
+             (@edit_parent)
+             (set! /body
+               (@make //t_/statements
+                      '()
+                      (@get_l (@parent) (+ /p2 1) /p3)))
+             (cond ((@gen_proper? /body (@as_type))
+                    (let ((var-save /i)
+                          (for-step 1)
+                          (for-end (- /p3 /p1)))
+                      (set! /i 1)
+                      (let for-loop ()
+                        (cond ((or (and (> 1 0) (<= /i for-end))
+                                   (and (< 1 0) (>= /i for-end)))
+                               (@delete)
+                               (set! /i (+ /i for-step))
+                               (for-loop))
+                              (#t #t)))
+                      (set! /i var-save))
+                    (@paste_over
+                      (@make //t_/var
+                             '()
+                             (list (@make //t_/assigns '() (reverse /assigns))
+                                   /body)))
+                    (@down_to 2)
+                    (let ((var-save /pair) (seq-save /rename))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /pair (car for-tmp))
+                               (@rename
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 2 1))
+                                     (list-ref name (- 2 1)))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /pair var-save)))
+                   (#t
+                    (@up)
+                    (let ((var-save /pair) (seq-save /rename))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /pair (car for-tmp))
+                               (@rename
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 2 1))
+                                     (list-ref name (- 2 1)))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /pair var-save))))
+             (@end_edit))
+            (#t (@to /p1))))
+    (set! /pair /pair-save)
+    (set! /prefix /prefix-save)))
+
+(define (@rlv_assign /assign /var)
+  (@make //t_/assign
+         '()
+         (list (@make //t_/var_/lvalue (@make_name /var) '())
+               (list-ref /assign (+ 1 2)))))
+
+#t
+

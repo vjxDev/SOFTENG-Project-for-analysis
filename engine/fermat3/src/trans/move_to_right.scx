@@ -1,0 +1,715 @@
+(define (/foreach-move_to_right-1 //depth //a/s_/type)
+  (cond ((@lr_equal?
+           (@i)
+           (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+         (@paste_over
+           (list-ref (list-ref //s1 (+ 1 1)) (+ 1 2))))))
+
+(define (/foreach-move_to_right-2 //depth //a/s_/type)
+  (let ((var-save /assign) (seq-save (@cs //s1)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /assign (car for-tmp))
+             (cond ((@lr_equal? (list-ref /assign (+ 1 1)) (@i))
+                    (@paste_over (list-ref /assign (+ 1 2)))))
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /assign var-save)))
+
+(define (/foreach-move_to_right-3 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/variable)
+         (set! /v (@v (@i)))
+         (let ((var-save /assign) (seq-save /inverts))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /assign (car for-tmp))
+                    (cond ((equal? (car /assign) /v)
+                           (@paste_over
+                             (let ((name /assign))
+                               (if (vector? name)
+                                 (vector-ref name (- 2 1))
+                                 (list-ref name (- 2 1)))))))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /assign var-save)))))
+
+(define (/foreach-move_to_right-4 //depth //a/s_/type)
+  (cond ((@lr_equal? /x (@i)) (@paste_over /f))))
+
+(define (/foreach-move_to_right-5 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/struct)
+              (@equal? (list-ref (@i) (+ 1 2)) /e))
+         (set! /bad 1))
+        ((and (or (= (@st (@i)) //t_/aref)
+                  (= (@st (@i)) //t_/sub_/seg)
+                  (= (@st (@i)) //t_/rel_/seg))
+              (@equal? (list-ref (@i) (+ 1 1)) /e))
+         (set! /bad 1))))
+
+(define (/foreach-move_to_right-6 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/variable)
+         (set! /notstacks
+           (@set_union /notstacks (list (@v (@i))))))))
+
+(define (/foreach-move_to_right-7 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/var_/lvalue)
+         (cond ((and (= (@st (@parent)) //t_/push)
+                     (= (@posn_n) 1))
+                (set! /stacks
+                  (@set_union /stacks (list (@v (@i))))))
+               ((and (= (@st (@parent)) //t_/pop)
+                     (= (@posn_n) 2))
+                (set! /stacks
+                  (@set_union /stacks (list (@v (@i))))))
+               (#t
+                (set! /notstacks
+                  (@set_union /notstacks (list (@v (@i))))))))))
+
+(define (/foreach-move_to_right-8 //depth //a/s_/type)
+  (set! /types
+    (let ((l (@cs (@i))) (map-result '()))
+      (let while-loop ()
+        (cond ((not (null? l))
+               (set! map-result (cons (@st (car l)) map-result))
+               (set! l (cdr l))
+               (while-loop))
+              (#t #t)))
+      (reverse map-result)))
+  (cond ((or (member //t_/push /types)
+             (member //t_/pop /types))
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((and (= (@st (@i)) //t_/push)
+                                (= (@st (list-ref (@i) (+ 1 1)))
+                                   //t_/var_/lvalue)
+                                (member (@v (list-ref (@i) (+ 1 1))) /stacks))
+                           (puthash
+                             /total
+                             (@v (list-ref (@i) (+ 1 1)))
+                             (+ (gethash /total (@v (list-ref (@i) (+ 1 1))))
+                                1)))
+                          ((and (= (@st (@i)) //t_/pop)
+                                (= (@st (list-ref (@i) (+ 1 2)))
+                                   //t_/var_/lvalue)
+                                (member (@v (list-ref (@i) (+ 1 2))) /stacks))
+                           (cond ((= (gethash
+                                       /total
+                                       (@v (list-ref (@i) (+ 1 2))))
+                                     0)
+                                  (set! /notstacks
+                                    (@set_union
+                                      /notstacks
+                                      (list (@v (list-ref (@i) (+ 1 2)))))))
+                                 (#t
+                                  (puthash
+                                    /total
+                                    (@v (list-ref (@i) (+ 1 2)))
+                                    (- (gethash
+                                         /total
+                                         (@v (list-ref (@i) (+ 1 2))))
+                                       1))))))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t)))
+         (let ((var-save /stack) (seq-save /stacks))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /stack (car for-tmp))
+                    (cond ((not (= (gethash /total /stack) 0))
+                           (set! /notstacks
+                             (@set_union /notstacks (list /stack)))))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /stack var-save)))))
+
+(define (@move_to_right_test)
+  (let ((//bad_/types
+          (@make_set
+            (list //t_/m/w_/proc_/call
+                  //t_/x_/proc_/call
+                  //t_/proc_/call
+                  //t_/call)))
+        (//s1-save //s1)
+        (//s2 '()))
+    (set! //s1 '())
+    (cond ((and (= (@gt (@i)) //t_/assign)
+                (@up?)
+                (not (@left?))
+                (not (@right?)))
+           (@up)))
+    (cond ((not (@right?))
+           (@fail "There is no statement to the right of this one."))
+          ((or (= (@gt (@i)) //t_/definition)
+               (= (@gt (@i)) //t_/assign)
+               (= (@gt (@i)) //t_/action)
+               (= (@gt (@i)) //t_/guarded))
+           (@pass))
+          ((and (or (= (@gt (@i)) //t_/expression)
+                    (= (@gt (@i)) //t_/condition))
+                (member (@st (@parent)) //comm_/ops))
+           (@pass))
+          ((= (@gt (@i)) //t_/statement)
+           (set! //s1 (@i))
+           (@right)
+           (set! //s2 (@i))
+           (cond ((or (= (@st //s1) //t_/skip)
+                      (= (@st //s1) //t_/comment))
+                  (@pass))
+                 ((and (= (@st //s1) //t_/push)
+                       (= (@st //s2) //t_/proc_/call))
+                  (@mr_push_call_test))
+                 ((not (null? (@set_intersect (@stat_types //s1) //bad_/types)))
+                  (@fail "Cannot move statements which have unknown side effects"))
+                 ((and (or (= (@st //s2) //t_/proc_/call)
+                           (= (@st //s2) //t_/m/w_/proc_/call))
+                       (= (@st //s1) //t_/assignment)
+                       (null? (@set_intersect (@assigned //s1) (@used //s1)))
+                       (= (@size //s1) 1)
+                       (not (@set_subset? (@assigned //s1) (@used //s2)))
+                       (null? (@set_intersect
+                                (@assigned //s1)
+                                (@assigned //s2))))
+                  (@pass))
+                 ((= (@st //s2) //t_/proc_/call)
+                  (let ((/posn (@posn))
+                        (/used (@used //s1))
+                        (/assigned (@assigned //s1)))
+                    (let while-loop ()
+                      (cond ((and (@up?) (not (= (@st (@i)) //t_/where)))
+                             (@up)
+                             (while-loop))
+                            (#t #t)))
+                    (cond ((= (@st (@i)) //t_/where)
+                           (set! /used (@used (@i)))
+                           (set! /assigned (@assigned (@i)))))
+                    (@goto /posn)
+                    (set! /used (@set_union /used (@used //s2)))
+                    (set! /assigned
+                      (@set_union /assigned (@assigned //s2)))
+                    (cond ((and (null? (@set_intersect (@used //s1) /assigned))
+                                (null? (@set_intersect /used (@assigned //s1))))
+                           (@pass))
+                          (#t
+                           (@fail "Procedure might use variables in the statement")))))
+                 ((or (= (@st //s2) //t_/proc_/call)
+                      (= (@st //s2) //t_/m/w_/proc_/call))
+                  (@fail "Cannot move past statements with unknown side effects"))
+                 ((not (null? (@set_intersect (@stat_types //s2) //bad_/types)))
+                  (@fail "Cannot move past statements which have unknown side effects"))
+                 ((not (equal? (@gen_tvs //s1 (@as_type)) (list 0)))
+                  (@fail "The statement may not go on to execute the following statement."))
+                 ((not (equal? (@gen_tvs //s2 (@as_type)) (list 0)))
+                  (@fail "The second statement may cause a change in control flow."))
+                 ((and (not (@elt_clash_list?
+                              (@elements //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elements //s2))))
+                  (@pass))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s2)
+                              (@elts_assigned //s1))))
+                  (cond ((@mr_bad_subexp?
+                           (@lvalue_to_expn
+                             (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                           //s2)
+                         (@fail "Assigned value has component(s) accessed"))
+                        (#t (@pass))))
+                 ((and (@elt_clash_list?
+                         (@elts_used //s1)
+                         (@elts_assigned //s1))
+                       (@elt_clash_list?
+                         (@elts_used //s2)
+                         (@elts_assigned //s2))
+                       (@elt_clash_list?
+                         (@elts_used //s1)
+                         (@elts_assigned //s2))
+                       (@elt_clash_list?
+                         (@elts_used //s2)
+                         (@elts_assigned //s1)))
+                  (@fail "Each statment uses variables assigned in the other"))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (@simple_var_assigns? //s1)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s1)
+                              (@elts_assigned //s2))))
+                  (cond ((@mr_bad_subexp?
+                           (@lvalue_to_expn
+                             (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                           //s2)
+                         (@fail "Assigned value has component(s) accessed"))
+                        (#t (@pass))))
+                 ((and (= (@st //s2) //t_/assignment)
+                       (@simple_var_assigns? //s2)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s2)
+                              (@elts_assigned //s1)))
+                       (@invertible? (@used //s1) (@cs //s2)))
+                  (cond ((@mr_bad_subexp?
+                           (@lvalue_to_expn
+                             (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))
+                           //s1)
+                         (@fail "Assigned value has component(s) accessed"))
+                        (#t (@pass))))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (= (@size //s1) 1)
+                       (= (@st //s2) //t_/assignment)
+                       (= (@size //s2) 1)
+                       (= (@st (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue)
+                       (= (@st (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue)
+                       (not (equal?
+                              (@v (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                              (@v (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))))
+                       (not (null? (@invert
+                                     (@lvalue_to_expn
+                                       (list-ref
+                                         (list-ref //s2 (+ 1 1))
+                                         (+ 1 1)))
+                                     (@v (list-ref
+                                           (list-ref //s1 (+ 1 1))
+                                           (+ 1 1)))
+                                     (list-ref
+                                       (list-ref //s2 (+ 1 1))
+                                       (+ 1 2))))))
+                  (cond ((@mr_bad_subexp?
+                           (@lvalue_to_expn
+                             (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                           //s2)
+                         (@fail "Assigned value has component(s) accessed"))
+                        (#t (@pass))))
+                 (#t
+                  (@fail "Cannot swap two statement that change each other's variables."))))
+          (#t
+           (@fail "It is not possible to move an item of the selected type.")))
+    (set! //s1 //s1-save)))
+
+(define (@move_to_right_code //data)
+  (let ((//s1-save //s1)
+        (//s2 '())
+        (//b1 '())
+        (//b2 '())
+        (//b3 '()))
+    (set! //s1 '())
+    (cond ((and (= (@gt (@i)) //t_/assign)
+                (@up?)
+                (not (@left?))
+                (not (@right?)))
+           (@up)))
+    (cond ((and (= (@gt (@i)) //t_/guarded)
+                (= (@st (@parent)) //t_/cond))
+           (set! //b1 (list-ref (@i) (+ 1 1)))
+           (@cut)
+           (@paste_after (@buffer))
+           (@down)
+           (set! //b2 (@i))
+           (set! //b3 (@and (@i) (@not //b1)))
+           (@paste_over //b3)
+           (@up)
+           (@right)
+           (cond ((or (= (@st //b2) //t_/true)
+                      (@implies? (@not //b3) //b1))
+                  (@down)
+                  (@paste_over (@make //t_/true '() '()))
+                  (@up))))
+          ((or (= (@gt (@i)) //t_/definition)
+               (= (@gt (@i)) //t_/assign)
+               (= (@gt (@i)) //t_/action)
+               (= (@gt (@i)) //t_/guarded)
+               (= (@gt (@i)) //t_/expression)
+               (= (@gt (@i)) //t_/condition))
+           (@cut)
+           (@paste_after (@buffer))
+           (@right))
+          ((= (@gt (@i)) //t_/statement)
+           (set! //s1 (@i))
+           (@cut)
+           (set! //s2 (@i))
+           (cond ((or (= (@st //s1) //t_/skip)
+                      (= (@st //s1) //t_/comment))
+                  (@paste_after (@buffer))
+                  (@right))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (or (= (@st //s2) //t_/proc_/call)
+                           (= (@st //s2) //t_/m/w_/proc_/call)))
+                  (@down_to 2)
+                  (@foreach_expn
+                    /foreach-move_to_right-1
+                    0
+                    (@as_type)
+                    0)
+                  (cond ((null? (@program)) (@new_program (@skips))))
+                  (@up)
+                  (@paste_after (@buffer))
+                  (@right))
+                 ((and (not (@elt_clash_list?
+                              (@elements //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elements //s2))))
+                  (@paste_after (@buffer))
+                  (@right))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s2)
+                              (@elts_assigned //s1))))
+                  (@move_assignment_right //s1 //s2))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (@simple_var_assigns? //s1)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s1)
+                              (@elts_assigned //s2))))
+                  (@move_assignment_right //s1 //s2))
+                 ((and (= (@st //s2) //t_/assignment)
+                       (@simple_var_assigns? //s2)
+                       (not (@elt_clash_list?
+                              (@elts_assigned //s1)
+                              (@elts_assigned //s2)))
+                       (not (@elt_clash_list?
+                              (@elts_used //s2)
+                              (@elts_assigned //s1)))
+                       (@invertible? (@used //s1) (@cs //s2)))
+                  (@move_assignment_left //s1 //s2))
+                 ((and (= (@st //s1) //t_/assignment)
+                       (= (@size //s1) 1)
+                       (= (@st //s2) //t_/assignment)
+                       (= (@size //s2) 1)
+                       (= (@st (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue)
+                       (= (@st (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue)
+                       (not (equal?
+                              (@v (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+                              (@v (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))))
+                       (not (null? (@invert
+                                     (@lvalue_to_expn
+                                       (list-ref
+                                         (list-ref //s2 (+ 1 1))
+                                         (+ 1 1)))
+                                     (@v (list-ref
+                                           (list-ref //s1 (+ 1 1))
+                                           (+ 1 1)))
+                                     (list-ref
+                                       (list-ref //s2 (+ 1 1))
+                                       (+ 1 2))))))
+                  (@swap_assigns //s1 //s2))
+                 (#t
+                  (error "@Move_To_Right_Code: should never get here!"))))
+          (#t
+           (error "@Move_To_Right_Code: should never get here!")))
+    (set! //s1 //s1-save)))
+
+(define (@move_assignment_right //s1-par //s2)
+  (let ((//s1-save //s1))
+    (set! //s1 //s1-par)
+    (let ((/assign-save /assign))
+      (set! /assign '())
+      (@foreach_global_var
+        /foreach-move_to_right-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /assign /assign-save))
+    (@paste_over (@simplify (@i) (@budget)))
+    (@paste_after //s1)
+    (@right)
+    (set! //s1 //s1-save)))
+
+(define (@move_assignment_left //s1-par //s2)
+  (let ((//s1-save //s1))
+    (set! //s1 //s1-par)
+    (let ((/assign-save /assign)
+          (/inverts-save /inverts)
+          (/vars (@used //s1))
+          (/v-save /v))
+      (set! /assign '())
+      (set! /inverts '())
+      (set! /v '())
+      (@paste_after //s1)
+      (@right)
+      (let ((var-save /assign) (seq-save (@cs //s2)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /assign (car for-tmp))
+                 (cond ((not (null? (@set_intersect (@assigned /assign) /vars)))
+                        (set! /inverts
+                          (cons (list (@v (list-ref /assign (+ 1 1)))
+                                      (@invert
+                                        (@lvalue_to_expn
+                                          (list-ref /assign (+ 1 1)))
+                                        (@v (list-ref /assign (+ 1 1)))
+                                        (list-ref /assign (+ 1 2))))
+                                /inverts))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /assign var-save))
+      (@foreach_global_var
+        /foreach-move_to_right-3
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@paste_over (@simplify (@i) (@budget)))
+      (set! /assign /assign-save)
+      (set! /inverts /inverts-save)
+      (set! /v /v-save))
+    (set! //s1 //s1-save)))
+
+(define (@swap_assigns //s1-par //s2)
+  (let ((//s1-save //s1))
+    (set! //s1 //s1-par)
+    (let ((/x-save /x)
+          (/f-save /f)
+          (/y (list-ref (list-ref //s2 (+ 1 1)) (+ 1 1)))
+          (/g (list-ref (list-ref //s2 (+ 1 1)) (+ 1 2)))
+          (/new '()))
+      (set! /x
+        (list-ref (list-ref //s1 (+ 1 1)) (+ 1 1)))
+      (set! /f
+        (list-ref (list-ref //s1 (+ 1 1)) (+ 1 2)))
+      (@foreach_global_var
+        /foreach-move_to_right-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@paste_over (@simplify (@i) (@budget)))
+      (set! /new
+        (list /x
+              (@invert
+                (@make //t_/variable (@v /y) '())
+                (@v /x)
+                /g)))
+      (@paste_after
+        (@make //t_/assignment
+               '()
+               (list (@make //t_/assign '() /new))))
+      (@paste_over (@simplify (@i) (@budget)))
+      (@right)
+      (set! /x /x-save)
+      (set! /f /f-save))
+    (set! //s1 //s1-save)))
+
+(define (@mr_bad_subexp? /e-par //s)
+  (let ((/e-save /e)
+        (/bad-save /bad)
+        (funct-result '()))
+    (set! /e /e-par)
+    (set! /bad 0)
+    (@edit)
+    (@new_program //s)
+    (@foreach_expn
+      /foreach-move_to_right-5
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result (= /bad 1))
+    (set! /e /e-save)
+    (set! /bad /bad-save)
+    funct-result))
+
+(define (@simple_var_assigns? //s)
+  (let ((//o/k 1))
+    (let ((var-save /assign) (seq-save (@cs //s)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /assign (car for-tmp))
+               (cond ((not (= (@st (list-ref /assign (+ 1 1)))
+                              //t_/var_/lvalue))
+                      (set! //o/k 0)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /assign var-save))
+    (= //o/k 1)))
+
+(define (@mr_push_call_test)
+  (let ((//o/k 1)
+        (/posn (@posn))
+        (/used '())
+        (/assigned '())
+        (/stacks-save /stacks)
+        (/notstacks-save /notstacks)
+        (/types-save /types)
+        (/total-save /total))
+    (set! /stacks '())
+    (set! /notstacks '())
+    (set! /types '())
+    (set! /total (my-make-hash-table 16))
+    (let while-loop ()
+      (cond ((and (@up?) (not (= (@st (@i)) //t_/where)))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (cond ((not (= (@st (@i)) //t_/where))
+           (@fail "Next statement has unknown side-effects"))
+          (#t
+           (set! /used (@used (@i)))
+           (set! /assigned (@assigned (@i)))
+           (set! /notstacks
+             (@set_difference /assigned /used))
+           (@foreach_expn
+             /foreach-move_to_right-6
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@ateach_lvalue
+             /foreach-move_to_right-7
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (set! /stacks
+             (@set_difference /stacks /notstacks))
+           (let ((var-save /stack) (seq-save /stacks))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /stack (car for-tmp))
+                      (puthash /total /stack 0)
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /stack var-save))
+           (@foreach_stats
+             /foreach-move_to_right-8
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (set! /stacks
+             (@set_difference /stacks /notstacks))
+           (@goto /posn)
+           (set! /used (@set_difference /used /stacks))
+           (set! /assigned
+             (@set_difference /assigned /stacks))
+           (@left)
+           (cond (#f
+                  (begin
+                    (display "Balanced stacks = ")
+                    (begin
+                      (display
+                        (let ((l /stacks) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@n_string (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (newline)
+                      (force-output)))
+                  (begin
+                    (display "Call used     = ")
+                    (begin
+                      (display
+                        (let ((l /used) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@n_string (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (newline)
+                      (force-output)))
+                  (begin
+                    (display "all assigned = ")
+                    (begin
+                      (display
+                        (let ((l /assigned) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@n_string (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (newline)
+                      (force-output)))
+                  (begin
+                    (display "PUSH used     = ")
+                    (begin
+                      (display
+                        (let ((l (@used (@i))) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@n_string (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (newline)
+                      (force-output)))
+                  (begin
+                    (display "PUSH assigned = ")
+                    (begin
+                      (display
+                        (let ((l (@assigned (@i))) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@n_string (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                      (newline)
+                      (force-output)))
+                  (@pp_item (@i) 80 "")))
+           (cond ((and (null? (@set_intersect (@used (@i)) /assigned))
+                       (null? (@set_intersect (@assigned (@i)) /used)))
+                  (@pass))
+                 (#t
+                  (@fail "The procedure call could affect the PUSH")))))
+    (set! /stacks /stacks-save)
+    (set! /notstacks /notstacks-save)
+    (set! /types /types-save)
+    (set! /total /total-save)))
+

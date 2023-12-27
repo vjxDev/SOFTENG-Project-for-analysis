@@ -1,0 +1,21 @@
+(define (@decrement_statement_test)
+  (cond ((not (= (@gt (@i)) //t_/statement))
+         (@fail "Current item is not a statement"))
+        ((not (@up?))
+         (@fail "Statement is not in an enclosing loop"))
+        ((not (@is_improper?))
+         (@fail "Statement cannot be decremented"))
+        (#t
+         (let ((/orig (@i)))
+           (@splice_over
+             (@increment (@i) (@as_type) (- 1) 0))
+           (cond ((@trans? //t/r_/increment_/statement) (@pass))
+                 (#t (@fail (@fail_message))))
+           (@paste_over /orig)))))
+
+(define (@decrement_statement_code //data)
+  (@splice_over
+    (@increment (@i) (@as_type) (- 1) 0)))
+
+#t
+

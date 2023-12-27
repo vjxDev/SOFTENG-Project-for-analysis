@@ -1,0 +1,1 @@
+VAR < x := 0 >: PRINT("Hello World"); x := 1 ENDVAR

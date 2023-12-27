@@ -1,0 +1,43 @@
+(set! //t/r_/align_/nested_/statements
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/align_/nested_/statements 1)
+  "Align Nested Statements")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/align_/nested_/statements 1)
+  "Align_Nested_Statements")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/align_/nested_/statements 1)
+  @align_nested_statements_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/align_/nested_/statements 1)
+  @align_nested_statements_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/align_/nested_/statements 1)
+  (list "Rewrite" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/align_/nested_/statements 1)
+  "This transformation takes a guarded clause whose first statement is a `If' and integrates it with the outer condition by absorbing the other guarded statements into the inner `If', and then modifying its conditions appropriately.  This is the converse of `Partially Join Cases'.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/align_/nested_/statements 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/align_/nested_/statements 1)
+  "")
+

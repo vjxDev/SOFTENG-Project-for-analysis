@@ -1,0 +1,45 @@
+(set! //t/r_/sort_/procs (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/sort_/procs 1)
+  "Sort_Procs")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/sort_/procs 1)
+  "Sort_Procs")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/sort_/procs 1)
+  @sort_procs_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/sort_/procs 1)
+  @sort_procs_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/sort_/procs 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/sort_/procs 1)
+  "Sort the order of procs in a WHERE so that:
+  (a) A proc appears after _all_ the procs which call it, and 
+  (b) Secondary ordering is via a depth-first search of the call graph:
+ie via the order in which proc calls are encountered in a depth-first scan. ")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/sort_/procs 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/sort_/procs 1)
+  "")
+

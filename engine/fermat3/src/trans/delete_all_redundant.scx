@@ -1,0 +1,188 @@
+(define (/foreach-delete_all_redundant-1
+         //depth
+         //a/s_/type)
+  (cond ((or (= (@st (@i)) //t_/skip)
+             (= (@st (@i)) //t_/comment)))
+        ((and (= (@st (@i)) //t_/a_/proc_/call)
+              (equal?
+                (@v (list-ref (@i) (+ 1 1)))
+                (@make_name "init_NOP_flag"))))
+        ((@trans? //t/r_/delete_/redundant_/statement)
+         (begin (display "X") (force-output))
+         (@paste_over (@skip)))
+        ((and (= (@st (@i)) //t_/assignment)
+              (> (@size (@i)) 1))
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((@trans? //t/r_/delete_/redundant_/statement)
+                         (begin (display "X") (force-output))
+                         (@delete)
+                         (cond ((> (@posn_n) (@size (@parent)))
+                                (set! /fl_flag1 1))
+                               (#t (set! /fl_flag1 0))))
+                        ((@right?) (@right) (set! /fl_flag1 0))
+                        (#t (set! /fl_flag1 1)))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (cond ((= (@size (@i)) 0) (@paste_over (@skip)))))
+        (#t (begin (display ".") (force-output)))))
+
+(define (/foreach-delete_all_redundant-2
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/proc_/call)
+         (puthash /save (@posn) (@i)))))
+
+(define (/foreach-delete_all_redundant-3
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_last)
+         (@down)
+         (cond ((= (@st (@i)) //t_/proc)
+                (puthash
+                  /save
+                  (@posn)
+                  (list (list-ref (@i) (+ 1 2))
+                        (list-ref (@i) (+ 1 3))))))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((= (@st (@i)) //t_/proc)
+                           (puthash
+                             /save
+                             (@posn)
+                             (list (list-ref (@i) (+ 1 2))
+                                   (list-ref (@i) (+ 1 3)))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@up)
+         (cond ((@trans? //t/r_/globals_/to_/pars)
+                (set! //d/r/s_/globals_/to_/pars_/done 1)
+                (@trans //t/r_/globals_/to_/pars ""))))))
+
+(define (/foreach-delete_all_redundant-4
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (not (null? (gethash /save (@posn)))))
+         (@paste_over (gethash /save (@posn))))
+        ((= (@st (@i)) //t_/where)
+         (@down_last)
+         (@down)
+         (cond ((and (= (@st (@i)) //t_/proc)
+                     (not (null? (gethash /save (@posn)))))
+                (set! /pair (gethash /save (@posn)))
+                (@paste_over
+                  (@make //t_/proc
+                         '()
+                         (list (list-ref (@i) (+ 1 1))
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               (list-ref (@i) (+ 1 4)))))))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((and (= (@st (@i)) //t_/proc)
+                                (not (null? (gethash /save (@posn)))))
+                           (set! /pair (gethash /save (@posn)))
+                           (@paste_over
+                             (@make //t_/proc
+                                    '()
+                                    (list (list-ref (@i) (+ 1 1))
+                                          (let ((name /pair))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))
+                                          (let ((name /pair))
+                                            (if (vector? name)
+                                              (vector-ref name (- 2 1))
+                                              (list-ref name (- 2 1))))
+                                          (list-ref (@i) (+ 1 4))))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@up))))
+
+(define (@delete_all_redundant_test)
+  (cond ((and (not (= (@st (@i)) //t_/assign))
+              (null? (@stat_types (@i))))
+         (@fail "The selected item does not include any statements"))
+        (#t (@pass))))
+
+(define (@delete_all_redundant_code //data)
+  (cond ((@trans? //t/r_/delete_/redundant_/statement)
+         (@trans //t/r_/delete_/redundant_/statement ""))
+        (#t
+         (let ((/posn (@posn))
+               (/save-save /save)
+               (/flag_save //d/r/s_/globals_/to_/pars_/done))
+           (set! /save (my-make-hash-table 16))
+           (@goto '())
+           (set! /save (@drs_fix_procs /save))
+           (@goto /posn)
+           (@ateach_statement
+             /foreach-delete_all_redundant-1
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@goto '())
+           (set! /save (@drs_restore_procs /save))
+           (@goto /posn)
+           (cond ((@trans? //t/r_/delete_/all_/skips)
+                  (@trans //t/r_/delete_/all_/skips "")))
+           (begin (display "") (newline) (force-output))
+           (set! //d/r/s_/globals_/to_/pars_/done
+             /flag_save)
+           (set! /save /save-save)))))
+
+(define (@drs_fix_procs /save-par)
+  (let ((/save-save /save) (funct-result '()))
+    (set! /save /save-par)
+    (@ateach_statement
+      /foreach-delete_all_redundant-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@ateach_statement
+      /foreach-delete_all_redundant-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! funct-result /save)
+    (set! /save /save-save)
+    funct-result))
+
+(define (@drs_restore_procs /save-par)
+  (let ((/save-save /save) (funct-result '()))
+    (set! /save /save-par)
+    (let ((/pair-save /pair))
+      (set! /pair '())
+      (@ateach_statement
+        /foreach-delete_all_redundant-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /pair /pair-save))
+    (set! funct-result /save)
+    (set! /save /save-save)
+    funct-result))
+
+#t
+

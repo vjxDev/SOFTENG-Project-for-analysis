@@ -1,0 +1,232 @@
+(define (/foreach-fully_absorb_right-1
+         //depth
+         //a/s_/type)
+  (cond ((or (= //depth 0)
+             (and (= (@spec_type (@item)) //t_/exit)
+                  (equal? (@value (@item)) //depth)))
+         (cond ((and (= (@spec_type (@item)) //t_/exit)
+                     (> //depth 0))
+                (@splice_over
+                  (@cs (@increment
+                         (@make //t_/statements '() (@buffer))
+                         //a/s_/type
+                         //depth
+                         0))))
+               ((= (@spec_type (@item)) //t_/skip)
+                (@splice_over (@buffer)))
+               ((or (and (= (@spec_type (@item)) //t_/exit)
+                         (= //depth 0))
+                    (@gen_improper? (@item) //a/s))
+                #t)
+               ((and (= (@spec_type (@item)) //t_/call)
+                     (equal? (@value (@item)) (@make_name "Z")))
+                #t)
+               (#t (@splice_after (@buffer)))))))
+
+(define (@fully_absorb_right_test)
+  (cond ((and (= (@gt (@i)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (cond ((not (= (@gt (@i)) //t_/statement))
+         (@fail "The selected item is not a Statement."))
+        ((not (@right?))
+         (@fail "There is no statement to the right of this one."))
+        ((= (@st (@i)) //t_/assignment)
+         (@right)
+         (cond ((and (= (@st (@i)) //t_/assignment)
+                     (@trans? //t/r_/absorb_/left))
+                (@pass))
+               (#t
+                (@fail "An assignment can only 'absorb' another assignment")))
+         (@left))
+        ((= (@st (@i)) //t_/for)
+         (let ((//l (@cs (@parent))) (//i '()))
+           (@right)
+           (set! //i
+             (@make //t_/statements
+                    '()
+                    (@sub_seg //l (@posn_n) (@size (@parent)))))
+           (cond ((or (not (null? (@set_intersect (@assigned //i) (@used //i))))
+                      (not (null? (@set_intersect
+                                    (@stat_types //i)
+                                    //call_/types_/set))))
+                  (@fail "A statement cannot be absorbed into a `For' if it could assign to variables it uses."))
+                 (#t
+                  (let ((//v (@variables //i)))
+                    (@left)
+                    (let ((//l (@v (list-ref (@i) (+ 1 1))))
+                          (//e1 (list-ref (@i) (+ 1 2)))
+                          (//e2 (list-ref (@i) (+ 1 3)))
+                          (//e3 (list-ref (@i) (+ 1 4)))
+                          (//s (@cs (list-ref (@i) (+ 1 5)))))
+                      (cond ((or (not (null? (@set_intersect
+                                               //v
+                                               (@variables
+                                                 (list-ref (@i) (+ 1 5))))))
+                                 (member //l //v))
+                             (@fail "The loop used the same variables as the other statement."))
+                            ((not (or (and (@true?
+                                             (@make 315
+                                                    '()
+                                                    (list (@var_to_expn //e3)
+                                                          (@make 205 0 '()))))
+                                           (@true?
+                                             (@make 317
+                                                    '()
+                                                    (list (@var_to_expn //e2)
+                                                          (@var_to_expn
+                                                            //e1)))))
+                                      (and (@true?
+                                             (@make 314
+                                                    '()
+                                                    (list (@var_to_expn //e3)
+                                                          (@make 205 0 '()))))
+                                           (@true?
+                                             (@make 316
+                                                    '()
+                                                    (list (@var_to_expn //e2)
+                                                          (@var_to_expn
+                                                            //e1)))))))
+                             (@fail "The loop won't definitely execute."))
+                            (#t (@pass)))))))))
+        ((= (@st (@i)) //t_/var)
+         (let ((//l (@cs (@parent)))
+               (//i '())
+               (//v (@assigned (list-ref (@i) (+ 1 1)))))
+           (@right)
+           (set! //i
+             (@make //t_/statements
+                    '()
+                    (@sub_seg //l (@posn_n) (@size (@parent)))))
+           (cond ((not (@gen_proper? //i (@as_type)))
+                  (@fail "Cannot absorb a non-proper statement into a simple statement"))
+                 ((or (not (null? (@set_intersect //v (@variables //i))))
+                      (not (null? (@set_intersect
+                                    (@stat_types //i)
+                                    //call_/types_/set))))
+                  (@fail "The statement being absorbed could use some of the local variables."))
+                 (#t (@pass)))))
+        ((= (@st (@i)) //t_/where)
+         (let ((//l (@cs (@parent)))
+               (//i '())
+               (//d (@make_set
+                      (let ((l (@cs (list-ref (@i) (+ 1 2))))
+                            (map-result '()))
+                        (let while-loop ()
+                          (cond ((not (null? l))
+                                 (set! map-result
+                                   (cons (@v1 (car l)) map-result))
+                                 (set! l (cdr l))
+                                 (while-loop))
+                                (#t #t)))
+                        (reverse map-result)))))
+           (@right)
+           (set! //i
+             (@make //t_/statements
+                    '()
+                    (@sub_seg //l (@posn_n) (@size (@parent)))))
+           (cond ((not (null? (@set_intersect
+                                //d
+                                (@make_set
+                                  (concat
+                                    (let ((l (@proc_calls //i))
+                                          (map-result '()))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! map-result
+                                                 (cons (car (car l))
+                                                       map-result))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      (reverse map-result))
+                                    (let ((l (@funct_calls //i))
+                                          (map-result '()))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! map-result
+                                                 (cons (car (car l))
+                                                       map-result))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      (reverse map-result)))))))
+                  (@fail "The statement being absorbed uses some of the definitions."))
+                 (#t (@pass)))))
+        ((= (@st (@i)) //t_/while)
+         (let ((//l (@cs (@parent)))
+               (//i '())
+               (//v (@assigned (list-ref (@i) (+ 1 1)))))
+           (@right)
+           (set! //i
+             (@make //t_/statements
+                    '()
+                    (@sub_seg //l (@posn_n) (@size (@parent)))))
+           (cond ((not (@gen_proper? //i (@as_type)))
+                  (@fail "Cannot absorb a non-proper statement into a simple statement"))
+                 ((or (not (null? (@set_intersect (@assigned //i) (@used //i))))
+                      (not (null? (@set_intersect
+                                    (@stat_types //i)
+                                    //call_/types_/set))))
+                  (@fail "A statement cannot be absorbed into a `While' if it could assign to variables it uses."))
+                 (#t
+                  (let ((//v (@variables //i)) (//b '()))
+                    (@left)
+                    (set! //b (list-ref (@i) (+ 1 1)))
+                    (cond ((not (null? (@set_intersect //v (@variables (@i)))))
+                           (@fail "The loop used the same variables as the other statement."))
+                          ((or (not (@left?))
+                               (not (= (@st (list-ref
+                                              (@parent)
+                                              (+ 1 (- (@posn_n) 1))))
+                                       //t_/assert)))
+                           (@fail "There is no assertion before the loop."))
+                          (#t
+                           (@left)
+                           (cond ((not (@implies? (list-ref (@i) (+ 1 1)) //b))
+                                  (@fail "The assertion does not imply that the loop executes."))
+                                 (#t (@pass))))))))))
+        ((and (@simple? (@i))
+              (not (= (@st (@i)) //t_/exit)))
+         (@fail "The selected statement must be non-simple, or an `EXIT' statement."))
+        (#t (@pass))))
+
+(define (@fully_absorb_right_code //data)
+  (cond ((and (= (@gen_type (@item)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (let ((//a/s-save //a/s))
+    (set! //a/s (@as_type))
+    (@cut_rest)
+    (cond ((or (= (@st (@i)) //t_/for)
+               (= (@st (@i)) //t_/var)
+               (= (@st (@i)) //t_/while))
+           (@down_last)
+           (@down_last)
+           (@splice_after (@buffer))
+           (@up)
+           (@up))
+          ((= (@spec_type (@item)) //t_/where)
+           (@down)
+           (@down_last)
+           (@splice_after (@buffer))
+           (@up)
+           (@up))
+          (#t
+           (@foreach_terminal
+             /foreach-fully_absorb_right-1
+             0
+             (@as_type)
+             1)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (cond ((and #f (= (@spec_type (@item)) //t_/cond))
+                  (@down_last)
+                  (cond ((@trans? //t/r_/align_/nested_/statements)
+                         (@trans //t/r_/align_/nested_/statements "")))
+                  (@up)))))
+    (set! //a/s //a/s-save)))
+

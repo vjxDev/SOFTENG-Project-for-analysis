@@ -1,0 +1,13 @@
+(define (@fully_expand_forward_test)
+  (cond ((@trans? //t/r_/expand_/forward) (@pass))
+        (#t (@fail "Cannot Expand Forward"))))
+
+(define (@fully_expand_forward_code //data)
+  (let while-loop ()
+    (cond ((@trans? //t/r_/expand_/forward)
+           (@trans //t/r_/expand_/forward "")
+           (while-loop))
+          (#t #t))))
+
+#t
+

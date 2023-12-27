@@ -1,0 +1,68 @@
+
+o
+java:S2293("YReplace the type specification in this constructor call with the diamond operator ("<>").(²ËîÚ
+t
+java:S2293)"YReplace the type specification in this constructor call with the diamond operator ("<>").(‘¦’öûÿÿÿÿ
+t
+java:S2293P"YReplace the type specification in this constructor call with the diamond operator ("<>").(ªÝòÿþÿÿÿÿ
+o
+java:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(¥ÊÇ˜
+t
+java:S2293R"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ’’üøÿÿÿÿ
+o
+java:S2293X"YReplace the type specification in this constructor call with the diamond operator ("<>").(²ËîÚ
+t
+java:S2293Y"YReplace the type specification in this constructor call with the diamond operator ("<>").(‘¦’öûÿÿÿÿ
+S
+java:S2629Ã"7Use the built-in formatting to construct this argument.(–áò‡øÿÿÿÿ
+{
+java:S1149"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ïÚÇ€
+€
+java:S1149 "eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¼øš’þÿÿÿÿ
+€
+java:S1149>"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(Ðý¤§øÿÿÿÿ
+€
+java:S1149P"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ªÝòÿþÿÿÿÿ
+{
+java:S1149Q"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¥ÊÇ˜
+€
+java:S1149R"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ÿ’’üøÿÿÿÿ
+|
+java:S1149î"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ÎÙ›¦
+|
+java:S1149À"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¨à–
+|
+java:S1149Â"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(Õïˆ“
+7
+java:S2129J"!Remove this "Integer" constructor(Ü®²­
+m
+java:S3776M"RRefactor this method to reduce its Cognitive Complexity from 52 to the 15 allowed.(å¼”üÿÿÿÿ
+Y
+java:S1854_">Remove this useless assignment to local variable "lexerToken".(õÆù³ùÿÿÿÿ
+T
+java:S1659O">Declare "j" and all following declarations on a separate line.(…¦ýé
+;
+java:S1659T" Declare "st" on a separate line.(šãòÇýÿÿÿÿ
+>
+java:S1659U"#Declare "value" on a separate line.(óœÕˆùÿÿÿÿ
+7
+java:S2129x"!Remove this "Integer" constructor(„È™‰
+U
+java:S1155‚">Use isEmpty() to check whether the collection is empty or not.(¹º…û
+8
+java:S2129®"!Remove this "Integer" constructor(˜é‡Œ
+g
+java:S3457Á"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+W	java:S125Î"<This block of commented-out lines of code should be removed.(òÕëÿÿÿÿÿ
+n
+java:S3776è"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(„šÄÆûÿÿÿÿ
+7
+java:S1659ì" Declare "pc" on a separate line.(Úñ­Ž
+8
+java:S1659í"!Declare "tok" on a separate line.(öºž
+?
+java:S1659î"(Declare "lexTTTupel" on a separate line.(ÎÙ›¦
+8
+java:S1659Â"!Declare "ret" on a separate line.(Õïˆ“
+â
+java:S6541M"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 103 to 64, Complexity from 22 to 14, Nesting Level from 5 to 2, Number of Variables from 16 to 6.(å¼”üÿÿÿÿ

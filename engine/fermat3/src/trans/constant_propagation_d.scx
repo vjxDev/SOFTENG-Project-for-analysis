@@ -1,0 +1,45 @@
+(set! //t/r_/constant_/propagation
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/constant_/propagation 1)
+  "Constant Propagation")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/constant_/propagation 1)
+  "Constant_Propagation")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/constant_/propagation 1)
+  @constant_propagation_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/constant_/propagation 1)
+  @constant_propagation_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/constant_/propagation 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/constant_/propagation 1)
+  "Constant Propagation finds assignments of constants
+to variables in the selected item and propagates the values through the selected item
+(replacing variables in expressions by the appropriate values).")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/constant_/propagation 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/constant_/propagation 1)
+  "")
+

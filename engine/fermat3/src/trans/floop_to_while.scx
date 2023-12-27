@@ -1,0 +1,1116 @@
+(define (/foreach-floop_to_while-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/exit)
+         (set! /count (+ /count (@v (@i)))))))
+
+(define (/foreach-floop_to_while-2 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__floop_to_while__1
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__/s2_save //s2)
+                 (/__/s1_save //s1)
+                 (/__/b_save //b))
+             (set! //s2 (vector-ref /__/match_array 2))
+             (set! //s1 (vector-ref /__/match_array 1))
+             (set! //b (vector-ref /__/match_array 0))
+             (cond ((not (= (@st (car //s2)) //t_/skip))
+                    (@splice_over
+                      (@cs (@make 17
+                                  '()
+                                  (append
+                                    (list (@make 114
+                                                 '()
+                                                 (list (@make 7
+                                                              '()
+                                                              (list //b
+                                                                    (@make 17
+                                                                           '()
+                                                                           (append
+                                                                             //s1
+                                                                             (list (@make 117
+                                                                                          1
+                                                                                          '()))))))
+                                                       (@make 7
+                                                              '()
+                                                              (list (@make 308
+                                                                           '()
+                                                                           '())
+                                                                    (@make 17
+                                                                           '()
+                                                                           (list (@make 145
+                                                                                        '()
+                                                                                        '()))))))))
+                                    //s2))))))
+             (set! //s2 /__/s2_save)
+             (set! //s1 /__/s1_save)
+             (set! //b /__/b_save))))))
+
+(define (/foreach-floop_to_while-3 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__floop_to_while__2
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__/s2_save //s2)
+                 (/__/s1_save //s1)
+                 (/__/b_save //b))
+             (set! //s2 (vector-ref /__/match_array 2))
+             (set! //s1 (vector-ref /__/match_array 1))
+             (set! //b (vector-ref /__/match_array 0))
+             (cond ((not (= (@st (car //s1)) //t_/skip))
+                    (@splice_over
+                      (@cs (@make 17
+                                  '()
+                                  (append
+                                    (list (@make 114
+                                                 '()
+                                                 (list (@make 7
+                                                              '()
+                                                              (list (@make 312
+                                                                           '()
+                                                                           (list //b))
+                                                                    (@make 17
+                                                                           '()
+                                                                           (append
+                                                                             //s2
+                                                                             (list (@make 117
+                                                                                          1
+                                                                                          '()))))))
+                                                       (@make 7
+                                                              '()
+                                                              (list (@make 308
+                                                                           '()
+                                                                           '())
+                                                                    (@make 17
+                                                                           '()
+                                                                           (list (@make 145
+                                                                                        '()
+                                                                                        '()))))))))
+                                    //s1))))))
+             (set! //s2 /__/s2_save)
+             (set! //s1 /__/s1_save)
+             (set! //b /__/b_save))))))
+
+(define (/foreach-floop_to_while-4 //depth //a/s_/type)
+  (cond ((or (not (@left?)) (= //o/k 0)) (set! //o/k 0))
+        (#t
+         (@left)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__floop_to_while__6
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__e_save /e) (/__v_save /v))
+                    (set! /e (vector-ref /__/match_array 1))
+                    (set! /v (vector-ref /__/match_array 0))
+                    (cond ((or (not (= (@st /e) //t_/number)) (= (@v /e) 0))
+                           (set! //o/k 0))
+                          ((and (not (null? /var)) (not (@equal? /v /var)))
+                           (set! //o/k 0))
+                          (#t (set! /var /v)))
+                    (set! /e /__e_save)
+                    (set! /v /__v_save)))
+                 (#t (set! //o/k 0))))
+         (@right))))
+
+(define (/foreach-floop_to_while-5 //depth //a/s_/type)
+  (cond ((not (= (@st (@i)) //t_/exit))
+         (let ((/__/o/k 1))
+           (vector-set! /__/match_array 0 /var)
+           (set! /__/o/k
+             (@new_match
+               /%const__floop_to_while__7
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1) #t)
+                 (#t
+                  (set! /e (@find_value (@struct_elts /var)))
+                  (cond ((or (null? /e)
+                             (not (= (@st /e) //t_/number))
+                             (not (= (@v /e) 0)))
+                         (@paste_after
+                           (@make 110
+                                  '()
+                                  (list (@make 6
+                                               '()
+                                               (list (@expn_to_var /var)
+                                                     (@make 205
+                                                            0
+                                                            '()))))))))))))))
+
+(define (/foreach-floop_to_while-6 //depth //a/s_/type)
+  (cond ((member //depth (@gen_tvs (@i) //a/s/type))
+         (set! //n (+ //n 1)))))
+
+(define (/foreach-floop_to_while-7 //depth //a/s_/type)
+  (cond ((= //depth 1)
+         (@down_last)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((and (@right?) (not (@is_proper?)))
+                         (set! //n 0)
+                         (@ateach_terminal
+                           /foreach-floop_to_while-6
+                           0
+                           (@as_type)
+                           1)
+                         (cond ((null? (@program)) (@new_program (@skips))))
+                         (cond ((> //n 1) (set! /fl_flag1 1))
+                               (#t
+                                (begin (display "a") (force-output))
+                                (set! /done 0)
+                                (@trans //t/r_/fully_/absorb_/right "")
+                                (set! /fl_flag1 1))))
+                        ((not (@left?)) (set! /fl_flag1 1))
+                        (#t (@left) (set! /fl_flag1 0)))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-floop_to_while-8 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/cond)
+              (@trans? //t/r_/else_/if_/to_/elsif))
+         (@trans //t/r_/else_/if_/to_/elsif ""))))
+
+(define (/foreach-floop_to_while-9 //depth //a/s_/type)
+  (cond ((@equal? (@i) /assign2) (@paste_over (@skip)))
+        ((= (@st (@i)) //t_/exit)
+         (cond ((equal? (@v (@i)) //depth)
+                (@paste_before /assign0))))
+        ((= (@st (@i)) //t_/skip) (@paste_over /assign0))
+        (#t (@paste_after /assign0))))
+
+(define (/foreach-floop_to_while-10 //depth //a/s_/type)
+  (@down)
+  (set! /fl_flag1 0)
+  (let while-loop ()
+    (cond ((= /fl_flag1 0)
+           (cond ((and (@right?) (not (@is_proper?)))
+                  (@right)
+                  (cond ((and (= (@st (@i)) //t_/cond)
+                              (= (@st (list-ref
+                                        (list-ref (@i) (+ 1 1))
+                                        (+ 1 1)))
+                                 //t_/equal)
+                              (= (@st (list-ref
+                                        (list-ref
+                                          (list-ref (@i) (+ 1 1))
+                                          (+ 1 1))
+                                        (+ 1 1)))
+                                 //t_/variable)
+                              (equal?
+                                (@v (list-ref
+                                      (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+                                      (+ 1 1)))
+                                /name))
+                         (cond ((not (@right?)) (set! /fl_flag1 1))
+                               (#t (@right) (set! /fl_flag1 0))))
+                        (#t
+                         (@left)
+                         (begin (display "i") (force-output))
+                         (set! /done 1)
+                         (@foreach_terminal
+                           /foreach-floop_to_while-9
+                           0
+                           (@as_type)
+                           1)
+                         (cond ((null? (@program)) (@new_program (@skips))))
+                         (@cut_rest)
+                         (@paste_after //s)
+                         (@right)
+                         (@down)
+                         (@down_to 2)
+                         (@down)
+                         (@splice_over (@buffer))
+                         (set! /fl_flag1 0))))
+                 ((not (@right?)) (set! /fl_flag1 1))
+                 (#t (@right) (set! /fl_flag1 0)))
+           (while-loop))
+          (#t #t))))
+
+(define (/foreach-floop_to_while-11 //depth //a/s_/type)
+  (cond ((@equal? (@i) /assign2) (@paste_over (@skip)))
+        ((= (@st (@i)) //t_/skip) (@paste_over /assign0))
+        ((not (= (@st (@i)) //t_/exit))
+         (@paste_after /assign0))
+        (#t
+         (set! /val (@v (@i)))
+         (set! /tv (- /val (+ //depth 1)))
+         (cond ((< /tv 0) (@paste_over /assign0))
+               ((= /tv 0) (@paste_over /assign1))
+               (#t
+                (@paste_over /assign1)
+                (@down)
+                (@down_to 2)
+                (@paste_over (@make //t_/number (+ /tv 1) '()))
+                (@up)
+                (@up)))
+         (cond ((> /tv /max) (set! /max /tv)))
+         (cond ((> //depth 0)
+                (@paste_after (@make //t_/exit //depth '())))))))
+
+(define (/foreach-floop_to_while-12 //depth //a/s_/type)
+  (cond ((and (= //depth 0) (@right?) (not (@is_proper?)))
+         (set! //r 0))))
+
+(define /%const__floop_to_while__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17
+                                   '()
+                                   (list (@make 107 -2 '())
+                                         (@make 117 1 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 107 -3 '()))))))))
+
+(define /%const__floop_to_while__2
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17 '() (list (@make 107 -2 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17
+                                   '()
+                                   (list (@make 107 -3 '())
+                                         (@make 117 1 '()))))))))
+
+(define /%const__floop_to_while__3
+  (@make 133
+         '()
+         (list (@make 17
+                      '()
+                      (list (@make 114
+                                   '()
+                                   (list (@make 7
+                                                '()
+                                                (list (@make 305 -1 '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -2
+                                                                          '())
+                                                                   (@make 117
+                                                                          1
+                                                                          '())))))
+                                         (@make 7
+                                                '()
+                                                (list (@make 308 '() '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 145
+                                                                          '()
+                                                                          '())))))))
+                            (@make 107 -3 '()))))))
+
+(define /%const__floop_to_while__4
+  (@make 133
+         '()
+         (list (@make 17
+                      '()
+                      (list (@make 107 -1 '())
+                            (@make 114
+                                   '()
+                                   (list (@make 7
+                                                '()
+                                                (list (@make 305 -2 '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -3
+                                                                          '())
+                                                                   (@make 117
+                                                                          1
+                                                                          '())))))
+                                         (@make 7
+                                                '()
+                                                (list (@make 308 '() '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 145
+                                                                          '()
+                                                                          '())))))))
+                            (@make 107 -4 '()))))))
+
+(define /%const__floop_to_while__5
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 332 '() (list (@make 205 1 '())))
+                            (@make 17
+                                   '()
+                                   (list (@make 141
+                                                '()
+                                                (list (@make 332
+                                                             '()
+                                                             (list (@make 205
+                                                                          2
+                                                                          '())))
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 161
+                                                                          '()
+                                                                          (list (@make 205
+                                                                                       3
+                                                                                       '())))))))))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define /%const__floop_to_while__6
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '()) (@make 217 -2 '()))))))
+
+(define /%const__floop_to_while__7
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 510 '() (list (@make 205 1 '())))
+                            (@make 205 0 '()))))))
+
+(define (@floop_to_while_test)
+  (cond ((not (= (@st (@i)) //t_/floop))
+         (@fail "Selected item is not a DO...OD loop."))
+        ((member //t_/call (@stat_types (@i)))
+         (@fail "Loop contains action calls"))
+        (#t (@pass))))
+
+(define (@floop_to_while_code //data)
+  (let ((/assert-save /assert) (/flag ""))
+    (set! /assert '())
+    (set! /flag (@string //data))
+    (set! /assert (@look_for_assertion /assert))
+    (@floop_to_while_sub /flag /assert)
+    (set! /assert /assert-save)))
+
+(define (@floop_to_while_sub /flag /assert-par)
+  (let ((/assert-save /assert))
+    (set! /assert /assert-par)
+    (let ((/count-save /count) (/posn '()))
+      (set! /count 0)
+      (@foreach_statement
+        /foreach-floop_to_while-1
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (cond ((= /count 1)
+             (let while-loop ()
+               (cond ((@trans? //t/r_/separate_/right)
+                      (@trans //t/r_/separate_/right "")
+                      (while-loop))
+                     (#t #t)))
+             (set! /posn (@posn))
+             (@down)
+             (@down)
+             (set! /fl_flag1 0)
+             (let while-loop ()
+               (cond ((= /fl_flag1 0)
+                      (begin
+                        (cond ((and (= (@st (@i)) //t_/cond)
+                                    (not (@gen_proper? (@i) (@as_type))))
+                               (@down)
+                               (let while-loop ()
+                                 (cond ((and (@right?)
+                                             (not (= //t_/exit
+                                                     (@st (last-1
+                                                            (@cs (list-ref
+                                                                   (@i)
+                                                                   (+ 1
+                                                                      2))))))))
+                                        (@right)
+                                        (while-loop))
+                                       (#t #t)))
+                               (cond ((= //t_/exit
+                                         (@st (last-1
+                                                (@cs (list-ref (@i) (+ 1 2))))))
+                                      (let while-loop ()
+                                        (cond ((@trans? //t/r_/move_/to_/left)
+                                               (@trans //t/r_/move_/to_/left "")
+                                               (while-loop))
+                                              (#t #t)))))
+                               (@up)))
+                        (cond ((and (= (@st (@i)) //t_/cond)
+                                    (= (@size (list-ref
+                                                (list-ref (@i) (+ 1 1))
+                                                (+ 1 2)))
+                                       1)
+                                    (= (@st (last-1
+                                              (@cs (list-ref
+                                                     (list-ref (@i) (+ 1 1))
+                                                     (+ 1 2)))))
+                                       //t_/exit))
+                               (let ((//b-save //b) (//s-save //s))
+                                 (set! //b
+                                   (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                                 (set! //s
+                                   (@cs (list-ref
+                                          (list-ref (@i) (+ 1 1))
+                                          (+ 1 2))))
+                                 (@paste_before
+                                   (@make 114
+                                          '()
+                                          (list (@make 7
+                                                       '()
+                                                       (list //b
+                                                             (@make 17
+                                                                    '()
+                                                                    //s)))
+                                                (@make 7
+                                                       '()
+                                                       (list (@make 308 '() '())
+                                                             (@make 17
+                                                                    '()
+                                                                    (list (@make 145
+                                                                                 '()
+                                                                                 '()))))))))
+                                 (set! //b //b-save)
+                                 (set! //s //s-save))
+                               (@right)
+                               (@down)
+                               (@clever_delete)
+                               (set! /fl_flag1 1))
+                              ((not (@right?)) (set! /fl_flag1 1))
+                              (#t (@right) (set! /fl_flag1 0))))
+                      (while-loop))
+                     (#t #t)))
+             (@goto /posn)
+             (cond ((not (= (@st (@i)) //t_/floop))
+                    (error "Bug in Floop_To_While")))))
+      (@foreach_statement
+        /foreach-floop_to_while-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-floop_to_while-3
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (let ((/__/o/k 1))
+        (set! /__/o/k
+          (@new_match
+            /%const__floop_to_while__3
+            (@i)
+            /__/o/k))
+        (cond ((= /__/o/k 1)
+               (let ((/__/s2_save //s2)
+                     (/__/s1_save //s1)
+                     (/__/b_save //b))
+                 (set! //s2 (vector-ref /__/match_array 2))
+                 (set! //s1 (vector-ref /__/match_array 1))
+                 (set! //b (vector-ref /__/match_array 0))
+                 (cond ((and (not (null? //s2))
+                             (@gen_proper?
+                               (@make //t_/statements '() (concat //s1 //s2))
+                               (@as_type)))
+                        (@paste_over
+                          (@make 141
+                                 '()
+                                 (list (@not //b) (@make 17 '() //s2))))
+                        (@splice_after //s1))
+                       (#t (@floop_to_while_main1 /flag)))
+                 (set! //s2 /__/s2_save)
+                 (set! //s1 /__/s1_save)
+                 (set! //b /__/b_save)))
+              (#t
+               (let ((/__/o/k 1))
+                 (set! /__/o/k
+                   (@new_match
+                     /%const__floop_to_while__4
+                     (@i)
+                     /__/o/k))
+                 (cond ((= /__/o/k 1)
+                        (let ((/__/s2_save //s2)
+                              (/__/s1_save //s1)
+                              (/__/b_save //b)
+                              (/__/s_save //s))
+                          (set! //s2 (vector-ref /__/match_array 3))
+                          (set! //s1 (vector-ref /__/match_array 2))
+                          (set! //b (vector-ref /__/match_array 1))
+                          (set! //s (vector-ref /__/match_array 0))
+                          (cond ((and (not (null? /assert))
+                                      (null? //s2)
+                                      (@implies? /assert (@not //b))
+                                      (@gen_proper?
+                                        (@make //t_/statements
+                                               '()
+                                               (concat (concat //s //s1) //s2))
+                                        (@as_type)))
+                                 (set! //b (@not //b))
+                                 (@paste_over
+                                   (@make 141
+                                          '()
+                                          (list //b (@make 17 '() //s))))
+                                 (@splice_after //s1)
+                                 (cond ((and (null? //s1)
+                                             (>= (if (vector? (@posn))
+                                                   (vector-length (@posn))
+                                                   (length (@posn)))
+                                                 3))
+                                        (let ((/posn (@posn)))
+                                          (@up)
+                                          (@up)
+                                          (@up)
+                                          (let ((/__/o/k 1))
+                                            (vector-set! /__/match_array 2 //s)
+                                            (vector-set! /__/match_array 1 //b)
+                                            (vector-set! /__/match_array 0 //b)
+                                            (set! /__/o/k
+                                              (@new_match
+                                                /%const__floop_to_while__5
+                                                (@i)
+                                                /__/o/k))
+                                            (cond ((= /__/o/k 1)
+                                                   (@paste_over
+                                                     (@make 141
+                                                            '()
+                                                            (list //b
+                                                                  (@make 17
+                                                                         '()
+                                                                         //s)))))
+                                                  (#t (@goto /posn))))))))
+                                ((and (<= (@stat_count_nc
+                                            (@make //t_/statements '() //s))
+                                          4)
+                                      (@gen_proper?
+                                        (@make //t_/statements
+                                               '()
+                                               (concat (concat //s //s1) //s2))
+                                        (@as_type)))
+                                 (set! //b (@not //b))
+                                 (let ((//s3 //s))
+                                   (let while-loop ()
+                                     (cond ((and (not (null? //s3))
+                                                 (= (@st (car //s3))
+                                                    //t_/comment))
+                                            (set! //s3 (cdr //s3))
+                                            (while-loop))
+                                           (#t #t)))
+                                   (cond ((and (null? //s2) (null? //s3))
+                                          (set! //s3 (list (@skip)))))
+                                   (@paste_over
+                                     (@make 141
+                                            '()
+                                            (list //b
+                                                  (@make 17
+                                                         '()
+                                                         (append //s2 //s3)))))
+                                   (@splice_after //s1)
+                                   (@splice_before //s)
+                                   (let while-loop ()
+                                     (cond ((not (null? //s))
+                                            (begin
+                                              (@right)
+                                              (set! //s (cdr //s)))
+                                            (while-loop))
+                                           (#t #t)))))
+                                (#t (@floop_to_while_main1 /flag)))
+                          (set! //s2 /__/s2_save)
+                          (set! //s1 /__/s1_save)
+                          (set! //b /__/b_save)
+                          (set! //s /__/s_save)))
+                       (#t (@floop_to_while_main1 /flag)))))))
+      (set! /count /count-save))
+    (set! /assert /assert-save)))
+
+(define (@floop_to_while_main1 /flag)
+  (cond ((equal? /flag "-"))
+        ((not (@gen_proper? (@i) (@as_type)))
+         (@floop_to_while_main2 /flag))
+        ((not (@gen_can_reduce?
+                (list-ref (@i) (+ 1 1))
+                (@as_type)))
+         (@floop_to_while_main2 /flag))
+        (#t
+         (cond ((not (@gen_reducible?
+                       (list-ref (@i) (+ 1 1))
+                       (@as_type)))
+                (@down)
+                (cond ((@trans? //t/r_/make_/reducible)
+                       (@trans //t/r_/make_/reducible ""))
+                      (#t
+                       (error "@Floop_To_While_Main1: TR_Make_Reducible failed!")))
+                (@up)))
+         (cond ((@trans? //t/r_/remove_/dummy_/loop)
+                (begin
+                  (display "Loop turns out to be a dummy loop")
+                  (newline)
+                  (force-output))
+                (@trans //t/r_/remove_/dummy_/loop ""))
+               (#t (@floop_to_while_main1a /flag))))))
+
+(define (@floop_to_while_main1a /flag)
+  (let ((/var-save /var)
+        (//o/k-save //o/k)
+        (/init '())
+        (/body '())
+        (/e-save /e))
+    (set! /var '())
+    (set! //o/k 1)
+    (set! /e '())
+    (@ateach_terminal
+      /foreach-floop_to_while-4
+      0
+      (@as_type)
+      1)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (cond ((null? /var) (set! //o/k 0)))
+    (cond ((= //o/k 1)
+           (@paste_before (@skip))
+           (set! /init (@find_value (@struct_elts /var)))
+           (@delete)
+           (cond ((or (null? /init)
+                      (not (= (@st /init) //t_/number))
+                      (not (= (@v /init) 0)))
+                  (set! //o/k 0)))))
+    (cond ((= //o/k 1)
+           (@down)
+           (@ateach_terminal
+             /foreach-floop_to_while-5
+             0
+             (@as_type)
+             1)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@up)
+           (set! /body
+             (@cs (@increment
+                    (list-ref (@i) (+ 1 1))
+                    (@as_type)
+                    (- 1)
+                    1)))
+           (@paste_over
+             (@make 141
+                    '()
+                    (list (@make 313
+                                 '()
+                                 (list (@var_to_expn /var) (@make 205 0 '())))
+                          (@make 17 '() /body))))
+           (@trans //t/r_/delete_/all_/skips ""))
+          (#t (@floop_to_while_main2 /flag)))
+    (set! /var /var-save)
+    (set! //o/k //o/k-save)
+    (set! /e /e-save)))
+
+(define (@floop_to_while_main2 /flag)
+  (let ((//flags
+          (let ((l (list "fl_flag1"
+                         "fl_flag2"
+                         "fl_flag3"
+                         "fl_flag4"
+                         "fl_flag5"
+                         "fl_flag6"
+                         "fl_flag7"
+                         "fl_flag8"
+                         "fl_flag9"
+                         "fl_flagX"))
+                (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@make_name (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result)))
+        (/name-save /name)
+        (/max-save /max)
+        (/done-save /done)
+        (//n-save //n))
+    (set! /name '())
+    (set! /max 10)
+    (set! /done 0)
+    (set! //n 0)
+    (cond ((equal? /flag "")
+           (let while-loop ()
+             (cond ((null? /name)
+                    (begin
+                      (cond ((member (car //flags) (@variables (@i)))
+                             (set! //flags (cdr //flags)))
+                            (#t (set! /name (car //flags))))
+                      (cond ((null? //flags)
+                             (set! /max (+ /max 1))
+                             (set! /name
+                               (@make_name
+                                 (string-append "fl_flag" (@string /max)))))))
+                    (while-loop))
+                   (#t #t))))
+          ((equal? /flag "-") (set! /name '()))
+          (#t (set! /name (@make_name /flag))))
+    (cond ((@trans? //t/r_/delete_/unreachable_/code)
+           (@trans //t/r_/delete_/unreachable_/code "")))
+    (let while-loop ()
+      (cond ((= /done 0)
+             (begin
+               (set! /done 1)
+               (@foreach_stats
+                 /foreach-floop_to_while-7
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips)))))
+             (while-loop))
+            (#t #t)))
+    (@foreach_statement
+      /foreach-floop_to_while-8
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (cond ((and (<= (@stat_count (@i)) 10)
+                (<= (@total_size (@i)) 100))
+           (@floop_to_while_invert)))
+    (cond ((and (= (@st (@i)) //t_/floop)
+                (not (equal? /flag "-")))
+           (cond ((not (@exits_terminal?
+                         (list-ref (@i) (+ 1 1))
+                         (@as_type)))
+                  (@floop_to_while_complex /name /flag)))
+           (@floop_to_while_convert /name /flag)))
+    (set! /name /name-save)
+    (set! /max /max-save)
+    (set! /done /done-save)
+    (set! //n //n-save)))
+
+(define (@floop_to_while_complex /name-par /flag)
+  (let ((/name-save /name))
+    (set! /name /name-par)
+    (let ((/done-save /done)
+          (//s-save //s)
+          (/assign0-save /assign0)
+          (/assign2-save /assign2))
+      (set! /done 0)
+      (set! //s '())
+      (set! /assign0 '())
+      (set! /assign2 '())
+      (set! /name (@make //t_/variable /name '()))
+      (set! /assign0
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@make 205 0 '()))))))
+      (set! /assign2
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@var_to_expn /name))))))
+      (cond ((not (equal? /flag ""))
+             (set! /assign0 /assign2)))
+      (set! /assign2
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@var_to_expn /name))))))
+      (set! //s
+        (@make 114
+               '()
+               (list (@make 7
+                            '()
+                            (list (@make 313
+                                         '()
+                                         (list (@var_to_expn /name)
+                                               (@make 205 0 '())))
+                                  (@make 17 '() (list (@make 145 '() '())))))
+                     (@make 7
+                            '()
+                            (list (@make 308 '() '())
+                                  (@make 17
+                                         '()
+                                         (list (@make 110
+                                                      '()
+                                                      (list (@make 6
+                                                                   '()
+                                                                   (list (@expn_to_var
+                                                                           /name)
+                                                                         (@var_to_expn
+                                                                           /name))))))))))))
+      (begin
+        (display
+          "Inserting IF statements to move EXITs...")
+        (force-output))
+      (let while-loop ()
+        (cond ((= /done 0)
+               (begin
+                 (set! /done 1)
+                 (@foreach_stats
+                   /foreach-floop_to_while-10
+                   0
+                   (@as_type)
+                   0)
+                 (cond ((null? (@program)) (@new_program (@skips)))))
+               (while-loop))
+              (#t #t)))
+      (begin (display "") (newline) (force-output))
+      (set! /done /done-save)
+      (set! //s //s-save)
+      (set! /assign0 /assign0-save)
+      (set! /assign2 /assign2-save))
+    (set! /name /name-save)))
+
+(define (@floop_to_while_convert /name-par /flag)
+  (let ((/name-save /name))
+    (set! /name /name-par)
+    (let ((/assign0-save /assign0)
+          (/assign1-save /assign1)
+          (/body '())
+          (/tv-save /tv)
+          (/val-save /val)
+          (/max-save /max))
+      (set! /assign0 '())
+      (set! /assign1 '())
+      (set! /tv 0)
+      (set! /val 0)
+      (set! /max 0)
+      (set! /name (@make //t_/var_/lvalue /name '()))
+      (set! /assign0
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@make 205 0 '()))))))
+      (set! /assign1
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@make 205 1 '()))))))
+      (set! /assign2
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@var_to_expn /name))))))
+      (cond ((not (equal? /flag "")) (set! /assign0 (@skip))))
+      (@down)
+      (@foreach_terminal
+        /foreach-floop_to_while-11
+        0
+        (@as_type)
+        1)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@up)
+      (@trans //t/r_/delete_/all_/skips "")
+      (set! /body (@cs (list-ref (@i) (+ 1 1))))
+      (@paste_over
+        (@make 141
+               '()
+               (list (@make 313
+                            '()
+                            (list (@var_to_expn /name) (@make 205 0 '())))
+                     (@make 17 '() /body))))
+      (@paste_before
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /name) (@make 205 0 '()))))))
+      (@right)
+      (cond ((> /max 0)
+             (set! /name (@make //t_/variable (@v /name) '()))
+             (@paste_after
+               (@make 114
+                      '()
+                      (list (@make 7
+                                   '()
+                                   (list (@make 313
+                                                '()
+                                                (list (@var_to_expn /name)
+                                                      (@make 205 2 '())))
+                                         (@make 17
+                                                '()
+                                                (list (@make 117 1 '())))))
+                            (@make 7
+                                   '()
+                                   (list (@make 308 '() '())
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '()))))))))
+             (@right)
+             (@down)
+             (set! /n 3)
+             (let while-loop ()
+               (cond ((<= /n (+ /max 1))
+                      (begin
+                        (@paste_after
+                          (@make //t_/guarded
+                                 '()
+                                 (list (@make //t_/equal
+                                              '()
+                                              (list /name
+                                                    (@make //t_/number /n '())))
+                                       (@make //t_/statements
+                                              '()
+                                              (list (@make //t_/exit
+                                                           (- /n 1)
+                                                           '()))))))
+                        (@right)
+                        (set! /n (+ /n 1)))
+                      (while-loop))
+                     (#t #t)))
+             (@up)
+             (@left)))
+      (set! /assign0 /assign0-save)
+      (set! /assign1 /assign1-save)
+      (set! /tv /tv-save)
+      (set! /val /val-save)
+      (set! /max /max-save))
+    (set! /name /name-save)))
+
+(define (@exits_terminal? //i //a/s/type-par)
+  (let ((//a/s/type-save //a/s/type)
+        (//r-save //r)
+        (funct-result '()))
+    (set! //a/s/type //a/s/type-par)
+    (set! //r 1)
+    (@edit)
+    (@new_program //i)
+    (@ateach_statement
+      /foreach-floop_to_while-12
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result (= //r 1))
+    (set! //a/s/type //a/s/type-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@floop_to_while_invert)
+  (let ((//o/k-save //o/k)
+        (//s1-save //s1)
+        (//s2-save //s2)
+        (//g1 '())
+        (//g2 '())
+        (//b-save //b)
+        (//a/s (@as_type)))
+    (set! //o/k 1)
+    (set! //s1 '())
+    (set! //s2 '())
+    (set! //b (@make //t_/false '() '()))
+    (@edit)
+    (@down)
+    (@down)
+    (let while-loop ()
+      (cond ((and (or (@gen_proper? (@i) //a/s) (not (@right?)))
+                  (@right?))
+             (begin (set! //s1 (cons (@i) //s1)) (@right))
+             (while-loop))
+            (#t #t)))
+    (cond ((and (not (@gen_proper? (@i) //a/s)) (@right?))
+           (set! //o/k 0)))
+    (cond ((and (= //o/k 1) (= (@st (@i)) //t_/cond))
+           (set! //s1 (reverse //s1))
+           (@down)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (cond ((not (@gen_proper? (@i) //a/s))
+                             (cond ((or (not (@gen_improper? (@i) //a/s))
+                                        (not (null? //g1)))
+                                    (set! //o/k 0)
+                                    (set! /fl_flag1 1))
+                                   (#t
+                                    (set! //b (@or //b (list-ref (@i) (+ 1 1))))
+                                    (set! //g2
+                                      (cons (@increment (@i) //a/s (- 1) 1)
+                                            //g2))
+                                    (set! /fl_flag1 0))))
+                            (#t
+                             (set! //g1 (cons (@i) //g1))
+                             (set! /fl_flag1 0)))
+                      (cond ((= /fl_flag1 0)
+                             (cond ((not (@right?)) (set! /fl_flag1 1))
+                                   (#t (@right) (set! /fl_flag1 0))))))
+                    (while-loop))
+                   (#t #t))))
+          (#t (set! //o/k 0)))
+    (cond ((= //o/k 1)
+           (set! //g1 (@make //t_/cond '() (reverse //g1)))
+           (set! //g2 (@make //t_/cond '() (reverse //g2)))
+           (set! //b (@not //b))
+           (@new_program
+             (@make 17
+                    '()
+                    (append
+                      //s1
+                      (list (@make 141
+                                   '()
+                                   (list //b
+                                         (@make 17
+                                                '()
+                                                (append (list //g1) //s1))))
+                            //g2))))
+           (@trans //t/r_/simplify "")
+           (set! //s1 (@cs (@program)))
+           (@undo_edit)
+           (@splice_over //s1))
+          (#t (@undo_edit)))
+    #t
+    (set! //o/k //o/k-save)
+    (set! //s1 //s1-save)
+    (set! //s2 //s2-save)
+    (set! //b //b-save)))
+
+(define (@look_for_assertion /assert-par)
+  (let ((/assert-save /assert) (funct-result '()))
+    (set! /assert /assert-par)
+    (cond ((and (> (if (vector? (@posn))
+                     (vector-length (@posn))
+                     (length (@posn)))
+                   2)
+                (= (@st (@ggparent)) //t_/cond)
+                (= (@posn_n) 1))
+           (@up)
+           (@up)
+           (let ((/posn_n (@posn_n)))
+             (set! /assert (list-ref (@i) (+ 1 1)))
+             (let while-loop ()
+               (cond ((@left?)
+                      (begin
+                        (@left)
+                        (set! /assert
+                          (@and /assert (@not (list-ref (@i) (+ 1 1))))))
+                      (while-loop))
+                     (#t #t)))
+             (@to /posn_n)
+             (@down_to 2)
+             (@down)))
+          ((@left?)
+           (@left)
+           (cond ((= (@st (@i)) //t_/assert)
+                  (set! /assert (list-ref (@i) (+ 1 1)))))
+           (@right)))
+    (set! funct-result /assert)
+    (set! /assert /assert-save)
+    funct-result))
+
+#t
+

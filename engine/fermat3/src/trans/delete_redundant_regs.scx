@@ -1,0 +1,426 @@
+(define (/foreach-delete_redundant_regs-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (set! /count
+           (+ /count (@size (list-ref (@i) (+ 1 2))))))))
+
+(define (/foreach-delete_redundant_regs-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/a_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /pop_regs))
+         (@paste_over (@skip)))))
+
+(define (/foreach-delete_redundant_regs-3
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/for)
+         (@trans //t/r_/for_/to_/while ""))))
+
+(define (/foreach-delete_redundant_regs-4
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (cond ((@trans? //t/r_/globals_/to_/pars)
+                (begin
+                  (display
+                    "Converting global variables in procedures to parameters...")
+                  (newline)
+                  (force-output))
+                (@trans //t/r_/globals_/to_/pars ""))))))
+
+(define (/foreach-delete_redundant_regs-5
+         //depth
+         //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__delete_redundant_regs__2
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1) (@paste_before /dummy)))))
+
+(define (/foreach-delete_redundant_regs-6
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/proc_/call)
+         (@down_to 2)
+         (@paste_over (@make //t_/expressions '() '()))
+         (@right)
+         (@paste_over (@make //t_/lvalues '() '())))
+        ((= (@st (@i)) //t_/where)
+         (@down_last)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((= (@st (@i)) //t_/proc)
+                           (@down_to 2)
+                           (@paste_over (@make //t_/lvalues '() '()))
+                           (@right)
+                           (@paste_over (@make //t_/lvalues '() '()))
+                           (@up)))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-delete_redundant_regs-7
+         //depth
+         //a/s_/type)
+  (cond ((@equal? (@i) /dummy) (@delete))))
+
+(define (/foreach-delete_redundant_regs-8
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/var)
+              (@trans? //t/r_/remove_/redundant_/vars))
+         (@trans //t/r_/remove_/redundant_/vars "")
+         (@trans //t/r_/simplify ""))))
+
+(define /%const__delete_redundant_regs__1
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 501
+                                   (@make_name "dummy_reference_variable")
+                                   '())
+                            (@make 220
+                                   '()
+                                   (list (@make 207 (@make_name "ax") '())
+                                         (@make 207 (@make_name "bx") '())
+                                         (@make 207 (@make_name "cx") '())
+                                         (@make 207 (@make_name "dx") '())
+                                         (@make 207 (@make_name "sp") '())
+                                         (@make 207 (@make_name "bp") '())
+                                         (@make 207 (@make_name "si") '())
+                                         (@make 207 (@make_name "di") '())
+                                         (@make 207 (@make_name "cs") '())
+                                         (@make 207 (@make_name "ds") '())
+                                         (@make 207 (@make_name "ss") '())
+                                         (@make 207 (@make_name "es") '())
+                                         (@make 207 (@make_name "zf") '())
+                                         (@make 207 (@make_name "cf") '())
+                                         (@make 207
+                                                (@make_name "r15")
+                                                '()))))))))
+
+(define /%const__delete_redundant_regs__2
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 501 (@make_name "exit_flag") '())
+                            (@make 205 1 '()))))))
+
+(set! /dummy_compiler_data
+  "                                       ")
+
+(define (@delete_redundant_regs_test)
+  (let ((/count-save /count))
+    (set! /count 0)
+    (cond ((member //t_/a_/s (@stat_types (@i)))
+           (@fail "Item contains an action system"))
+          (#t
+           (@foreach_statement
+             /foreach-delete_redundant_regs-1
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (cond ((> /count 200)
+                  (@fail (string-append
+                           (string-append
+                             "Too many PROC/FUNCT definitions ("
+                             (@string /count))
+                           ")")))
+                 (#t (@pass)))))
+    (set! /count /count-save)))
+
+(define (@delete_redundant_regs_code //data)
+  (let ((/posn (@posn))
+        (/regs 1)
+        (/block_file
+          (string-append (@string //data) "tmp_drr.bb"))
+        (/del_file
+          (string-append (@string //data) "tmp_drr.del"))
+        (/data "")
+        (/pop_regs-save /pop_regs)
+        (//l '())
+        (/random (@random //omega))
+        (/dummy-save /dummy))
+    (set! /pop_regs (@make_name "pop_regs"))
+    (set! /dummy /%const__delete_redundant_regs__1)
+    (cond ((member
+             (@make_name "_TPF_")
+             (@assigned (@program)))
+           (begin
+             (display "TPF program: not touching registers")
+             (newline)
+             (force-output))
+           (set! /regs 0)))
+    (set! /block_file
+      (concat
+        (string-append (@string /random) "_")
+        (@strip_char "$" /block_file)))
+    (set! /del_file
+      (concat
+        (string-append (@string /random) "_")
+        (@strip_char "$" /del_file)))
+    (cond ((equal? //data "")
+           (begin
+             (display "Warning: no data file supplied")
+             (newline)
+             (force-output)))
+          ((@file_exists? //data)
+           (set! /data (string-append " data=" //data)))
+          (#t
+           (begin
+             (display "Warning: data file `")
+             (begin
+               (display //data)
+               (begin
+                 (display "' not found!")
+                 (newline)
+                 (force-output))))))
+    (@foreach_statement
+      /foreach-delete_redundant_regs-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (cond ((member //t_/for (@stat_types (@i)))
+           (begin
+             (display "Converting FOR loops...")
+             (newline)
+             (force-output))
+           (@foreach_statement
+             /foreach-delete_redundant_regs-3
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))))
+    (cond ((@trans? //t/r_/rename_/local_/vars)
+           (begin
+             (display "Renaming local variables...")
+             (newline)
+             (force-output))
+           (@trans //t/r_/rename_/local_/vars "")))
+    (@down)
+    (let while-loop ()
+      (cond ((and (@right?)
+                  (= (@st (@i)) //t_/assignment)
+                  (= (@size (@i)) 1)
+                  (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                     //t_/var_/lvalue)
+                  (@starts_with?
+                    (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                    "var_"))
+             (begin (set! //l (cons (@i) //l)) (@delete))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (@foreach_statement
+      /foreach-delete_redundant_regs-4
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (begin
+      (display
+        "Adding a dummy reference at the end of the program")
+      (newline)
+      (force-output))
+    (cond ((= (@st (@i)) //t_/statements)
+           (@down_last)
+           (@paste_after /dummy)
+           (@up)))
+    (@foreach_statement
+      /foreach-delete_redundant_regs-5
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (begin
+      (display "Computing Basic Blocks...")
+      (newline)
+      (force-output))
+    (@basic_blocks (@i) /block_file)
+    (begin
+      (display "Computing Deletion List...")
+      (newline)
+      (force-output))
+    (cond ((@file_exists? /del_file)
+           (@delete_file /del_file)))
+    (cond ((= /regs 1)
+           (perlscript
+             "bb_list_redundant"
+             (concat
+               (concat
+                 (string-append /block_file " ")
+                 /del_file)
+               /data)))
+          (#t
+           (perlscript
+             "bb_list_redundant"
+             (concat
+               (concat
+                 (string-append
+                   (string-append "--noregs " /block_file)
+                   " ")
+                 /del_file)
+               /data))))
+    (cond ((@file_exists? /del_file)
+           (begin
+             (display "Generating new WSL...")
+             (newline)
+             (force-output))
+           (@parse_del_file /del_file)
+           (@delete_file /block_file)
+           (@delete_file /del_file))
+          (#t
+           (begin
+             (display
+               (string-append
+                 "ERROR: bb_list_redundant failed to create "
+                 /del_file))
+             (newline)
+             (force-output))))
+    (begin
+      (display "Finished deleting.")
+      (newline)
+      (force-output))
+    (@goto '())
+    (begin
+      (display "Removing parameters from local procs")
+      (newline)
+      (force-output))
+    (@foreach_statement
+      /foreach-delete_redundant_regs-6
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (begin
+      (display "Restoring local vars")
+      (newline)
+      (force-output))
+    (@down)
+    (let ((var-save //i) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //i (car for-tmp))
+               (@paste_before //i)
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //i var-save))
+    (@up)
+    (cond ((@trans? //t/r_/restore_/local_/vars)
+           (@trans //t/r_/restore_/local_/vars "")))
+    (begin
+      (display "Removing dummy reference")
+      (newline)
+      (force-output))
+    (@goto /posn)
+    (@foreach_statement
+      /foreach-delete_redundant_regs-7
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_statement
+      /foreach-delete_redundant_regs-8
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /pop_regs /pop_regs-save)
+    (set! /dummy /dummy-save)))
+
+(define (@parse_del_file /file)
+  (let ((/port (@open_input_file /file))
+        (/line "")
+        (/word "")
+        (/var '())
+        (/posn '())
+        (/len 0)
+        (/p 0))
+    (begin
+      (display "Reading deletion list...")
+      (newline)
+      (force-output))
+    (set! /line (@read_line /port))
+    (let while-loop ()
+      (cond ((not (@eof? /line))
+             (begin
+               (set! /p 0)
+               (let ((/-result- (@parse_word /line /p /word)))
+                 (set! /p (car /-result-))
+                 (set! /-result- (cdr /-result-))
+                 (set! /word (car /-result-))
+                 (set! /-result- (cdr /-result-)))
+               (set! /var (@make_name /word))
+               (set! /p (@skip_spaces /line /p))
+               (cond ((not (equal?
+                             (let ((f /p)) (substring /line f (+ f 1)))
+                             "("))
+                      (error "Badly formatted del line:" /line)))
+               (set! /p (+ /p 1))
+               (set! /posn '())
+               (let ((/-result- (@parse_nums /line /p /posn)))
+                 (set! /p (car /-result-))
+                 (set! /-result- (cdr /-result-))
+                 (set! /posn (car /-result-))
+                 (set! /-result- (cdr /-result-)))
+               (set! /p (+ /p 1))
+               (set! /p (@skip_spaces /line /p))
+               (let ((/-result- (@parse_num /line /p /len)))
+                 (set! /p (car /-result-))
+                 (set! /-result- (cdr /-result-))
+                 (set! /len (car /-result-))
+                 (set! /-result- (cdr /-result-)))
+               (begin
+                 (display "Moving to: ")
+                 (begin
+                   (display /posn)
+                   (begin
+                     (display " length = ")
+                     (begin (display /len) (newline) (force-output)))))
+               (@goto /posn)
+               (let while-loop ()
+                 (cond ((>= /len 1)
+                        (begin
+                          (cond ((and (= (@st (@i)) //t_/assignment)
+                                      (member /var (@assigned (@i))))
+                                 (@down)
+                                 (let while-loop ()
+                                   (cond ((and (not (member
+                                                      /var
+                                                      (@assigned (@i))))
+                                               (@right?))
+                                          (@right)
+                                          (while-loop))
+                                         (#t #t)))
+                                 (cond ((member /var (@assigned (@i)))
+                                        (@pp_item (@i) 80 "")
+                                        (@delete)))
+                                 (@up)
+                                 (cond ((= (@size (@i)) 0)
+                                        (@paste_over (@skip))))))
+                          (cond ((and (> /len 1) (@right?)) (@right)))
+                          (set! /len (- /len 1)))
+                        (while-loop))
+                       (#t #t)))
+               #t
+               (set! /line (@read_line /port)))
+             (while-loop))
+            (#t #t)))
+    (@close_input_port /port)))
+
+#t
+

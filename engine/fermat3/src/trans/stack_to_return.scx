@@ -1,0 +1,376 @@
+(define (/foreach-stack_to_return-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /name)
+              (= (@size (list-ref (@i) (+ 1 3))) 0))
+         (set! /var
+           (@make_name
+             (concat (string-append (@n_string /par) "_") /n)))
+         (set! /locals (cons /var /locals))
+         (set! /n (+ /n 1))
+         (@down_to 3)
+         (@paste_over
+           (@make //t_/lvalues
+                  '()
+                  (list (@make //t_/var_/lvalue /var '()))))
+         (@up)
+         (@paste_after
+           (@make //t_/push
+                  '()
+                  (list /stack (@make //t_/variable /var '()))))
+         (set! /done 0)
+         (@str_make_local /var))))
+
+(define (/foreach-stack_to_return-2 //depth //a/s_/type)
+  (cond ((and (@left?) (= (@st (@i)) //t_/var))
+         (let ((/used (@used (list-ref (@i) (+ 1 2)))))
+           (@left)
+           (cond ((and (= (@st (@i)) //t_/proc_/call)
+                       (not (null? (@set_intersect
+                                     (@assigned (list-ref (@i) (+ 1 3)))
+                                     /used)))
+                       (@trans? //t/r_/merge_/right))
+                  (@trans //t/r_/merge_/right "")
+                  (set! /done 0))
+                 ((and (= (@st (@i)) //t_/push)
+                       (not (null? (@set_intersect (@assigned (@i)) /used)))
+                       (@trans? //t/r_/merge_/right))
+                  (@trans //t/r_/merge_/right "")
+                  (set! /done 0))
+                 (#t (@right)))))))
+
+(define (/foreach-stack_to_return-3 //depth //a/s_/type)
+  (cond ((and (@left?)
+              (= (@st (@i)) //t_/pop)
+              (= (@st (list-ref (@i) (+ 1 1)))
+                 //t_/var_/lvalue))
+         (let ((/stack-save /stack))
+           (set! /stack (@v (list-ref (@i) (+ 1 2))))
+           (@left)
+           (cond ((and (member //t_/push (@stat_types (@i)))
+                       (member /stack (@assigned (@i)))
+                       (@trans? //t/r_/absorb_/right))
+                  (@trans //t/r_/absorb_/right "")
+                  (set! /done 0))
+                 (#t (@right)))
+           (set! /stack /stack-save)))))
+
+(define (/foreach-stack_to_return-4 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/move_/to_/right))
+         (cond ((= (@st (list-ref (@parent) (+ 1 (+ (@posn_n) 1))))
+                   //t_/push))
+               (#t
+                (@trans //t/r_/move_/to_/right "")
+                (set! /done 0)))))
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/push_/pop))
+         (@trans //t/r_/push_/pop "")
+         (set! /done 0))))
+
+(define (/foreach-stack_to_return-5 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /name)
+              (= (@size (list-ref (@i) (+ 1 3))) 0))
+         (set! /var
+           (@make_name
+             (concat (string-append (@n_string /par) "_") /n)))
+         (set! /locals (cons /var /locals))
+         (set! /n (+ /n 1))
+         (@down_to 3)
+         (@paste_over
+           (@make //t_/lvalues
+                  '()
+                  (list (@make //t_/var_/lvalue /var '()))))
+         (@up)
+         (@paste_after
+           (@make //t_/push
+                  '()
+                  (list /stack (@make //t_/variable /var '()))))
+         (set! /done 0)
+         (@str_make_local /var))))
+
+(define (/foreach-stack_to_return-6 //depth //a/s_/type)
+  (cond ((and (@left?) (= (@st (@i)) //t_/var))
+         (let ((/used (@used (list-ref (@i) (+ 1 2)))))
+           (@left)
+           (cond ((and (= (@st (@i)) //t_/proc_/call)
+                       (not (null? (@set_intersect
+                                     (@assigned (list-ref (@i) (+ 1 3)))
+                                     /used)))
+                       (@trans? //t/r_/merge_/right))
+                  (@trans //t/r_/merge_/right "")
+                  (set! /done 0))
+                 ((and (= (@st (@i)) //t_/push)
+                       (not (null? (@set_intersect (@assigned (@i)) /used)))
+                       (@trans? //t/r_/merge_/right))
+                  (@trans //t/r_/merge_/right "")
+                  (set! /done 0))
+                 (#t (@right)))))))
+
+(define (/foreach-stack_to_return-7 //depth //a/s_/type)
+  (cond ((and (@left?)
+              (= (@st (@i)) //t_/pop)
+              (= (@st (list-ref (@i) (+ 1 1)))
+                 //t_/var_/lvalue))
+         (let ((/stack-save /stack))
+           (set! /stack (@v (list-ref (@i) (+ 1 2))))
+           (@left)
+           (cond ((and (member //t_/push (@stat_types (@i)))
+                       (member /stack (@assigned (@i)))
+                       (@trans? //t/r_/absorb_/right))
+                  (@trans //t/r_/absorb_/right "")
+                  (set! /done 0))
+                 (#t (@right)))
+           (set! /stack /stack-save)))))
+
+(define (/foreach-stack_to_return-8 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/move_/to_/right))
+         (cond ((= (@st (list-ref (@parent) (+ 1 (+ (@posn_n) 1))))
+                   //t_/push))
+               (#t
+                (@trans //t/r_/move_/to_/right "")
+                (set! /done 0)))))
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/push_/pop))
+         (@trans //t/r_/push_/pop "")
+         (set! /done 0))))
+
+(define (@stack_to_return_test)
+  (cond ((not (= (@st (@i)) //t_/proc))
+         (@fail "Selected item is not a procedure definition"))
+        ((> (@size (list-ref (@i) (+ 1 3))) 0)
+         (@fail "Procedure already has VAR parameters"))
+        ((null? (@srt_find_stack (list-ref (@i) (+ 1 4))))
+         (@fail "No suitable stack PUSH in the procedure body"))
+        (#t (@pass))))
+
+(define (@stack_to_return_code //data)
+  (let ((/posn (@posn))
+        (/name-save /name)
+        (//o/k 1)
+        (/stack-save /stack)
+        (/str (@string /data))
+        (/n-save /n)
+        (/var-save /var)
+        (/all (@variables (@program)))
+        (/locals-save /locals)
+        (/assigns '())
+        (/done-save /done))
+    (set! /name (@v (list-ref (@i) (+ 1 1))))
+    (set! /stack
+      (@srt_find_stack (list-ref (@i) (+ 1 4))))
+    (set! /n 1)
+    (set! /var '())
+    (set! /locals '())
+    (set! /done 0)
+    (cond ((equal? /str "")
+           (set! /str
+             (string-append (@n_string /name) "_Return"))))
+    (set! /var (@make_name /str))
+    (let while-loop ()
+      (cond ((member /var /all)
+             (begin
+               (set! /var
+                 (@make_name (concat (string-append /str "_") /n)))
+               (set! /n (+ /n 1)))
+             (while-loop))
+            (#t #t)))
+    (set! /n 1)
+    (set! /par /var)
+    (set! /locals (list /par))
+    (@down_to 3)
+    (@paste_over
+      (@make //t_/lvalues
+             '()
+             (list (@make //t_/var_/lvalue /par '()))))
+    (@up)
+    (@down_to 4)
+    (@down_last)
+    (@paste_after
+      (@make //t_/pop
+             '()
+             (list (@make //t_/var_/lvalue /par '()) /stack)))
+    (@up)
+    (@up)
+    (@up)
+    (@up)
+    (@edit)
+    (set! /done 1)
+    (@ateach_statement
+      /foreach-stack_to_return-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@ateach_statement
+      /foreach-stack_to_return-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@ateach_statement
+      /foreach-stack_to_return-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@ateach_statement
+      /foreach-stack_to_return-4
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let while-loop ()
+      (cond ((not (= /done 1))
+             (begin
+               (set! /done 1)
+               (@ateach_statement
+                 /foreach-stack_to_return-5
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@ateach_statement
+                 /foreach-stack_to_return-6
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@ateach_statement
+                 /foreach-stack_to_return-7
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@ateach_statement
+                 /foreach-stack_to_return-8
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips)))))
+             (while-loop))
+            (#t #t)))
+    (cond (#f
+           (begin
+             (display "locals are: ")
+             (begin
+               (display
+                 (let ((l (@sort_list /locals)) (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@n_string (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result)))
+               (newline)
+               (force-output)))))
+    (@end_edit)
+    (@goto '())
+    (@trans //t/r_/remove_/all_/redundant_/vars "")
+    (cond ((@valid_posn? (@program) /posn) (@goto /posn)))
+    (set! /name /name-save)
+    (set! /stack /stack-save)
+    (set! /n /n-save)
+    (set! /var /var-save)
+    (set! /locals /locals-save)
+    (set! /done /done-save)))
+
+(define (@srt_find_stack //i)
+  (let ((/stack-save /stack)
+        (//o/k 1)
+        (funct-result '()))
+    (set! /stack '())
+    (cond ((= (@gt //i) //t_/statements)
+           (set! /stack
+             (@srt_find_stack
+               (list-ref //i (+ 1 (@size //i))))))
+          ((not (= (@gt //i) //t_/statement))
+           (error (string-append
+                    "Unexpected type in @SRT_Find_Stack "
+                    (@type_name (@st //i)))))
+          ((= (@st //i) //t_/var)
+           (set! /stack
+             (@srt_find_stack (list-ref //i (+ 1 2)))))
+          ((= (@st //i) //t_/push)
+           (set! /stack (list-ref //i (+ 1 1))))
+          ((or (= (@st //i) //t_/cond)
+               (= (@st //i) //t_/d_/if))
+           (let ((var-save //i) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! //i (car for-tmp))
+                      (cond ((null? /stack)
+                             (set! /stack
+                               (@srt_find_stack (list-ref //i (+ 1 2)))))
+                            ((not (@equal?
+                                    /stack
+                                    (@srt_find_stack (list-ref //i (+ 1 2)))))
+                             (set! //o/k 0)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! //i var-save))
+           (cond ((= //o/k 0) (set! /stack '())))))
+    (set! funct-result /stack)
+    (set! /stack /stack-save)
+    funct-result))
+
+(define (@str_make_local /var-par)
+  (let ((/var-save /var))
+    (set! /var /var-par)
+    (let ((/rel_posn '())
+          (/assign
+            (@make //t_/assign
+                   '()
+                   (list (@make //t_/var_/lvalue /var '()) //mth_0))))
+      (let while-loop ()
+        (cond ((and (@up?)
+                    (not (= (@st (@i)) //t_/var))
+                    (not (= (@st (@parent)) //t_/proc))
+                    (not (= (@st (@parent)) //t_/where)))
+               (begin
+                 (set! /rel_posn (cons (@posn_n) /rel_posn))
+                 (@up))
+               (while-loop))
+              (#t #t)))
+      (cond ((not (= (@st (@i)) //t_/var))
+             (cond ((= (@gt (@i)) //t_/statements)
+                    (@paste_over
+                      (@make //t_/statements
+                             '()
+                             (list (@make //t_/var
+                                          '()
+                                          (list (@make //t_/assigns '() '())
+                                                (@i))))))
+                    (@down)
+                    (set! /rel_posn (cons 2 /rel_posn)))
+                   ((= (@gt (@i)) //t_/statement)
+                    (@paste_over
+                      (@make //t_/var
+                             '()
+                             (list (@make //t_/assigns '() '())
+                                   (@make //t_/statements '() (list (@i))))))
+                    (set! /rel_posn (cons 2 (cons 1 /rel_posn))))
+                   (#t
+                    (error "Stack_To_Return expecting a statement or statements!")))))
+      (@down)
+      (@paste_over
+        (@make //t_/assigns
+               '()
+               (concat (@cs (@i)) (list /assign))))
+      (@up)
+      (let while-loop ()
+        (cond ((not (null? /rel_posn))
+               (begin
+                 (@down_to (car /rel_posn))
+                 (set! /rel_posn (cdr /rel_posn)))
+               (while-loop))
+              (#t #t))))
+    (set! /var /var-save)))
+
+#t
+

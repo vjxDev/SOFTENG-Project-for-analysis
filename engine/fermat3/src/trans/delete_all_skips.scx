@@ -1,0 +1,19 @@
+(define (/foreach-delete_all_skips-1 //depth //a/s_/type)
+  (cond ((= (@spec_type (@item)) //t_/skip) (@delete))))
+
+(define (@delete_all_skips_test)
+  (cond ((member //t_/skip (@stat_types (@item)))
+         (@pass))
+        (#t
+         (@fail "The selected item did not include a `SKIP' statement."))))
+
+(define (@delete_all_skips_code //data)
+  (@foreach_statement
+    /foreach-delete_all_skips-1
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips)))))
+
+#t
+

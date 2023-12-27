@@ -1,0 +1,45 @@
+(set! //t/r_/delete_/redundant_/regs
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/redundant_/regs 1)
+  "Delete Redundant Registers")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/redundant_/regs 1)
+  "Delete_Redundant_Regs")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/redundant_/regs 1)
+  @delete_redundant_regs_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/redundant_/regs 1)
+  @delete_redundant_regs_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/redundant_/regs 1)
+  (list "Hidden"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/redundant_/regs 1)
+  "Delete Redundant Registers uses dataflow analysis
+to find and delete redundant register assignments (assignments to registers
+which are overwritten or never accessed).")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/redundant_/regs 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/redundant_/regs 1)
+  "")
+

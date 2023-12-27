@@ -1,0 +1,43 @@
+(set! //t/r_/unfold_/proc_/calls
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/unfold_/proc_/calls 1)
+  "Unfold_Proc_Calls")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/unfold_/proc_/calls 1)
+  @unfold_proc_calls_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/unfold_/proc_/calls 1)
+  @unfold_proc_calls_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/unfold_/proc_/calls 1)
+  "Unfold Proc Calls")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/unfold_/proc_/calls 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/unfold_/proc_/calls 1)
+  "Unfold Proc Calls searches for procedures which are only called once, unfolds the call and removes the procedure.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/unfold_/proc_/calls 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/unfold_/proc_/calls 1)
+  "")
+

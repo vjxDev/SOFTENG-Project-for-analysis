@@ -1,0 +1,42 @@
+(set! //t/r_/use_/assertion (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/use_/assertion 1)
+  "Use_Assertion")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/use_/assertion 1)
+  "Use_Assertion")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/use_/assertion 1)
+  @use_assertion_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/use_/assertion 1)
+  @use_assertion_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/use_/assertion 1)
+  (list "Use/Apply"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/use_/assertion 1)
+  "Use the currently selected assertion to simplify code.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/use_/assertion 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/use_/assertion 1)
+  "")
+

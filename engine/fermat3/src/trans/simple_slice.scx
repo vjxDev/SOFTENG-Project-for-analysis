@@ -1,0 +1,420 @@
+(define (/foreach-simple_slice-1 //depth //a/s_/type)
+  (cond ((not (= (@st (@i)) //t_/var_/lvalue))
+         (@fail "All assignments must be to simple variables."))))
+
+(define (/foreach-simple_slice-2 //depth //a/s_/type)
+  (cond ((or (and (= (@st (@i)) //t_/assignment)
+                  (> (@size (@i)) 1))
+             (and (= (@st (@i)) //t_/var)
+                  (> (@size (list-ref (@i) (+ 1 1))) 1)))
+         (@fail "Statement contains a parallel assignment."))))
+
+(define (@simple_slice_test)
+  (cond ((and (not (= (@gt (@i)) //t_/statements))
+              (not (= (@gt (@i)) //t_/statement)))
+         (@fail "Can only slice statements."))
+        ((@set_subset?
+           (@stat_types (@i))
+           (@make_set
+             (list //t_/cond
+                   //t_/d_/if
+                   //t_/while
+                   //t_/assignment
+                   //t_/var
+                   //t_/assert
+                   //t_/skip
+                   //t_/abort
+                   //t_/comment
+                   //t_/spec)))
+         (@foreach_lvalue
+           /foreach-simple_slice-1
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (@foreach_statement
+           /foreach-simple_slice-2
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (cond ((not (@failed?)) (@pass))))
+        (#t
+         (@fail "The current item contains a statement which cannot be sliced."))))
+
+(define (@simple_slice_code //data)
+  (let ((/x-save /x)
+        (//i-save //i)
+        (/bottom-save /bottom))
+    (set! /x
+      (let ((l (@split //data)) (map-result '()))
+        (let while-loop ()
+          (cond ((not (null? l))
+                 (set! map-result
+                   (cons (@make_name (car l)) map-result))
+                 (set! l (cdr l))
+                 (while-loop))
+                (#t #t)))
+        (reverse map-result)))
+    (set! //i (@i))
+    (set! /bottom
+      (@make //t_/variable (@make_name "BOTTOM") '()))
+    (begin
+      (display "Simple Slice, initial variables are: ")
+      (begin
+        (display
+          (@join " "
+                 (let ((l /x) (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@n_string (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result))))
+        (newline)
+        (force-output)))
+    (@slice)
+    (@paste_over //i)
+    (begin
+      (display "Simple Slice,   final variables are: ")
+      (begin
+        (display
+          (@join " "
+                 (let ((l /x) (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@n_string (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result))))
+        (newline)
+        (force-output)))
+    (set! /x /x-save)
+    (set! //i //i-save)
+    (set! /bottom /bottom-save)))
+
+(define (@slice)
+  (cond ((= (@gt //i) //t_/statements)
+         (let ((//l '()))
+           (let ((var-save //i) (seq-save (reverse (@cs //i))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! //i (car for-tmp))
+                      (begin (@slice) (set! //l (cons //i //l)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! //i var-save))
+           (set! //i (@make //t_/statements '() //l))))
+        ((= (@gt //i) //t_/guarded)
+         (let ((//b (list-ref //i (+ 1 1))))
+           (set! //i (list-ref //i (+ 1 2)))
+           (@slice)
+           (set! /x (@set_union /x (@used //b)))
+           (set! //i
+             (@make //t_/guarded '() (list //b //i)))))
+        ((= (@st //i) //t_/abort) (set! /x '()))
+        ((and (= (@gt //i) //t_/statement)
+              (null? (@set_intersect /x (@assigned //i))))
+         (set! //i (@skip)))
+        ((or (= (@st //i) //t_/assignment)
+             (= (@st //i) //t_/spec))
+         (set! /x
+           (@set_union
+             (@set_difference /x (@assigned //i))
+             (@used //i))))
+        ((= (@st //i) //t_/var)
+         (let ((/assign
+                 (list-ref (list-ref //i (+ 1 1)) (+ 1 1))))
+           (let ((/v (@v (list-ref /assign (+ 1 1))))
+                 (/e (@used (list-ref /assign (+ 1 2))))
+                 (/x0 /x))
+             (set! //i (list-ref //i (+ 1 2)))
+             (@slice)
+             (cond ((not (member /v /x))
+                    (set! /assign
+                      (@make //t_/assign
+                             '()
+                             (list (list-ref /assign (+ 1 1)) /bottom)))))
+             (set! /x
+               (@set_union
+                 (@set_difference /x (list /v))
+                 (@set_union (@set_intersect (list /v) /x0) /e)))
+             (set! //i
+               (@make //t_/var
+                      '()
+                      (list (@make //t_/assigns '() (list /assign))
+                            //i))))))
+        ((or (= (@st //i) //t_/cond)
+             (= (@st //i) //t_/d_/if))
+         (let ((/x1 '()) (/x0 /x) (//g '()) (//s/t (@st //i)))
+           (let ((var-save /guard) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /guard (car for-tmp))
+                      (begin
+                        (set! //i /guard)
+                        (set! /x /x0)
+                        (@slice)
+                        (set! //g (cons //i //g))
+                        (set! /x1 (@set_union /x1 /x)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /guard var-save))
+           (set! /x /x1)
+           (set! //i (@make //s/t '() (reverse //g)))))
+        ((= (@st //i) //t_/while)
+         (let ((//b (list-ref //i (+ 1 1)))
+               (//i0 (list-ref //i (+ 1 2)))
+               (/x1 (@set_union /x (@used (list-ref //i (+ 1 1))))))
+           (set! //i //i0)
+           (set! /x /x1)
+           (@slice)
+           (let while-loop ()
+             (cond ((not (@set_subset? /x /x1))
+                    (begin
+                      (set! /x1 (@set_union /x1 /x))
+                      (set! //i //i0)
+                      (set! /x /x1)
+                      (@slice))
+                    (while-loop))
+                   (#t #t)))
+           (set! //i (@make //t_/while '() (list //b //i)))
+           (set! /x /x1)))
+        (#t
+         (error "Unexpected type: "
+                (@type_name (@st //i))))))
+
+(define (@slice_orig //i-par //x)
+  (let ((//i-save //i)
+        (//r '())
+        (/new '())
+        (/new/x '())
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((= (@st //i) //t_/statements)
+           (let ((var-save //s) (seq-save (reverse (@cs //i))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! //s (car for-tmp))
+                      (begin
+                        (set! //r (@slice_orig //s //x))
+                        (set! /new
+                          (cons (let ((name //r))
+                                  (if (vector? name)
+                                    (vector-ref name (- 1 1))
+                                    (list-ref name (- 1 1))))
+                                /new))
+                        (set! //x
+                          (let ((name //r))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1))))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! //s var-save))
+           (set! //r
+             (list (@make //t_/statements '() /new) //x)))
+          ((= (@st //i) //t_/abort)
+           (set! //r (list //i '())))
+          ((and (= (@gt //i) //t_/statement)
+                (null? (@set_intersect //x (@assigned //i))))
+           (set! //r (list (@skip) //x)))
+          ((= (@st //i) //t_/assignment)
+           (set! //r
+             (list //i
+                   (@set_union
+                     (@set_difference //x (@assigned //i))
+                     (@used //i)))))
+          ((or (= (@st //i) //t_/cond)
+               (= (@st //i) //t_/d_/if))
+           (let ((var-save /guard) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /guard (car for-tmp))
+                      (begin
+                        (set! //r
+                          (@slice_orig (list-ref /guard (+ 1 2)) //x))
+                        (set! /new
+                          (cons (@make //t_/guarded
+                                       '()
+                                       (list (list-ref /guard (+ 1 1))
+                                             (let ((name //r))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))))
+                                /new))
+                        (set! /new/x
+                          (@set_union
+                            /new/x
+                            (@set_union
+                              (@variables (list-ref /guard (+ 1 1)))
+                              (let ((name //r))
+                                (if (vector? name)
+                                  (vector-ref name (- 2 1))
+                                  (list-ref name (- 2 1))))))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /guard var-save))
+           (set! //r
+             (list (@make (@st //i) '() (reverse /new))
+                   /new/x)))
+          ((= (@st //i) //t_/while)
+           (let ((//b (@variables (list-ref //i (+ 1 1))))
+                 (//s-save //s)
+                 (/new/x //x))
+             (set! //s (list-ref //i (+ 1 2)))
+             (set! //r (@slice_orig //s /new/x))
+             (if (vector? //r)
+               (vector-set!
+                 //r
+                 (- 2 1)
+                 (@set_union
+                   (let ((name //r))
+                     (if (vector? name)
+                       (vector-ref name (- 2 1))
+                       (list-ref name (- 2 1))))
+                   (@set_union /new/x //b)))
+               (set! //r
+                 (replace-nth
+                   //r
+                   2
+                   (@set_union
+                     (let ((name //r))
+                       (if (vector? name)
+                         (vector-ref name (- 2 1))
+                         (list-ref name (- 2 1))))
+                     (@set_union /new/x //b)))))
+             (let while-loop ()
+               (cond ((not (equal?
+                             /new/x
+                             (let ((name //r))
+                               (if (vector? name)
+                                 (vector-ref name (- 2 1))
+                                 (list-ref name (- 2 1))))))
+                      (begin
+                        (set! /new/x
+                          (let ((name //r))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1)))))
+                        (set! //r (@slice_orig //s /new/x))
+                        (if (vector? //r)
+                          (vector-set!
+                            //r
+                            (- 2 1)
+                            (@set_union
+                              (let ((name //r))
+                                (if (vector? name)
+                                  (vector-ref name (- 2 1))
+                                  (list-ref name (- 2 1))))
+                              (@set_union /new/x //b)))
+                          (set! //r
+                            (replace-nth
+                              //r
+                              2
+                              (@set_union
+                                (let ((name //r))
+                                  (if (vector? name)
+                                    (vector-ref name (- 2 1))
+                                    (list-ref name (- 2 1))))
+                                (@set_union /new/x //b))))))
+                      (while-loop))
+                     (#t #t)))
+             (set! //s //s-save))
+           (set! //r
+             (list (@make //t_/while
+                          '()
+                          (list (list-ref //i (+ 1 1))
+                                (let ((name //r))
+                                  (if (vector? name)
+                                    (vector-ref name (- 1 1))
+                                    (list-ref name (- 1 1))))))
+                   (let ((name //r))
+                     (if (vector? name)
+                       (vector-ref name (- 2 1))
+                       (list-ref name (- 2 1)))))))
+          ((= (@st //i) //t_/var)
+           (let ((/v (list-ref
+                       (list-ref (list-ref //i (+ 1 1)) (+ 1 1))
+                       (+ 1 1)))
+                 (/e (list-ref
+                       (list-ref (list-ref //i (+ 1 1)) (+ 1 1))
+                       (+ 1 2)))
+                 (//s-save //s)
+                 (/new/x '()))
+             (set! //s (list-ref //i (+ 1 2)))
+             (set! //r
+               (@slice_orig
+                 (list-ref //i (+ 1 2))
+                 (@set_difference //x (list (@v /v)))))
+             (set! //s
+               (let ((name //r))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1)))))
+             (set! /new/x
+               (@set_union
+                 (@set_difference
+                   (let ((name //r))
+                     (if (vector? name)
+                       (vector-ref name (- 2 1))
+                       (list-ref name (- 2 1))))
+                   (list (@v /v)))
+                 (@set_intersect (list (@v /v)) //x)))
+             (cond ((member
+                      (@v /v)
+                      (let ((name //r))
+                        (if (vector? name)
+                          (vector-ref name (- 2 1))
+                          (list-ref name (- 2 1)))))
+                    (set! //r
+                      (list (@make 139
+                                   '()
+                                   (list (@make 13
+                                                '()
+                                                (list (@make 6
+                                                             '()
+                                                             (list (@expn_to_var
+                                                                     /v)
+                                                                   (@var_to_expn
+                                                                     /e)))))
+                                         (@make 17 '() (list //s))))
+                            (@set_union /new/x (@used /e)))))
+                   (#t
+                    (set! //r
+                      (list (@make 139
+                                   '()
+                                   (list (@make 13
+                                                '()
+                                                (list (@make 6
+                                                             '()
+                                                             (list (@expn_to_var
+                                                                     /v)
+                                                                   (@make 207
+                                                                          (@make_name
+                                                                            "BOTTOM")
+                                                                          '())))))
+                                         (@make 17 '() (list //s))))
+                            /new/x))))
+             (set! //s //s-save)))
+          (#t
+           (error "Unexpected type: "
+                  (@type_name (@st //i)))))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+#t
+

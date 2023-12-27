@@ -1,0 +1,13 @@
+(define (@loop_doubling_test)
+  (cond ((= (@st (@i)) //t_/floop) (@pass))
+        (#t (@fail "Selected item is not an Floop"))))
+
+(define (@loop_doubling_code //data)
+  (let ((//s (concat
+               (@cs (list-ref (@i) (+ 1 1)))
+               (@cs (list-ref (@i) (+ 1 1))))))
+    (@paste_over
+      (@make 133 '() (list (@make 17 '() //s))))))
+
+#t
+

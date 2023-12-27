@@ -1,0 +1,70 @@
+(define (/foreach-remove_dummy_loop-1
+         //depth
+         //a/s_/type)
+  (@down_last)
+  (set! /fl_flag1 0)
+  (let while-loop ()
+    (cond ((= /fl_flag1 0)
+           (begin
+             (cond ((and (= //depth 1)
+                         (member 1 (@tvs))
+                         (@trans? //t/r_/fully_/absorb_/right))
+                    (begin (display "a") (force-output))
+                    (cond ((= (@st (@i)) //t_/cond) (@gcr_cond_fix)))
+                    (@trans //t/r_/fully_/absorb_/right "")))
+             (cond ((not (@left?)) (set! /fl_flag1 1))
+                   (#t (@left) (set! /fl_flag1 0))))
+           (while-loop))
+          (#t #t))))
+
+(define (/foreach-remove_dummy_loop-2
+         //depth
+         //a/s_/type)
+  (@down)
+  (let while-loop ()
+    (cond ((and (not (@gen_improper? (@i) //a/s_/type))
+                (@right?))
+           (@right)
+           (while-loop))
+          (#t #t)))
+  (cond ((@gen_improper? (@i) //a/s_/type)
+         (cond ((@right?) (@delete_rest))))))
+
+(define (@remove_dummy_loop_test)
+  (let ((//a/s (@as_type)))
+    (cond ((not (= (@spec_type (@item)) //t_/floop))
+           (@fail "Not a do-loop"))
+          ((not (@gen_improper? (list-ref (@i) (+ 1 1)) //a/s))
+           (@fail "Loop body is not improper"))
+          ((@gen_can_reduce? (list-ref (@i) (+ 1 1)) //a/s)
+           (@pass))
+          (#t (@fail "Body cannot be easily reduced")))))
+
+(define (@remove_dummy_loop_code //data)
+  (cond ((not (@is_dummy?))
+         (begin
+           (display
+             " Using absorption to reduce loop body...")
+           (force-output))
+         (@foreach_stats
+           /foreach-remove_dummy_loop-1
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (begin (display "") (newline) (force-output))))
+  (@foreach_stats
+    /foreach-remove_dummy_loop-2
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips))))
+  (@splice_over
+    (@cs (@increment
+           (list-ref (@i) (+ 1 1))
+           (@as_type)
+           (- 1)
+           1))))
+
+#t
+

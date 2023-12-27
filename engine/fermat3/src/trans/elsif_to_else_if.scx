@@ -1,0 +1,49 @@
+(define (@elsif_to_else_if_test)
+  (cond ((or (and (= (@st (@i)) //t_/cond) (> (@size (@i)) 2))
+             (and (= (@gt (@i)) //t_/guarded)
+                  (@left?)
+                  (@right?)))
+         (@pass))
+        (#t
+         (@fail "The selected item is not, or does not contain, an `Elsif' clause."))))
+
+(define (@elsif_to_else_if_code //data)
+  (let ((//c 0) (//b '()) (//s '()))
+    (cond ((= (@st (@i)) //t_/cond)
+           (set! //c 1)
+           (@down)
+           (@right)))
+    (set! //b (list-ref (@i) (+ 1 1)))
+    (set! //s (@cs (list-ref (@i) (+ 1 2))))
+    (@cut_rest)
+    (@paste_over
+      (@make 7
+             '()
+             (list (@make 308 '() '())
+                   (@make 17
+                          '()
+                          (list (@make 114
+                                       '()
+                                       (list (@make 7
+                                                    '()
+                                                    (list //b
+                                                          (@make 17 '() //s)))
+                                             (@make 7
+                                                    '()
+                                                    (list (@make 308 '() '())
+                                                          (@make 17
+                                                                 '()
+                                                                 (list (@make 145
+                                                                              '()
+                                                                              '()))))))))))))
+    (@down_last)
+    (@down)
+    (@down_last)
+    (@splice_over (@buffer))
+    (@up)
+    (@up)
+    (@up)
+    (cond ((= //c 1) (@up)))))
+
+#t
+

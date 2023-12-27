@@ -1,0 +1,43 @@
+(set! //t/r_/separate_/exit_/code
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/separate_/exit_/code 1)
+  "Separate_Exit_Code")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/separate_/exit_/code 1)
+  "Separate_Exit_Code")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/separate_/exit_/code 1)
+  @separate_exit_code_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/separate_/exit_/code 1)
+  @separate_exit_code_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/separate_/exit_/code 1)
+  (list "Reorder"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/separate_/exit_/code 1)
+  "Separate Exit Code will take exit code (code which must lead to termination of the loop) out of the loop, using a flag if necessary that indicates which exit from the loop was taken.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/separate_/exit_/code 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/separate_/exit_/code 1)
+  "")
+

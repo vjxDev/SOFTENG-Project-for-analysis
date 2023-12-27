@@ -1,0 +1,38 @@
+
+t
+java:S2293@"YReplace the type specification in this constructor call with the diamond operator ("<>").(æ»Ò¹úÿÿÿÿ
+t
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(›ß…‘úÿÿÿÿ
+o
+java:S2293€"YReplace the type specification in this constructor call with the diamond operator ("<>").(èİ¥\
+u
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(âè®êøÿÿÿÿ
+u
+java:S2293à"YReplace the type specification in this constructor call with the diamond operator ("<>").(÷ª®¢ùÿÿÿÿ
+F
+java:S1066Œ"/Merge this if statement with the enclosing one.(Í¹†¡
+8
+java:S1643’"Use a StringBuilder instead.(ÎÓ—öıÿÿÿÿ
+´
+java:S6548&"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(Ä‰èûÿÿÿÿ
+g
+java:S3776P"RRefactor this method to reduce its Cognitive Complexity from 41 to the 15 allowed.(„ÀÖR
+W
+java:S1659U"ADeclare "name" and all following declarations on a separate line.(»˜Ë–
+7
+java:S1659V"!Declare "tn2" on a separate line.(Û› ì
+:
+java:S1659Y"Declare "e" on a separate line.(ßºÇ‚ùÿÿÿÿ
+<
+java:S1659Z"!Declare "out" on a separate line.(êáÜ·ûÿÿÿÿ
+Q
+java:S2696]"6Make the enclosing method "static" or remove this set.(›ß…‘úÿÿÿÿ
+L
+java:S1905Â"6Remove this unnecessary cast to "CollapsableTextNode".(‰àŞ
+D	java:S108Ë")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ
+D	java:S108Ô")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ
+?	java:S108”")Either remove or fill this block of code.(ßÈ´
+6
+java:S1659Ê"Declare "t" on a separate line.(«õš°
+Ü
+java:S6541P"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 139 to 64, Complexity from 18 to 14, Nesting Level from 4 to 2, Number of Variables from 22 to 6.(„ÀÖR

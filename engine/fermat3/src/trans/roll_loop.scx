@@ -1,0 +1,54 @@
+(define /%const__roll_loop__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17
+                                   '()
+                                   (list (@make 107 -2 '())
+                                         (@make 141
+                                                '()
+                                                (list (@make 334 -1 '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 163
+                                                                          -2
+                                                                          '())))))))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define (@roll_loop_test)
+  (cond ((not (= (@st (@i)) //t_/cond))
+         (@fail "Selected item is not a Cond."))
+        (#t
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match /%const__roll_loop__1 (@i) /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s_save //s) (/__/b_save //b))
+                    (set! //s (vector-ref /__/match_array 1))
+                    (set! //b (vector-ref /__/match_array 0))
+                    (@pass)
+                    (set! //s /__/s_save)
+                    (set! //b /__/b_save)))
+                 (#t (@fail "The Cond is not in the right form ")))))))
+
+(define (@roll_loop_code //data)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__roll_loop__1 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__/s_save //s) (/__/b_save //b))
+             (set! //s (vector-ref /__/match_array 1))
+             (set! //b (vector-ref /__/match_array 0))
+             (@paste_over
+               (@make 141 '() (list //b (@make 17 '() //s))))
+             (set! //s /__/s_save)
+             (set! //b /__/b_save)))
+          (#t (error "@Roll_Loop_Code: match failed!")))))
+
+#t
+

@@ -1,0 +1,45 @@
+(set! //t/r_/var_/pars_/to_/val_/pars
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  "Var_Pars_To_Val_Pars")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  "Var_Pars_To_Val_Pars")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  @var_pars_to_val_pars_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  @var_pars_to_val_pars_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  "Add all VAR pars as extra value pars where needed.
+This is needed by the SSA transformation so that the input and output parameters
+can get different names.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/var_/pars_/to_/val_/pars 1)
+  "")
+

@@ -1,0 +1,528 @@
+(define (/foreach-simplify_if-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/cond) (@fix_cond))))
+
+(define /%const__simplify_if__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 107 -1 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define /%const__simplify_if__2
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17
+                                   '()
+                                   (list (@make 133
+                                                '()
+                                                (list (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -2
+                                                                          '())
+                                                                   (@make 114
+                                                                          '()
+                                                                          (list (@make 7
+                                                                                       '()
+                                                                                       (list (@make 305
+                                                                                                    -3
+                                                                                                    '())
+                                                                                             (@make 17
+                                                                                                    '()
+                                                                                                    (list (@make 117
+                                                                                                                 1
+                                                                                                                 '())))))
+                                                                                (@make 7
+                                                                                       '()
+                                                                                       (list (@make 308
+                                                                                                    '()
+                                                                                                    '())
+                                                                                             (@make 17
+                                                                                                    '()
+                                                                                                    (list (@make 145
+                                                                                                                 '()
+                                                                                                                 '())))))))))))))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(set! //max_/cond_/size 15)
+
+(define (@simplify_if_test)
+  (cond ((not (= (@st (@i)) //t_/cond))
+         (@fail "Not an IF statement"))
+        ((@si_special? (@i)) (@pass))
+        ((> (@size (@i)) //max_/cond_/size)
+         (@fail "IF statement is too large"))
+        ((and (= (@st (list-ref
+                        (list-ref (@i) (+ 1 (- (@size (@i)) 1)))
+                        (+ 1 1)))
+                 //t_/not_/equal)
+              (= (@st (list-ref
+                        (list-ref (@i) (+ 1 (@size (@i))))
+                        (+ 1 1)))
+                 //t_/true))
+         (@pass))
+        ((@simplify_if_loop?) (@pass))
+        (#t
+         (let ((//d (@make //t_/false '() '())) (//b '()))
+           (@down)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (cond ((or (> (@total_size //d) 100)
+                               (> (@total_size (list-ref (@i) (+ 1 1))) 100))
+                           (set! /fl_flag1 1))
+                          (#t
+                           (set! //b
+                             (@simplify_cond (list-ref (@i) (+ 1 1))))
+                           (cond ((@simplify_if_using?
+                                    //d
+                                    //b
+                                    (@cs (list-ref (@i) (+ 1 2))))
+                                  (@pass)))
+                           (cond ((or (@passed?) (not (@right?)))
+                                  (set! /fl_flag1 1))
+                                 (#t
+                                  (cond ((or (= (@st //b) //t_/false)
+                                             (= (@st //b) //t_/true))
+                                         (@pass))
+                                        ((@implies? //b //d) (@pass))
+                                        ((= (@st (@or //d //b)) //t_/true)
+                                         (@pass))
+                                        ((equal?
+                                           (@stat_types (list-ref (@i) (+ 1 2)))
+                                           (list //t_/comment))
+                                         (@pass))
+                                        (#t (set! //d (@or //d //b))))
+                                  (@right)
+                                  (cond ((and (< (@total_size
+                                                   (list-ref (@i) (+ 1 1)))
+                                                 100)
+                                              (< (@total_size //d) 100)
+                                              (< (@total_size
+                                                   (@simplify_using
+                                                     (list-ref (@i) (+ 1 1))
+                                                     (@not //d)
+                                                     20))
+                                                 (@total_size
+                                                   (list-ref (@i) (+ 1 1)))))
+                                         (@pass)
+                                         (set! /fl_flag1 0))
+                                        (#t (set! /fl_flag1 0)))))))
+                    (while-loop))
+                   (#t #t)))
+           (@up)
+           (cond ((not (@passed?))
+                  (let ((/__/o/k 1))
+                    (set! /__/o/k
+                      (@new_match /%const__simplify_if__1 (@i) /__/o/k))
+                    (cond ((= /__/o/k 1)
+                           (let ((/__/s_save //s))
+                             (set! //s (vector-ref /__/match_array 0))
+                             (@pass)
+                             (set! //s /__/s_save)))))))
+           (cond ((and (not (@passed?))
+                       (@trans? //t/r_/separate_/right))
+                  (@pass)))
+           (cond ((and (not (@passed?))
+                       (@trans? //t/r_/separate_/left))
+                  (@pass)))
+           (cond ((not (@passed?))
+                  (@fail "No simplification possible")))))))
+
+(define (@simplify_if_code //data)
+  (cond ((@si_special? (@i)) (@si_special))
+        ((@simplify_if_loop?)
+         (let ((//o/k 0))
+           (let ((/__/o/k 1))
+             (set! /__/o/k
+               (@new_match /%const__simplify_if__2 (@i) /__/o/k))
+             (cond ((= /__/o/k 1)
+                    (let ((/__/b2_save //b2)
+                          (/__/s_save //s)
+                          (/__/b1_save //b1))
+                      (set! //b2 (vector-ref /__/match_array 2))
+                      (set! //s (vector-ref /__/match_array 1))
+                      (set! //b1 (vector-ref /__/match_array 0))
+                      (@paste_over
+                        (@make 141 '() (list //b1 (@make 17 '() //s))))
+                      (set! //b2 /__/b2_save)
+                      (set! //s /__/s_save)
+                      (set! //b1 /__/b1_save)))
+                   (#t (error "@Simplify_If_Code: match failed!"))))))
+        (#t
+         (let ((/n (@size (@i)))
+               (//d (@make //t_/false '() '()))
+               (//b '())
+               (//p '())
+               (//q '())
+               (/comments '()))
+           (@edit)
+           (cond ((and (= (@st (list-ref
+                                 (list-ref (@i) (+ 1 (- /n 1)))
+                                 (+ 1 1)))
+                          //t_/not_/equal)
+                       (= (@st (list-ref (list-ref (@i) (+ 1 /n)) (+ 1 1)))
+                          //t_/true))
+                  (@down_to (- /n 1))
+                  (@trans //t/r_/move_/to_/right "")
+                  (@up)))
+           (@down)
+           (cond ((equal?
+                    (@stat_types (list-ref (@i) (+ 1 2)))
+                    (list //t_/comment))
+                  (set! /comments
+                    (concat /comments (@cs (list-ref (@i) (+ 1 2)))))
+                  (@down_to 2)
+                  (@paste_over (@skips))
+                  (@up)))
+           (let while-loop ()
+             (cond ((@right?)
+                    (begin
+                      (@right)
+                      (cond ((equal?
+                               (@stat_types (list-ref (@i) (+ 1 2)))
+                               (list //t_/comment))
+                             (set! /comments
+                               (concat /comments (@cs (list-ref (@i) (+ 1 2)))))
+                             (@down_to 2)
+                             (@paste_over (@skips))
+                             (@up))))
+                    (while-loop))
+                   (#t #t)))
+           (cond ((null? /comments) (@to 1))
+                 (#t
+                  (@up)
+                  (@end_edit)
+                  (@splice_before /comments)
+                  (let while-loop ()
+                    (cond ((not (null? /comments))
+                           (begin (@right) (set! /comments (cdr /comments)))
+                           (while-loop))
+                          (#t #t)))
+                  (@edit)
+                  (@down)))
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (set! //b
+                        (@simplify_cond (list-ref (@i) (+ 1 1))))
+                      (cond ((@simplify_if_using?
+                               //d
+                               //b
+                               (@cs (list-ref (@i) (+ 1 2))))
+                             (@down_to 2)
+                             (@simplify_if_using //d //b)
+                             (@up)
+                             (@foreach_statement
+                               /foreach-simplify_if-1
+                               0
+                               (@as_type)
+                               0)
+                             (cond ((null? (@program)) (@new_program (@skips))))
+                             (set! /fl_flag1 1))
+                            ((not (@right?)) (set! /fl_flag1 1))
+                            ((or (= (@st //b) //t_/false) (@implies? //b //d))
+                             (@delete)
+                             (set! /fl_flag1 0))
+                            ((or (= (@st //b) //t_/true)
+                                 (= (@st (@or //d //b)) //t_/true))
+                             (@down)
+                             (@paste_over (@make //t_/true '() '()))
+                             (@up)
+                             (@delete_rest)
+                             (set! /fl_flag1 0))
+                            (#t
+                             (set! //d (@or //d //b))
+                             (@right)
+                             (set! //q
+                               (@simplify_using
+                                 (list-ref (@i) (+ 1 1))
+                                 (@not //d)
+                                 20))
+                             (cond ((< (@total_size //q)
+                                       (@total_size (list-ref (@i) (+ 1 1))))
+                                    (@down)
+                                    (@paste_over //q)
+                                    (@up)
+                                    (set! /fl_flag1 0))
+                                   (#t (set! /fl_flag1 0))))))
+                    (while-loop))
+                   (#t #t)))
+           (@end_edit)
+           (@fix_cond)
+           (cond ((= (@st (@i)) //t_/cond)
+                  (cond ((and (= (@size (@i)) 2)
+                              (@true?
+                                (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))))
+                         (@splice_over
+                           (@components
+                             (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2)))))
+                        (#t
+                         (cond ((@trans? //t/r_/separate_/right)
+                                (@trans //t/r_/separate_/right "")))
+                         (cond ((@trans? //t/r_/separate_/left)
+                                (@trans //t/r_/separate_/left "")))
+                         (@trans //t/r_/delete_/all_/skips "")))))))))
+
+(define (@simplify_if_loop?)
+  (let ((//o/k 0))
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match /%const__simplify_if__2 (@i) /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__/b2_save //b2)
+                   (/__/s_save //s)
+                   (/__/b1_save //b1))
+               (set! //b2 (vector-ref /__/match_array 2))
+               (set! //s (vector-ref /__/match_array 1))
+               (set! //b1 (vector-ref /__/match_array 0))
+               (cond ((and (@gen_proper?
+                             (@make //t_/statements '() //s)
+                             (@as_type))
+                           (@equal? //b1 (@not //b2)))
+                      (set! //o/k 1)))
+               (set! //b2 /__/b2_save)
+               (set! //s /__/s_save)
+               (set! //b1 /__/b1_save)))))
+    (= //o/k 1)))
+
+(define (@simplify_if_using? //d //b //cs)
+  (let ((//o/k 0))
+    (let while-loop ()
+      (cond ((and (not (null? //cs))
+                  (= (@st (car //cs)) //t_/comment))
+             (set! //cs (cdr //cs))
+             (while-loop))
+            (#t #t)))
+    (cond ((and (not (null? //cs))
+                (= (@st (car //cs)) //t_/cond))
+           (set! //d (@or //d (@not //b)))
+           (set! //cs (@cs (car //cs)))
+           (let while-loop ()
+             (cond ((not (null? //cs))
+                    (begin
+                      (set! //b (list-ref (car //cs) (+ 1 1)))
+                      (cond ((@simplify_if_using?
+                               //d
+                               //b
+                               (@cs (list-ref (car //cs) (+ 1 2))))
+                             (set! //o/k 1)
+                             (set! //cs '()))
+                            ((null? (cdr //cs)) (set! //cs '()))
+                            ((@implies? //b //d)
+                             (set! //o/k 1)
+                             (set! //cs '()))
+                            ((or (= (@st //b) //t_/true)
+                                 (= (@st (@or //d //b)) //t_/true))
+                             (set! //o/k 1)
+                             (set! //cs '()))
+                            (#t
+                             (set! //d (@or //d //b))
+                             (set! //cs (cdr //cs)))))
+                    (while-loop))
+                   (#t #t)))))
+    (= //o/k 1)))
+
+(define (@simplify_if_using //d //b)
+  (@down)
+  (let while-loop ()
+    (cond ((and (@right?) (= (@st (@i)) //t_/comment))
+           (@right)
+           (while-loop))
+          (#t #t)))
+  (cond ((= (@st (@i)) //t_/cond)
+         (set! //d (@or //d (@not //b)))
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (set! //b
+                      (@simplify_cond (list-ref (@i) (+ 1 1))))
+                    (cond ((@simplify_if_using?
+                             //d
+                             //b
+                             (@cs (list-ref (@i) (+ 1 2))))
+                           (@down_to 2)
+                           (@simplify_if_using //d //b)
+                           (@up)
+                           (set! /fl_flag1 1))
+                          ((not (@right?)) (set! /fl_flag1 1))
+                          ((@implies? //b //d)
+                           (@delete)
+                           (set! /fl_flag1 0))
+                          ((or (= (@st //b) //t_/true)
+                               (= (@st (@or //d //b)) //t_/true))
+                           (@down)
+                           (@paste_over (@make //t_/true '() '()))
+                           (@up)
+                           (@delete_rest)
+                           (set! /fl_flag1 0))
+                          (#t
+                           (set! //d (@or //d //b))
+                           (@right)
+                           (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)))
+  (@up))
+
+(define (@si_special? //i)
+  (let ((//o/k 1)
+        (/v '())
+        (//s1 '())
+        (//s2 '())
+        (//l '()))
+    (cond ((< (@size //i) 3) (set! //o/k 0))
+          ((not (@si_special_guard?
+                  (list-ref //i (+ 1 1))
+                  /v
+                  //s1
+                  //s2))
+           (set! //o/k 0))
+          (#t
+           (set! /v
+             (list-ref
+               (list-ref (list-ref //i (+ 1 1)) (+ 1 1))
+               (+ 1 1)))
+           (set! //s1
+             (list-ref
+               (list-ref
+                 (list-ref
+                   (list-ref (list-ref //i (+ 1 1)) (+ 1 2))
+                   (+ 1 1))
+                 (+ 1 1))
+               (+ 1 2)))
+           (set! //s2
+             (list-ref
+               (list-ref
+                 (list-ref
+                   (list-ref (list-ref //i (+ 1 1)) (+ 1 2))
+                   (+ 1 1))
+                 (+ 1 2))
+               (+ 1 2)))
+           (set! //l (cdr (@cs //i)))
+           (let while-loop ()
+             (cond ((and (= //o/k 1) (not (null? //l)))
+                    (begin
+                      (cond ((null? (cdr //l))
+                             (cond ((not (@equal?
+                                           (list-ref (car //l) (+ 1 2))
+                                           //s2))
+                                    (set! //o/k 0))))
+                            ((not (@si_special_guard? (car //l) /v //s1 //s2))
+                             (set! //o/k 0)))
+                      (set! //l (cdr //l)))
+                    (while-loop))
+                   (#t #t)))))
+    (= //o/k 1)))
+
+(define (@si_special_guard? //g /v //s1 //s2)
+  (let ((//o/k 1))
+    (cond ((not (= (@st (list-ref //g (+ 1 1))) //t_/equal))
+           (set! //o/k 0))
+          ((and (not (= (@st (list-ref (list-ref //g (+ 1 1)) (+ 1 2)))
+                        //t_/string))
+                (not (= (@st (list-ref (list-ref //g (+ 1 1)) (+ 1 2)))
+                        //t_/number)))
+           (set! //o/k 0))
+          ((and (not (null? /v))
+                (not (@equal?
+                       /v
+                       (list-ref (list-ref //g (+ 1 1)) (+ 1 1)))))
+           (set! //o/k 0))
+          ((not (= (@st (list-ref (list-ref //g (+ 1 2)) (+ 1 1)))
+                   //t_/cond))
+           (set! //o/k 0))
+          ((not (= (@size (list-ref //g (+ 1 2))) 1))
+           (set! //o/k 0))
+          ((and (not (null? //s1))
+                (not (@equal?
+                       //s1
+                       (list-ref
+                         (list-ref
+                           (list-ref (list-ref //g (+ 1 2)) (+ 1 1))
+                           (+ 1 1))
+                         (+ 1 2)))))
+           (set! //o/k 0))
+          ((and (not (null? //s2))
+                (not (@equal?
+                       //s2
+                       (list-ref
+                         (list-ref
+                           (list-ref (list-ref //g (+ 1 2)) (+ 1 1))
+                           (+ 1 2))
+                         (+ 1 2)))))
+           (set! //o/k 0)))
+    (= //o/k 1)))
+
+(define (@si_special)
+  (let ((//b/l (list (@make //t_/and
+                            '()
+                            (list (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+                                  (list-ref
+                                    (list-ref
+                                      (list-ref
+                                        (list-ref
+                                          (list-ref (@i) (+ 1 1))
+                                          (+ 1 2))
+                                        (+ 1 1))
+                                      (+ 1 1))
+                                    (+ 1 1))))))
+        (//b '())
+        (//s1 (@cs (list-ref
+                     (list-ref
+                       (list-ref
+                         (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))
+                         (+ 1 1))
+                       (+ 1 1))
+                     (+ 1 2))))
+        (//s2 (@cs (list-ref
+                     (list-ref
+                       (list-ref
+                         (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))
+                         (+ 1 1))
+                       (+ 1 2))
+                     (+ 1 2))))
+        (//l (@cs (@i))))
+    (let while-loop ()
+      (cond ((not (null? (cdr //l)))
+             (begin
+               (set! //b/l
+                 (cons (@make //t_/and
+                              '()
+                              (list (list-ref (car //l) (+ 1 1))
+                                    (list-ref
+                                      (list-ref
+                                        (list-ref
+                                          (list-ref (car //l) (+ 1 2))
+                                          (+ 1 1))
+                                        (+ 1 1))
+                                      (+ 1 1))))
+                       //b/l))
+               (set! //l (cdr //l)))
+             (while-loop))
+            (#t #t)))
+    (set! //b (@make //t_/or '() (reverse //b/l)))
+    (@paste_over
+      (@make 114
+             '()
+             (list (@make 7 '() (list //b (@make 17 '() //s1)))
+                   (@make 7
+                          '()
+                          (list (@make 308 '() '()) (@make 17 '() //s2))))))))
+
+#t
+

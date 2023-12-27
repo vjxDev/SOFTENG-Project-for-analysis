@@ -1,0 +1,13 @@
+
+p
+java:S1450#"URemove the "jLabel" field and declare it as a local variable in the relevant methods.(ÒÜÓÙûÿÿÿÿ
+l
+java:S1450%"VRemove the "jLabel1" field and declare it as a local variable in the relevant methods.(ƒìÓá
+r
+java:S14505"WRemove the "jLabel11" field and declare it as a local variable in the relevant methods.(ñ¹â¸úÿÿÿÿ
+k
+java:S1450E"URemove the "label1" field and declare it as a local variable in the relevant methods.(ïË´†
+q
+java:S1450A"VRemove the "label11" field and declare it as a local variable in the relevant methods.( ëÀşùÿÿÿÿ
+@
+java:S1948?"*Make "listener" transient or serializable.(Ú´”Œ

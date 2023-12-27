@@ -1,0 +1,18 @@
+(define (@join_cases_left_test)
+  (cond ((not (= (@st (@i)) //t_/guarded))
+         (@fail "Current item is not a Guarded"))
+        ((not (@left?))
+         (@fail "There is no Guarded to the left of this one"))
+        (#t
+         (@left)
+         (cond ((not (@trans? //t/r_/join_/cases_/right))
+                (@fail (@fail_message)))
+               (#t (@pass)))
+         (@right))))
+
+(define (@join_cases_left_code //data)
+  (@left)
+  (@trans //t/r_/join_/cases_/right //data))
+
+#t
+

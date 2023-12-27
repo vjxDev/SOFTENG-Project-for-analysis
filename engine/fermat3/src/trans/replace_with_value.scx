@@ -1,0 +1,750 @@
+(define (/foreach-replace_with_value-1
+         //depth
+         //a/s_/type)
+  (cond ((equal? (@v (@i)) (car //v)) (@paste_over //r2))))
+
+(define (/foreach-replace_with_value-2
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/struct)
+         (cond ((equal? (@struct_elts (@i)) //v)
+                (@paste_over //r2))))))
+
+(define /%const__replace_with_value__1
+  (@make 109
+         '()
+         (list (@make 313
+                      '()
+                      (list (@make 261 '() (list (@make 205 1 '())))
+                            (@make 217 -2 '()))))))
+
+(define /%const__replace_with_value__2
+  (@make 109
+         '()
+         (list (@make 313
+                      '()
+                      (list (@make 217 -1 '())
+                            (@make 261 '() (list (@make 205 2 '()))))))))
+
+(define (@replace_with_value_test)
+  (cond ((and (not (= (@st (@i)) //t_/variable))
+              (not (= (@st (@i)) //t_/struct))
+              (not (and (= (@st (@i)) //t_/aref)
+                        (= (@size (list-ref (@i) (+ 1 2))) 1)
+                        (= (@st (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))
+                           //t_/number))))
+         (@fail "The selected item is not a variable in an expression."))
+        (#t
+         (let ((/val (@find_value (@struct_elts (@i)))))
+           (cond ((null? /val)
+                  (@fail "Cannot easily determine the value."))
+                 ((> (@posn_n) 1) (@pass))
+                 ((and (or (= (@st (@parent)) //t_/aref)
+                           (= (@st (@parent)) //t_/sub_/seg)
+                           (= (@st (@parent)) //t_/rel_/seg))
+                       (not (= (@st /val) //t_/variable)))
+                  (@fail "Replacement would lead to bad syntax."))
+                 ((and (or (= (@st (@parent)) //t_/aref_/lvalue)
+                           (= (@st (@parent)) //t_/sub_/seg_/lvalue)
+                           (= (@st (@parent)) //t_/rel_/seg_/lvalue))
+                       (not (= (@st /val) //t_/var_/lvalue)))
+                  (@fail "Replacement would lead to bad syntax."))
+                 (#t (@pass)))))))
+
+(define (@replace_with_value_code //data)
+  (let ((/val (@find_value (@struct_elts (@i)))))
+    (cond ((null? /val)
+           (begin
+             (display "ERROR in Replace_With_Value!!!")
+             (newline)
+             (force-output)))
+          (#t (@paste_over /val)))))
+
+(define (@find_value //v-par)
+  (let ((//v-save //v)
+        (//e (@elt_to_expn //v-par))
+        (//orig_/posn (@posn))
+        (/move 1)
+        (//result-save //result)
+        (/clobbered '())
+        (/found 0)
+        (/tpf_regs (@make_name "tpf_regs"))
+        (//calls
+          (@make_set
+            (list //t_/m/w_/proc_/call
+                  //t_/x_/proc_/call
+                  //t_/proc_/call)))
+        (/registers
+          (@make_set
+            (let ((l (list "r0"
+                           "r1"
+                           "r2"
+                           "r3"
+                           "r4"
+                           "r5"
+                           "r6"
+                           "r7"
+                           "r8"
+                           "r9"
+                           "r10"
+                           "r11"
+                           "r12"
+                           "r13"
+                           "r14"
+                           "r15"))
+                  (map-result '()))
+              (let while-loop ()
+                (cond ((not (null? l))
+                       (set! map-result
+                         (cons (@make_name (car l)) map-result))
+                       (set! l (cdr l))
+                       (while-loop))
+                      (#t #t)))
+              (reverse map-result))))
+        (funct-result '()))
+    (set! //v //v-par)
+    (set! //result '())
+    (let while-loop ()
+      (cond ((and (or (and (not (= (@st (@parent)) //t_/m/w_/funct))
+                           (not (= (@st (@parent)) //t_/m/w_/b/funct))
+                           (not (= (@st (@parent)) //t_/funct))
+                           (not (= (@st (@parent)) //t_/b/funct)))
+                      (not (= (@posn_n) 5)))
+                  (not (= //t_/statement (@gt (@i))))
+                  (@up?))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (cond ((and (or (= (@st (@parent)) //t_/m/w_/funct)
+                    (= (@st (@parent)) //t_/m/w_/b/funct)
+                    (= (@st (@parent)) //t_/funct)
+                    (= (@st (@parent)) //t_/b/funct))
+                (not (= //t_/statement (@gt (@i))))
+                (= (@posn_n) 5))
+           (@left)
+           (@down_last)
+           (set! /move 0)))
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (cond ((and (= /move 1)
+                           (or (= (@st (@i)) //t_/floop)
+                               (= (@st (@i)) //t_/while)
+                               (= (@st (@i)) //t_/a_/s)))
+                      (cond ((or (not (null? (@set_intersect
+                                               (@stat_types (@i))
+                                               //calls)))
+                                 (@elt_clash? (@elts_assigned (@i)) //v))
+                             (set! //result '())
+                             (set! /fl_flag2 1))
+                            (#t (set! /fl_flag2 0))))
+                     (#t (set! /fl_flag2 0)))
+               (cond ((= /fl_flag2 0)
+                      (cond ((not (= (@gt (@i)) //t_/statement))
+                             (set! //result '())
+                             (set! /fl_flag2 1))
+                            ((or (= /move 0) (@left?))
+                             (cond ((= /move 0) (set! /move 1)) (#t (@left)))
+                             (let while-loop ()
+                               (cond ((and (= (@st (@i)) //t_/var)
+                                           (not (@elt_clash?
+                                                  (@elts_assigned
+                                                    (list-ref (@i) (+ 1 1)))
+                                                  //v))
+                                           (@elt_clash?
+                                             (@elts_assigned (@i))
+                                             //v))
+                                      (begin
+                                        (set! /clobbered
+                                          (@set_union
+                                            /clobbered
+                                            (@elts_assigned
+                                              (list-ref (@i) (+ 1 1)))))
+                                        (@down_last)
+                                        (@down_last))
+                                      (while-loop))
+                                     (#t #t)))
+                             (cond ((= (@st (@i)) //t_/assert)
+                                    (let ((/__/o/k 1))
+                                      (vector-set! /__/match_array 0 //e)
+                                      (set! /__/o/k
+                                        (@new_match
+                                          /%const__replace_with_value__1
+                                          (@i)
+                                          /__/o/k))
+                                      (cond ((= /__/o/k 1)
+                                             (let ((/__/x_save //x))
+                                               (set! //x
+                                                 (vector-ref /__/match_array 1))
+                                               (set! //result //x)
+                                               (set! /found 1)
+                                               (set! //x /__/x_save)))
+                                            (#t
+                                             (let ((/__/o/k 1))
+                                               (vector-set!
+                                                 /__/match_array
+                                                 1
+                                                 //e)
+                                               (set! /__/o/k
+                                                 (@new_match
+                                                   /%const__replace_with_value__2
+                                                   (@i)
+                                                   /__/o/k))
+                                               (cond ((= /__/o/k 1)
+                                                      (let ((/__/x_save //x))
+                                                        (set! //x
+                                                          (vector-ref
+                                                            /__/match_array
+                                                            0))
+                                                        (set! //result //x)
+                                                        (set! /found 1)
+                                                        (set! //x /__/x_save)))
+                                                     (#t (set! /found 0)))))))
+                                    (cond ((= /found 1) (set! /fl_flag2 1))
+                                          (#t (set! /fl_flag2 0))))
+                                   ((and (= (@st (@i)) //t_/assignment)
+                                         (member //v (@elts_assigned (@i))))
+                                    (set! /clobbered
+                                      (@set_union
+                                        /clobbered
+                                        (@set_difference
+                                          (@elts_assigned (@i))
+                                          (list //v))))
+                                    (@down)
+                                    (set! /fl_flag1 0)
+                                    (let while-loop ()
+                                      (cond ((= /fl_flag1 0)
+                                             (cond ((equal?
+                                                      //v
+                                                      (@struct_elts
+                                                        (list-ref
+                                                          (@i)
+                                                          (+ 1 1))))
+                                                    (set! //result
+                                                      (list-ref (@i) (+ 1 2)))
+                                                    (set! /fl_flag1 1))
+                                                   ((and (= (@st (list-ref
+                                                                   (@i)
+                                                                   (+ 1 1)))
+                                                            //t_/aref_/lvalue)
+                                                         (= (@st (list-ref
+                                                                   (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1))
+                                                                   (+ 1 1)))
+                                                            //t_/var_/lvalue)
+                                                         (= (@size (list-ref
+                                                                     (list-ref
+                                                                       (@i)
+                                                                       (+ 1 1))
+                                                                     (+ 1 2)))
+                                                            1)
+                                                         (= (@st (list-ref
+                                                                   (list-ref
+                                                                     (list-ref
+                                                                       (@i)
+                                                                       (+ 1 1))
+                                                                     (+ 1 2))
+                                                                   (+ 1 1)))
+                                                            //t_/number)
+                                                         (equal?
+                                                           //v
+                                                           (list (@v (list-ref
+                                                                       (list-ref
+                                                                         (@i)
+                                                                         (+ 1
+                                                                            1))
+                                                                       (+ 1 1)))
+                                                                 (- (@v (list-ref
+                                                                          (list-ref
+                                                                            (list-ref
+                                                                              (@i)
+                                                                              (+ 1
+                                                                                 1))
+                                                                            (+ 1
+                                                                               2))
+                                                                          (+ 1
+                                                                             1)))))))
+                                                    (set! //result
+                                                      (list-ref (@i) (+ 1 2)))
+                                                    (set! /fl_flag1 1))
+                                                   ((not (@right?))
+                                                    (set! /fl_flag1 1))
+                                                   (#t
+                                                    (@right)
+                                                    (set! /fl_flag1 0)))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (@up)
+                                    (cond ((not (null? //result))
+                                           (cond ((member
+                                                    (car //v)
+                                                    (@used //result))
+                                                  (set! //result
+                                                    (@fv_self_assign
+                                                      //v
+                                                      /clobbered
+                                                      //result))))
+                                           (set! /fl_flag2 1))
+                                          (#t (set! /fl_flag2 0))))
+                                   ((and (= (@st (@i)) //t_/assignment)
+                                         (@equal?
+                                           (list-ref
+                                             (list-ref (@i) (+ 1 1))
+                                             (+ 1 2))
+                                           //e)
+                                         (not (and (= (@st (list-ref
+                                                             (list-ref
+                                                               (@i)
+                                                               (+ 1 1))
+                                                             (+ 1 1)))
+                                                      //t_/var_/lvalue)
+                                                   (member
+                                                     (@v (list-ref
+                                                           (list-ref
+                                                             (@i)
+                                                             (+ 1 1))
+                                                           (+ 1 1)))
+                                                     /registers))))
+                                    (set! //result
+                                      (@lvalue_to_expn
+                                        (list-ref
+                                          (list-ref (@i) (+ 1 1))
+                                          (+ 1 1))))
+                                    (set! /found 1)
+                                    (set! /fl_flag2 0))
+                                   ((or (@elt_clash? (@elts_assigned (@i)) //v)
+                                        (not (null? (@set_intersect
+                                                      (@stat_types (@i))
+                                                      //calls))))
+                                    (set! //result '())
+                                    (set! /fl_flag2 1))
+                                   (#t (set! /fl_flag2 0)))
+                             (cond ((= /fl_flag2 0)
+                                    (set! /clobbered
+                                      (@set_union
+                                        /clobbered
+                                        (@elts_assigned (@i))))
+                                    (cond ((and (= (@st (@i)) //t_/assignment)
+                                                (or (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/sub_/seg_/lvalue)
+                                                    (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/rel_/seg_/lvalue))
+                                                (= (@st (list-ref
+                                                          (list-ref
+                                                            (list-ref
+                                                              (@i)
+                                                              (+ 1 1))
+                                                            (+ 1 1))
+                                                          (+ 1 1)))
+                                                   //t_/var_/lvalue)
+                                                (equal?
+                                                  (@v (list-ref
+                                                        (list-ref
+                                                          (list-ref
+                                                            (@i)
+                                                            (+ 1 1))
+                                                          (+ 1 1))
+                                                        (+ 1 1)))
+                                                  /a_name)
+                                                (or (member
+                                                      /a_name
+                                                      (@used (list-ref
+                                                               (list-ref
+                                                                 (list-ref
+                                                                   (@i)
+                                                                   (+ 1 1))
+                                                                 (+ 1 1))
+                                                               (+ 1 2))))
+                                                    (not (null? (@set_intersect
+                                                                  /registers
+                                                                  (@used (list-ref
+                                                                           (list-ref
+                                                                             (list-ref
+                                                                               (@i)
+                                                                               (+ 1
+                                                                                  1))
+                                                                             (+ 1
+                                                                                1))
+                                                                           (+ 1
+                                                                              2))))))))
+                                           (set! /clobbered
+                                             (@set_union
+                                               /clobbered
+                                               (list (list /a_name /a_name))))))
+                                    (cond ((and (= (@st (@i)) //t_/assignment)
+                                                (or (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/mem_/seg_/lvalue)
+                                                    (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/mem_/rel_/lvalue))
+                                                (or (or (= (@st (list-ref
+                                                                  (list-ref
+                                                                    (list-ref
+                                                                      (@i)
+                                                                      (+ 1 1))
+                                                                    (+ 1 1))
+                                                                  (+ 1 1)))
+                                                           //t_/mem_/seg)
+                                                        (= (@st (list-ref
+                                                                  (list-ref
+                                                                    (list-ref
+                                                                      (@i)
+                                                                      (+ 1 1))
+                                                                    (+ 1 1))
+                                                                  (+ 1 1)))
+                                                           //t_/mem_/rel)
+                                                        (= (@st (list-ref
+                                                                  (list-ref
+                                                                    (list-ref
+                                                                      (@i)
+                                                                      (+ 1 1))
+                                                                    (+ 1 1))
+                                                                  (+ 1 1)))
+                                                           //t_/mem))
+                                                    (not (null? (@set_intersect
+                                                                  /registers
+                                                                  (@used (list-ref
+                                                                           (list-ref
+                                                                             (list-ref
+                                                                               (@i)
+                                                                               (+ 1
+                                                                                  1))
+                                                                             (+ 1
+                                                                                1))
+                                                                           (+ 1
+                                                                              1))))))))
+                                           (set! /clobbered
+                                             (@set_union
+                                               /clobbered
+                                               (list (list /a_name /a_name))))))
+                                    (cond ((and (= (@st (@i)) //t_/assignment)
+                                                (or (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/sub_/seg_/lvalue)
+                                                    (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1)))
+                                                       //t_/rel_/seg_/lvalue))
+                                                (= (@st (list-ref
+                                                          (list-ref
+                                                            (list-ref
+                                                              (@i)
+                                                              (+ 1 1))
+                                                            (+ 1 1))
+                                                          (+ 1 1)))
+                                                   //t_/var_/lvalue)
+                                                (equal?
+                                                  (@v (list-ref
+                                                        (list-ref
+                                                          (list-ref
+                                                            (@i)
+                                                            (+ 1 1))
+                                                          (+ 1 1))
+                                                        (+ 1 1)))
+                                                  /a_name)
+                                                (= (@st (list-ref
+                                                          (list-ref
+                                                            (list-ref
+                                                              (@i)
+                                                              (+ 1 1))
+                                                            (+ 1 1))
+                                                          (+ 1 2)))
+                                                   //t_/variable)
+                                                (or (@starts_with?
+                                                      (@v (list-ref
+                                                            (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1))
+                                                            (+ 1 2)))
+                                                      "v_")
+                                                    (@starts_with?
+                                                      (@v (list-ref
+                                                            (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 1))
+                                                              (+ 1 1))
+                                                            (+ 1 2)))
+                                                      "V_")))
+                                           (set! /clobbered
+                                             (@set_union
+                                               /clobbered
+                                               (list (list (@v (list-ref
+                                                                 (list-ref
+                                                                   (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1))
+                                                                   (+ 1 1))
+                                                                 (+ 1 2)))))))))
+                                    (cond ((and (member
+                                                  //t_/a_/proc_/call
+                                                  (@stat_types (@i)))
+                                                (not (null? //a_/proc_/call_/filter)))
+                                           (cond ((not (member
+                                                         (car //v)
+                                                         //a_/proc_/call_/filter))
+                                                  (set! //result '())
+                                                  (set! /fl_flag2 1))
+                                                 (#t (set! /fl_flag2 0))))
+                                          (#t (set! /fl_flag2 0)))
+                                    (cond ((= /fl_flag2 0)
+                                           (cond ((and (member
+                                                         //t_/a_/proc_/call
+                                                         (@stat_types (@i)))
+                                                       (member
+                                                         /tpf_regs
+                                                         (@used (@i))))
+                                                  (set! //result '())
+                                                  (set! /fl_flag2 1))
+                                                 (#t (set! /fl_flag2 0))))))))
+                            ((not (@up?))
+                             (set! //result '())
+                             (set! /fl_flag2 1))
+                            (#t
+                             (cond ((= (@st (@i)) //t_/var)
+                                    (set! /clobbered
+                                      (@set_union
+                                        /clobbered
+                                        (@elts_assigned
+                                          (list-ref (@i) (+ 1 1)))))))
+                             (@up)
+                             (cond ((not (@up?))
+                                    (set! //result '())
+                                    (set! /fl_flag2 1))
+                                   (#t
+                                    (@up)
+                                    (cond ((and (= (@st (@i)) //t_/var)
+                                                (member
+                                                  //v
+                                                  (@elt_lvars
+                                                    (list-ref (@i) (+ 1 1)))))
+                                           (@down)
+                                           (@down)
+                                           (let while-loop ()
+                                             (cond ((not (equal?
+                                                           (@struct_elts
+                                                             (list-ref
+                                                               (@i)
+                                                               (+ 1 1)))
+                                                           //v))
+                                                    (@right)
+                                                    (while-loop))
+                                                   (#t #t)))
+                                           (set! //result
+                                             (list-ref (@i) (+ 1 2)))
+                                           (cond ((@elt_clash?
+                                                    (@elts_used //result)
+                                                    //v)
+                                                  (set! //result '())))
+                                           (set! /fl_flag2 1))
+                                          ((and (or (= (@st (@i))
+                                                       //t_/m/w_/funct)
+                                                    (= (@st (@i))
+                                                       //t_/m/w_/b/funct))
+                                                (member
+                                                  //v
+                                                  (@elt_lvars
+                                                    (list-ref (@i) (+ 1 3)))))
+                                           (@down_to 3)
+                                           (@down)
+                                           (let while-loop ()
+                                             (cond ((not (equal?
+                                                           (@struct_elts
+                                                             (list-ref
+                                                               (@i)
+                                                               (+ 1 1)))
+                                                           //v))
+                                                    (@right)
+                                                    (while-loop))
+                                                   (#t #t)))
+                                           (set! //result
+                                             (list-ref (@i) (+ 1 2)))
+                                           (cond ((@elt_clash?
+                                                    (@elts_used //result)
+                                                    //v)
+                                                  (set! //result '())))
+                                           (set! /fl_flag2 1))
+                                          ((= (@st (@i)) //t_/var)
+                                           (set! /fl_flag2 0))
+                                          ((and (= (@gt (@i)) //t_/guarded)
+                                                (@up?))
+                                           (@up)
+                                           (set! /fl_flag2 0))
+                                          ((and (or (= (@st (@i)) //t_/floop)
+                                                    (= (@st (@i)) //t_/while)
+                                                    (= (@st (@i)) //t_/a_/s))
+                                                (@up?))
+                                           (cond ((not (null? (@set_intersect
+                                                                (@stat_types
+                                                                  (@i))
+                                                                //calls)))
+                                                  (set! //result '())
+                                                  (set! /fl_flag2 1))
+                                                 ((@elt_clash?
+                                                    (@elts_assigned (@i))
+                                                    //v)
+                                                  (set! //result '())
+                                                  (set! /fl_flag2 1))
+                                                 (#t
+                                                  (set! /clobbered
+                                                    (@set_union
+                                                      /clobbered
+                                                      (@elts_assigned (@i))))
+                                                  (set! /fl_flag2 0))))
+                                          ((and (= (@st (@i)) //t_/action)
+                                                (> (if (vector? (@posn))
+                                                     (vector-length (@posn))
+                                                     (length (@posn)))
+                                                   2))
+                                           (@up)
+                                           (@up)
+                                           (set! /fl_flag2 0))
+                                          ((and (= (@st (@i)) //t_/where)
+                                                (not (member
+                                                       //v
+                                                       (@assigned (@i)))))
+                                           (set! /fl_flag2 0))
+                                          (#t
+                                           (set! //result '())
+                                           (set! /fl_flag2 1))))))))))
+             (while-loop))
+            (#t #t)))
+    (@goto //orig_/posn)
+    (cond (#f
+           (begin
+             (display " V = ")
+             (begin
+               (display
+                 (let ((l //v) (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@n_string (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result)))
+               (begin (display " ") (newline) (force-output))))
+           (begin (display "Result = ") (force-output))
+           (cond ((null? //result)
+                  (begin (display '()) (newline) (force-output)))
+                 (#t
+                  (@pp_item //result 80 "")
+                  (begin (display "Used      = ") (force-output))
+                  (@print_elts (@elts_used //result))
+                  (begin (display "clobbered = ") (force-output))
+                  (@print_elts /clobbered)))))
+    (cond ((and (member (list /a_name /a_name) /clobbered)
+                (not (null? //result)))
+           (cond ((and (or (= (@st //result) //t_/sub_/seg)
+                           (= (@st //result) //t_/rel_/seg))
+                       (= (@st (list-ref //result (+ 1 1)))
+                          //t_/variable)
+                       (equal? (@v (list-ref //result (+ 1 1))) /a_name)
+                       (or (member
+                             /a_name
+                             (@used (list-ref //result (+ 1 2))))
+                           (not (null? (@set_intersect
+                                         /registers
+                                         (@used (list-ref
+                                                  //result
+                                                  (+ 1 2))))))))
+                  (set! //result '()))
+                 (#t
+                  (set! /clobbered
+                    (@set_difference
+                      /clobbered
+                      (list (list /a_name /a_name))))))))
+    (cond ((and (not (null? //result))
+                (@elt_clash_list?
+                  (@elts_used //result)
+                  (@set_difference
+                    /clobbered
+                    (list (list /a_name)))))
+           (set! //result '())))
+    (set! funct-result //result)
+    (set! //v //v-save)
+    (set! //result //result-save)
+    funct-result))
+
+(define (@fv_self_assign //v-par /clobbered //result-par)
+  (let ((//result-save //result)
+        (//v-save //v)
+        (funct-result '()))
+    (set! //result //result-par)
+    (set! //v //v-par)
+    (let ((/used (@elts_used //result)) (/recurse 0))
+      (let while-loop ()
+        (cond ((and (not (null? /used)) (not (null? //result)))
+               (begin
+                 (cond ((equal? (car /used) //v) (set! /recurse 1))
+                       ((@prefix? (car /used) //v) (set! //result '()))
+                       ((@prefix? //v (car /used)) (set! //result '()))
+                       ((member (car //v) (car /used))
+                        (set! //result '())))
+                 (set! /used (cdr /used)))
+               (while-loop))
+              (#t #t)))
+      (cond ((and (not (null? //result)) (= /recurse 1))
+             (cond ((@elt_clash_list? /clobbered /used)
+                    (set! //result '()))
+                   (#t
+                    (let ((//r2-save //r2))
+                      (set! //r2 (@find_value //v))
+                      (cond ((null? //r2) (set! //result '()))
+                            (#t
+                             (@edit)
+                             (@new_program //result)
+                             (cond ((= (if (vector? //v)
+                                         (vector-length //v)
+                                         (length //v))
+                                       1)
+                                    (@foreach_variable
+                                      /foreach-replace_with_value-1
+                                      0
+                                      (@as_type)
+                                      0)
+                                    (cond ((null? (@program))
+                                           (@new_program (@skips)))))
+                                   (#t
+                                    (@foreach_expn
+                                      /foreach-replace_with_value-2
+                                      0
+                                      (@as_type)
+                                      0)
+                                    (cond ((null? (@program))
+                                           (@new_program (@skips))))))
+                             (set! //result (@program))
+                             (@undo_edit)))
+                      (set! //r2 //r2-save)))))))
+    (set! funct-result //result)
+    (set! //result //result-save)
+    (set! //v //v-save)
+    funct-result))
+
+#t
+

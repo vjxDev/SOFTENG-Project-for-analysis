@@ -1,0 +1,56 @@
+(define /%const__while_to_floop__1
+  (@make 141
+         '()
+         (list (@make 305 -1 '())
+               (@make 17 '() (list (@make 107 -2 '()))))))
+
+(define (@while_to_floop_test)
+  (cond ((not (= (@st (@i)) //t_/while))
+         (@fail "Selected item is not a WHILE loop."))
+        (#t (@pass))))
+
+(define (@while_to_floop_code //data)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__while_to_floop__1
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__/s_save //s) (/__/b_save //b))
+             (set! //s (vector-ref /__/match_array 1))
+             (set! //b (vector-ref /__/match_array 0))
+             (set! //b (@not //b))
+             (@paste_over
+               (@make 133
+                      '()
+                      (list (@make 17
+                                   '()
+                                   (append
+                                     (list (@make 114
+                                                  '()
+                                                  (list (@make 7
+                                                               '()
+                                                               (list //b
+                                                                     (@make 17
+                                                                            '()
+                                                                            (list (@make 117
+                                                                                         1
+                                                                                         '())))))
+                                                        (@make 7
+                                                               '()
+                                                               (list (@make 308
+                                                                            '()
+                                                                            '())
+                                                                     (@make 17
+                                                                            '()
+                                                                            (list (@make 145
+                                                                                         '()
+                                                                                         '()))))))))
+                                     //s)))))
+             (set! //s /__/s_save)
+             (set! //b /__/b_save)))
+          (#t (error "Not a WHILE loop!")))))
+
+#t
+

@@ -1,0 +1,23 @@
+
+t
+java:S22931"YReplace the type specification in this constructor call with the diamond operator ("<>").(³ş«üÿÿÿÿÿ
+t
+java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(»Ñ¼„ÿÿÿÿÿ
+n
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÒØ‰@
+i
+java:S1192™"MDefine a constant instead of duplicating this literal "CatalogueGUI" 4 times.(ÿ’®øÿÿÿÿ
+a
+java:S1192’"JDefine a constant instead of duplicating this literal "EditorGUI" 5 times.(Îğ©Â
+d
+java:S1192‹"HDefine a constant instead of duplicating this literal "TreeGUI" 6 times.(Ô­´£şÿÿÿÿ
+€
+java:S1149\"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(½é„ûÿÿÿÿ
+Z
+java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(æÎ8
+[
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(şÎÌÏ
+`
+java:S1124'"EReorder the modifiers to comply with the Java Language Specification.(²‚³øÿÿÿÿ
+[
+java:S1124)"EReorder the modifiers to comply with the Java Language Specification.(ı†Œ¿

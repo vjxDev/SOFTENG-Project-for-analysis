@@ -1,0 +1,26 @@
+This is the FermaT Transformation Engine by Martin Ward
+(martin@gkc.org.uk)
+
+Requirements:  you need to have perl version 5.6 or later installed.
+For the dataflow functions, including the Static Single Assignment
+and Slicing transformations, you need two perl modules installed:
+Set::IntRange and Bit::Vector which you can download from www.cpan.org
+Use "perl -MCPAN -e shell" to start a CPAN shell and type the commands:
+install Bit::Vector
+install Set::IntRange
+
+Source either DOIT.csh, DOIT.sh or DOIT.bash into your shell to set
+the path and environment variables (eg if your shell is csh or tcsh
+then type "source DOIT.csh").
+
+Type "make test" to build and test FermaT.
+
+See INSTALL for more details about the installation. There is
+also a separate guide "install-fermat-on-linux" in the "doc" directory.
+
+See the doc directory for more documentation.
+
+FermaT has been tested under Linux, Solaris 5.5.1, Solaris 2.8,
+Alpha, HP-UX B.11.00 and Windows ME.
+
+

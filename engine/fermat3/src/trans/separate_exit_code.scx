@@ -1,0 +1,470 @@
+(define (/foreach-separate_exit_code-1
+         //depth
+         //a/s_/type)
+  (cond ((and (not (@failed?))
+              (= //depth 1)
+              (equal? (@gen_tvs (@i) //a/s_/type) (list 1))
+              (not (equal? (@stat_types (@i)) (list //t_/exit))))
+         (cond ((@gen_reducible? (@i) //a/s_/type) (@pass))
+               (#t
+                (@fail "Some of the exit code is not reducible"))))))
+
+(define (/foreach-separate_exit_code-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= (if (vector? (@gen_tvs (@i) //a/s_/type))
+                   (vector-length (@gen_tvs (@i) //a/s_/type))
+                   (length (@gen_tvs (@i) //a/s_/type)))
+                 1)
+              (>= (car (@gen_tvs (@i) //a/s_/type)) //depth))
+         (set! /body (@i))
+         (set! /count (+ /count 1))
+         (@paste_over /%const__separate_exit_code__1))))
+
+(define (/foreach-separate_exit_code-3
+         //depth
+         //a/s_/type)
+  (cond ((and (= (if (vector? (@gen_tvs (@i) //a/s_/type))
+                   (vector-length (@gen_tvs (@i) //a/s_/type))
+                   (length (@gen_tvs (@i) //a/s_/type)))
+                 1)
+              (>= (car (@gen_tvs (@i) //a/s_/type)) //depth))
+         (cond ((@set_subset? (@stat_types (@i)) /skips))
+               (#t
+                (set! /n (@make //t_/number (+ (@v /n) 1) '()))
+                (cond ((> //depth 1)
+                       (set! /body
+                         (@cs (@increment (@i) (@as_type) (- 1 //depth) 1))))
+                      (#t (set! /body (@cs (@i)))))
+                (set! /exit (@make //t_/exit //depth '()))
+                (set! /guards
+                  (cons (@make 7
+                               '()
+                               (list (@make 313
+                                            '()
+                                            (list (@var_to_expn /flag)
+                                                  (@var_to_expn /n)))
+                                     (@make 17 '() /body)))
+                        /guards))
+                (@paste_over
+                  (@make 17
+                         '()
+                         (list (@make 110
+                                      '()
+                                      (list (@make 6
+                                                   '()
+                                                   (list (@expn_to_var /flag)
+                                                         (@var_to_expn /n)))))
+                               /exit))))))
+        ((and (= //depth 1)
+              (> (if (vector? (@gen_tvs (@i) //a/s_/type))
+                   (vector-length (@gen_tvs (@i) //a/s_/type))
+                   (length (@gen_tvs (@i) //a/s_/type)))
+                 1)
+              (= (@st (list-ref (@i) (+ 1 (@size (@i)))))
+                 //t_/exit)
+              (= (@v (list-ref (@i) (+ 1 (@size (@i))))) 1))
+         (let ((/-result- (@sec_split (@cs (@i)) //s1 //s2)))
+           (set! //s1 (car /-result-))
+           (set! /-result- (cdr /-result-))
+           (set! //s2 (car /-result-))
+           (set! /-result- (cdr /-result-)))
+         (cond ((@set_subset? (@stat_types //s2) /skips))
+               (#t
+                (set! /body (@cs //s2))
+                (set! /n (@make //t_/number (+ (@v /n) 1) '()))
+                (set! /guards
+                  (cons (@make 7
+                               '()
+                               (list (@make 313
+                                            '()
+                                            (list (@var_to_expn /flag)
+                                                  (@var_to_expn /n)))
+                                     (@make 17 '() /body)))
+                        /guards))
+                (@paste_over
+                  (@make 17
+                         '()
+                         (list (@make 110
+                                      '()
+                                      (list (@make 6
+                                                   '()
+                                                   (list (@expn_to_var /flag)
+                                                         (@var_to_expn /n)))))
+                               (@make 117 1 '()))))
+                (@down)
+                (@splice_before (@cs //s1))
+                (@up))))))
+
+(define /%const__separate_exit_code__1
+  (@make 17 '() (list (@make 117 1 '()))))
+
+(define /%const__separate_exit_code__2
+  (@make 133
+         '()
+         (list (@make 17
+                      '()
+                      (list (@make 107 -1 '())
+                            (@make 114
+                                   '()
+                                   (list (@make 7
+                                                '()
+                                                (list (@make 305 -2 '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -3
+                                                                          '())))))
+                                         (@make 7
+                                                '()
+                                                (list (@make 308 '() '())
+                                                      (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -4
+                                                                          '())
+                                                                   (@make 114
+                                                                          '()
+                                                                          (list (@make 7
+                                                                                       '()
+                                                                                       (list (@make 313
+                                                                                                    '()
+                                                                                                    (list (@make 217
+                                                                                                                 -5
+                                                                                                                 '())
+                                                                                                          (@make 217
+                                                                                                                 -6
+                                                                                                                 '())))
+                                                                                             (@make 17
+                                                                                                    '()
+                                                                                                    (list (@make 107
+                                                                                                                 -7
+                                                                                                                 '())))))
+                                                                                (@make 7
+                                                                                       '()
+                                                                                       (list (@make 308
+                                                                                                    '()
+                                                                                                    '())
+                                                                                             (@make 17
+                                                                                                    '()
+                                                                                                    (list (@make 145
+                                                                                                                 '()
+                                                                                                                 '()))))))))))))))))))
+
+(define (@separate_exit_code_test)
+  (cond ((not (= (@st (@i)) //t_/floop))
+         (@fail "Selected item is not an Floop"))
+        ((@trans? //t/r_/separate_/right) (@pass))
+        ((@sec_simple?) (@pass))
+        (#t
+         (@foreach_stats
+           /foreach-separate_exit_code-1
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (cond ((and (not (@passed?)) (not (@failed?)))
+                (@fail "No suitable statements to take out"))))))
+
+(define (@separate_exit_code_code //data)
+  (cond ((@trans? //t/r_/separate_/right)
+         (@trans //t/r_/separate_/right ""))
+        ((@sec_simple?)
+         (let ((//o/k-save //o/k))
+           (set! //o/k 0)
+           (set! //o/k (@sec_simple 1 //o/k))
+           (set! //o/k //o/k-save)))
+        (#t (@separate_exit_code_sub //data))))
+
+(define (@separate_exit_code_sub //data)
+  (let ((/flag-save /flag)
+        (/count-save /count)
+        (/skips-save /skips)
+        (//flags
+          (let ((l (list "fl_flag1"
+                         "fl_flag2"
+                         "fl_flag3"
+                         "fl_flag4"
+                         "fl_flag5"
+                         "fl_flag6"
+                         "fl_flag7"
+                         "fl_flag8"
+                         "fl_flag9"
+                         "fl_flagX"))
+                (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@make_name (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result)))
+        (/max 10)
+        (/guards-save /guards)
+        (/n-save /n)
+        (/body-save /body)
+        (/exit-save /exit)
+        (//s1-save //s1)
+        (//s2-save //s2))
+    (set! /flag '())
+    (set! /count 0)
+    (set! /skips
+      (@make_set
+        (list //t_/skip //t_/comment //t_/exit)))
+    (set! /guards '())
+    (set! /n (@make //t_/number 0 '()))
+    (set! /body '())
+    (set! /exit '())
+    (set! //s1 '())
+    (set! //s2 '())
+    (cond ((not (equal? (@string //data) ""))
+           (set! /name (@make_name (@string //data))))
+          (#t
+           (let while-loop ()
+             (cond ((null? /name)
+                    (begin
+                      (cond ((member (car //flags) (@variables (@i)))
+                             (set! //flags (cdr //flags)))
+                            (#t (set! /name (car //flags))))
+                      (cond ((null? //flags)
+                             (set! /max (+ /max 1))
+                             (set! /name
+                               (@make_name
+                                 (string-append "fl_flag" (@string /max)))))))
+                    (while-loop))
+                   (#t #t)))))
+    (set! /flag (@make //t_/variable /name '()))
+    (@edit)
+    (@ateach_stats
+      /foreach-separate_exit_code-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (cond ((= /count 0)
+           (error "@Separate_Exit_Code_Sub: no exit code found!"))
+          ((= /count 1)
+           (@end_edit)
+           (@splice_after
+             (@cs (@increment /body (@as_type) (- 1) 1))))
+          (#t
+           (@undo_edit)
+           (set! /n (@make //t_/number 0 '()))
+           (set! /guards
+             (list (@make 7
+                          '()
+                          (list (@make 313
+                                       '()
+                                       (list (@var_to_expn /flag)
+                                             (@make 205 0 '())))
+                                (@make 17 '() (list (@make 145 '() '())))))))
+           (@ateach_stats
+             /foreach-separate_exit_code-3
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@paste_before
+             (@make 110
+                    '()
+                    (list (@make 6
+                                 '()
+                                 (list (@expn_to_var /flag)
+                                       (@make 205 0 '()))))))
+           (@right)
+           (@paste_after
+             (@make //t_/cond '() (reverse /guards)))
+           (@right)
+           (@down_last)
+           (@down)
+           (@paste_over (@make //t_/true '() '()))
+           (@up)
+           (@up)
+           (@splice_over
+             (@increment (@i) (@as_type) (- 1) 1))
+           (@left)))
+    (set! /flag /flag-save)
+    (set! /count /count-save)
+    (set! /skips /skips-save)
+    (set! /guards /guards-save)
+    (set! /n /n-save)
+    (set! /body /body-save)
+    (set! /exit /exit-save)
+    (set! //s1 //s1-save)
+    (set! //s2 //s2-save)))
+
+(define (@sec_simple?)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k 0)
+    (set! //o/k (@sec_simple 0 //o/k))
+    (set! funct-result (= //o/k 1))
+    (set! //o/k //o/k-save)
+    funct-result))
+
+(define (@sec_simple /doit //o/k-par)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k //o/k-par)
+    (let ((//s '()) (/e2 '()))
+      (set! //o/k 0)
+      (let ((/__/o/k 1))
+        (set! /__/o/k
+          (@new_match
+            /%const__separate_exit_code__2
+            (@i)
+            /__/o/k))
+        (cond ((= /__/o/k 1)
+               (let ((/__/s4_save //s4)
+                     (/__e1_save /e1)
+                     (/__v_save /v)
+                     (/__/s3_save //s3)
+                     (/__/s2_save //s2)
+                     (/__/b1_save //b1)
+                     (/__/s1_save //s1))
+                 (set! //s4 (vector-ref /__/match_array 6))
+                 (set! /e1 (vector-ref /__/match_array 5))
+                 (set! /v (vector-ref /__/match_array 4))
+                 (set! //s3 (vector-ref /__/match_array 3))
+                 (set! //s2 (vector-ref /__/match_array 2))
+                 (set! //b1 (vector-ref /__/match_array 1))
+                 (set! //s1 (vector-ref /__/match_array 0))
+                 (set! //s2 (@make //t_/statements '() //s2))
+                 (set! //s4 (@make //t_/statements '() //s4))
+                 (cond ((and (@gen_proper?
+                               (@make //t_/statements '() (concat //s1 //s3))
+                               (@as_type))
+                             (equal? (@gen_tvs //s2 (@as_type)) (list 1))
+                             (equal? (@gen_tvs //s4 (@as_type)) (list 1))
+                             (@gen_reducible? //s2 (@as_type))
+                             (@gen_reducible? //s4 (@as_type))
+                             (or (= (@st /v) //t_/variable)
+                                 (= (@st /v) //t_/struct))
+                             (@set_subset?
+                               (@stat_types (@make //t_/statements '() //s1))
+                               (list //t_/comment))
+                             (= (@st /e1) //t_/number))
+                        (@paste_before (@skip))
+                        (set! /e2 (@find_value (@struct_elts /v)))
+                        (@delete)
+                        (cond ((and (not (null? /e2))
+                                    (= (@st /e2) //t_/number)
+                                    (not (equal? (@v /e2) (@v /e1))))
+                               (set! //o/k 1)
+                               (cond ((= /doit 1)
+                                      (set! //s2 (@cs //s2))
+                                      (set! //s4 (@cs //s4))
+                                      (set! //s
+                                        (@make 114
+                                               '()
+                                               (list (@make 7
+                                                            '()
+                                                            (list (@make 313
+                                                                         '()
+                                                                         (list (@var_to_expn
+                                                                                 /v)
+                                                                               (@var_to_expn
+                                                                                 /e1)))
+                                                                  (@make 17
+                                                                         '()
+                                                                         //s4)))
+                                                     (@make 7
+                                                            '()
+                                                            (list (@make 308
+                                                                         '()
+                                                                         '())
+                                                                  (@make 17
+                                                                         '()
+                                                                         //s2))))))
+                                      (@splice_over
+                                        (cons (@make 133
+                                                     '()
+                                                     (list (@make 17
+                                                                  '()
+                                                                  (append
+                                                                    //s1
+                                                                    (list (@make 114
+                                                                                 '()
+                                                                                 (list (@make 7
+                                                                                              '()
+                                                                                              (list //b1
+                                                                                                    (@make 17
+                                                                                                           '()
+                                                                                                           (list (@make 117
+                                                                                                                        1
+                                                                                                                        '())))))
+                                                                                       (@make 7
+                                                                                              '()
+                                                                                              (list (@make 308
+                                                                                                           '()
+                                                                                                           '())
+                                                                                                    (@make 17
+                                                                                                           '()
+                                                                                                           (append
+                                                                                                             //s3
+                                                                                                             (list (@make 114
+                                                                                                                          '()
+                                                                                                                          (list (@make 7
+                                                                                                                                       '()
+                                                                                                                                       (list (@make 313
+                                                                                                                                                    '()
+                                                                                                                                                    (list (@var_to_expn
+                                                                                                                                                            /v)
+                                                                                                                                                          (@var_to_expn
+                                                                                                                                                            /e1)))
+                                                                                                                                             (@make 17
+                                                                                                                                                    '()
+                                                                                                                                                    (list (@make 117
+                                                                                                                                                                 1
+                                                                                                                                                                 '())))))
+                                                                                                                                (@make 7
+                                                                                                                                       '()
+                                                                                                                                       (list (@make 308
+                                                                                                                                                    '()
+                                                                                                                                                    '())
+                                                                                                                                             (@make 17
+                                                                                                                                                    '()
+                                                                                                                                                    (list (@make 145
+                                                                                                                                                                 '()
+                                                                                                                                                                 '())))))))))))))))))))
+                                              (@increment
+                                                //s
+                                                (@as_type)
+                                                (- 1)
+                                                1)))))))))
+                 (set! //s4 /__/s4_save)
+                 (set! /e1 /__e1_save)
+                 (set! /v /__v_save)
+                 (set! //s3 /__/s3_save)
+                 (set! //s2 /__/s2_save)
+                 (set! //b1 /__/b1_save)
+                 (set! //s1 /__/s1_save))))))
+    (set! funct-result //o/k)
+    (set! //o/k //o/k-save)
+    funct-result))
+
+(define (@sec_split //l //s1-par //s2-par)
+  (let ((//s2-save //s2)
+        (//s1-save //s1)
+        (funct-result '()))
+    (set! //s2 //s2-par)
+    (set! //s1 //s1-par)
+    (let ((//l1 (cdr (reverse //l)))
+          (//l2 (list (last-1 //l))))
+      (let while-loop ()
+        (cond ((and (not (null? //l1))
+                    (@gen_proper? (car //l1) (@as_type)))
+               (begin
+                 (set! //l2 (cons (car //l1) //l2))
+                 (set! //l1 (cdr //l1)))
+               (while-loop))
+              (#t #t)))
+      (set! //s1
+        (@make //t_/statements '() (reverse //l1)))
+      (set! //s2 (@make //t_/statements '() //l2)))
+    (set! funct-result (list //s1 //s2))
+    (set! //s2 //s2-save)
+    (set! //s1 //s1-save)
+    funct-result))
+
+#t
+

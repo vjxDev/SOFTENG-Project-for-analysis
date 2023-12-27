@@ -1,0 +1,78 @@
+
+J
+java:S37405"/Provide the parametrized type for this generic.(Î÷Ş’üÿÿÿÿ
+E
+java:S3740z"/Provide the parametrized type for this generic.(¥Ğƒ…
+o
+java:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(Á¼²®
+p
+java:S2293Ü"YReplace the type specification in this constructor call with the diamond operator ("<>").(…§Úâ
+p
+java:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(…§Úâ
+p
+java:S2293¶"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÃÂÄ¯
+u
+java:S2293Å"YReplace the type specification in this constructor call with the diamond operator ("<>").(·ûí”ûÿÿÿÿ
+p
+java:S2293ï"YReplace the type specification in this constructor call with the diamond operator ("<>").(ËıÜò
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(…§Úâ
+p
+java:S2293’"YReplace the type specification in this constructor call with the diamond operator ("<>").(ËıÜò
+p
+java:S2293Ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ñ‘±
+k
+java:S1192ö"ODefine a constant instead of duplicating this literal "StartDirectory" 3 times.(Õ´Ìÿÿÿÿÿ
+f
+java:S1192º"JDefine a constant instead of duplicating this literal "Project: " 3 times.(€´Ëıÿÿÿÿ
+^
+java:S1192¯"GDefine a constant instead of duplicating this literal "\" />
+" 3 times.(½®‘é
+‰
+java:S1319å"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(‡± Áüÿÿÿÿ
+r
+java:S1488õ"[Immediately return this expression instead of assigning it to the temporary variable "ret".(©ø¥À
+N
+java:S2629Å"7Use the built-in formatting to construct this argument.(¸ìıõ
+S
+java:S2629ª"7Use the built-in formatting to construct this argument.(Û¦óüÿÿÿÿ
+x
+java:S2629«"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¶ŠÏ¢ÿÿÿÿÿ
+O
+java:S2755Ÿ"3Disable access to external entities in XML parsing.(—’””ıÿÿÿÿ
+[
+java:S2583«"DChange this condition so that it does not always evaluate to "false"(×ÿÔ¤
+´
+java:S6548+"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(†Ø÷ˆúÿÿÿÿ
+v
+java:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(ŠƒÂ‹
+U
+java:S1161b":Add the "@Override" annotation above this method signature(†§şıÿÿÿÿ
+M
+java:S2696œ"6Make the enclosing method "static" or remove this set.(¿ûôà
+g
+java:S3457Ä"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+T
+java:S1155Ñ">Use isEmpty() to check whether the collection is empty or not.(ş¸“L
+T
+java:S1117ì"8Rename "name" which hides the field declared at line 73.(‘ŞÑÂúÿÿÿÿ
+M
+java:S2696ƒ"6Make the enclosing method "static" or remove this set.(Öò²–
+@	java:S106‰"+Replace this use of System.out by a logger.(¸ØïU
+F	java:S106"+Replace this use of System.out by a logger.(İè¬øÿÿÿÿ
+\
+java:S1659Ÿ"@Declare "ap1" and all following declarations on a separate line.(Ñ§Ø”úÿÿÿÿ
+9
+java:S1659ó""Declare "dir2" on a separate line.(¥¨ŸÇ
+n
+java:S3776¦"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(óğíŠúÿÿÿÿ
+g
+java:S3457¨"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+N
+java:S1135½"2Complete the task associated to this TODO comment.(É½üüÿÿÿÿ
+n
+java:S3776•"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(èÂá­ıÿÿÿÿ
+V
+java:S1161•":Add the "@Override" annotation above this method signature(èÂá­ıÿÿÿÿ
+g
+java:S3457©"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ

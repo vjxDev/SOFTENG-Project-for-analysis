@@ -1,0 +1,38 @@
+(define (@add_left_test)
+  (cond ((and (= (@gt (@i)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (cond ((not (= (@gt (@i)) //t_/statement))
+         (@fail "The selected item is not a Statement."))
+        ((not (@left?))
+         (@fail "There is no statement to the left of this one."))
+        (#t
+         (@left)
+         (cond ((@trans? //t/r_/expand_/forward) (@pass))
+               (#t
+                (@fail "It was not possible to `Expand Forward on the previous statement."))))))
+
+(define (@add_left_code //data)
+  (let ((//span (@span)) (//c '()))
+    (cond ((and (= (@gt (@i)) //t_/assign)
+                (@up?)
+                (not (@left?))
+                (not (@right?)))
+           (@up)))
+    (@left)
+    (cond ((@trans? //t/r_/expand_/forward)
+           (@trans //t/r_/expand_/forward "")
+           (set! //span (- //span 1))
+           (let while-loop ()
+             (cond ((and (@trans? //t/r_/expand_/forward)
+                         (>= //span 0))
+                    (begin
+                      (@trans //t/r_/expand_/forward "")
+                      (set! //span (- //span 1)))
+                    (while-loop))
+                   (#t #t)))))))
+
+#t
+

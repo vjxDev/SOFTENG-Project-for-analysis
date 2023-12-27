@@ -1,0 +1,133 @@
+
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‰–Èó
+u
+java:S2293š"YReplace the type specification in this constructor call with the diamond operator ("<>").(áæ€«øÿÿÿÿ
+p
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(Í²­¬
+p
+java:S2293¦"YReplace the type specification in this constructor call with the diamond operator ("<>").(·ê©ğ
+g
+java:S1192´"KDefine a constant instead of duplicating this literal "\" Name=\"" 3 times.(µö¥èüÿÿÿÿ
+]
+java:S1192›"FDefine a constant instead of duplicating this literal "Node:" 4 times.(¾æÀõ
+^
+java:S1192Æ"GDefine a constant instead of duplicating this literal "T_Cond" 3 times.(°­Æ«
+o	java:S135ä"YReduce the total number of break and continue statements in this loop to use at most one.(ı§İŸ
+n	java:S127î"XRefactor the code in order to not assign to this loop counter from within the loop body.(Ì‚ˆÌ
+n	java:S127ï"XRefactor the code in order to not assign to this loop counter from within the loop body.(Ì‚ˆÌ
+n	java:S127ˆ"XRefactor the code in order to not assign to this loop counter from within the loop body.(Ì‚ˆÌ
+n	java:S127‰"XRefactor the code in order to not assign to this loop counter from within the loop body.(Ì‚ˆÌ
+K
+java:S1066¦"/Merge this if statement with the enclosing one.( €¥ìıÿÿÿÿ
+3
+java:S1643Æ"Use a StringBuilder instead.(Œë¤Í
+3
+java:S1643É"Use a StringBuilder instead.(ïòèÓ
+8
+java:S1643³"Use a StringBuilder instead.(úŸÈÀÿÿÿÿÿ
+8
+java:S1643µ"Use a StringBuilder instead.(Šø“ÿÿÿÿÿ
+8
+java:S1643·"Use a StringBuilder instead.(¹£øËÿÿÿÿÿ
+8
+java:S1643ˆ"Use a StringBuilder instead.(¦â¾óÿÿÿÿÿ
+N
+java:S2629–"7Use the built-in formatting to construct this argument.(ÅõÆë
+N
+java:S2629›"7Use the built-in formatting to construct this argument.(¾æÀõ
+N
+java:S2629•"7Use the built-in formatting to construct this argument.(Â‚×¬
+S
+java:S2629ò"7Use the built-in formatting to construct this argument.(ØØÌÉıÿÿÿÿ
+S
+java:S2629ú"7Use the built-in formatting to construct this argument.(…ÓÁÎÿÿÿÿÿ
+S
+java:S4973’"<Strings and Boxed types should be compared using "equals()".(¹Ö
+
+java:S4165“"cRemove this useless assignment; "child" already holds the assigned value along all execution paths.(”†£…ÿÿÿÿÿ
+S
+java:S2589÷"7Remove this expression which always evaluates to "true"(Åæ§ìüÿÿÿÿ
+z
+java:S1149?"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¸äØ3
+{
+java:S1149S"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ºê’Û
+{
+java:S1149Û"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(åûÒ¸ûÿÿÿÿ
+
+java:S1149û"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(Â•¹Éùÿÿÿÿ
+|
+java:S1149ø"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(æ–ôŞ
+{
+java:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(şÃÏ¦ÿÿÿÿÿ
+v
+java:S1149Š"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(²»ÉĞ
+{
+java:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(û¿¨Òøÿÿÿÿ
+u
+java:S1149Î"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(›ˆª"
+{
+java:S1149Ò"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(²¤·ûÿÿÿÿ
+{
+java:S1149Ù"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¦ªÙÎşÿÿÿÿ
+B
+java:S1659j"'Declare "nodeValue" on a separate line.(òÔíêûÿÿÿÿ
+f
+java:S3457x"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+g
+java:S3457”"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+S
+java:S1117Â"<Rename "children" which hides the field declared at line 63.(£Ğ™…
+U
+java:S1854’"9Remove this useless assignment to local variable "child".(¤³“ˆûÿÿÿÿ
+Z
+java:S1155”">Use isEmpty() to check whether the collection is empty or not.(Ìáó¸şÿÿÿÿ
+Z
+java:S1155–">Use isEmpty() to check whether the collection is empty or not.(™ºÃšûÿÿÿÿ
+g
+java:S3457™"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+i
+java:S3776Š"RRefactor this method to reduce its Cognitive Complexity from 97 to the 15 allowed.(²»ÉĞ
+V
+java:S1659"?Declare "t1" and all following declarations on a separate line.(æ÷®¦
+A
+java:S1197"*Move the array designators [] to the type.(æ÷®¦
+A
+java:S1197"*Move the array designators [] to the type.(æ÷®¦
+g
+java:S3457“"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+c	java:S100Î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ˆª"
+H
+java:S1172Î"2Remove this unused method parameter "markingTags".(›ˆª"
+@
+java:S1659â")Declare "posVerified" on a separate line.(šÏË
+g
+java:S3457ğ"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+g
+java:S3457ø"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+X
+java:S1126¨"AReplace this if-then-else statement by a single return statement.(šÁÅ
+X
+java:S1126Ï"AReplace this if-then-else statement by a single return statement.(šÁÅ
+;
+java:S1659Û"$Declare "oldPar" on a separate line.(­ûÎÔ
+=
+java:S1659ó"!Declare "row" on a separate line.(¥í àøÿÿÿÿ
+;
+java:S1659ô"$Declare "oldPar" on a separate line.(­ûÎÔ
+o
+java:S2975"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(øø®úÿÿÿÿ
+d
+java:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(øø®úÿÿÿÿ
+<
+java:S1659©" Declare "i2" on a separate line.(ë“¯¾úÿÿÿÿ
+8
+java:S2153ª"Remove the unboxing of "i1".(Õˆè™ûÿÿÿÿ
+=
+java:S2129ª"!Remove this "Integer" constructor(Õˆè™ûÿÿÿÿ
+D
+java:S1659±"(Declare "childClone" on a separate line.(„ú¼™ıÿÿÿÿ
+U
+java:S1155´">Use isEmpty() to check whether the collection is empty or not.(—øˆû
+Ş
+java:S6541Š"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 148 to 64, Complexity from 45 to 14, Nesting Level from 6 to 2, Number of Variables from 15 to 6.(²»ÉĞ

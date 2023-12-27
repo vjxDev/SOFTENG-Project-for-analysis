@@ -1,0 +1,43 @@
+(set! //t/r_/simplify_/action_/system
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/simplify_/action_/system 1)
+  "Simplify_Action_System")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/simplify_/action_/system 1)
+  @simplify_action_system_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/simplify_/action_/system 1)
+  @simplify_action_system_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/simplify_/action_/system 1)
+  "Simplify Action System")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/simplify_/action_/system 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/simplify_/action_/system 1)
+  "Simplify action system will attempt to remove actions and calls from an action system by successively applying simplifying transformations. As many of the actions as possible will be eliminated without making the program significantly larger.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/simplify_/action_/system 1)
+  "Enter names of any actions in which recursion should NOT be removed, in the form Name1 Name2 ...")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/simplify_/action_/system 1)
+  "Expression")
+

@@ -1,0 +1,50 @@
+(define (/foreach-delete_all_comments-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/comment) (@delete))))
+
+(define (/foreach-delete_all_comments-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/comment)
+              (@starts_with? (@v (@i)) "<FermaT>"))
+         (@delete))))
+
+(define (/foreach-delete_all_comments-3
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/comment)
+              (not (@starts_with? (@v (@i)) "<FermaT>")))
+         (@delete))))
+
+(define (@delete_all_comments_test)
+  (cond ((member //t_/comment (@stat_types (@i)))
+         (@pass))
+        (#t
+         (@fail "The selected item did not include a `COMMENT' statement."))))
+
+(define (@delete_all_comments_code //data)
+  (cond ((or (equal? //data "y") (equal? //data "Y"))
+         (@foreach_statement
+           /foreach-delete_all_comments-1
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips)))))
+        ((or (equal? //data "f") (equal? //data "F"))
+         (@foreach_statement
+           /foreach-delete_all_comments-2
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips)))))
+        (#t
+         (@foreach_statement
+           /foreach-delete_all_comments-3
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips)))))))
+
+#t
+

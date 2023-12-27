@@ -1,0 +1,173 @@
+(define /%const__while_to_abort__1
+  (@make 141
+         '()
+         (list (@make 308 '() '())
+               (@make 17 '() (list (@make 107 -1 '()))))))
+
+(define /%const__while_to_abort__2
+  (@make 141
+         '()
+         (list (@make 305 -1 '())
+               (@make 17
+                      '()
+                      (list (@make 107 -2 '())
+                            (@make 109 '() (list (@make 305 -3 '()))))))))
+
+(define /%const__while_to_abort__3
+  (@make 141
+         '()
+         (list (@make 305 -1 '())
+               (@make 17 '() (list (@make 106 -2 '()))))))
+
+(define /%const__while_to_abort__4
+  (@make 108 '() '()))
+
+(define /%const__while_to_abort__5
+  (@make 141
+         '()
+         (list (@make 305 -1 '())
+               (@make 17 '() (list (@make 107 -2 '()))))))
+
+(define (@while_to_abort_test)
+  (cond ((not (= (@st (@i)) //t_/while))
+         (@fail "Item is not a WHILE loop"))
+        (#t
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__while_to_abort__1
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s_save //s))
+                    (set! //s (vector-ref /__/match_array 0))
+                    (@pass)
+                    (set! //s /__/s_save)))
+                 (#t
+                  (let ((/__/o/k 1))
+                    (set! /__/o/k
+                      (@new_match
+                        /%const__while_to_abort__2
+                        (@i)
+                        /__/o/k))
+                    (cond ((= /__/o/k 1)
+                           (let ((/__/b1_save //b1)
+                                 (/__/s_save //s)
+                                 (/__/b_save //b))
+                             (set! //b1 (vector-ref /__/match_array 2))
+                             (set! //s (vector-ref /__/match_array 1))
+                             (set! //b (vector-ref /__/match_array 0))
+                             (cond ((@implies? //b1 //b) (@pass)))
+                             (set! //b1 /__/b1_save)
+                             (set! //s /__/s_save)
+                             (set! //b /__/b_save)))
+                          (#t (@while_to_abort_test2)))))))
+         (cond ((not (@passed?))
+                (@fail "Cannot determine that the loop will not terminate"))))))
+
+(define (@while_to_abort_test2)
+  (let ((/assigned '()))
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__while_to_abort__3
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__/s_save //s) (/__/b_save //b))
+               (set! //s (vector-ref /__/match_array 1))
+               (set! //b (vector-ref /__/match_array 0))
+               (let ((var-save //i) (seq-save //s))
+                 (if (vector? seq-save)
+                   (set! seq-save (vector-elts seq-save)))
+                 (let for-in-loop ((for-tmp seq-save))
+                   (cond ((not (null? for-tmp))
+                          (set! //i (car for-tmp))
+                          (set! /assigned
+                            (@set_union (@assigned //i) /assigned))
+                          (for-in-loop (cdr for-tmp)))
+                         (#t #t)))
+                 (set! //i var-save))
+               (cond ((and (null? (@set_intersect (@variables //b) /assigned))
+                           (null? (@set_intersect
+                                    //ext_/call_/types_/set
+                                    (@stat_types (@i)))))
+                      (@pass))
+                     (#t
+                      (@edit)
+                      (@trans //t/r_/insert_/assertion "")
+                      (let while-loop ()
+                        (cond ((@trans? //t/r_/move_/to_/right)
+                               (@trans //t/r_/move_/to_/right "")
+                               (while-loop))
+                              (#t #t)))
+                      (let while-loop ()
+                        (cond ((@up?) (@up) (while-loop)) (#t #t)))
+                      (let ((/__/o/k 1))
+                        (set! /__/o/k
+                          (@new_match
+                            /%const__while_to_abort__2
+                            (@i)
+                            /__/o/k))
+                        (cond ((= /__/o/k 1)
+                               (let ((/__/b1_save //b1)
+                                     (/__/s_save //s)
+                                     (/__/b_save //b))
+                                 (set! //b1 (vector-ref /__/match_array 2))
+                                 (set! //s (vector-ref /__/match_array 1))
+                                 (set! //b (vector-ref /__/match_array 0))
+                                 (cond ((@implies? //b1 //b) (@pass)))
+                                 (set! //b1 /__/b1_save)
+                                 (set! //s /__/s_save)
+                                 (set! //b /__/b_save)))))
+                      (@undo_edit)))
+               (set! //s /__/s_save)
+               (set! //b /__/b_save)))))))
+
+(define (@while_to_abort_code //data)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__while_to_abort__1
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__/s_save //s))
+             (set! //s (vector-ref /__/match_array 0))
+             (@paste_over /%const__while_to_abort__4)
+             (set! //s /__/s_save)))
+          (#t
+           (let ((/__/o/k 1))
+             (set! /__/o/k
+               (@new_match
+                 /%const__while_to_abort__5
+                 (@i)
+                 /__/o/k))
+             (cond ((= /__/o/k 1)
+                    (let ((/__/s_save //s) (/__/b_save //b))
+                      (set! //s (vector-ref /__/match_array 1))
+                      (set! //b (vector-ref /__/match_array 0))
+                      (@paste_over
+                        (@make 114
+                               '()
+                               (list (@make 7
+                                            '()
+                                            (list //b
+                                                  (@make 17
+                                                         '()
+                                                         (list (@make 108
+                                                                      '()
+                                                                      '())))))
+                                     (@make 7
+                                            '()
+                                            (list (@make 308 '() '())
+                                                  (@make 17
+                                                         '()
+                                                         (list (@make 145
+                                                                      '()
+                                                                      '()))))))))
+                      (set! //s /__/s_save)
+                      (set! //b /__/b_save)))))))))
+
+#t
+

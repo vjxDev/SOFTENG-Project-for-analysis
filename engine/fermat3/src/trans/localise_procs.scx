@@ -1,0 +1,147 @@
+(define (@localise_procs_test)
+  (cond ((and (not (= (@gt (@i)) //t_/statement))
+              (not (= (@gt (@i)) //t_/statements)))
+         (@fail "Current item is not a Statement or Statements."))
+        ((not (@up?))
+         (@fail "Current statement is whole program (not a local statement)."))
+        ((null? (@proc_calls (@i)))
+         (@fail "The current item contains no proc calls."))
+        ((not (@gen_proper? (@i) (@as_type)))
+         (@fail "The current item is not a proper sequence"))
+        ((not (null? (@calls (@i))))
+         (@fail "The current item contains action calls"))
+        ((null? (@lp_localisable_procs (@proc_calls (@i))))
+         (@fail "The current item contains no localisable proc calls."))
+        (#t (@pass))))
+
+(define (@localise_procs_code //data)
+  (let ((/procs
+          (@lp_localisable_procs (@proc_calls (@i))))
+        (/posn (@posn))
+        (/defns '())
+        (/new '())
+        (/rel '()))
+    (cond ((null? /procs)
+           (error "No procs returned by @LP_Localisable_Procs!")))
+    (set! /rel
+      (let ((name /procs))
+        (if (vector? name)
+          (vector-ref name (- 3 1))
+          (list-ref name (- 3 1)))))
+    (@goto (let ((name /procs))
+             (if (vector? name)
+               (vector-ref name (- 2 1))
+               (list-ref name (- 2 1)))))
+    (let ((var-save /defn)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (cond ((member
+                        (@v (list-ref /defn (+ 1 1)))
+                        (let ((name /procs))
+                          (if (vector? name)
+                            (vector-ref name (- 1 1))
+                            (list-ref name (- 1 1)))))
+                      (begin
+                        (display "Localising: ")
+                        (begin
+                          (display
+                            (@n_string (@v (list-ref /defn (+ 1 1)))))
+                          (newline)
+                          (force-output)))
+                      (set! /defns (cons /defn /defns)))
+                     (#t (set! /new (cons /defn /new))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (cond ((null? /new)
+           (@splice_over (@cs (list-ref (@i) (+ 1 1))))
+           (cond ((= (let ((name /rel))
+                       (if (vector? name)
+                         (vector-ref name (- 1 1))
+                         (list-ref name (- 1 1))))
+                     1)
+                  (set! /rel (cdr /rel))
+                  (cond ((not (null? /rel))
+                         (@to (+ (- (@posn_n) 1) (car /rel)))
+                         (set! /rel (cdr /rel)))))))
+          (#t
+           (@down_to 2)
+           (@paste_over
+             (@make //t_/definitions '() (reverse /new)))
+           (@up)))
+    (let while-loop ()
+      (cond ((not (null? /rel))
+             (begin
+               (@down_to (car /rel))
+               (set! /rel (cdr /rel)))
+             (while-loop))
+            (#t #t)))
+    (@lp_add_defns /defns)))
+
+(define (@lp_add_defns /defns)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@paste_over
+           (@make //t_/definitions
+                  '()
+                  (concat (@cs (@i)) /defns)))
+         (@up))
+        ((= (@gt (@i)) //t_/statements)
+         (@paste_over
+           (@make //t_/statements
+                  '()
+                  (list (@make //t_/where
+                               '()
+                               (list (@i)
+                                     (@make //t_/definitions '() /defns)))))))
+        (#t
+         (@paste_over
+           (@make //t_/where
+                  '()
+                  (list (@make //t_/statements '() (list (@i)))
+                        (@make //t_/definitions '() /defns))))))
+  (cond ((@trans? //t/r_/sort_/procs)
+         (@trans //t/r_/sort_/procs ""))))
+
+(define (@lp_localisable_procs /local_calls)
+  (let ((/procs '())
+        (/global_calls '())
+        (/posn (@posn))
+        (//r '())
+        (/rel '()))
+    (cond ((@up?) (set! /rel (cons (@posn_n) /rel)) (@up))
+          (#t
+           (error "@LP_Localisable_Procs: can't go up!")))
+    (let while-loop ()
+      (cond ((and (@up?) (not (= (@st (@i)) //t_/where)))
+             (begin (set! /rel (cons (@posn_n) /rel)) (@up))
+             (while-loop))
+            (#t #t)))
+    (cond ((= (@st (@i)) //t_/where)
+           (set! /global_calls
+             (@qry_call_join
+               (@proc_calls (list-ref (@i) (+ 1 1)))
+               (@proc_calls (list-ref (@i) (+ 1 2)))))
+           (set! /procs
+             (let ((l (@set_intersect
+                        (@make_set /local_calls)
+                        (@make_set /global_calls)))
+                   (map-result '()))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! map-result (cons (car (car l)) map-result))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               (reverse map-result)))
+           (cond ((not (null? /procs))
+                  (set! //r (list (@make_set /procs) (@posn) /rel))))))
+    (@goto /posn)
+    //r))
+
+#t
+

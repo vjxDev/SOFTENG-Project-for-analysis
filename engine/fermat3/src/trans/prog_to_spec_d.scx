@@ -1,0 +1,42 @@
+(set! //t/r_/prog_/to_/spec (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/prog_/to_/spec 1)
+  "Prog_To_Spec")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/prog_/to_/spec 1)
+  "Prog_To_Spec")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/prog_/to_/spec 1)
+  @prog_to_spec_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/prog_/to_/spec 1)
+  @prog_to_spec_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/prog_/to_/spec 1)
+  (list "Abstraction"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/prog_/to_/spec 1)
+  "Convert given program to an equivalent specification statement.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/prog_/to_/spec 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/prog_/to_/spec 1)
+  "")
+

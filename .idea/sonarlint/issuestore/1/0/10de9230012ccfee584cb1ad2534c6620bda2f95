@@ -1,0 +1,12 @@
+
+j	java:S116""PRename this field "LABEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö¿‡Œûÿÿÿÿ
+y	java:S116$"_Rename this field "LABEL_WITH_SEPARATOR" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï‘ÓÖýÿÿÿÿ
+n	java:S116&"YRename this field "CHECKBOX_LABEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËÙáÅ
+<
+java:S1170""!Make this final field static too.(ö¿‡Œûÿÿÿÿ
+<
+java:S1170$"!Make this final field static too.(ï‘ÓÖýÿÿÿÿ
+7
+java:S1170&"!Make this final field static too.(ËÙáÅ
+h
+java:S3776^"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ØìµÜ

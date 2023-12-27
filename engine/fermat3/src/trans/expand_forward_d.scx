@@ -1,0 +1,42 @@
+(set! //t/r_/expand_/forward (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/expand_/forward 1)
+  "Expand Forward")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/expand_/forward 1)
+  "Expand_Forward")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/expand_/forward 1)
+  @expand_forward_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/expand_/forward 1)
+  @expand_forward_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/expand_/forward 1)
+  (list "Join"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/expand_/forward 1)
+  "Expand_Forward will copy the following statement into the end of each branch of the selected IF or D_IF statement. It differs from Absorb Right in that the statement is only absorbed into the `top level' of the selected IF.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/expand_/forward 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/expand_/forward 1)
+  "")
+

@@ -1,0 +1,42 @@
+(set! //t/r_/loop_/inversion (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/loop_/inversion 1)
+  "Loop_Inversion")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/loop_/inversion 1)
+  @loop_inversion_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/loop_/inversion 1)
+  @loop_inversion_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/loop_/inversion 1)
+  "Loop_Inversion")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/loop_/inversion 1)
+  (list "Move"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/loop_/inversion 1)
+  "Loop inversion will move the selected statement to the top of the loop body.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/loop_/inversion 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/loop_/inversion 1)
+  "")
+

@@ -1,0 +1,582 @@
+(define (/foreach-unfold_proc_calls-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/a_/s)
+         (let ((var-save /action)
+               (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /action (car for-tmp))
+                    (cond ((equal?
+                             (@v (list-ref /action (+ 1 1)))
+                             /dispatch)
+                           (let ((var-save /pair)
+                                 (seq-save
+                                   (@proc_calls (list-ref /action (+ 1 2)))))
+                             (if (vector? seq-save)
+                               (set! seq-save (vector-elts seq-save)))
+                             (let for-in-loop ((for-tmp seq-save))
+                               (cond ((not (null? for-tmp))
+                                      (set! /pair (car for-tmp))
+                                      (puthash
+                                        /dispatch_call
+                                        (let ((name /pair))
+                                          (if (vector? name)
+                                            (vector-ref name (- 1 1))
+                                            (list-ref name (- 1 1))))
+                                        1)
+                                      (for-in-loop (cdr for-tmp)))
+                                     (#t #t)))
+                             (set! /pair var-save))))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /action var-save)))))
+
+(define (/foreach-unfold_proc_calls-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (not (null? (gethash /unfold (@v (list-ref (@i) (+ 1 1)))))))
+         (@unfold_proc_call
+           (gethash /bodies (@v (list-ref (@i) (+ 1 1))))))))
+
+(define (/foreach-unfold_proc_calls-3
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (not (null? (gethash /unfold (@v (list-ref (@i) (+ 1 1)))))))
+         (cond ((null? (gethash /done (@v (list-ref (@i) (+ 1 1)))))
+                (puthash /done (@v (list-ref (@i) (+ 1 1))) 1)
+                (@upc_unfold (@v (list-ref (@i) (+ 1 1))))))
+         (@unfold_proc_call
+           (gethash /bodies (@v (list-ref (@i) (+ 1 1))))))))
+
+(define (/foreach-unfold_proc_calls-4
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/comment)
+              (equal? (@v (@i)) " <ENTRY POINT> "))
+         (set! //o/k 1))))
+
+(define (@unfold_proc_calls_test)
+  (cond ((not (= (@st (@i)) //t_/where))
+         (@fail "Not a WHERE clause."))
+        (#t
+         (let ((/calls
+                 (@qry_call_join
+                   (@proc_calls (list-ref (@i) (+ 1 1)))
+                   (@proc_calls (list-ref (@i) (+ 1 2)))))
+               (/local (my-make-hash-table 16))
+               (/defn '())
+               (/pair-save /pair)
+               (/locals 0)
+               (/num_calls (my-make-hash-table 16)))
+           (set! /pair '())
+           (let ((var-save /pair) (seq-save /calls))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (puthash
+                        /num_calls
+                        (let ((name /pair))
+                          (if (vector? name)
+                            (vector-ref name (- 1 1))
+                            (list-ref name (- 1 1))))
+                        (let ((name /pair))
+                          (if (vector? name)
+                            (vector-ref name (- 2 1))
+                            (list-ref name (- 2 1)))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (let ((var-save /defn)
+                 (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /defn (car for-tmp))
+                      (cond ((= (@st /defn) //t_/proc)
+                             (set! /locals (+ /locals 1))
+                             (puthash /local (@v (list-ref /defn (+ 1 1))) 1)
+                             (cond ((and (< (@stat_count_nc
+                                              (list-ref /defn (+ 1 4)))
+                                            4)
+                                         (< (@stat_count
+                                              (list-ref /defn (+ 1 4)))
+                                            12))
+                                    (@pass)))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /defn var-save))
+           (cond ((@passed?))
+                 ((= /locals 0)
+                  (@fail "No local procedures in the WHERE clause."))
+                 (#t
+                  (let ((var-save /pair) (seq-save /calls))
+                    (if (vector? seq-save)
+                      (set! seq-save (vector-elts seq-save)))
+                    (let for-in-loop ((for-tmp seq-save))
+                      (cond ((not (null? for-tmp))
+                             (set! /pair (car for-tmp))
+                             (cond ((@ends_with?
+                                      (let ((name /pair))
+                                        (if (vector? name)
+                                          (vector-ref name (- 1 1))
+                                          (list-ref name (- 1 1))))
+                                      "_ACTION"))
+                                   ((> (gethash
+                                         /num_calls
+                                         (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1)))))
+                                       3))
+                                   ((and (not (null? (gethash
+                                                       /local
+                                                       (let ((name /pair))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- 1 1))
+                                                           (list-ref
+                                                             name
+                                                             (- 1 1)))))))
+                                         (<= (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 2 1))
+                                                 (list-ref name (- 2 1))))
+                                             1))
+                                    (@pass)))
+                             (for-in-loop (cdr for-tmp)))
+                            (#t #t)))
+                    (set! /pair var-save))
+                  (cond ((not (@passed?))
+                         (@fail "Everything is called more than once.")))))
+           (set! /pair /pair-save)))))
+
+(define (@unfold_proc_calls_code //data)
+  (let ((/calls
+          (@qry_call_join
+            (@proc_calls (list-ref (@i) (+ 1 1)))
+            (@proc_calls (list-ref (@i) (+ 1 2)))))
+        (/local (my-make-hash-table 16))
+        (/defn '())
+        (/pair-save /pair)
+        (/new_defns '())
+        (/body '())
+        (/unfold-save /unfold)
+        (/bodies-save /bodies)
+        (/done-save /done)
+        (/dispatch-save /dispatch)
+        (/dispatch_call-save /dispatch_call)
+        (/num_calls (my-make-hash-table 16)))
+    (set! /pair '())
+    (set! /unfold (my-make-hash-table 16))
+    (set! /bodies (my-make-hash-table 16))
+    (set! /done (my-make-hash-table 16))
+    (set! /dispatch (@make_name "dispatch"))
+    (set! /dispatch_call (my-make-hash-table 16))
+    (@edit)
+    (@foreach_statement
+      /foreach-unfold_proc_calls-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let ((var-save /defn)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (cond ((= (@st /defn) //t_/proc)
+                      (puthash /local (@v (list-ref /defn (+ 1 1))) 1)
+                      (puthash
+                        /bodies
+                        (@v (list-ref /defn (+ 1 1)))
+                        /defn))
+                     (#t (set! /new_defns (cons /defn /new_defns))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (let ((var-save /pair) (seq-save /calls))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (puthash
+                 /num_calls
+                 (let ((name /pair))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1))))
+                 (let ((name /pair))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    (let ((var-save /pair) (seq-save /calls))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (cond ((not (null? (gethash
+                                    /local
+                                    (let ((name /pair))
+                                      (if (vector? name)
+                                        (vector-ref name (- 1 1))
+                                        (list-ref name (- 1 1)))))))
+                      (set! /body
+                        (list-ref
+                          (gethash
+                            /bodies
+                            (let ((name /pair))
+                              (if (vector? name)
+                                (vector-ref name (- 1 1))
+                                (list-ref name (- 1 1)))))
+                          (+ 1 4)))
+                      (cond ((and (= (let ((name /pair))
+                                       (if (vector? name)
+                                         (vector-ref name (- 2 1))
+                                         (list-ref name (- 2 1))))
+                                     0)
+                                  (@is_entry_point? /body)))
+                            ((@ends_with?
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               "_ACTION"))
+                            ((not (null? (gethash
+                                           /dispatch_call
+                                           (let ((name /pair))
+                                             (if (vector? name)
+                                               (vector-ref name (- 1 1))
+                                               (list-ref name (- 1 1))))))))
+                            ((and (> (gethash
+                                       /num_calls
+                                       (let ((name /pair))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1)))))
+                                     3)
+                                  (> (@stat_count_nc /body) 1)))
+                            ((or (and (< (@stat_count_nc /body) 4)
+                                      (< (@stat_count /body) 12))
+                                 (<= (let ((name /pair))
+                                       (if (vector? name)
+                                         (vector-ref name (- 2 1))
+                                         (list-ref name (- 2 1))))
+                                     1))
+                             (puthash
+                               /unfold
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               1)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    (let ((var-save /defn)
+          (seq-save
+            (reverse (@cs (list-ref (@i) (+ 1 2))))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (begin
+                 (set! /name (@v (list-ref /defn (+ 1 1))))
+                 (cond ((not (null? (gethash /unfold /name)))
+                        (let ((var-save /pair)
+                              (seq-save
+                                (@proc_calls
+                                  (list-ref (gethash /bodies /name) (+ 1 4)))))
+                          (if (vector? seq-save)
+                            (set! seq-save (vector-elts seq-save)))
+                          (let for-in-loop ((for-tmp seq-save))
+                            (cond ((not (null? for-tmp))
+                                   (set! /pair (car for-tmp))
+                                   (cond ((not (null? (gethash
+                                                        /unfold
+                                                        (let ((name /pair))
+                                                          (if (vector? name)
+                                                            (vector-ref
+                                                              name
+                                                              (- 1 1))
+                                                            (list-ref
+                                                              name
+                                                              (- 1 1)))))))
+                                          (puthash /unfold /name '())))
+                                   (for-in-loop (cdr for-tmp)))
+                                  (#t #t)))
+                          (set! /pair var-save)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (let ((var-save /defn)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (cond ((and (= (@st /defn) //t_/proc)
+                           (null? (gethash
+                                    /done
+                                    (@v (list-ref /defn (+ 1 1))))))
+                      (puthash /done (@v (list-ref /defn (+ 1 1))) 1)
+                      (@upc_unfold (@v (list-ref /defn (+ 1 1))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (@down)
+    (@foreach_statement
+      /foreach-unfold_proc_calls-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@up)
+    (let ((var-save /defn)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (cond ((not (= (@st /defn) //t_/proc))
+                      (set! /new_defns (cons /defn /new_defns)))
+                     ((null? (gethash /unfold (@v (list-ref /defn (+ 1 1)))))
+                      (set! /new_defns
+                        (cons (gethash /bodies (@v (list-ref /defn (+ 1 1))))
+                              /new_defns))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (begin
+      (display "new_defns = ")
+      (begin
+        (display
+          (if (vector? /new_defns)
+            (vector-length /new_defns)
+            (length /new_defns)))
+        (newline)
+        (force-output)))
+    (cond ((null? /new_defns)
+           (@paste_over (list-ref (@i) (+ 1 1))))
+          (#t
+           (@paste_over
+             (@make //t_/where
+                    '()
+                    (list (list-ref (@i) (+ 1 1))
+                          (@make //t_/definitions '() (reverse /new_defns)))))))
+    (@end_edit)
+    (set! /pair /pair-save)
+    (set! /unfold /unfold-save)
+    (set! /bodies /bodies-save)
+    (set! /done /done-save)
+    (set! /dispatch /dispatch-save)
+    (set! /dispatch_call /dispatch_call-save)))
+
+(define (@upc_unfold /name-par)
+  (let ((/name-save /name))
+    (set! /name /name-par)
+    (cond (#f
+           (begin
+             (display "@UPC_Unfold: ")
+             (begin
+               (display (@n_string /name))
+               (newline)
+               (force-output)))))
+    (@edit)
+    (@new_program (gethash /bodies /name))
+    (@foreach_statement
+      /foreach-unfold_proc_calls-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (puthash /bodies /name (@program))
+    (@undo_edit)
+    (set! /name /name-save)))
+
+(define (@unfold_proc_call /defn)
+  (begin
+    (display "Unfolding Proc_Call ")
+    (begin
+      (display
+        (@n_string (@v (list-ref /defn (+ 1 1)))))
+      (begin
+        (display " at ")
+        (begin
+          (display (@posn))
+          (newline)
+          (force-output)))))
+  (cond ((and (= (@size (list-ref (@i) (+ 1 3))) 0)
+              (= (@size (list-ref (@i) (+ 1 2))) 0))
+         (@splice_over (@cs (list-ref /defn (+ 1 4)))))
+        ((or (not (= (@size (list-ref (@i) (+ 1 3)))
+                     (@size (list-ref /defn (+ 1 3)))))
+             (not (= (@size (list-ref (@i) (+ 1 2)))
+                     (@size (list-ref /defn (+ 1 2))))))
+         (begin
+           (display "ERROR: Proc call does not match body:")
+           (newline)
+           (force-output))
+         (@print_wsl (@i) ""))
+        (#t
+         (let ((/actual_vals (@cs (list-ref (@i) (+ 1 2))))
+               (/actual_vars (@cs (list-ref (@i) (+ 1 3))))
+               (/formal_vals (@cs (list-ref /defn (+ 1 2))))
+               (/formal_vars (@cs (list-ref /defn (+ 1 3))))
+               (/tmp '())
+               (/tmp_v '())
+               (/tmp_e '())
+               (/var '())
+               (/n 1)
+               (/used (@used /defn))
+               (/empty (@make //t_/number 0 '()))
+               (/a1 '())
+               (/a2 '())
+               (/a3 '())
+               (/a4 '()))
+           (set! /a2
+             (@make_assigns
+               (concat /formal_vals /formal_vars)
+               (concat /actual_vals /actual_vars)))
+           (let ((var-save /var) (seq-save /formal_vars))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /var (car for-tmp))
+                      (begin
+                        (set! /tmp
+                          (@make_name
+                            (string-append (@n_string (@v /var)) "_tmp")))
+                        (cond ((member /tmp /used)
+                               (set! /tmp
+                                 (@make_name
+                                   (concat
+                                     (string-append
+                                       (@n_string (@v /var))
+                                       "_tmp_")
+                                     (@string /n))))
+                               (let while-loop ()
+                                 (cond ((member /tmp /used)
+                                        (begin
+                                          (set! /n (+ /n 1))
+                                          (set! /tmp
+                                            (@make_name
+                                              (concat
+                                                (string-append
+                                                  (@n_string (@v /var))
+                                                  "_tmp_")
+                                                (@string /n)))))
+                                        (while-loop))
+                                       (#t #t)))))
+                        (set! /tmp_v (@make //t_/var_/lvalue /tmp '()))
+                        (set! /tmp_e (@make //t_/variable /tmp '()))
+                        (set! /a1
+                          (cons (@make //t_/assign '() (list /tmp_v /empty))
+                                /a1))
+                        (set! /a3
+                          (cons (@make //t_/assign
+                                       '()
+                                       (list /tmp_v (@lvalue_to_expn /var)))
+                                /a3))
+                        (set! /a4
+                          (cons (@make //t_/assign
+                                       '()
+                                       (list (car /actual_vars) /tmp_e))
+                                /a4))
+                        (set! /actual_vars (cdr /actual_vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /var var-save))
+           (set! /a1 (@make //t_/assigns '() (reverse /a1)))
+           (set! /a3
+             (@make //t_/assignment '() (reverse /a3)))
+           (set! /a4
+             (@make //t_/assignment '() (reverse /a4)))
+           (@paste_over
+             (@make //t_/var
+                    '()
+                    (list /a1
+                          (@make //t_/statements
+                                 '()
+                                 (list (@make //t_/var
+                                              '()
+                                              (list /a2
+                                                    (@make //t_/statements
+                                                           '()
+                                                           (concat
+                                                             (@cs (list-ref
+                                                                    /defn
+                                                                    (+ 1 4)))
+                                                             (list /a3)))))
+                                       /a4)))))
+           (@down_to 2)
+           (@down)
+           (cond ((@trans? //t/r_/remove_/redundant_/vars)
+                  (@trans //t/r_/remove_/redundant_/vars "")))
+           (@up)
+           (@up)
+           (cond ((@trans? //t/r_/remove_/redundant_/vars)
+                  (@trans //t/r_/remove_/redundant_/vars "")))))))
+
+(define (@make_assigns /vars /expns)
+  (let ((/assigns '()))
+    (let while-loop ()
+      (cond ((not (null? /vars))
+             (begin
+               (set! /assigns
+                 (cons (@make //t_/assign
+                              '()
+                              (list (@expn_to_lvalue
+                                      (let ((name /vars))
+                                        (if (vector? name)
+                                          (vector-ref name (- 1 1))
+                                          (list-ref name (- 1 1)))))
+                                    (@lvalue_to_expn
+                                      (let ((name /expns))
+                                        (if (vector? name)
+                                          (vector-ref name (- 1 1))
+                                          (list-ref name (- 1 1)))))))
+                       /assigns))
+               (set! /vars (cdr /vars))
+               (set! /expns (cdr /expns)))
+             (while-loop))
+            (#t #t)))
+    (@make //t_/assigns '() (reverse /assigns))))
+
+(define (@is_entry_point? //i)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k 0)
+    (@edit)
+    (@new_program //i)
+    (@foreach_statement
+      /foreach-unfold_proc_calls-4
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result (= //o/k 1))
+    (set! //o/k //o/k-save)
+    funct-result))
+
+#t
+

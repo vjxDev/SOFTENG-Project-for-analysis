@@ -1,0 +1,42 @@
+(set! //t/r_/localise_/procs (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/localise_/procs 1)
+  "Localise_Procs")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/localise_/procs 1)
+  "Localise_Procs")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/localise_/procs 1)
+  @localise_procs_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/localise_/procs 1)
+  @localise_procs_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/localise_/procs 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/localise_/procs 1)
+  "Create a local WHERE for procs which are only called in the selected item.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/localise_/procs 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/localise_/procs 1)
+  "")
+

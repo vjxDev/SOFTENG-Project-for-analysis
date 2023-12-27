@@ -1,0 +1,91 @@
+(define (/foreach-unroll_loop-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/exit)
+         (cond ((equal? (@v (@i)) //depth)
+                (@splice_over (@increment /loop //a/s //depth 0)))
+               (#t
+                (@splice_over (@increment (@i) //a/s (- 1) 1)))))
+        ((= (@st (@i)) //t_/skip) (@paste_over /loop))
+        ((@gen_improper? (@i) //a/s) #t)
+        ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (@make_name "Z")))
+         #t)
+        (#t (@paste_after /loop))))
+
+(define /%const__unroll_loop__1
+  (@make 141
+         '()
+         (list (@make 305 -1 '())
+               (@make 17 '() (list (@make 107 -2 '()))))))
+
+(define (@unroll_loop_test)
+  (cond ((or (= (@st (@i)) //t_/while)
+             (= (@st (@i)) //t_/floop))
+         (@pass))
+        (#t
+         (@fail "Selected item is not a WHILE loop or Floop."))))
+
+(define (@unroll_loop_code //data)
+  (cond ((= (@st (@i)) //t_/floop)
+         (let ((/loop-save /loop) (//a/s-save //a/s))
+           (set! /loop (@i))
+           (set! //a/s (@as_type))
+           (cond ((not (@gen_reducible?
+                         (list-ref (@i) (+ 1 1))
+                         (@as_type)))
+                  (@down)
+                  (@trans //t/r_/make_/reducible "")
+                  (@up)))
+           (@down)
+           (@down_last)
+           (cond ((and (= (@st (@i)) //t_/cond)
+                       (@gen_proper? (@i) (@as_type)))
+                  (@paste_after (@skip))))
+           (@up)
+           (@foreach_terminal
+             /foreach-unroll_loop-1
+             0
+             (@as_type)
+             1)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@up)
+           (@splice_over (@cs (list-ref (@i) (+ 1 1))))
+           (set! /loop /loop-save)
+           (set! //a/s //a/s-save)))
+        (#t
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match /%const__unroll_loop__1 (@i) /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s_save //s) (/__/b_save //b))
+                    (set! //s (vector-ref /__/match_array 1))
+                    (set! //b (vector-ref /__/match_array 0))
+                    (@paste_over
+                      (@make 114
+                             '()
+                             (list (@make 7
+                                          '()
+                                          (list //b
+                                                (@make 17
+                                                       '()
+                                                       (append
+                                                         //s
+                                                         (list (@make 141
+                                                                      '()
+                                                                      (list //b
+                                                                            (@make 17
+                                                                                   '()
+                                                                                   //s))))))))
+                                   (@make 7
+                                          '()
+                                          (list (@make 308 '() '())
+                                                (@make 17
+                                                       '()
+                                                       (list (@make 145
+                                                                    '()
+                                                                    '()))))))))
+                    (set! //s /__/s_save)
+                    (set! //b /__/b_save)))
+                 (#t (error "Not a WHILE loop!")))))))
+
+#t
+

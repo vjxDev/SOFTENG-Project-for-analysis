@@ -1,0 +1,532 @@
+(define (/foreach-while_to_reduce-1 //depth //a/s_/type)
+  (cond ((@equal? /e2 (@i)) (@paste_over /e1))))
+
+(define /%const__while_to_reduce__1
+  (@make 141
+         '()
+         (list (@make 314
+                      '()
+                      (list (@make 217 -1 '()) (@make 217 -2 '())))
+               (@make 17 '() (list (@make 107 -3 '()))))))
+
+(define /%const__while_to_reduce__2
+  (@make 141
+         '()
+         (list (@make 316
+                      '()
+                      (list (@make 217 -1 '()) (@make 217 -2 '())))
+               (@make 17
+                      '()
+                      (list (@make 107 -3 '())
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 512 -1 '())
+                                                      (@make 220
+                                                             '()
+                                                             (list (@make 263
+                                                                          -1
+                                                                          '())
+                                                                   (@make 205
+                                                                          1
+                                                                          '())))))
+                                         (@make 6
+                                                '()
+                                                (list (@make 506 -4 '())
+                                                      (@make 217
+                                                             -5
+                                                             '()))))))))))
+
+(define /%const__while_to_reduce__3
+  (@make 141
+         '()
+         (list (@make 316
+                      '()
+                      (list (@make 217 -1 '()) (@make 217 -2 '())))
+               (@make 17
+                      '()
+                      (list (@make 107 -3 '())
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 506 -4 '())
+                                                      (@make 217 -5 '())))
+                                         (@make 6
+                                                '()
+                                                (list (@make 512 -1 '())
+                                                      (@make 220
+                                                             '()
+                                                             (list (@make 263
+                                                                          -1
+                                                                          '())
+                                                                   (@make 205
+                                                                          1
+                                                                          '()))))))))))))
+
+(define (@while_to_reduce_test)
+  (cond ((not (= (@st (@i)) //t_/while))
+         (@fail "Current item is not a While loop"))
+        (#t
+         (@edit)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__while_to_reduce__1
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s_save //s) (/__n_save /n) (/__i_save /i))
+                    (set! //s (vector-ref /__/match_array 2))
+                    (set! /n (vector-ref /__/match_array 1))
+                    (set! /i (vector-ref /__/match_array 0))
+                    (@paste_over
+                      (@make 141
+                             '()
+                             (list (@make 316
+                                          '()
+                                          (list (@var_to_expn /i)
+                                                (@make 221
+                                                       '()
+                                                       (list (@var_to_expn /n)
+                                                             (@make 205
+                                                                    1
+                                                                    '())))))
+                                   (@make 17 '() //s))))
+                    (set! //s /__/s_save)
+                    (set! /n /__n_save)
+                    (set! /i /__i_save)))))
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__while_to_reduce__2
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__e_save /e)
+                        (/__v_save /v)
+                        (/__/s_save //s)
+                        (/__n_save /n)
+                        (/__i_save /i))
+                    (set! /e (vector-ref /__/match_array 4))
+                    (set! /v (vector-ref /__/match_array 3))
+                    (set! //s (vector-ref /__/match_array 2))
+                    (set! /n (vector-ref /__/match_array 1))
+                    (set! /i (vector-ref /__/match_array 0))
+                    (@paste_over
+                      (@make 141
+                             '()
+                             (list (@make 316
+                                          '()
+                                          (list (@var_to_expn /i)
+                                                (@var_to_expn /n)))
+                                   (@make 17
+                                          '()
+                                          (append
+                                            //s
+                                            (list (@make 110
+                                                         '()
+                                                         (list (@make 6
+                                                                      '()
+                                                                      (list (@expn_to_var
+                                                                              /v)
+                                                                            (@var_to_expn
+                                                                              /e)))
+                                                               (@make 6
+                                                                      '()
+                                                                      (list (@expn_to_var
+                                                                              /i)
+                                                                            (@make 220
+                                                                                   '()
+                                                                                   (list (@var_to_expn
+                                                                                           /i)
+                                                                                         (@make 205
+                                                                                                1
+                                                                                                '())))))))))))))
+                    (set! /e /__e_save)
+                    (set! /v /__v_save)
+                    (set! //s /__/s_save)
+                    (set! /n /__n_save)
+                    (set! /i /__i_save)))))
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__while_to_reduce__3
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__e_save /e)
+                        (/__v_save /v)
+                        (/__/s_save //s)
+                        (/__n_save /n)
+                        (/__i_save /i))
+                    (set! /e (vector-ref /__/match_array 4))
+                    (set! /v (vector-ref /__/match_array 3))
+                    (set! //s (vector-ref /__/match_array 2))
+                    (set! /n (vector-ref /__/match_array 1))
+                    (set! /i (vector-ref /__/match_array 0))
+                    (cond ((not (@set_subset?
+                                  (let ((l (let ((l //s) (map-result '()))
+                                             (let while-loop ()
+                                               (cond ((not (null? l))
+                                                      (set! map-result
+                                                        (cons (@stat_types
+                                                                (car l))
+                                                              map-result))
+                                                      (set! l (cdr l))
+                                                      (while-loop))
+                                                     (#t #t)))
+                                             (reverse map-result)))
+                                        (reduce-result '()))
+                                    (cond ((null? l) '())
+                                          (#t
+                                           (set! reduce-result (car l))
+                                           (set! l (cdr l))
+                                           (let while-loop ()
+                                             (cond ((not (null? l))
+                                                    (set! reduce-result
+                                                      (@set_union
+                                                        reduce-result
+                                                        (car l)))
+                                                    (set! l (cdr l))
+                                                    (while-loop))
+                                                   (#t #t)))
+                                           reduce-result)))
+                                  (list //t_/assert)))
+                           (@fail "Loop body is not in a suitable form"))
+                          ((@elt_clash? (@elements /i) (@elements /v))
+                           (@fail "Loop index is assigned more than once"))
+                          ((null? (@wr_reduce_pars /v /e /i /n))
+                           (@fail "Cannot determine the parameters for the REDUCE"))
+                          (#t (@pass)))
+                    (set! /e /__e_save)
+                    (set! /v /__v_save)
+                    (set! //s /__/s_save)
+                    (set! /n /__n_save)
+                    (set! /i /__i_save)))
+                 (#t
+                  (@fail "While loop is not in a suitable form"))))
+         (@undo_edit))))
+
+(define (@while_to_reduce_code //data)
+  (let ((/pars '())
+        (/e1-save /e1)
+        (/e2-save /e2)
+        (/e3 '())
+        (/new '()))
+    (set! /e1 '())
+    (set! /e2 '())
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__while_to_reduce__1
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__/s_save //s) (/__n_save /n) (/__i_save /i))
+               (set! //s (vector-ref /__/match_array 2))
+               (set! /n (vector-ref /__/match_array 1))
+               (set! /i (vector-ref /__/match_array 0))
+               (@paste_over
+                 (@make 141
+                        '()
+                        (list (@make 316
+                                     '()
+                                     (list (@var_to_expn /i)
+                                           (@make 221
+                                                  '()
+                                                  (list (@var_to_expn /n)
+                                                        (@make 205 1 '())))))
+                              (@make 17 '() //s))))
+               (set! //s /__/s_save)
+               (set! /n /__n_save)
+               (set! /i /__i_save)))))
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__while_to_reduce__2
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__e_save /e)
+                   (/__v_save /v)
+                   (/__/s_save //s)
+                   (/__n_save /n)
+                   (/__i_save /i))
+               (set! /e (vector-ref /__/match_array 4))
+               (set! /v (vector-ref /__/match_array 3))
+               (set! //s (vector-ref /__/match_array 2))
+               (set! /n (vector-ref /__/match_array 1))
+               (set! /i (vector-ref /__/match_array 0))
+               (@paste_over
+                 (@make 141
+                        '()
+                        (list (@make 316
+                                     '()
+                                     (list (@var_to_expn /i) (@var_to_expn /n)))
+                              (@make 17
+                                     '()
+                                     (append
+                                       //s
+                                       (list (@make 110
+                                                    '()
+                                                    (list (@make 6
+                                                                 '()
+                                                                 (list (@expn_to_var
+                                                                         /v)
+                                                                       (@var_to_expn
+                                                                         /e)))
+                                                          (@make 6
+                                                                 '()
+                                                                 (list (@expn_to_var
+                                                                         /i)
+                                                                       (@make 220
+                                                                              '()
+                                                                              (list (@var_to_expn
+                                                                                      /i)
+                                                                                    (@make 205
+                                                                                           1
+                                                                                           '())))))))))))))
+               (set! /e /__e_save)
+               (set! /v /__v_save)
+               (set! //s /__/s_save)
+               (set! /n /__n_save)
+               (set! /i /__i_save)))))
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__while_to_reduce__3
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__e_save /e)
+                   (/__v_save /v)
+                   (/__/s_save //s)
+                   (/__n_save /n)
+                   (/__i_save /i))
+               (set! /e (vector-ref /__/match_array 4))
+               (set! /v (vector-ref /__/match_array 3))
+               (set! //s (vector-ref /__/match_array 2))
+               (set! /n (vector-ref /__/match_array 1))
+               (set! /i (vector-ref /__/match_array 0))
+               (set! /pars (@wr_reduce_pars /v /e /i /n))
+               (cond ((= (if (vector? /pars)
+                           (vector-length /pars)
+                           (length /pars))
+                         1)
+                      (set! /e3
+                        (let ((name /pars))
+                          (if (vector? name)
+                            (vector-ref name (- 1 1))
+                            (list-ref name (- 1 1))))))
+                     (#t
+                      (set! /e1
+                        (let ((name /pars))
+                          (if (vector? name)
+                            (vector-ref name (- 2 1))
+                            (list-ref name (- 2 1)))))
+                      (set! /e2
+                        (let ((name /pars))
+                          (if (vector? name)
+                            (vector-ref name (- 3 1))
+                            (list-ref name (- 3 1)))))
+                      (set! /new '())
+                      (@edit)
+                      (let ((var-save //s1) (seq-save //s))
+                        (if (vector? seq-save)
+                          (set! seq-save (vector-elts seq-save)))
+                        (let for-in-loop ((for-tmp seq-save))
+                          (cond ((not (null? for-tmp))
+                                 (set! //s1 (car for-tmp))
+                                 (cond ((= (@st //s1) //t_/assert)
+                                        (@new_program //s1)
+                                        (@foreach_expn
+                                          /foreach-while_to_reduce-1
+                                          0
+                                          (@as_type)
+                                          0)
+                                        (cond ((null? (@program))
+                                               (@new_program (@skips))))
+                                        (set! /new
+                                          (cons (list-ref (@i) (+ 1 1)) /new))))
+                                 (for-in-loop (cdr for-tmp)))
+                                (#t #t)))
+                        (set! //s1 var-save))
+                      (@undo_edit)
+                      (cond ((not (null? /new))
+                             (@paste_before
+                               (@make //t_/assert
+                                      '()
+                                      (list (@simplify_cond
+                                              (@make //t_/and '() /new)))))
+                             (@right)))
+                      (set! /e3
+                        (@make //t_/reduce '() (@sub_seg /pars 1 2)))
+                      (cond ((or (= (@st /e) //t_/funct_/call)
+                                 (= (@st /e) //t_/x_/funct_/call)
+                                 (= (@st /e) //t_/m/w_/funct_/call))
+                             (set! /e3
+                               (@make (@st /e)
+                                      '()
+                                      (list (list-ref /e (+ 1 1))
+                                            (@make //t_/expressions
+                                                   '()
+                                                   (list (@lvalue_to_expn /v)
+                                                         /e3))))))
+                            (#t
+                             (set! /e3
+                               (@make (@st /e)
+                                      '()
+                                      (list (@lvalue_to_expn /v) /e3)))))))
+               (@paste_over
+                 (@make 110
+                        '()
+                        (list (@make 6
+                                     '()
+                                     (list (@expn_to_var /v)
+                                           (@var_to_expn /e3))))))
+               #t
+               (set! /e /__e_save)
+               (set! /v /__v_save)
+               (set! //s /__/s_save)
+               (set! /n /__n_save)
+               (set! /i /__i_save)))))
+    (set! /e1 /e1-save)
+    (set! /e2 /e2-save)))
+
+(define (@wr_reduce_pars /vv /e-par /i-par /n-par)
+  (let ((/n-save /n)
+        (/i-save /i)
+        (/e-save /e)
+        (/v-save /v)
+        (/name '())
+        (//r '())
+        (funct-result '()))
+    (set! /n /n-par)
+    (set! /i /i-par)
+    (set! /e /e-par)
+    (set! /v (@lvalue_to_expn /vv))
+    (cond ((and (= (@size /e) 2)
+                (member (@st /e) //comm_/ops)
+                (@equal? /v (list-ref /e (+ 1 2))))
+           (set! /e
+             (@make (@st /e)
+                    '()
+                    (list (list-ref /e (+ 1 2))
+                          (list-ref /e (+ 1 1)))))))
+    (cond (#f
+           (begin (display "v = ") (newline) (force-output))
+           (@print_wsl /v "")
+           (begin (display "e = ") (newline) (force-output))
+           (@print_wsl /e "")
+           (begin (display "i = ") (newline) (force-output))
+           (@print_wsl /i "")))
+    (cond ((and (or (= (@st /e) //t_/funct_/call)
+                    (= (@st /e) //t_/x_/funct_/call)
+                    (= (@st /e) //t_/m/w_/funct_/call))
+                (= (@size (list-ref /e (+ 1 2))) 2)
+                (@equal?
+                  /v
+                  (list-ref (list-ref /e (+ 1 2)) (+ 1 1))))
+           (set! //r
+             (@wr_reduce_par2
+               (list-ref /e (+ 1 1))
+               /v
+               (list-ref (list-ref /e (+ 1 2)) (+ 1 2))
+               /i
+               /n)))
+          ((and (or (= (@st /e) //t_/plus)
+                    (= (@st /e) //t_/minus)
+                    (= (@st /e) //t_/times)
+                    (= (@st /e) //t_/divide)
+                    (= (@st /e) //t_/union)
+                    (= (@st /e) //t_/intersection)
+                    (= (@st /e) //t_/concat)
+                    (= (@st /e) //t_/max)
+                    (= (@st /e) //t_/min)
+                    (= (@st /e) //t_/exponent))
+                (= (@size /e) 2)
+                (@equal? /v (list-ref /e (+ 1 1))))
+           (cond ((= (@st /e) //t_/plus)
+                  (set! /name (@name (@make_name "+"))))
+                 ((= (@st /e) //t_/minus)
+                  (set! /name (@name (@make_name "-"))))
+                 ((= (@st /e) //t_/times)
+                  (set! /name (@name (@make_name "*"))))
+                 ((= (@st /e) //t_/divide)
+                  (set! /name (@name (@make_name "/"))))
+                 ((= (@st /e) //t_/union)
+                  (set! /name (@name (@make_name "\\/"))))
+                 ((= (@st /e) //t_/intersection)
+                  (set! /name (@name (@make_name "/\\"))))
+                 ((= (@st /e) //t_/concat)
+                  (set! /name (@name (@make_name "++"))))
+                 ((= (@st /e) //t_/exponent)
+                  (set! /name (@name (@make_name "**"))))
+                 (#t
+                  (set! /name
+                    (@name (@make_name (@type_name (@st /e)))))))
+           (set! //r
+             (@wr_reduce_par2
+               /name
+               /v
+               (list-ref /e (+ 1 2))
+               /i
+               /n))))
+    (set! funct-result //r)
+    (set! /n /n-save)
+    (set! /i /i-save)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@wr_reduce_par2
+         /par1
+         /v-par
+         /e-par
+         /i-par
+         /n-par)
+  (let ((/n-save /n)
+        (/i-save /i)
+        (/e-save /e)
+        (/v-save /v)
+        (//r '())
+        (funct-result '()))
+    (set! /n /n-par)
+    (set! /i /i-par)
+    (set! /e /e-par)
+    (set! /v /v-par)
+    (cond ((and (= (@st /e) //t_/aref)
+                (= (@size (list-ref /e (+ 1 2))) 1)
+                (@equal?
+                  (list-ref (list-ref /e (+ 1 2)) (+ 1 1))
+                  /i))
+           (set! //r
+             (list /par1
+                   (@make //t_/sub_/seg
+                          '()
+                          (list (list-ref /e (+ 1 1)) /i /n))
+                   /e)))
+          ((= (@st /e) //t_/number)
+           (set! //r
+             (list (@simplify_expn
+                     (@make 222
+                            '()
+                            (list (@var_to_expn /e)
+                                  (@make 220
+                                         '()
+                                         (list (@make 221
+                                                      '()
+                                                      (list (@var_to_expn /n)
+                                                            (@var_to_expn /i)))
+                                               (@make 205 1 '()))))))))))
+    (set! funct-result //r)
+    (set! /n /n-save)
+    (set! /i /i-save)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+#t
+

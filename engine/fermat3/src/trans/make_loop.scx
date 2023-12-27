@@ -1,0 +1,23 @@
+(define (@make_loop_test)
+  (cond ((and (not (= (@gt (@i)) //t_/statement))
+              (not (= (@gt (@i)) //t_/statements)))
+         (@fail "Selected item is not a statement or statement sequence"))
+        ((and (not (equal? (@as_type) "Reg"))
+              (member //t_/call (@stat_types (@i))))
+         (@fail "Item contains calls in a non-regular system"))
+        (#t (@pass))))
+
+(define (@make_loop_code //data)
+  (let ((//s (@increment (@i) (@as_type) 1 0)))
+    (cond ((= (@gt (@i)) //t_/statements)
+           (set! //s (@cs //s))
+           (@paste_over
+             (@make 17
+                    '()
+                    (list (@make 133 '() (list (@make 17 '() //s)))))))
+          (#t
+           (@paste_over
+             (@make 133 '() (list (@make 17 '() //s))))))))
+
+#t
+

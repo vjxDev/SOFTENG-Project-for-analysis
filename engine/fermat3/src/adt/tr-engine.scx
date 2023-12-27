@@ -1,0 +1,197 @@
+(set! //t/rs_/name (make-vector 200 '()))
+
+(set! //t/rs_/proc_/name (make-vector 200 '()))
+
+(set! //t/rs_/test (make-vector 200 '()))
+
+(set! //t/rs_/code (make-vector 200 '()))
+
+(set! //t/rs_/keywords (make-vector 200 '()))
+
+(set! //t/rs_/help (make-vector 200 '()))
+
+(set! //t/rs_/prompt (make-vector 200 '()))
+
+(set! //t/rs_/data_/gen_/type
+  (make-vector 200 '()))
+
+(set! /adt_/t/r_/next_/number 0)
+
+(define (@new_tr_number)
+  (set! /adt_/t/r_/next_/number
+    (+ /adt_/t/r_/next_/number 1))
+  /adt_/t/r_/next_/number)
+
+(set! /adt_/trans_/tests 1)
+
+(set! /adt_/passed (- 1))
+
+(set! /adt_/fail_/message "")
+
+(set! /adt_/t/r_/start_/p '())
+
+(set! /adt_/t/r_/start_/span '())
+
+(define (@use_trans_tests)
+  (set! /adt_/trans_/tests 1))
+
+(define (@no_trans_tests)
+  (set! /adt_/trans_/tests 0))
+
+(define (@trans_tests_status?)
+  (= /adt_/trans_/tests 1))
+
+(define (@reset_pass_status)
+  (cond ((= /adt_/in_/a_/trans 1)
+         (set! /adt_/fail_/message "")))
+  (set! /adt_/passed (- 1)))
+
+(define (@pass)
+  (cond ((= /adt_/in_/a_/trans 1)
+         (set! /adt_/fail_/message "")))
+  (set! /adt_/passed 1))
+
+(define (@fail //reason)
+  (cond ((= /adt_/in_/a_/trans 1)
+         (set! /adt_/fail_/message //reason)))
+  (set! /adt_/passed 0))
+
+(define (@notice //message)
+  (cond ((= /adt_/in_/a_/trans 1)
+         (set! /adt_/fail_/message //message))))
+
+(define (@fail_message) /adt_/fail_/message)
+
+(define (@passed?) (= /adt_/passed 1))
+
+(define (@failed?) (= /adt_/passed 0))
+
+(define (@trans? /trans)
+  (let ((//r 0)
+        (//name
+          (if (number? /trans)
+            (vector-ref //t/rs_/proc_/name (- /trans 1))
+            '())))
+    (cond ((null? //name)
+           (begin
+             (display "No such transformation number:")
+             (begin (display /trans) (newline) (force-output))))
+          (#t
+           (set! /adt_/t/r_/start_/p
+             (cons (@posn) /adt_/t/r_/start_/p))
+           (set! /adt_/in_/a_/trans
+             (+ /adt_/in_/a_/trans 1))
+           (set! /adt_/fail_/message "")
+           (set! /adt_/passed (- 1))
+           (apply (vector-ref //t/rs_/test (- /trans 1))
+                  '())
+           (set! //r /adt_/passed)
+           (set! /adt_/passed (- 1))
+           (@goto (car /adt_/t/r_/start_/p))
+           (set! /adt_/t/r_/start_/p
+             (cdr /adt_/t/r_/start_/p))
+           (set! /adt_/in_/a_/trans
+             (- /adt_/in_/a_/trans 1))
+           (cond ((and (not (= //r 1)) (not (= //r 0)))
+                  (begin
+                    (display
+                      "Neither `Passed' nor `Failed' in transformation: ")
+                    (begin (display //name) (newline) (force-output)))))))
+    (= //r 1)))
+
+(define (@what_trans //words)
+  (let ((/i (+ /adt_/t/r_/next_/number 1)) (//list '()))
+    (let while-loop ()
+      (cond ((not (= /i 1))
+             (begin
+               (set! /i (- /i 1))
+               (cond ((and (@set_subset?
+                             //words
+                             (@make_set
+                               (vector-ref //t/rs_/keywords (- /i 1))))
+                           (not (member
+                                  "Hidden"
+                                  (vector-ref //t/rs_/keywords (- /i 1))))
+                           (or (= /adt_/trans_/tests 0) (@trans? /i)))
+                      (set! //list (cons /i //list)))))
+             (while-loop))
+            (#t #t)))
+    //list))
+
+(set! //t/r_/no_/change
+  (@make_name "TR_No_Change"))
+
+(set! /adt_/trans_/count 0)
+
+(define (@trans /trans //data)
+  (let ((//name
+          (if (number? /trans)
+            (vector-ref //t/rs_/proc_/name (- /trans 1))
+            '()))
+        (//program_/type (@st (@program))))
+    (cond ((null? //name)
+           (begin
+             (display "No such transformation number: ")
+             (begin (display /trans) (newline) (force-output))))
+          ((or (> /adt_/in_/a_/trans 0)
+               (= /adt_/trans_/tests 1)
+               (@trans? /trans))
+           (cond ((= /adt_/in_/a_/trans 0)
+                  (@save_state)
+                  (@dtable_put (@program) //t/r_/no_/change 1)))
+           (set! /adt_/t/r_/start_/p
+             (cons (@posn) /adt_/t/r_/start_/p))
+           (set! /adt_/in_/a_/trans
+             (+ /adt_/in_/a_/trans 1))
+           (set! /adt_/fail_/message "")
+           (set! /adt_/passed (- 1))
+           (set! /adt_/trans_/count
+             (+ /adt_/trans_/count 1))
+           (apply (vector-ref //t/rs_/code (- /trans 1))
+                  (list //data))
+           (set! /adt_/passed (- 1))
+           (set! /adt_/t/r_/start_/p
+             (cdr /adt_/t/r_/start_/p))
+           (set! /adt_/in_/a_/trans
+             (- /adt_/in_/a_/trans 1))
+           (cond ((and (= /adt_/in_/a_/trans 0)
+                       (equal? /adt_/fail_/message "")
+                       (not (null? (@dtable_get (@program) //t/r_/no_/change))))
+                  (set! /adt_/fail_/message
+                    (string-append
+                      (vector-ref //t/rs_/name (- /trans 1))
+                      " did not change the program."))))
+           (@fixup)
+           (cond ((and (null? (@program))
+                       (= /adt_/in_/a_/trans 0)
+                       (= //program_/type //t_/statements))
+                  (@new_program (@skips))))))))
+
+(define (@tr_names)
+  (begin (display "#(") (force-output))
+  (let ((var-save /n) (for-step 1) (for-end 200))
+    (set! /n 1)
+    (let for-loop ()
+      (cond ((or (and (> 1 0) (<= /n for-end))
+                 (and (< 1 0) (>= /n for-end)))
+             (begin
+               (cond ((null? (vector-ref //t/rs_/name (- /n 1)))
+                      (begin (display "()") (force-output)))
+                     (#t
+                      (begin
+                        (display
+                          (concat
+                            (concat
+                              //quote
+                              (vector-ref //t/rs_/name (- /n 1)))
+                            //quote))
+                        (force-output))))
+               (cond ((< /n 200) (begin (display " ") (force-output)))))
+             (set! /n (+ /n for-step))
+             (for-loop))
+            (#t #t)))
+    (set! /n var-save))
+  (begin (display ")") (newline) (force-output)))
+
+#t
+

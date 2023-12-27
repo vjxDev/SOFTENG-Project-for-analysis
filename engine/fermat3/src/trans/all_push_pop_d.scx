@@ -1,0 +1,42 @@
+(set! //t/r_/all_/push_/pop (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/all_/push_/pop 1)
+  "All_Push_Pop")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/all_/push_/pop 1)
+  "All_Push_Pop")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/all_/push_/pop 1)
+  @all_push_pop_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/all_/push_/pop 1)
+  @all_push_pop_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/all_/push_/pop 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/all_/push_/pop 1)
+  "Apply Push_Pop wherever possible.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/all_/push_/pop 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/all_/push_/pop 1)
+  "")
+

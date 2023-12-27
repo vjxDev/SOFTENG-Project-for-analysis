@@ -1,0 +1,43 @@
+(set! //t/r_/prune_/dispatch (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/prune_/dispatch 1)
+  "Prune Dispatch")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/prune_/dispatch 1)
+  "Prune_Dispatch")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/prune_/dispatch 1)
+  @prune_dispatch_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/prune_/dispatch 1)
+  @prune_dispatch_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/prune_/dispatch 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/prune_/dispatch 1)
+  "Simplify the dispatch action by removing references
+to dest values which do not appear in the rest of the program.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/prune_/dispatch 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/prune_/dispatch 1)
+  "")
+

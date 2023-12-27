@@ -1,0 +1,43 @@
+(set! //t/r_/increment_/statement
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/increment_/statement 1)
+  "Increment_Statement")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/increment_/statement 1)
+  "Increment_Statement")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/increment_/statement 1)
+  @increment_statement_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/increment_/statement 1)
+  @increment_statement_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/increment_/statement 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/increment_/statement 1)
+  "Increment a statement, provided it is enclosed in a suitable double Floop.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/increment_/statement 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/increment_/statement 1)
+  "")
+

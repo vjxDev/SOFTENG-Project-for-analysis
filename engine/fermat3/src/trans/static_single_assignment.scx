@@ -1,0 +1,151 @@
+(define (/foreach-static_single_assignment-1
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/x_/funct_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /phi))
+         (@fail "WSL code already contains phi function calls"))))
+
+(define (/foreach-static_single_assignment-2
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/for)
+         (@trans //t/r_/for_/to_/while ""))))
+
+(define (@static_single_assignment_test)
+  (let ((/phi-save /phi))
+    (set! /phi (@make_name "phi"))
+    (@ateach_expn
+      /foreach-static_single_assignment-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (cond ((and (or (member //t_/var (@stat_types (@i)))
+                    (member //t_/for (@stat_types (@i))))
+                (member //t_/where (@stat_types (@i))))
+           (cond ((@check_globals_in_defns?) (@pass))
+                 (#t
+                  (@fail "There may be a reference to a local variable
+in a PROC, FUNCT or BFUNCT body.")))))
+    (cond ((not (@failed?)) (@pass)))
+    (set! /phi /phi-save)))
+
+(define (@static_single_assignment_code //data)
+  (let ((/block_file "tmp_ssa.bb")
+        (/ssa_file "tmp_ssa.ssa")
+        (//s/s/a_blocks '())
+        (/p 0)
+        (/vars '())
+        (/elts '())
+        (/random (@random //omega)))
+    (set! /block_file
+      (concat
+        (string-append (@string /random) "_")
+        /block_file))
+    (set! /ssa_file
+      (concat
+        (string-append (@string /random) "_")
+        /ssa_file))
+    (cond ((string? //data)
+           (let ((/-result- (@parse_words //data /p /vars)))
+             (set! /p (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /vars (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (let ((var-save /elt) (seq-save /vars))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /elt (car for-tmp))
+                      (set! /elts
+                        (cons (let ((l /elt) (map-result '()))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! map-result
+                                           (cons (@ssa_make_name (car l))
+                                                 map-result))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                (reverse map-result))
+                              /elts))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /elt var-save))
+           (set! /elts (@make_set /elts)))
+          ((and (not (null? //data))
+                (not (sequence? (car //data))))
+           (let ((var-save /var) (seq-save //data))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /var (car for-tmp))
+                      (set! /elts (cons (list /var) /elts))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /var var-save))
+           (set! /elts (@make_set /elts)))
+          (#t (set! /elts (@make_set //data))))
+    (cond ((not (null? /elts))
+           (begin
+             (display "Converting only these global vars:")
+             (newline)
+             (force-output))
+           (@print_elts /elts)))
+    (cond ((member //t_/for (@stat_types (@i)))
+           (begin
+             (display "Converting FOR loops...")
+             (newline)
+             (force-output))
+           (@foreach_statement
+             /foreach-static_single_assignment-2
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))))
+    (cond ((@trans? //t/r_/rename_/local_/vars)
+           (begin
+             (display "Renaming local variables...")
+             (newline)
+             (force-output))
+           (@trans //t/r_/rename_/local_/vars "")))
+    (begin
+      (display "Computing Basic Blocks...")
+      (newline)
+      (force-output))
+    (@basic_blocks (@i) /block_file)
+    (begin
+      (display "Computing SSA form of basic blocks...")
+      (newline)
+      (force-output))
+    (cond ((@file_exists? /ssa_file)
+           (@delete_file /ssa_file)))
+    (perlscript
+      "bbtossa"
+      (concat
+        (string-append /block_file " ")
+        /ssa_file))
+    (cond ((@file_exists? /ssa_file)
+           (begin
+             (display "Generating new WSL...")
+             (newline)
+             (force-output))
+           (set! //s/s/a_blocks
+             (@parse_basic_blocks /ssa_file))
+           (@paste_over
+             (@wsl_to_ssa (@i) //s/s/a_blocks /elts))
+           (@delete_file /block_file)
+           (@delete_file /ssa_file))
+          (#t
+           (begin
+             (display
+               (string-append
+                 "ERROR: bbtossa failed to create "
+                 /ssa_file))
+             (newline)
+             (force-output))))))
+
+#t
+

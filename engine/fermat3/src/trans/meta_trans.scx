@@ -1,0 +1,499 @@
+(define (/foreach-meta_trans-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/foreach_/expn)
+         (set! /type //t_/ifmatch_/expn))
+        ((= (@st (@i)) //t_/foreach_/cond)
+         (set! /type //t_/ifmatch_/cond))
+        (#t (set! /type 0)))
+  (cond ((> /type 0)
+         (@down)
+         (begin
+           (display "Size = ")
+           (begin
+             (display (@size (@i)))
+             (newline)
+             (force-output)))
+         (cond ((> (@size (@i)) 4)
+                (set! //o/k 1)
+                (set! /comps (@cs (@i)))
+                (set! /matches '())
+                (let while-loop ()
+                  (cond ((and (= //o/k 1) (not (null? /comps)))
+                         (begin
+                           (cond ((or (= (@st (car /comps)) //t_/comment)
+                                      (= (@st (car /comps)) //t_/skip))
+                                  #t)
+                                 ((not (= (@st (car /comps)) /type))
+                                  (set! //o/k 0)
+                                  (begin
+                                    (display "Failed for:")
+                                    (newline)
+                                    (force-output))
+                                  (@print_wsl (car /comps) ""))
+                                 (#t
+                                  (set! /matches (cons (car /comps) /matches))))
+                           (set! /comps (cdr /comps)))
+                         (while-loop))
+                        (#t #t)))
+                (cond ((= //o/k 1)
+                       (@mt_replace (reverse /matches) /type))))))))
+
+(define /%const__meta_trans__1
+  (@make 17
+         '()
+         (list (@make 114
+                      '()
+                      (list (@make 7
+                                   '()
+                                   (list (@make 313
+                                                '()
+                                                (list (@make 202
+                                                             '()
+                                                             (list (@make 9
+                                                                          (@make_name
+                                                                            "@Size")
+                                                                          '())
+                                                                   (@make 10
+                                                                          '()
+                                                                          (list (@make 202
+                                                                                       '()
+                                                                                       (list (@make 9
+                                                                                                    (@make_name
+                                                                                                      "@I")
+                                                                                                    '())
+                                                                                             (@make 10
+                                                                                                    '()
+                                                                                                    '())))))))
+                                                      (@make 205 1 '())))
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '())))))
+                            (@make 7
+                                   '()
+                                   (list (@make 313
+                                                '()
+                                                (list (@make 202
+                                                             '()
+                                                             (list (@make 9
+                                                                          (@make_name
+                                                                            "@Size")
+                                                                          '())
+                                                                   (@make 10
+                                                                          '()
+                                                                          (list (@make 202
+                                                                                       '()
+                                                                                       (list (@make 9
+                                                                                                    (@make_name
+                                                                                                      "@I")
+                                                                                                    '())
+                                                                                             (@make 10
+                                                                                                    '()
+                                                                                                    '())))))))
+                                                      (@make 205 2 '())))
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '())))))
+                            (@make 7
+                                   '()
+                                   (list (@make 308 '() '())
+                                         (@make 17
+                                                '()
+                                                (list (@make 145
+                                                             '()
+                                                             '()))))))))))
+
+(define /%const__meta_trans__2
+  (@make 207 (@make_name "MT_ST") '()))
+
+(define /%const__meta_trans__3
+  (@make 207 (@make_name "MT_ST_n") '()))
+
+(define (@meta_trans_test)
+  (let ((/types (@stat_types (@item))))
+    (cond ((and (member //t_/foreach_/expn /types)
+                (member //t_/ifmatch_/expn /types))
+           (@pass))
+          ((and (member //t_/foreach_/cond /types)
+                (member //t_/ifmatch_/cond /types))
+           (@pass))
+          (#t (@fail "No suitable structures found.")))))
+
+(define (@meta_trans_code //data)
+  (let ((//o/k-save //o/k)
+        (/comps-save /comps)
+        (/type-save /type)
+        (/matches-save /matches))
+    (set! //o/k 0)
+    (set! /comps '())
+    (set! /type 0)
+    (set! /matches '())
+    (@foreach_statement
+      /foreach-meta_trans-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! //o/k //o/k-save)
+    (set! /comps /comps-save)
+    (set! /type /type-save)
+    (set! /matches /matches-save)))
+
+(define (@mt_replace /matches-par /type-par)
+  (let ((/type-save /type) (/matches-save /matches))
+    (set! /type /type-par)
+    (set! /matches /matches-par)
+    (begin
+      (display "MT_Replace called with ")
+      (begin
+        (display
+          (if (vector? /matches)
+            (vector-length /matches)
+            (length /matches)))
+        (begin
+          (display " matches.")
+          (newline)
+          (force-output))))
+    (let ((/size_1 '())
+          (/size_2 '())
+          (/size_3 '())
+          (/var_pats
+            (list //t_/expn_/pat_/many
+                  //t_/expn_/pat_/any
+                  //t_/expn_/int_/any
+                  //t_/expn_/var_/any
+                  //t_/cond_/pat_/many
+                  //t_/cond_/pat_/any
+                  //t_/cond_/int_/any
+                  //t_/cond_/var_/any)))
+      (@paste_over /%const__meta_trans__1)
+      (let ((var-save /match) (seq-save /matches))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /match (car for-tmp))
+                 (cond ((= (@size (list-ref /match (+ 1 1))) 1)
+                        (set! /size_1 (cons /match /size_1))
+                        (cond ((not (null? (@set_intersect
+                                             /var_pats
+                                             (@spec_types
+                                               (list-ref /match (+ 1 1))))))
+                               (set! /size_2 (cons /match /size_2))
+                               (set! /size_3 (cons /match /size_3)))))
+                       ((= (@size (list-ref /match (+ 1 1))) 2)
+                        (set! /size_2 (cons /match /size_2))
+                        (cond ((not (null? (@set_intersect
+                                             /var_pats
+                                             (@spec_types
+                                               (list-ref /match (+ 1 1))))))
+                               (set! /size_3 (cons /match /size_3)))))
+                       (#t (set! /size_3 (cons /match /size_3))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /match var-save))
+      (@down)
+      (@down)
+      (@down_to 2)
+      (cond ((not (= (@st (list-ref (@i) (+ 1 1))) //t_/skip))
+             (begin
+               (display "ERROR in @MT_Replace size=1 !!!")
+               (newline)
+               (force-output))))
+      (@mt_replace_st 1 /size_1 /type 0)
+      (@up)
+      (@right)
+      (@down_to 2)
+      (cond ((not (= (@st (list-ref (@i) (+ 1 1))) //t_/skip))
+             (begin
+               (display "ERROR in @MT_Replace size=2 !!!")
+               (newline)
+               (force-output))))
+      (@mt_replace_st 2 /size_2 /type 0)
+      (@up)
+      (@right)
+      (@down_to 2)
+      (cond ((not (= (@st (list-ref (@i) (+ 1 1))) //t_/skip))
+             (begin
+               (display "ERROR in @MT_Replace size=3 !!!")
+               (newline)
+               (force-output))))
+      (@mt_replace_st 3 /size_3 /type 0)
+      (@up)
+      (@up)
+      (@paste_over
+        (@make 139
+               '()
+               (list (@make 13
+                            '()
+                            (list (@make 6
+                                         '()
+                                         (list (@make 501
+                                                      (@make_name "MT_ST")
+                                                      '())
+                                               (@make 202
+                                                      '()
+                                                      (list (@make 9
+                                                                   (@make_name
+                                                                     "@ST")
+                                                                   '())
+                                                            (@make 10
+                                                                   '()
+                                                                   (list (@make 202
+                                                                                '()
+                                                                                (list (@make 9
+                                                                                             (@make_name
+                                                                                               "@I")
+                                                                                             '())
+                                                                                      (@make 10
+                                                                                             '()
+                                                                                             '())))))))))))
+                     (@make 17 '() (list (@i)))))))
+    (set! /type /type-save)
+    (set! /matches /matches-save)))
+
+(define (@mt_replace_st
+         /size
+         /matches-par
+         /type-par
+         /comp)
+  (let ((/type-save /type) (/matches-save /matches))
+    (set! /type /type-par)
+    (set! /matches /matches-par)
+    (begin
+      (display "MT_Replace_ST called with ")
+      (begin
+        (display
+          (if (vector? /matches)
+            (vector-length /matches)
+            (length /matches)))
+        (begin
+          (display " matches.")
+          (newline)
+          (force-output))))
+    (let ((/type2match (my-make-hash-table 16))
+          (/types '())
+          (/type-save /type)
+          (/match-save /match)
+          (/size_limit 4)
+          (/guard '())
+          (//s/t 0)
+          (/e '())
+          (/n 0)
+          (/orig /matches)
+          (/new '())
+          (/saved '())
+          (/pats (list //t_/expn_/pat_/many
+                       //t_/expn_/pat_/any
+                       //t_/expn_/pat_/one
+                       //t_/cond_/pat_/many
+                       //t_/cond_/pat_/any
+                       //t_/cond_/pat_/one
+                       //t_/expn_/int_/one
+                       //t_/expn_/int_/any
+                       //t_/expn_/var_/one
+                       //t_/expn_/var_/any
+                       //t_/cond_/int_/one
+                       //t_/cond_/int_/any
+                       //t_/cond_/var_/one
+                       //t_/cond_/var_/any)))
+      (set! /type 0)
+      (set! /match '())
+      (@down)
+      (cond ((> /comp 0)
+             (set! /new '())
+             (let ((var-save /match) (seq-save /matches))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /match (car for-tmp))
+                        (cond ((or (> /comp (@size (list-ref /match (+ 1 1))))
+                                   (member
+                                     (@st (@get /match (list 1 /comp)))
+                                     /pats))
+                               (set! /saved (cons /match /saved)))
+                              (#t (set! /new (cons /match /new))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /match var-save))
+             (set! /matches (reverse /new))))
+      (set! /saved (reverse /saved))
+      (cond ((or (< (if (vector? /matches)
+                      (vector-length /matches)
+                      (length /matches))
+                    /size_limit)
+                 (> /comp /size))
+             (cond ((null? /orig) (@paste_over (@skip)))
+                   (#t (@splice_over /orig)))
+             (@up))
+            (#t
+             (let ((var-save /match) (seq-save /matches))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /match (car for-tmp))
+                        (begin
+                          (cond ((= /comp 0)
+                                 (set! //s/t (@st (list-ref /match (+ 1 1)))))
+                                (#t
+                                 (set! //s/t
+                                   (@st (@get /match (list 1 /comp))))))
+                          (cond ((null? (gethash /type2match //s/t))
+                                 (puthash /type2match //s/t (list /match))
+                                 (set! /types (cons //s/t /types)))
+                                (#t
+                                 (puthash
+                                   /type2match
+                                   //s/t
+                                   (cons /match (gethash /type2match //s/t))))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /match var-save))
+             (cond ((= /comp 0) (set! /e /%const__meta_trans__2))
+                   (#t
+                    (set! /n (@make //t_/number /comp '()))
+                    (set! /e
+                      (@make 202
+                             '()
+                             (list (@make 9 (@make_name "@ST") '())
+                                   (@make 10
+                                          '()
+                                          (list (@make 254
+                                                       '()
+                                                       (list (@make 202
+                                                                    '()
+                                                                    (list (@make 9
+                                                                                 (@make_name
+                                                                                   "@I")
+                                                                                 '())
+                                                                          (@make 10
+                                                                                 '()
+                                                                                 '())))
+                                                             (@var_to_expn
+                                                               /n))))))))
+                    (set! /e /%const__meta_trans__3)))
+             (@paste_over
+               (@make 114
+                      '()
+                      (list (@make 7
+                                   '()
+                                   (list (@make 313
+                                                '()
+                                                (list (@var_to_expn /e)
+                                                      (@make 207
+                                                             (@make_name
+                                                               "T_Skip")
+                                                             '())))
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '())))))
+                            (@make 7
+                                   '()
+                                   (list (@make 308 '() '())
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '()))))))))
+             (set! /types (@mt_sort_types /types))
+             (@down)
+             (let ((var-save /type) (seq-save /types))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /type (car for-tmp))
+                        (begin
+                          (@paste_after (@i))
+                          (@down)
+                          (@down_to 2)
+                          (@paste_over (@make //t_/number /type '()))
+                          (@up)
+                          (@right)
+                          (@mt_replace_st
+                            /size
+                            (gethash /type2match /type)
+                            /type
+                            (+ /comp 1))
+                          (@up)
+                          (@right))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /type var-save))
+             (@delete)
+             (@up)
+             (cond ((> /comp 0)
+                    (@paste_over
+                      (@make 139
+                             '()
+                             (list (@make 13
+                                          '()
+                                          (list (@make 6
+                                                       '()
+                                                       (list (@make 501
+                                                                    (@make_name
+                                                                      "MT_ST_n")
+                                                                    '())
+                                                             (@make 202
+                                                                    '()
+                                                                    (list (@make 9
+                                                                                 (@make_name
+                                                                                   "@ST")
+                                                                                 '())
+                                                                          (@make 10
+                                                                                 '()
+                                                                                 (list (@make 254
+                                                                                              '()
+                                                                                              (list (@make 202
+                                                                                                           '()
+                                                                                                           (list (@make 9
+                                                                                                                        (@make_name
+                                                                                                                          "@I")
+                                                                                                                        '())
+                                                                                                                 (@make 10
+                                                                                                                        '()
+                                                                                                                        '())))
+                                                                                                    (@var_to_expn
+                                                                                                      /n)))))))))))
+                                   (@make 17 '() (list (@i))))))))
+             (@splice_after /saved)
+             (@up)))
+      (set! /type /type-save)
+      (set! /match /match-save))
+    (set! /type /type-save)
+    (set! /matches /matches-save)))
+
+(define (@mt_sort_types /types)
+  (let ((/common_types
+          (list //t_/plus
+                //t_/times
+                //t_/negate
+                //t_/invert
+                //t_/and
+                //t_/or
+                //t_/not
+                //t_/equal
+                //t_/not_/equal
+                //t_/less
+                //t_/less_/eq))
+        (/type-save /type)
+        (funct-result '()))
+    (set! /type 0)
+    (let ((var-save /type)
+          (seq-save (reverse /common_types)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /type (car for-tmp))
+               (cond ((member /type /types)
+                      (set! /types
+                        (cons /type
+                              (@set_difference /types (list /type))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /type var-save))
+    (set! funct-result /types)
+    (set! /type /type-save)
+    funct-result))
+
+#t
+

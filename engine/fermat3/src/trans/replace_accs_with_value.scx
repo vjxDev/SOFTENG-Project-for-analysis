@@ -1,0 +1,447 @@
+(define (@replace_accs_with_value_test)
+  (let ((/accs (@make_set
+                 (let ((l (list "ax"
+                                "bx"
+                                "cx"
+                                "dx"
+                                "si"
+                                "di"
+                                "zf"
+                                "cf"
+                                "cl"
+                                "dl"
+                                "dil"
+                                "sil"
+                                "esi"
+                                "ecx"
+                                "edx"
+                                "rcx"
+                                "xmm0"
+                                "xmm1"
+                                "xmm2"
+                                "xmm3"
+                                "xmm4"
+                                "xmm5"
+                                "xmm6"
+                                "xmm7"
+                                "__tmp"
+                                "__junk"
+                                "__tmp1"
+                                "__tmp2"
+                                "__tmp3"
+                                "__tmp4"
+                                "__tmp5"
+                                "__tmp6"
+                                "__tmp7"
+                                "__tmp8"
+                                "__tmp9"
+                                "__tmp10"
+                                "__tmp11"
+                                "__tmp12"
+                                "__tmp13"
+                                "__tmp14"
+                                "__tmp15"
+                                "__cpar1"
+                                "__cpar2"
+                                "__cpar3"
+                                "__cpar4"
+                                "__cpar5"
+                                "__cpar6"
+                                "__cpar7"
+                                "__cpar8"
+                                "__cpar9"
+                                "__cpar10"
+                                "__cpar11"
+                                "__cpar12"
+                                "__cpar13"
+                                "__cpar14"
+                                "__cpar15"
+                                "a0"
+                                "a1"
+                                "a2"
+                                "a3"
+                                "a4"
+                                "a5"
+                                "a6"
+                                "a7"
+                                "a8"
+                                "a9"
+                                "a10"
+                                "a11"
+                                "a12"
+                                "a13"
+                                "a14"
+                                "a15"
+                                "x0"
+                                "x1"
+                                "x2"
+                                "x3"
+                                "x4"
+                                "x5"
+                                "x6"
+                                "x7"
+                                "x8"
+                                "x9"
+                                "x10"
+                                "x11"
+                                "x12"
+                                "x13"
+                                "x14"
+                                "x15"
+                                "r0"
+                                "r1"
+                                "r2"
+                                "r3"
+                                "r4"
+                                "r5"
+                                "r6"
+                                "r7"
+                                "r8"
+                                "r9"
+                                "r10"
+                                "r11"
+                                "r12"
+                                "r13"
+                                "r14"
+                                "r15"
+                                "cc"
+                                "RCX"
+                                "RSI"
+                                "IHADCB"))
+                       (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@make_name (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result)))))
+    (cond ((or (not (null? (@set_intersect /accs (@used (@item)))))
+               (and (@cs? (@i))
+                    (not (null? (@set_intersect
+                                  /accs
+                                  (@used (list-ref (@i) (+ 1 1))))))))
+           (@pass))
+          (#t
+           (@fail "No accumulators are used in the selected item.")))))
+
+(set! //max_/expression_/size 20)
+
+(define (@replace_accs_with_value_code //data)
+  (let ((/accs (@make_set
+                 (let ((l (list "ax"
+                                "bx"
+                                "cx"
+                                "dx"
+                                "si"
+                                "di"
+                                "zf"
+                                "cf"
+                                "dl"
+                                "dil"
+                                "sil"
+                                "ecx"
+                                "edx"
+                                "rcx"
+                                "xmm0"
+                                "xmm1"
+                                "xmm2"
+                                "xmm3"
+                                "xmm4"
+                                "xmm5"
+                                "xmm6"
+                                "xmm7"
+                                "__tmp"
+                                "__junk"
+                                "__tmp1"
+                                "__tmp2"
+                                "__tmp3"
+                                "__tmp4"
+                                "__tmp5"
+                                "__tmp6"
+                                "__tmp7"
+                                "__tmp8"
+                                "__tmp9"
+                                "__tmp10"
+                                "__tmp11"
+                                "__tmp12"
+                                "__tmp13"
+                                "__tmp14"
+                                "__tmp15"
+                                "__cpar1"
+                                "__cpar2"
+                                "__cpar3"
+                                "__cpar4"
+                                "__cpar5"
+                                "__cpar6"
+                                "__cpar7"
+                                "__cpar8"
+                                "__cpar9"
+                                "__cpar10"
+                                "__cpar11"
+                                "__cpar12"
+                                "__cpar13"
+                                "__cpar14"
+                                "__cpar15"
+                                "a0"
+                                "a1"
+                                "a2"
+                                "a3"
+                                "a4"
+                                "a5"
+                                "a6"
+                                "a7"
+                                "a8"
+                                "a9"
+                                "a10"
+                                "a11"
+                                "a12"
+                                "a13"
+                                "a14"
+                                "a15"
+                                "x0"
+                                "x1"
+                                "x2"
+                                "x3"
+                                "x4"
+                                "x5"
+                                "x6"
+                                "x7"
+                                "x8"
+                                "x9"
+                                "x10"
+                                "x11"
+                                "x12"
+                                "x13"
+                                "x14"
+                                "x15"
+                                "r0"
+                                "r1"
+                                "r2"
+                                "r3"
+                                "r4"
+                                "r5"
+                                "r6"
+                                "r7"
+                                "r8"
+                                "r9"
+                                "r10"
+                                "r11"
+                                "r12"
+                                "r13"
+                                "r14"
+                                "r15"
+                                "cc"
+                                "RCX"
+                                "RSI"
+                                "IHADCB"))
+                       (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@make_name (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result))))
+        (/r1_new-save /r1_new)
+        (//d/s/e/c/ts-save //d/s/e/c/ts)
+        (/call_via_ptr-save /call_via_ptr)
+        (/call_via_ptr_pars-save /call_via_ptr_pars)
+        (/result_code-save /result_code))
+    (set! /r1_new (@make_name "___r1_init___"))
+    (set! //d/s/e/c/ts (my-make-hash-table 16))
+    (set! /call_via_ptr (@make_name "call_via_ptr"))
+    (set! /call_via_ptr_pars
+      (@make_name "call_via_ptr_pars"))
+    (set! /result_code (@make_name "result_code"))
+    (set! //options
+      (@read_options_file //options_/file))
+    (cond ((not (null? (gethash //options "Max_Expression_Size")))
+           (set! //max_/expression_/size
+             (gethash //options "Max_Expression_Size"))))
+    (set! //d/s/e/c/ts
+      (@cp_find_dsects //d/s/e/c/ts))
+    (begin
+      (display "DSECTs = ")
+      (begin
+        (display
+          (let ((l (@hash_keys //d/s/e/c/ts)) (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@n_string (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result)))
+        (newline)
+        (force-output)))
+    (@rawv /accs)
+    (begin (display " ") (newline) (force-output))
+    (set! /r1_new /r1_new-save)
+    (set! //d/s/e/c/ts //d/s/e/c/ts-save)
+    (set! /call_via_ptr /call_via_ptr-save)
+    (set! /call_via_ptr_pars /call_via_ptr_pars-save)
+    (set! /result_code /result_code-save)))
+
+(define (@rawv /accs)
+  (let ((/elt '()))
+    (cond ((and (not (null? (@posn)))
+                (= (@st (@parent)) //t_/struct)))
+          ((and (= (@st (@i)) //t_/variable)
+                (equal? (@v (@i)) (@make_name "r15"))
+                (> (if (vector? (@posn))
+                     (vector-length (@posn))
+                     (length (@posn)))
+                   1)
+                (= (@st (@gparent)) //t_/assignment)
+                (= (@st (list-ref (list-ref (@gparent) (+ 1 1)) (+ 1 1)))
+                   //t_/var_/lvalue)
+                (equal?
+                  (@v (list-ref (list-ref (@gparent) (+ 1 1)) (+ 1 1)))
+                  (@make_name "destination"))))
+          ((and (= (@st (@i)) //t_/variable)
+                (member (@v (@i)) /accs))
+           (set! /elt (list (@v (@i))))
+           (cond ((and (equal? (@v (@i)) (@make_name "IHADCB"))
+                       (or (= (@st (@gparent)) //t_/aref)
+                           (= (@st (@gparent)) //t_/aref_/lvalue)))
+                  (set! /elt '()))))
+          ((and (= (@st (@i)) //t_/aref)
+                (= (@st (list-ref (@i) (+ 1 1))) //t_/variable)
+                (member (@v (list-ref (@i) (+ 1 1))) /accs)
+                (= (@size (list-ref (@i) (+ 1 2))) 1)
+                (= (@st (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))
+                   //t_/number))
+           (set! /elt
+             (list (@v (list-ref (@i) (+ 1 1)))
+                   (- (@v (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))))))))
+    (cond ((not (null? /elt))
+           (let ((/val (@find_value /elt)))
+             (cond ((null? /val)
+                    (begin (display ".") (force-output)))
+                   ((and (= (@st /val) //t_/x_/funct_/call)
+                         (equal? (@v (list-ref /val (+ 1 1))) /address_of)
+                         (or (= (@st (list-ref (list-ref /val (+ 1 2)) (+ 1 1)))
+                                //t_/string)
+                             (= (@st (list-ref (list-ref /val (+ 1 2)) (+ 1 1)))
+                                //t_/number)))
+                    (begin (display ".") (force-output)))
+                   ((not (null? (@set_intersect (@variables /val) /reg_inits)))
+                    (begin (display ".") (force-output)))
+                   ((member //s/m/l/r/e/g/s (@variables /val))
+                    (begin (display ".") (force-output)))
+                   ((and (= (@st /val) //t_/variable)
+                         (equal? (@v /val) /result_code)
+                         (or (not (@up?))
+                             (not (= (@gt (@parent)) //t_/condition))))
+                    (begin (display ".") (force-output)))
+                   ((and (member /a_name (@variables /val))
+                         (not (null? (@set_intersect (@variables /val) /accs))))
+                    (begin (display "r") (force-output)))
+                   ((and (= (@st /val) //t_/variable)
+                         (@starts_with? (@v /val) "NOTUSED_"))
+                    (begin (display ".") (force-output)))
+                   ((> (@posn_n) 1)
+                    (begin (display "x") (force-output))
+                    (@paste_over /val))
+                   ((and (or (= (@st (@parent)) //t_/aref)
+                             (= (@st (@parent)) //t_/sub_/seg)
+                             (= (@st (@parent)) //t_/rel_/seg))
+                         (not (= (@st /val) //t_/variable)))
+                    (begin (display ".") (force-output)))
+                   ((and (or (= (@st (@parent)) //t_/aref_/lvalue)
+                             (= (@st (@parent)) //t_/sub_/seg_/lvalue)
+                             (= (@st (@parent)) //t_/rel_/seg_/lvalue))
+                         (not (= (@st /val) //t_/var_/lvalue)))
+                    (begin (display ".") (force-output)))
+                   ((and (member
+                           /address_of
+                           (let ((l (@x_funct_calls /val)) (map-result '()))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! map-result
+                                        (cons (car (car l)) map-result))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             (reverse map-result)))
+                         (> (if (vector? (@posn))
+                              (vector-length (@posn))
+                              (length (@posn)))
+                            2)
+                         (or (or (= (@st (@gparent)) //t_/aref)
+                                 (= (@st (@gparent)) //t_/aref_/lvalue))
+                             (or (= (@st (@ggparent)) //t_/aref)
+                                 (= (@st (@ggparent)) //t_/aref_/lvalue))))
+                    (begin (display "x") (force-output))
+                    (@paste_over /val))
+                   ((equal? (@variables /val) (list /a_name))
+                    (begin (display "x") (force-output))
+                    (@paste_over /val))
+                   ((and (not (@is_addr? /val))
+                         (> (@total_size /val) //max_/expression_/size))
+                    (begin (display "b") (force-output)))
+                   ((and (= (@st /val) //t_/variable)
+                         (equal? (@v /val) /r1_new)
+                         (> (if (vector? (@posn))
+                              (vector-length (@posn))
+                              (length (@posn)))
+                            2)
+                         (= (@st (@gparent)) //t_/a_/proc_/call))
+                    (begin (display "n") (force-output)))
+                   (#t
+                    (begin (display "x") (force-output))
+                    (@paste_over /val)))))
+          ((and (= (@st (@i)) //t_/a_/proc_/call)
+                (member (@make_name "vpp") (@assigned (@i)))))
+          ((and (= (@st (@i)) //t_/a_/proc_/call)
+                (member (@make_name "regs") (@assigned (@i)))
+                (not (equal?
+                       (@v (list-ref (@i) (+ 1 1)))
+                       /call_via_ptr))
+                (not (equal?
+                       (@v (list-ref (@i) (+ 1 1)))
+                       /call_via_ptr_pars))))
+          ((and (= (@st (@i)) //t_/a_/proc_/call)
+                (equal?
+                  (@v (list-ref (@i) (+ 1 1)))
+                  (@make_name "EXEC_CICS"))))
+          ((and (= (@st (@i)) //t_/a_/proc_/call)
+                (equal?
+                  (@v (list-ref (@i) (+ 1 1)))
+                  (@make_name "str_copy"))))
+          ((and (= (@st (@i)) //t_/assign)
+                (= (@st (list-ref (@i) (+ 1 1)))
+                   //t_/var_/lvalue)
+                (not (null? (gethash
+                              //d/s/e/c/ts
+                              (@v (list-ref (@i) (+ 1 1))))))))
+          ((@cs? (@i))
+           (@down)
+           (cond ((not (null? (@set_intersect (@used (@i)) /accs)))
+                  (@rawv /accs))
+                 ((and (= (@st (@i)) //t_/var)
+                       (not (null? (@set_intersect
+                                     (@used (list-ref (@i) (+ 1 1)))
+                                     /accs))))
+                  (@rawv /accs)))
+           (let while-loop ()
+             (cond ((@right?)
+                    (begin
+                      (@right)
+                      (cond ((not (null? (@set_intersect (@used (@i)) /accs)))
+                             (@rawv /accs))
+                            ((and (= (@st (@i)) //t_/var)
+                                  (not (null? (@set_intersect
+                                                (@used (list-ref (@i) (+ 1 1)))
+                                                /accs))))
+                             (@rawv /accs))))
+                    (while-loop))
+                   (#t #t)))
+           (@up)))))
+
+#t
+

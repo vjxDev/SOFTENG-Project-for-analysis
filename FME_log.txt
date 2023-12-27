@@ -1,0 +1,99 @@
+INFO fme.FMEMain.main(): Look and Feel: The Java(tm) Look and Feel
+INFO fme.FMEMain.main(): Parsing WSL definition ...
+INFO fme.gui.MainFrame.<init>(): Initialising GUI ...
+INFO fme.config.CM.<init>(): Config: StartDirectory -> _CurrentDir_
+INFO fme.config.CM.<init>(): Config: gui.Editor.FontColor -> java.awt.Color[r=0,g=0,b=0]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.InitXPosOffset -> 50
+INFO fme.config.CM.<init>(): Config: gui.MainFrame.InitHeight -> 600
+INFO fme.config.CM.<init>(): Config: fme.components.console.ConsoleObserver -> default
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.LineColor -> java.awt.Color[r=0,g=0,b=0]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.Editor.InitYPosOffset -> 100
+INFO fme.config.CM.<init>(): Config: gui.MainFrame.Background -> java.awt.Color[r=192,g=192,b=255]
+INFO fme.config.CM.<init>(): Config: gui.InternalFrame.InitYPos -> 50
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.External_FUNCTION -> java.awt.Color[r=128,g=128,b=128]
+INFO fme.config.CM.<init>(): Config: gui.ProjectManager.InitWidth -> 450
+INFO fme.config.CM.<init>(): Config: gui.Console.BackgroundColor -> java.awt.Color[r=0,g=0,b=0]
+INFO fme.config.CM.<init>(): Config: gui.ProjectManager.InitXPos -> 150
+INFO fme.config.CM.<init>(): Config: gui.HistoryGraph.LineColor -> java.awt.Color[r=0,g=0,b=0]
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.External_A_PROCEDURE -> java.awt.Color[r=64,g=64,b=64]
+INFO fme.config.CM.<init>(): Config: ExecutionCommand -> engine/exec.sh noecho
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.VariableMarking -> java.awt.Color[r=255,g=200,b=0]
+INFO fme.config.CM.<init>(): Config: gui.ProjectManager.InitHeight -> 300
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.Editor.InitWidth -> 800
+INFO fme.config.CM.<init>(): Config: gui.HistoryGraph.NodeColor -> java.awt.Color[r=255,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.Console.Font -> Courier-BOLD-12
+INFO fme.config.CM.<init>(): Config: gui.TypeTransformationCatalogue.InitWidth -> 250
+INFO fme.config.CM.<init>(): Config: gui.TypeTransformationCatalogue.InitXPosOffset -> 300
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.PROCEDURE -> java.awt.Color[r=0,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: version -> 0.1
+INFO fme.config.CM.<init>(): Config: gui.InternalFrame.InitXPos -> 100
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.External_PROCEDURE -> java.awt.Color[r=128,g=128,b=128]
+INFO fme.config.CM.<init>(): Config: gui.Editor.BackgroundColor -> java.awt.Color[r=255,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.InitHeight -> 600
+INFO fme.config.CM.<init>(): Config: gui.InternalFrame.Gap -> 50
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.SearchMarking -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.MetaWSL_BFUNCTION -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.MainFrame.InitWidth -> 800
+INFO fme.config.CM.<init>(): Config: gui.TypeTransformationCatalogue.InitYPosOffset -> 80
+INFO fme.config.CM.<init>(): Config: gui.Editor.CaretColor -> java.awt.Color[r=255,g=175,b=175]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.InitWidth -> 800
+INFO fme.config.CM.<init>(): Config: gui.InternalFrame.InitWidth -> 450
+INFO fme.config.CM.<init>(): Config: gui.Editor.Font -> Courier-BOLD-12
+INFO fme.config.CM.<init>(): Config: Look_and_Feel -> Tonic
+INFO fme.config.CM.<init>(): Config: gui.MainFrame.InitYPos -> 50
+INFO fme.config.CM.<init>(): Config: gui.InternalFrame.InitHeight -> 350
+INFO fme.config.CM.<init>(): Config: gui.Console.FontColor -> java.awt.Color[r=255,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: ConsoleCommand -> engine/fermat_console.sh noecho
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.BFUNCTION -> java.awt.Color[r=0,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.TypeTransformationCatalogue.InitHeight -> 300
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.MODULE -> java.awt.Color[r=255,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.MetaWSL_FUNCTION -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.Editor.BlockColor -> java.awt.Color[r=255,g=200,b=0]
+INFO fme.config.CM.<init>(): Config: gui.ActionSystemCallGraph.MarkedLineColor -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.Font -> Courier-PLAIN-14
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.BlockMarking -> java.awt.Color[r=255,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.MainFrame.InitXPos -> 50
+INFO fme.config.CM.<init>(): Config: gui.Editor.FontLarge -> Courier-BOLD-20
+INFO fme.config.CM.<init>(): Config: gui.Editor.SearchColor -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.Editor.InitHeight -> 600
+INFO fme.config.CM.<init>(): Config: gui.Console.CaretColor -> java.awt.Color[r=255,g=175,b=175]
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.InitYPosOffset -> 50
+INFO fme.config.CM.<init>(): Config: gui.TypeSystemEditor.Editor.InitXPosOffset -> 100
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.MarkedLineColor -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: MetricsCommand -> engine/metrics.sh noecho
+INFO fme.config.CM.<init>(): Config: ExperimentalFeatures -> 0
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.MetaWSL_PROCEDURE -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.Editor.BlockColorUnidentified -> java.awt.Color[r=255,g=0,b=255]
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.FUNCTION -> java.awt.Color[r=0,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.ActionSystemCallGraph.LineColor -> java.awt.Color[r=0,g=0,b=0]
+INFO fme.config.CM.<init>(): Config: gui.ProjectManager.InitYPos -> 50
+INFO fme.config.CM.<init>(): Config: gui.HistoryGraph.MarkedLineColor -> java.awt.Color[r=0,g=255,b=255]
+INFO fme.config.CM.<init>(): Config: gui.ActionSystemCallGraph.NodeColor -> java.awt.Color[r=255,g=255,b=0]
+INFO fme.config.CM.<init>(): Config: gui.FunctionProcedureCallGraph.NodeColor.External_BFUNCTION -> java.awt.Color[r=128,g=128,b=128]
+INFO fme.components.console.ConsoleGUI.<init>(): Initializing component: Console (fme.components.console.ConsoleGUI)
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.components.console.ConsoleGUI.initComponent(): FONT, console, text area java.awt.Font[family=Monospaced,name=Courier,style=bold,size=12]
+INFO fme.components.console.ConsoleGUI.initComponent(): FONT, console, input area javax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=plain,size=12]
+INFO fme.components.tree.TreeGUI.<init>(): Initializing component: Abstract Syntax Tree (fme.components.tree.TreeGUI)
+INFO fme.components.editor.EditorGUI.<init>(): Initializing component: WSL Editor (fme.components.editor.EditorGUI)
+INFO fme.components.catalogue.CatalogueGUI.<init>(): Initializing component: Transformation Catalogue (fme.components.catalogue.CatalogueGUI)
+INFO fme.gui.MainFrame.showComponents(): Showing component Transformation Catalogue
+INFO fme.components.console.ConsoleObserver.run(): Starting console ...
+INFO fme.components.console.ConsoleObserver.run(): Executing engine/fermat_console.sh noecho
+INFO fme.components.console.ConsoleObserver.run(): Initialise engine:(set! fermat ".")
+INFO fme.components.console.ConsoleObserver.run(): Initialise engine:(set! perl "perl")
+INFO fme.components.console.ConsoleObserver.run(): Initialise engine:(set! ds "/")
+INFO fme.gui.MainFrame.showComponents(): FONT, component null -> javax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=plain,size=12]
+INFO fme.gui.MainFrame.showComponents(): Showing component WSL Editor
+INFO fme.gui.MainFrame.showComponents(): FONT, component null -> javax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=plain,size=12]
+INFO fme.gui.MainFrame.showComponents(): Showing component Console
+INFO fme.gui.MainFrame.showComponents(): FONT, component null -> javax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=plain,size=12]
+INFO fme.gui.MainFrame.showComponents(): Showing component Abstract Syntax Tree
+INFO fme.gui.MainFrame.showComponents(): FONT, component null -> javax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=plain,size=12]
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.gui.MainFrame.showComponents(): FONT, menujavax.swing.plaf.FontUIResource[family=Dialog,name=Dialog,style=bold,size=12]
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:WindowsDefault
+INFO fme.components.MainEventHandler.actionPerformed(): Action Event:Menu:Exit

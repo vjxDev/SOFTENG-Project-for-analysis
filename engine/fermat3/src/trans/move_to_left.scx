@@ -1,0 +1,24 @@
+(define (@move_to_left_test)
+  (cond ((and (= (@gen_type (@item)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (cond ((not (@left?))
+         (@fail "There is no statement to the left of this one."))
+        (#t
+         (@left)
+         (cond ((@trans? //t/r_/move_/to_/right) (@pass))
+               (#t
+                (@fail "Could not move the previous item to the right."))))))
+
+(define (@move_to_left_code //data)
+  (cond ((and (= (@gen_type (@item)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (@left)
+  (@trans //t/r_/move_/to_/right "")
+  (@left))
+

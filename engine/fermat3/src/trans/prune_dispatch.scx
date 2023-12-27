@@ -1,0 +1,603 @@
+(define (/foreach-prune_dispatch-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/variable)
+              (@starts_with? (@v (@i)) "NOTUSED_"))
+         (puthash
+           /notused
+           (@string_to_num
+             (let ((s (@n_string (@v (@i)))))
+               (substring s 8 (string-length s))))
+           1))))
+
+(define (/foreach-prune_dispatch-2 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/var)
+         (set! /vars
+           (@set_union
+             /vars
+             (@elts_assigned (list-ref (@i) (+ 1 1))))))))
+
+(define (/foreach-prune_dispatch-3 //depth //a/s_/type)
+  (@down_last)
+  (cond ((and (@regular? (@i))
+              (@only_calls_z? (@i))
+              (@gen_proper? (@i) "Reg"))
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (@delete)
+                    (cond ((not (@left?)) (set! /fl_flag1 1))
+                          (#t
+                           (@left)
+                           (cond ((or (not (@only_calls_z? (@i)))
+                                      (not (@gen_proper? (@i) "Reg")))
+                                  (set! /fl_flag1 1))
+                                 (#t (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-prune_dispatch-4 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/assignment)
+         (set! /occ
+           (@pd_check_dest_codes_assigns
+             (@i)
+             /codes
+             /vars
+             /notused
+             /occ)))
+        ((= (@st (@i)) //t_/var)
+         (set! /occ
+           (@pd_check_dest_codes_assigns
+             (list-ref (@i) (+ 1 1))
+             /codes
+             /vars
+             /notused
+             /occ)))
+        ((and (= (@st (@i)) //t_/push)
+              (= (@st (list-ref (@i) (+ 1 1)))
+                 //t_/var_/lvalue)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /call_stack)
+              (= (@st (list-ref (@i) (+ 1 2))) //t_/number))
+         (cond ((not (null? (gethash /codes (@v (list-ref (@i) (+ 1 2))))))
+                (puthash /occ (@v (list-ref (@i) (+ 1 2))) 1))))))
+
+(define (/foreach-prune_dispatch-5 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/assignment)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((and (= (@st (list-ref (@i) (+ 1 2))) //t_/number)
+                                (member
+                                  (@struct_elts (list-ref (@i) (+ 1 1)))
+                                  /vars))
+                           (set! /n (@v (list-ref (@i) (+ 1 2))))
+                           (cond ((not (null? (gethash /codes /n)))
+                                  (let while-loop ()
+                                    (cond ((and (not (null? (gethash
+                                                              /codes
+                                                              /n)))
+                                                (< /n //omega))
+                                           (begin
+                                             (puthash /occ /n 1)
+                                             (set! /n (+ /n 4)))
+                                           (while-loop))
+                                          (#t #t))))))
+                          ((and (= (@st (list-ref (@i) (+ 1 2)))
+                                   //t_/x_/funct_/call)
+                                (member
+                                  (@v (list-ref
+                                        (list-ref (@i) (+ 1 2))
+                                        (+ 1 1)))
+                                  /bit_ops)
+                                (= (@st (list-ref
+                                          (list-ref
+                                            (list-ref (@i) (+ 1 2))
+                                            (+ 1 2))
+                                          (+ 1 1)))
+                                   //t_/number)
+                                (member
+                                  (@struct_elts (list-ref (@i) (+ 1 1)))
+                                  /vars))
+                           (set! /n
+                             (@v (list-ref
+                                   (list-ref (list-ref (@i) (+ 1 2)) (+ 1 2))
+                                   (+ 1 1))))
+                           (cond ((not (null? (gethash /codes /n)))
+                                  (let while-loop ()
+                                    (cond ((and (not (null? (gethash
+                                                              /codes
+                                                              /n)))
+                                                (< /n //omega))
+                                           (begin
+                                             (puthash /occ /n 1)
+                                             (set! /n (+ /n 4)))
+                                           (while-loop))
+                                          (#t #t)))))))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define /%const__prune_dispatch__1
+  (@make 313
+         '()
+         (list (@make 207 (@make_name "destination") '())
+               (@make 217 -1 '()))))
+
+(define /%const__prune_dispatch__2
+  (@make 8
+         '()
+         (list (@make 9 (@make_name "dispatch") '())
+               (@make 17 '() (list (@make 145 '() '()))))))
+
+(define (@prune_dispatch_test)
+  (let ((/dispatch (@make_name "dispatch"))
+        (/destination-save /destination))
+    (set! /destination (@make_name "destination"))
+    (cond ((= (@st (@i)) //t_/a_/s)
+           (@down_last)
+           (@down)
+           (let while-loop ()
+             (cond ((and (@right?)
+                         (not (equal? (@v (@i)) /dispatch)))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))))
+    (cond ((= (@gt (@i)) //t_/action)
+           (cond ((equal?
+                    (@v (list-ref (@i) (+ 1 1)))
+                    (@make_name "dispatch"))
+                  (@down_last))
+                 (#t
+                  (@fail "Only applies to the dispatch action.")))))
+    (cond ((not (@failed?))
+           (cond ((= (@gt (@i)) //t_/statements) (@down)))
+           (cond ((not (= (@st (@i)) //t_/cond))
+                  (@fail "IF statement not found"))
+                 (#t
+                  (@down)
+                  (set! /fl_flag2 0)
+                  (let while-loop ()
+                    (cond ((= /fl_flag2 0)
+                           (cond ((not (@right?)) (set! /fl_flag2 1))
+                                 (#t
+                                  (@down)
+                                  (cond ((= (@st (@i)) //t_/or) (@down)))
+                                  (set! /fl_flag1 0)
+                                  (let while-loop ()
+                                    (cond ((= /fl_flag1 0)
+                                           (begin
+                                             (let ((/__/o/k 1))
+                                               (set! /__/o/k
+                                                 (@new_match
+                                                   /%const__prune_dispatch__1
+                                                   (@i)
+                                                   /__/o/k))
+                                               (cond ((= /__/o/k 1)
+                                                      (let ((/__n_save /n))
+                                                        (set! /n
+                                                          (vector-ref
+                                                            /__/match_array
+                                                            0))
+                                                        (cond ((and (not (= (@st /n)
+                                                                            //t_/number))
+                                                                    (not (and (= (@st /n)
+                                                                                 //t_/negate)
+                                                                              (= (@st (list-ref
+                                                                                        /n
+                                                                                        (+ 1
+                                                                                           1)))
+                                                                                 //t_/number))))
+                                                               (@fail "destination is not compared to a number!")))
+                                                        (set! /n /__n_save)))
+                                                     (#t
+                                                      (@fail "IF statement is not in right format."))))
+                                             (cond ((@failed?)
+                                                    (set! /fl_flag1 2))
+                                                   ((not (= (@st (@parent))
+                                                            //t_/or))
+                                                    (set! /fl_flag1 1))
+                                                   ((not (@right?))
+                                                    (@up)
+                                                    (set! /fl_flag1 1))
+                                                   (#t
+                                                    (@right)
+                                                    (set! /fl_flag1 0))))
+                                           (while-loop))
+                                          (#t #t)))
+                                  (cond ((= /fl_flag1 2) (set! /fl_flag2 1))
+                                        (#t
+                                         (@up)
+                                         (@right)
+                                         (set! /fl_flag2 0)))))
+                           (while-loop))
+                          (#t #t)))
+                  (cond ((not (@failed?)) (@pass)))))))
+    (set! /destination /destination-save)))
+
+(define (@prune_dispatch_code //data)
+  (let ((/dest_codes (my-make-hash-table 16))
+        (/dest_occ (my-make-hash-table 16))
+        (/notused-save /notused)
+        (/dispatch (@make_name "dispatch"))
+        (/destination-save /destination)
+        (/posn (@posn))
+        (/action '())
+        (/dispatch_posn '())
+        (/vars-save /vars)
+        (/delete 0)
+        (/bit_ops-save /bit_ops))
+    (set! /notused (my-make-hash-table 16))
+    (set! /destination (@make_name "destination"))
+    (set! /vars '())
+    (set! /bit_ops
+      (list (@make_name "bit_and")
+            (@make_name "bit_or")))
+    (begin
+      (display "Finding accessed variables...")
+      (newline)
+      (force-output))
+    (set! /vars
+      (@set_union
+        (@elts_used (@program))
+        (list (list (@make_name "r14")))))
+    (@goto '())
+    (@foreach_expn
+      /foreach-prune_dispatch-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_statement
+      /foreach-prune_dispatch-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@goto /posn)
+    (begin
+      (display "Pruning dispatch...")
+      (newline)
+      (force-output))
+    (cond ((= (@st (@i)) //t_/a_/s)
+           (@down_last)
+           (@down)
+           (let while-loop ()
+             (cond ((and (@right?)
+                         (not (equal? (@v (@i)) /dispatch)))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))))
+    (cond ((= (@gt (@i)) //t_/action) (@down_last)))
+    (cond ((= (@gt (@i)) //t_/statements) (@down)))
+    (@down)
+    (let while-loop ()
+      (cond ((@right?)
+             (begin
+               (@down)
+               (cond ((= (@st (@i)) //t_/or) (@down)))
+               (set! /fl_flag1 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag1 0)
+                        (begin
+                          (let ((/__/o/k 1))
+                            (set! /__/o/k
+                              (@new_match
+                                /%const__prune_dispatch__1
+                                (@i)
+                                /__/o/k))
+                            (cond ((= /__/o/k 1)
+                                   (let ((/__n_save /n))
+                                     (set! /n (vector-ref /__/match_array 0))
+                                     (puthash /dest_codes (@v /n) 1)
+                                     (set! /n /__n_save)))
+                                  (#t
+                                   (@prit)
+                                   (error "internal error in Prune_Dispatch"))))
+                          (cond ((not (= (@st (@parent)) //t_/or))
+                                 (set! /fl_flag1 1))
+                                ((not (@right?)) (@up) (set! /fl_flag1 1))
+                                (#t (@right) (set! /fl_flag1 0))))
+                        (while-loop))
+                       (#t #t)))
+               (@up)
+               (@right))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (@up)
+    (@up)
+    (cond ((not (= (@gt (@i)) //t_/action))
+           (error "ERROR" "Prune_Dispatch" (@st (@i)))))
+    (set! /action (@i))
+    (set! /dispatch_posn (@posn))
+    (@paste_over /%const__prune_dispatch__2)
+    (@goto '())
+    (set! /dest_occ
+      (@pd_check_dest_codes
+        /dest_codes
+        /vars
+        /notused
+        /dest_occ))
+    (@goto /dispatch_posn)
+    (@paste_over /action)
+    (@down_last)
+    (@down)
+    (@down)
+    (@down_to 2)
+    (set! /dest_occ
+      (@pd_check_dest_codes
+        /dest_codes
+        /vars
+        /notused
+        /dest_occ))
+    (@up)
+    (let while-loop ()
+      (cond ((@right?)
+             (begin
+               (@right)
+               (@down_to 2)
+               (set! /dest_occ
+                 (@pd_check_dest_codes
+                   /dest_codes
+                   /vars
+                   /notused
+                   /dest_occ))
+               (@up))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (cond ((@right?)
+           (@right)
+           (set! /dest_occ
+             (@pd_check_dest_codes
+               /dest_codes
+               /vars
+               /notused
+               /dest_occ))
+           (let while-loop ()
+             (cond ((@right?)
+                    (begin
+                      (@right)
+                      (set! /dest_occ
+                        (@pd_check_dest_codes
+                          /dest_codes
+                          /vars
+                          /notused
+                          /dest_occ)))
+                    (while-loop))
+                   (#t #t)))))
+    (@goto /dispatch_posn)
+    (puthash /dest_occ 0 1)
+    (@down_last)
+    (@down)
+    (@down)
+    (let while-loop ()
+      (cond ((@right?)
+             (begin
+               (@down)
+               (set! /delete 0)
+               (cond ((= (@st (@i)) //t_/or) (@down)))
+               (set! /fl_flag1 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag1 0)
+                        (begin
+                          (cond ((= (@st (@i)) //t_/equal)
+                                 (cond ((and (= (@st (list-ref (@i) (+ 1 1)))
+                                                //t_/variable)
+                                             (equal?
+                                               (@v (list-ref (@i) (+ 1 1)))
+                                               /destination)
+                                             (= (@st (list-ref (@i) (+ 1 2)))
+                                                //t_/number)
+                                             (null? (gethash
+                                                      /dest_occ
+                                                      (@v (list-ref
+                                                            (@i)
+                                                            (+ 1 2))))))
+                                        (begin
+                                          (display (@v (list-ref (@i) (+ 1 2))))
+                                          (begin (display " ") (force-output)))
+                                        (@paste_over
+                                          (@make //t_/false '() '()))))))
+                          (cond ((not (= (@st (@parent)) //t_/or))
+                                 (set! /fl_flag1 1))
+                                ((not (@right?)) (@up) (set! /fl_flag1 1))
+                                (#t (@right) (set! /fl_flag1 0))))
+                        (while-loop))
+                       (#t #t)))
+               (@paste_over (@simplify_cond (@i)))
+               (cond ((= (@st (@i)) //t_/false) (@up) (@delete))
+                     (#t (@up) (@right))))
+             (while-loop))
+            (#t #t)))
+    (@up)
+    (@fixup)
+    (begin (display "") (newline) (force-output))
+    (@goto /posn)
+    (set! /notused /notused-save)
+    (set! /destination /destination-save)
+    (set! /vars /vars-save)
+    (set! /bit_ops /bit_ops-save)))
+
+(define (@pd_check_dest_codes
+         /codes-par
+         /vars-par
+         /notused-par
+         /occ-par)
+  (let ((/occ-save /occ)
+        (/notused-save /notused)
+        (/vars-save /vars)
+        (/codes-save /codes)
+        (funct-result '()))
+    (set! /occ /occ-par)
+    (set! /notused /notused-par)
+    (set! /vars /vars-par)
+    (set! /codes /codes-par)
+    (let ((/n-save /n) (/call_stack-save /call_stack))
+      (set! /n 0)
+      (set! /call_stack (@make_name "call_stack"))
+      (@edit)
+      (@foreach_stats
+        /foreach-prune_dispatch-3
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-prune_dispatch-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@undo_edit)
+      (set! /n /n-save)
+      (set! /call_stack /call_stack-save))
+    (set! funct-result /occ)
+    (set! /occ /occ-save)
+    (set! /notused /notused-save)
+    (set! /vars /vars-save)
+    (set! /codes /codes-save)
+    funct-result))
+
+(define (@pd_check_dest_codes_assigns
+         //i
+         /codes-par
+         /vars-par
+         /notused-par
+         /occ-par)
+  (let ((/occ-save /occ)
+        (/notused-save /notused)
+        (/vars-save /vars)
+        (/codes-save /codes)
+        (funct-result '()))
+    (set! /occ /occ-par)
+    (set! /notused /notused-par)
+    (set! /vars /vars-par)
+    (set! /codes /codes-par)
+    (let ((var-save /assign) (seq-save (@cs //i)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /assign (car for-tmp))
+               (cond ((and (= (@st (list-ref /assign (+ 1 2))) //t_/number)
+                           (not (null? (@set_intersect
+                                         /vars
+                                         (@elements
+                                           (list-ref /assign (+ 1 1))))))
+                           (not (= (@v (list-ref /assign (+ 1 2))) 0)))
+                      (set! /n (@v (list-ref /assign (+ 1 2))))
+                      (cond ((not (null? (gethash /codes /n)))
+                             (puthash /occ /n 1)
+                             (let while-loop ()
+                               (cond ((and (not (null? (gethash /codes /n)))
+                                           (null? (gethash /notused /n))
+                                           (< /n //omega))
+                                      (begin
+                                        (puthash /occ /n 1)
+                                        (set! /n (+ /n 4)))
+                                      (while-loop))
+                                     (#t #t))))))
+                     ((and (= (@st (list-ref /assign (+ 1 2)))
+                              //t_/x_/funct_/call)
+                           (equal?
+                             (@v (list-ref (list-ref /assign (+ 1 2)) (+ 1 1)))
+                             /inline_par)
+                           (= (@st (list-ref
+                                     (list-ref
+                                       (list-ref /assign (+ 1 2))
+                                       (+ 1 2))
+                                     (+ 1 1)))
+                              //t_/number))
+                      (set! /n
+                        (@v (list-ref
+                              (list-ref (list-ref /assign (+ 1 2)) (+ 1 2))
+                              (+ 1 1))))
+                      (cond ((not (null? (gethash /codes /n)))
+                             (puthash /occ /n 1)
+                             (let while-loop ()
+                               (cond ((and (not (null? (gethash /codes /n)))
+                                           (< /n //omega))
+                                      (begin
+                                        (puthash /occ /n 1)
+                                        (set! /n (+ /n 4)))
+                                      (while-loop))
+                                     (#t #t))))))
+                     ((and (= (@st (list-ref /assign (+ 1 2)))
+                              //t_/x_/funct_/call)
+                           (member
+                             (@v (list-ref (list-ref /assign (+ 1 2)) (+ 1 1)))
+                             /bit_ops)
+                           (= (@st (list-ref
+                                     (list-ref
+                                       (list-ref /assign (+ 1 2))
+                                       (+ 1 2))
+                                     (+ 1 1)))
+                              //t_/number)
+                           (not (null? (@set_intersect
+                                         /vars
+                                         (@elements
+                                           (list-ref /assign (+ 1 1)))))))
+                      (set! /n
+                        (@v (list-ref
+                              (list-ref (list-ref /assign (+ 1 2)) (+ 1 2))
+                              (+ 1 1))))
+                      (cond ((not (null? (gethash /codes /n)))
+                             (puthash /occ /n 1)
+                             (let while-loop ()
+                               (cond ((and (not (null? (gethash /codes /n)))
+                                           (< /n //omega))
+                                      (begin
+                                        (puthash /occ /n 1)
+                                        (set! /n (+ /n 4)))
+                                      (while-loop))
+                                     (#t #t)))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /assign var-save))
+    (set! funct-result /occ)
+    (set! /occ /occ-save)
+    (set! /notused /notused-save)
+    (set! /vars /vars-save)
+    (set! /codes /codes-save)
+    funct-result))
+
+(define (@only_calls_z? //i)
+  (let ((/calls (@calls //i)))
+    (or (null? /calls)
+        (and (= (if (vector? /calls)
+                  (vector-length /calls)
+                  (length /calls))
+                1)
+             (equal? (car (car /calls)) (@make_name "Z"))))))
+
+(define (@pd_check_dest_codes_orig
+         /codes-par
+         /vars-par
+         /occ-par)
+  (let ((/occ-save /occ)
+        (/vars-save /vars)
+        (/codes-save /codes)
+        (funct-result '()))
+    (set! /occ /occ-par)
+    (set! /vars /vars-par)
+    (set! /codes /codes-par)
+    (let ((/n-save /n))
+      (set! /n 0)
+      (@foreach_statement
+        /foreach-prune_dispatch-5
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /n /n-save))
+    (set! funct-result /occ)
+    (set! /occ /occ-save)
+    (set! /vars /vars-save)
+    (set! /codes /codes-save)
+    funct-result))
+
+#t
+

@@ -1,0 +1,43 @@
+(set! //t/r_/collapse_/all_/systems
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/collapse_/all_/systems 1)
+  "Collapse_All_Systems")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/collapse_/all_/systems 1)
+  @collapse_all_systems_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/collapse_/all_/systems 1)
+  @collapse_all_systems_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/collapse_/all_/systems 1)
+  "Collapse All Action Systems")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/collapse_/all_/systems 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/collapse_/all_/systems 1)
+  "Collapse All Action Systems will attempt to collapse the action systems within a program  which is a WHERE structure.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/collapse_/all_/systems 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/collapse_/all_/systems 1)
+  "")
+

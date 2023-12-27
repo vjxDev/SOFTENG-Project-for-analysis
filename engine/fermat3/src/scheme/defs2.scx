@@ -1,0 +1,3341 @@
+(define /-result- '())
+
+(define //a '())
+
+(define //a/k '())
+
+(define //a/s '())
+
+(define //a/s/c/i/i '())
+
+(define //a/s/t/y/p/e '())
+
+(define //a/s/type '())
+
+(define //a/s_/type '())
+
+(define //a1 '())
+
+(define //a2 '())
+
+(define //a3 '())
+
+(define //a4 '())
+
+(define //a5 '())
+
+(define //a_/proc_/call_/filter '())
+
+(define //absorb_/tries '())
+
+(define //action_/call_/to_/node '())
+
+(define //actions '())
+
+(define //agenda '())
+
+(define //all_/the_/same '())
+
+(define //alpha_/num '())
+
+(define //assd '())
+
+(define //assigned '())
+
+(define //assigs '())
+
+(define //assigs2 '())
+
+(define //assns '())
+
+(define //assume_/a_/s_/regular '())
+
+(define //b '())
+
+(define //b/b_/end_/block_/types '())
+
+(define //b/b_/new_/block_/types '())
+
+(define //b/l '())
+
+(define //b/u/g/f/i/x '())
+
+(define //b0 '())
+
+(define //b1 '())
+
+(define //b2 '())
+
+(define //b3 '())
+
+(define //base_/name '())
+
+(define //big_/indent '())
+
+(define //bit_/op '())
+
+(define //bodies '())
+
+(define //body '())
+
+(define //bool_/ops '())
+
+(define //budget '())
+
+(define //bug_/fix '())
+
+(define //c '())
+
+(define //c/i/c/s_/maps '())
+
+(define //c/p_/in_/preserves_/dest '())
+
+(define //c/p_/reg_/to_/num '())
+
+(define //c/p_/result '())
+
+(define //c/p_/return_/code_/inc '())
+
+(define //c/p_/return_/code_/normal '())
+
+(define //c/p_/special_/value '())
+
+(define //c/p_/state '())
+
+(define //c1 '())
+
+(define //c2 '())
+
+(define //call_/depth '())
+
+(define //call_/path '())
+
+(define //call_/types '())
+
+(define //call_/types_/set '())
+
+(define //calls '())
+
+(define //calls_/now '())
+
+(define //changed '())
+
+(define //char_/table '())
+
+(define //clob '())
+
+(define //closing_/toks '())
+
+(define //cnd '())
+
+(define //code_/hash '())
+
+(define //codes '())
+
+(define //comm_/ops '())
+
+(define //comment '())
+
+(define //comps '())
+
+(define //con '())
+
+(define //cond '())
+
+(define //constants '())
+
+(define //cs '())
+
+(define //curr_/name '())
+
+(define //current_/action '())
+
+(define //d '())
+
+(define //d/r/s_/globals_/to_/pars_/done '())
+
+(define //d/s/e/c/t_/tag '())
+
+(define //d/s/e/c/t_bad '())
+
+(define //d/s/e/c/t_init '())
+
+(define //d/s/e/c/t_init_count '())
+
+(define //d/s/e/c/t_list '())
+
+(define //d/s/e/c/t_reg '())
+
+(define //d/s/e/c/t_regs '())
+
+(define //d/s/e/c/ts '())
+
+(define //data '())
+
+(define //data_/fields '())
+
+(define //data_/file '())
+
+(define //data_/lengths '())
+
+(define //data_/names '())
+
+(define //data_/origlen '())
+
+(define //data_/repeats '())
+
+(define //data_/types '())
+
+(define //data_/values '())
+
+(define //defn_/count '())
+
+(define //depth '())
+
+(define //digits '())
+
+(define //dispatch_/nodes '())
+
+(define //done_/list '())
+
+(define //e '())
+
+(define //e/b/c/d/i/c '())
+
+(define //e/n/t/r/c '())
+
+(define //e/x/e/c_/c/i/c/s '())
+
+(define //e1 '())
+
+(define //e2 '())
+
+(define //else_/cond '())
+
+(define //elts '())
+
+(define //end_/node '())
+
+(define //end_/o/k '())
+
+(define //entries '())
+
+(define //entry_/actions '())
+
+(define //equ_/symbol '())
+
+(define //error_/count '())
+
+(define //eval_/op '())
+
+(define //eval_/ops_/gen '())
+
+(define //eval_/ops_/num '())
+
+(define //exp '())
+
+(define //exps '())
+
+(define //ext_/call_/types_/set '())
+
+(define //f '())
+
+(define //f/c_/business '())
+
+(define //f/c_/business_/end '())
+
+(define //f/c_/dot '())
+
+(define //f/c_/newline '())
+
+(define //f/c_/tech '())
+
+(define //f/c_/tech_/end '())
+
+(define //f/c_/turn_/off '())
+
+(define //f/c_/turn_/on '())
+
+(define //f/params '())
+
+(define //f/pars '())
+
+(define //factor_/ops '())
+
+(define //flags '())
+
+(define //foreach_/types '())
+
+(define //found '())
+
+(define //freq '())
+
+(define //g '())
+
+(define //g/g '())
+
+(define //g/o/b/a/c/k '())
+
+(define //g1 '())
+
+(define //g2 '())
+
+(define //globals '())
+
+(define //guards '())
+
+(define //h '())
+
+(define //h/t/m/l '())
+
+(define //has_/statements '())
+
+(define //i '())
+
+(define //idempotent_/ops '())
+
+(define //identity_/value '())
+
+(define //in_/comment '())
+
+(define //in_/details '())
+
+(define //incs '())
+
+(define //init_/string '())
+
+(define //init_/types '())
+
+(define //init_/values '())
+
+(define //input '())
+
+(define //input_/port '())
+
+(define //inverse_/op '())
+
+(define //j '())
+
+(define //j/p '())
+
+(define //join_/types1 '())
+
+(define //join_/types2 '())
+
+(define //k '())
+
+(define //key_/table '())
+
+(define //keywords '())
+
+(define //l '())
+
+(define //l/t/m_/types '())
+
+(define //l0 '())
+
+(define //l1 '())
+
+(define //l2 '())
+
+(define //l_/assoc_/types '())
+
+(define //leave_/alone '())
+
+(define //left_/justify '())
+
+(define //lhs '())
+
+(define //list '())
+
+(define //loop_/exits '())
+
+(define //m '())
+
+(define //m/v/v_/depth '())
+
+(define //macro_/filename '())
+
+(define //macros '())
+
+(define //margin_/link '())
+
+(define //math_/exps '())
+
+(define //max '())
+
+(define //max_/box_/chars '())
+
+(define //max_/box_/lines1 '())
+
+(define //max_/box_/lines2 '())
+
+(define //max_/call_/depth '())
+
+(define //max_/cond_/size '())
+
+(define //max_/expression_/size '())
+
+(define //max_/indent '())
+
+(define //max_/rhomb_/chars '())
+
+(define //max_/split_/line '())
+
+(define //max_/subfield '())
+
+(define //max_/t/v '())
+
+(define //mem_/version '())
+
+(define //message '())
+
+(define //migration '())
+
+(define //min '())
+
+(define //min_/t/v '())
+
+(define //msize '())
+
+(define //mth_/default_/budget '())
+
+(define //mth_/empty '())
+
+(define //mth_/false '())
+
+(define //mth_/ord '())
+
+(define //mth_/rels '())
+
+(define //mth_/true '())
+
+(define //mth_0 '())
+
+(define //mth_1 '())
+
+(define //mth_m1 '())
+
+(define //n '())
+
+(define //n_/actions '())
+
+(define //n_/string_/to_/symbol '())
+
+(define //n_/symbol_/table '())
+
+(define //n_/symbol_/table_/length '())
+
+(define //n_/symbol_/table_/next '())
+
+(define //n_/symbol_/table_/size '())
+
+(define //name '())
+
+(define //name2/num '())
+
+(define //names '())
+
+(define //new '())
+
+(define //new_/succs '())
+
+(define //next_/node '())
+
+(define //nodes '())
+
+(define //notused_/value '())
+
+(define //num_/calls '())
+
+(define //num_/funct_/types '())
+
+(define //num_/types '())
+
+(define //num_/var_/types '())
+
+(define //o/f/t '())
+
+(define //o/k '())
+
+(define //old_/calls '())
+
+(define //old_/p '())
+
+(define //old_/size '())
+
+(define //omega '())
+
+(define //only_/simple_/types '())
+
+(define //options '())
+
+(define //options_/file '())
+
+(define //orig '())
+
+(define //orig_/name '())
+
+(define //orig_/pos '())
+
+(define //output_/column '())
+
+(define //output_/line '())
+
+(define //output_/port '())
+
+(define //output_/stack '())
+
+(define //p '())
+
+(define //p/l '())
+
+(define //p/p '())
+
+(define //p/p_/closing '())
+
+(define //p/p_/hide_/comments '())
+
+(define //p/p_/indent '())
+
+(define //p/p_/n/l_/types '())
+
+(define //p/p_/no_/parentheses '())
+
+(define //p/p_/non_/assoc_/ops '())
+
+(define //p/p_/o/l_/types '())
+
+(define //p/p_/opening '())
+
+(define //p/p_/operator '())
+
+(define //p/p_/operator1 '())
+
+(define //p/p_/operator2 '())
+
+(define //p/p_/prec '())
+
+(define //p/p_/prec_/increment '())
+
+(define //p/p_/split '())
+
+(define //p/p_/sub_/indent '())
+
+(define //p/p_/type '())
+
+(define //p1 '())
+
+(define //p2 '())
+
+(define //pairs '())
+
+(define //params '())
+
+(define //patterns '())
+
+(define //posn_/list '())
+
+(define //power_/op '())
+
+(define //prec_/and '())
+
+(define //prec_/diff '())
+
+(define //prec_/exponent '())
+
+(define //prec_/get '())
+
+(define //prec_/intersection '())
+
+(define //prec_/mod '())
+
+(define //prec_/not '())
+
+(define //prec_/or '())
+
+(define //prec_/plus '())
+
+(define //prec_/rel '())
+
+(define //prec_/struct '())
+
+(define //prec_/times '())
+
+(define //prec_/union '())
+
+(define //preds '())
+
+(define //prefix_/conds '())
+
+(define //prev '())
+
+(define //previous '())
+
+(define //printing '())
+
+(define //proc_/data '())
+
+(define //proc_/stack '())
+
+(define //proc_/summaries '())
+
+(define //procs_/done '())
+
+(define //proper_/t/vs_/set '())
+
+(define //q '())
+
+(define //qry_/a_/proc_/calls '())
+
+(define //qry_/b/l_/metric '())
+
+(define //qry_/c/f/d/f_/metric '())
+
+(define //qry_/calls '())
+
+(define //qry_/clobbered '())
+
+(define //qry_/elts '())
+
+(define //qry_/elts_/redefined '())
+
+(define //qry_/elts_/u/b/a '())
+
+(define //qry_/funct_/calls '())
+
+(define //qry_/hyb_/t/vs '())
+
+(define //qry_/max_/dep '())
+
+(define //qry_/max_/pos_/l '())
+
+(define //qry_/mc/cabe_/metric '())
+
+(define //qry_/p/p/h_/string '())
+
+(define //qry_/p/p_/size '())
+
+(define //qry_/p/p_/string '())
+
+(define //qry_/proc_/calls '())
+
+(define //qry_/rec_/t/vs '())
+
+(define //qry_/redefined '())
+
+(define //qry_/reg_/t/vs '())
+
+(define //qry_/simple '())
+
+(define //qry_/spec_/types '())
+
+(define //qry_/stat_/count '())
+
+(define //qry_/stat_/count_/n/c '())
+
+(define //qry_/statements '())
+
+(define //qry_/struct_/metric '())
+
+(define //qry_/total_/size '())
+
+(define //qry_/u/b/a '())
+
+(define //qry_/var_/name '())
+
+(define //qry_/vars '())
+
+(define //qry_/x_/funct_/calls '())
+
+(define //r '())
+
+(define //r1 '())
+
+(define //r2 '())
+
+(define //reach '())
+
+(define //rec '())
+
+(define //redef '())
+
+(define //redf '())
+
+(define //rel_/ops '())
+
+(define //replace '())
+
+(define //replacement_/expression '())
+
+(define //reserved_/words '())
+
+(define //result '())
+
+(define //return_/node '())
+
+(define //return_/regs '())
+
+(define //reverse_/op '())
+
+(define //runtime_/flow '())
+
+(define //s '())
+
+(define //s/c '())
+
+(define //s/m/l/r/e/g/s '())
+
+(define //s/s '())
+
+(define //s/s/a_blocks '())
+
+(define //s/t '())
+
+(define //s1 '())
+
+(define //s2 '())
+
+(define //s2_/par_/count '())
+
+(define //s3 '())
+
+(define //s4 '())
+
+(define //s5 '())
+
+(define //s_/a/b/o/r/t '())
+
+(define //s_/a/b/s '())
+
+(define //s_/a/c/t/i/o/n '())
+
+(define //s_/a/c/t/i/o/n/s '())
+
+(define //s_/a/d/d/r '())
+
+(define //s_/a/n/d '())
+
+(define //s_/a/r/r/a/y '())
+
+(define //s_/a/r/r/o/w '())
+
+(define //s_/a/s/s/i/g/n '())
+
+(define //s_/a/s/s/i/g/n/s '())
+
+(define //s_/a/t '())
+
+(define //s_/a/t/e/a/c/h '())
+
+(define //s_/a/t_/p/a/t_/o/n/e '())
+
+(define //s_/atom_/ops '())
+
+(define //s_/b/a/c/k/s/l/a/s/h '())
+
+(define //s_/b/e/c/o/m/e/s '())
+
+(define //s_/b/e/g/i/n '())
+
+(define //s_/b/f/u/n/c/t '())
+
+(define //s_/b/o/x '())
+
+(define //s_/b/u/t/l/a/s/t '())
+
+(define //s_/c/a/l/l '())
+
+(define //s_/c/a/r/e/t '())
+
+(define //s_/c/o/l/o/n '())
+
+(define //s_/c/o/l/o/n/c/o/l/o/n '())
+
+(define //s_/c/o/m/m/a '())
+
+(define //s_/c/o/m/m/e/n/t '())
+
+(define //s_/c/o/n/c/a/t '())
+
+(define //s_/c/o/n/d/i/t/i/o/n '())
+
+(define //s_/c/o/n/d_/p/l/a/c/e '())
+
+(define //s_/d/e/f/i/n/e '())
+
+(define //s_/d/e/f/i/n/i/t/i/o/n '())
+
+(define //s_/d/e/f/i/n/i/t/i/o/n/s '())
+
+(define //s_/d/i/v '())
+
+(define //s_/d/o '())
+
+(define //s_/d/o/t/d/o/t '())
+
+(define //s_/d/o/t/s/p/a/c/e '())
+
+(define //s_/d_/d/o '())
+
+(define //s_/d_/i/f '())
+
+(define //s_/e/l/s/e '())
+
+(define //s_/e/l/s/i/f '())
+
+(define //s_/e/m/p/t/y '())
+
+(define //s_/e/n/d '())
+
+(define //s_/e/n/d/a/c/t/i/o/n/s '())
+
+(define //s_/e/n/d/f/i/l/l '())
+
+(define //s_/e/n/d/j/o/i/n '())
+
+(define //s_/e/n/d/m/a/t/c/h '())
+
+(define //s_/e/n/d/s/p/e/c '())
+
+(define //s_/e/n/d/v/a/r '())
+
+(define //s_/e/o/f '())
+
+(define //s_/e/q/u/a/l '())
+
+(define //s_/e/r/r/o/r '())
+
+(define //s_/e/v/e/n '())
+
+(define //s_/e/x/i/s/t/s '())
+
+(define //s_/e/x/i/t '())
+
+(define //s_/e/x/p/n_/p/l/a/c/e '())
+
+(define //s_/e/x/p/o/n/e/n/t '())
+
+(define //s_/e/x/p/r/e/s/s/i/o/n '())
+
+(define //s_/e/x/p/r/e/s/s/i/o/n/s '())
+
+(define //s_/f/a/l/s/e '())
+
+(define //s_/f/i '())
+
+(define //s_/f/i/l/l '())
+
+(define //s_/f/i/l/l1 '())
+
+(define //s_/f/o/r '())
+
+(define //s_/f/o/r/a/l/l '())
+
+(define //s_/f/o/r/e/a/c/h '())
+
+(define //s_/f/r/a/c '())
+
+(define //s_/f/u/l/l/s/t/o/p '())
+
+(define //s_/f/u/n/c/t '())
+
+(define //s_/factor_/ops '())
+
+(define //s_/g/e/q '())
+
+(define //s_/g/l/o/b/a/l '())
+
+(define //s_/g/u/a/r/d/e/d '())
+
+(define //s_/h/a/s/h_/t/a/b/l/e '())
+
+(define //s_/h/e/a/d '())
+
+(define //s_/i/d/e/n/t/i/f/i/e/r '())
+
+(define //s_/i/f '())
+
+(define //s_/i/f/m/a/t/c/h '())
+
+(define //s_/i/n '())
+
+(define //s_/i/n/d/e/x '())
+
+(define //s_/i/n/t '())
+
+(define //s_/i/n/t/e/r/s/e/c/t '())
+
+(define //s_/i/n/t/s '())
+
+(define //s_/i/n/t_/a/n/y '())
+
+(define //s_/i/n/t_/o/n/e '())
+
+(define //s_/i/n/v/a/l/i/d '())
+
+(define //s_/j/o/i/n '())
+
+(define //s_/l/a/n/g/l/e '())
+
+(define //s_/l/a/s/t '())
+
+(define //s_/l/b/r/a/c/e '())
+
+(define //s_/l/b/r/a/c/k/e/t '())
+
+(define //s_/l/e/n/g/t/h '())
+
+(define //s_/l/e/q '())
+
+(define //s_/l/p/a/r/e/n '())
+
+(define //s_/l/v/a/l/u/e '())
+
+(define //s_/l/v/a/l/u/e/s '())
+
+(define //s_/m/a/p '())
+
+(define //s_/m/a/p/h/a/s/h '())
+
+(define //s_/m/a/x '())
+
+(define //s_/m/e/m '())
+
+(define //s_/m/e/m/b/e/r '())
+
+(define //s_/m/i/n '())
+
+(define //s_/m/i/n/u/s '())
+
+(define //s_/m/o/d '())
+
+(define //s_/m/w_/b/f/u/n/c/t '())
+
+(define //s_/m/w_/f/u/n/c/t '())
+
+(define //s_/m/w_/p/r/o/c '())
+
+(define //s_/n/a/s '())
+
+(define //s_/n/a/t/s '())
+
+(define //s_/n/e/q '())
+
+(define //s_/n/o/t '())
+
+(define //s_/n/o/t/i/n '())
+
+(define //s_/n/u/m/b/e/r '())
+
+(define //s_/n/u/m/b/e/r/q '())
+
+(define //s_/o/d '())
+
+(define //s_/o/d/d '())
+
+(define //s_/o/r '())
+
+(define //s_/p/a/t_/a/n/y '())
+
+(define //s_/p/a/t_/m/a/n/y '())
+
+(define //s_/p/a/t_/o/n/e '())
+
+(define //s_/p/l/i/n/k_/p '())
+
+(define //s_/p/l/i/n/k_/x/c '())
+
+(define //s_/p/l/i/n/k_/x/f '())
+
+(define //s_/p/l/i/n/k_/x/p '())
+
+(define //s_/p/l/u/s '())
+
+(define //s_/p/o/p '())
+
+(define //s_/p/o/w/e/r/s/e/t '())
+
+(define //s_/p/r/i/m/e '())
+
+(define //s_/p/r/i/n/f/l/u/s/h '())
+
+(define //s_/p/r/i/n/t '())
+
+(define //s_/p/r/o/c '())
+
+(define //s_/p/u/s/h '())
+
+(define //s_/par_/count '())
+
+(define //s_/q/u/e/r/y '())
+
+(define //s_/q/u/o/t/e/s '())
+
+(define //s_/r/a/n/g/l/e '())
+
+(define //s_/r/a/t/s '())
+
+(define //s_/r/b/r/a/c/e '())
+
+(define //s_/r/b/r/a/c/k/e/t '())
+
+(define //s_/r/e/a/l/s '())
+
+(define //s_/r/e/d/u/c/e '())
+
+(define //s_/r/e/t/u/r/n/s '())
+
+(define //s_/r/e/v/e/r/s/e '())
+
+(define //s_/r/p/a/r/e/n '())
+
+(define //s_/s/c/o/p/a/r/e/n '())
+
+(define //s_/s/e/m/i/c/o/l/o/n '())
+
+(define //s_/s/e/q/u/e/n/c/e '())
+
+(define //s_/s/g/n '())
+
+(define //s_/s/k/i/p '())
+
+(define //s_/s/l/a/s/h '())
+
+(define //s_/s/l/e/n/g/t/h '())
+
+(define //s_/s/p/e/c '())
+
+(define //s_/s/t/a/t/e/m/e/n/t '())
+
+(define //s_/s/t/a/t/e/m/e/n/t/s '())
+
+(define //s_/s/t/a/t_/p/l/a/c/e '())
+
+(define //s_/s/t/e/p '())
+
+(define //s_/s/t/r/i/n/g '())
+
+(define //s_/s/t/r/i/n/g/b/f '())
+
+(define //s_/s/t/s '())
+
+(define //s_/s/u/b/s/e/t '())
+
+(define //s_/s/u/b/s/t/r '())
+
+(define //s_/t/a/i/l '())
+
+(define //s_/t/e/r/m/i/n/a/l '())
+
+(define //s_/t/h/e/n '())
+
+(define //s_/t/i/m/e/s '())
+
+(define //s_/t/o '())
+
+(define //s_/t/r/u/e '())
+
+(define //s_/tail_/recursive_/call '())
+
+(define //s_/term_/ops '())
+
+(define //s_/u/n/i/o/n '())
+
+(define //s_/v/a/r '())
+
+(define //s_/v/a/r/i/a/b/l/e '())
+
+(define //s_/v/a/r_/a/n/y '())
+
+(define //s_/v/a/r_/o/n/e '())
+
+(define //s_/v/a/r_/p/l/a/c/e '())
+
+(define //s_/v/b/a/r '())
+
+(define //s_/w/h/e/r/e '())
+
+(define //s_/w/h/i/l/e '())
+
+(define //scheme_/call '())
+
+(define //scheme_/decl '())
+
+(define //scheme_/fill '())
+
+(define //scheme_/funct '())
+
+(define //scheme_/ifmatch '())
+
+(define //scheme_/literal '())
+
+(define //scheme_/special '())
+
+(define //self '())
+
+(define //seq '())
+
+(define //seq_/exps '())
+
+(define //single_/chars '())
+
+(define //size '())
+
+(define //skip_/newline '())
+
+(define //spaces '())
+
+(define //span '())
+
+(define //spec_/to_/gen_/type '())
+
+(define //special_/chars '())
+
+(define //special_/or_/white '())
+
+(define //start '())
+
+(define //starting_/action '())
+
+(define //state_/saves '())
+
+(define //subgraph '())
+
+(define //subgraph_/n '())
+
+(define //succ '())
+
+(define //succs '())
+
+(define //swap_/case '())
+
+(define //symbol_/equ '())
+
+(define //syn '())
+
+(define //syntax_/any_/int '())
+
+(define //syntax_/any_/pattern '())
+
+(define //syntax_/any_/var '())
+
+(define //syntax_/comps '())
+
+(define //syntax_/e_/to_/v '())
+
+(define //syntax_/fill '())
+
+(define //syntax_/ifmatch '())
+
+(define //syntax_/list '())
+
+(define //syntax_/many_/pattern '())
+
+(define //syntax_/name '())
+
+(define //syntax_/one_/int '())
+
+(define //syntax_/one_/pattern '())
+
+(define //syntax_/one_/var '())
+
+(define //syntax_/type '())
+
+(define //syntax_/v_/to_/e '())
+
+(define //syntax_/value '())
+
+(define //t '())
+
+(define //t/c '())
+
+(define //t/n '())
+
+(define //t/p/f_/generic '())
+
+(define //t/p/f_name '())
+
+(define //t/r_/abort_/processing '())
+
+(define //t/r_/absorb_/left '())
+
+(define //t/r_/absorb_/right '())
+
+(define //t/r_/actions_/to_/procs '())
+
+(define //t/r_/actions_/to_/where '())
+
+(define //t/r_/add_/assertion '())
+
+(define //t/r_/add_/left '())
+
+(define //t/r_/add_/loop_/to_/action '())
+
+(define //t/r_/align_/nested_/statements '())
+
+(define //t/r_/align_/nested_/vars '())
+
+(define //t/r_/all_/proc_/stacks_/to_/pars '())
+
+(define //t/r_/all_/push_/pop '())
+
+(define //t/r_/apply_/to_/right '())
+
+(define //t/r_/array_/to_/vars '())
+
+(define //t/r_/collapse_/action_/system '())
+
+(define //t/r_/collapse_/all_/systems '())
+
+(define //t/r_/combine_/wheres '())
+
+(define //t/r_/constant_/propagation '())
+
+(define //t/r_/d_/do_/to_/floop '())
+
+(define //t/r_/decrement_/statement '())
+
+(define //t/r_/delete_/all_/assertions '())
+
+(define //t/r_/delete_/all_/comments '())
+
+(define //t/r_/delete_/all_/redundant '())
+
+(define //t/r_/delete_/all_/skips '())
+
+(define //t/r_/delete_/item '())
+
+(define //t/r_/delete_/redundant_/regs '())
+
+(define //t/r_/delete_/redundant_/statement '())
+
+(define //t/r_/delete_/unreachable_/code '())
+
+(define //t/r_/delete_/what_/follows '())
+
+(define //t/r_/double_/to_/single_/loop '())
+
+(define //t/r_/else_/if_/to_/elsif '())
+
+(define //t/r_/elsif_/to_/else_/if '())
+
+(define //t/r_/expand_/and_/separate '())
+
+(define //t/r_/expand_/and_/separate_/all '())
+
+(define //t/r_/expand_/call '())
+
+(define //t/r_/expand_/forward '())
+
+(define //t/r_/find_/terminals '())
+
+(define //t/r_/flag_/removal '())
+
+(define //t/r_/floop_/to_/while '())
+
+(define //t/r_/for_/in_/to_/reduce '())
+
+(define //t/r_/for_/to_/while '())
+
+(define //t/r_/force_/double_/to_/single_/loop
+  '())
+
+(define //t/r_/fully_/absorb_/right '())
+
+(define //t/r_/fully_/expand_/forward '())
+
+(define //t/r_/globalise_/procs '())
+
+(define //t/r_/globals_/to_/pars '())
+
+(define //t/r_/ifmatch_/processing '())
+
+(define //t/r_/increment_/statement '())
+
+(define //t/r_/insert_/assertion '())
+
+(define //t/r_/join_/all_/cases '())
+
+(define //t/r_/join_/cases_/left '())
+
+(define //t/r_/join_/cases_/right '())
+
+(define //t/r_/localise_/procs '())
+
+(define //t/r_/loop_/doubling '())
+
+(define //t/r_/loop_/inversion '())
+
+(define //t/r_/loop_/to_/move '())
+
+(define //t/r_/make_/loop '())
+
+(define //t/r_/make_/proc '())
+
+(define //t/r_/make_/reducible '())
+
+(define //t/r_/merge_/calls_/in_/action '())
+
+(define //t/r_/merge_/calls_/in_/system '())
+
+(define //t/r_/merge_/cond_/right '())
+
+(define //t/r_/merge_/left '())
+
+(define //t/r_/merge_/right '())
+
+(define //t/r_/meta_/trans '())
+
+(define //t/r_/move_/comment_/left '())
+
+(define //t/r_/move_/comment_/right '())
+
+(define //t/r_/move_/comments '())
+
+(define //t/r_/move_/to_/left '())
+
+(define //t/r_/move_/to_/right '())
+
+(define //t/r_/no_/change '())
+
+(define //t/r_/partially_/join_/cases '())
+
+(define //t/r_/proc_/to_/funct '())
+
+(define //t/r_/prog_/to_/spec '())
+
+(define //t/r_/prune_/dispatch '())
+
+(define //t/r_/push_/pop '())
+
+(define //t/r_/recursion_/to_/loop '())
+
+(define //t/r_/reduce_/loop '())
+
+(define //t/r_/reduce_/multiple_/loops '())
+
+(define //t/r_/refine_/spec '())
+
+(define //t/r_/remove_/all_/redundant_/vars '())
+
+(define //t/r_/remove_/dummy_/loop '())
+
+(define //t/r_/remove_/redundant_/vars '())
+
+(define //t/r_/rename_/defns '())
+
+(define //t/r_/rename_/local_/vars '())
+
+(define //t/r_/rename_/proc '())
+
+(define //t/r_/replace_/accs_/with_/value '())
+
+(define //t/r_/replace_/with_/value '())
+
+(define //t/r_/replace_/with_/variable '())
+
+(define //t/r_/restore_/local_/vars '())
+
+(define //t/r_/reverse_/order '())
+
+(define //t/r_/roll_/loop '())
+
+(define //t/r_/semantic_/slice '())
+
+(define //t/r_/separate_/both '())
+
+(define //t/r_/separate_/exit_/code '())
+
+(define //t/r_/separate_/left '())
+
+(define //t/r_/separate_/right '())
+
+(define //t/r_/simple_/slice '())
+
+(define //t/r_/simplify '())
+
+(define //t/r_/simplify_/action_/system '())
+
+(define //t/r_/simplify_/if '())
+
+(define //t/r_/simplify_/item '())
+
+(define //t/r_/sort_/procs '())
+
+(define //t/r_/stack_/to_/par '())
+
+(define //t/r_/stack_/to_/return '())
+
+(define //t/r_/stack_/to_/var '())
+
+(define //t/r_/static_/single_/assignment '())
+
+(define //t/r_/substitute_/and_/delete '())
+
+(define //t/r_/substitute_/and_/delete_/list '())
+
+(define //t/r_/syntactic_/slice '())
+
+(define //t/r_/take_/out_/left '())
+
+(define //t/r_/take_/out_/of_/loop '())
+
+(define //t/r_/take_/out_/right '())
+
+(define //t/r_/unfold_/proc_/call '())
+
+(define //t/r_/unfold_/proc_/calls '())
+
+(define //t/r_/unroll_/loop '())
+
+(define //t/r_/use_/assertion '())
+
+(define //t/r_/var_/pars_/to_/val_/pars '())
+
+(define //t/r_/while_/to_/abort '())
+
+(define //t/r_/while_/to_/floop '())
+
+(define //t/r_/while_/to_/for_/in '())
+
+(define //t/r_/while_/to_/reduce '())
+
+(define //t/rs_/code '())
+
+(define //t/rs_/data_/gen_/type '())
+
+(define //t/rs_/help '())
+
+(define //t/rs_/keywords '())
+
+(define //t/rs_/name '())
+
+(define //t/rs_/proc_/name '())
+
+(define //t/rs_/prompt '())
+
+(define //t/rs_/test '())
+
+(define //t/v '())
+
+(define //t/vs '())
+
+(define //t_/a_/proc_/call '())
+
+(define //t_/a_/s '())
+
+(define //t_/abort '())
+
+(define //t_/abs '())
+
+(define //t_/action '())
+
+(define //t_/action_/int_/any '())
+
+(define //t_/action_/int_/one '())
+
+(define //t_/action_/pat_/any '())
+
+(define //t_/action_/pat_/many '())
+
+(define //t_/action_/pat_/one '())
+
+(define //t_/action_/var_/any '())
+
+(define //t_/action_/var_/one '())
+
+(define //t_/actions '())
+
+(define //t_/address_/of '())
+
+(define //t_/and '())
+
+(define //t_/aref '())
+
+(define //t_/aref_/lvalue '())
+
+(define //t_/array '())
+
+(define //t_/assert '())
+
+(define //t_/assign '())
+
+(define //t_/assign_/int_/any '())
+
+(define //t_/assign_/int_/one '())
+
+(define //t_/assign_/pat_/any '())
+
+(define //t_/assign_/pat_/many '())
+
+(define //t_/assign_/pat_/one '())
+
+(define //t_/assign_/var_/any '())
+
+(define //t_/assign_/var_/one '())
+
+(define //t_/assignment '())
+
+(define //t_/assigns '())
+
+(define //t_/ateach_/cond '())
+
+(define //t_/ateach_/expn '())
+
+(define //t_/ateach_/global_/var '())
+
+(define //t_/ateach_/lvalue '())
+
+(define //t_/ateach_/n/a/s '())
+
+(define //t_/ateach_/s/t/s '())
+
+(define //t_/ateach_/stat '())
+
+(define //t_/ateach_/stats '())
+
+(define //t_/ateach_/t/s '())
+
+(define //t_/ateach_/t/ss '())
+
+(define //t_/ateach_/variable '())
+
+(define //t_/b/funct '())
+
+(define //t_/b/funct_/call '())
+
+(define //t_/butlast '())
+
+(define //t_/call '())
+
+(define //t_/comment '())
+
+(define //t_/concat '())
+
+(define //t_/cond '())
+
+(define //t_/cond_/int_/any '())
+
+(define //t_/cond_/int_/one '())
+
+(define //t_/cond_/pat_/any '())
+
+(define //t_/cond_/pat_/many '())
+
+(define //t_/cond_/pat_/one '())
+
+(define //t_/cond_/place '())
+
+(define //t_/cond_/pseudo '())
+
+(define //t_/cond_/var_/any '())
+
+(define //t_/cond_/var_/one '())
+
+(define //t_/condition '())
+
+(define //t_/d_/do '())
+
+(define //t_/d_/if '())
+
+(define //t_/datatype '())
+
+(define //t_/datatype_/array '())
+
+(define //t_/datatype_/integer '())
+
+(define //t_/datatype_/string '())
+
+(define //t_/datatype_/struct '())
+
+(define //t_/declare_/datatype '())
+
+(define //t_/definition '())
+
+(define //t_/definitions '())
+
+(define //t_/defn_/int_/any '())
+
+(define //t_/defn_/int_/one '())
+
+(define //t_/defn_/pat_/any '())
+
+(define //t_/defn_/pat_/many '())
+
+(define //t_/defn_/pat_/one '())
+
+(define //t_/defn_/var_/any '())
+
+(define //t_/defn_/var_/one '())
+
+(define //t_/div '())
+
+(define //t_/divide '())
+
+(define //t_/empty '())
+
+(define //t_/equal '())
+
+(define //t_/error '())
+
+(define //t_/even '())
+
+(define //t_/exists '())
+
+(define //t_/exit '())
+
+(define //t_/expn_/datatype '())
+
+(define //t_/expn_/int_/any '())
+
+(define //t_/expn_/int_/one '())
+
+(define //t_/expn_/pat_/any '())
+
+(define //t_/expn_/pat_/many '())
+
+(define //t_/expn_/pat_/one '())
+
+(define //t_/expn_/place '())
+
+(define //t_/expn_/pseudo '())
+
+(define //t_/expn_/var_/any '())
+
+(define //t_/expn_/var_/one '())
+
+(define //t_/exponent '())
+
+(define //t_/expression '())
+
+(define //t_/expressions '())
+
+(define //t_/false '())
+
+(define //t_/fill_/action '())
+
+(define //t_/fill_/assign '())
+
+(define //t_/fill_/assigns '())
+
+(define //t_/fill_/cond '())
+
+(define //t_/fill_/defn '())
+
+(define //t_/fill_/defns '())
+
+(define //t_/fill_/expn '())
+
+(define //t_/fill_/expns '())
+
+(define //t_/fill_/guarded '())
+
+(define //t_/fill_/lvalue '())
+
+(define //t_/fill_/lvalues '())
+
+(define //t_/fill_/stat '())
+
+(define //t_/fill_/stats '())
+
+(define //t_/final_/seg '())
+
+(define //t_/final_/seg_/lvalue '())
+
+(define //t_/floop '())
+
+(define //t_/for '())
+
+(define //t_/for_/in '())
+
+(define //t_/forall '())
+
+(define //t_/foreach_/cond '())
+
+(define //t_/foreach_/expn '())
+
+(define //t_/foreach_/global_/var '())
+
+(define //t_/foreach_/lvalue '())
+
+(define //t_/foreach_/n/a/s '())
+
+(define //t_/foreach_/s/t/s '())
+
+(define //t_/foreach_/stat '())
+
+(define //t_/foreach_/stats '())
+
+(define //t_/foreach_/t/s '())
+
+(define //t_/foreach_/t/ss '())
+
+(define //t_/foreach_/variable '())
+
+(define //t_/frac '())
+
+(define //t_/funct '())
+
+(define //t_/funct_/call '())
+
+(define //t_/get '())
+
+(define //t_/get_n '())
+
+(define //t_/gethash '())
+
+(define //t_/greater '())
+
+(define //t_/greater_/eq '())
+
+(define //t_/guarded '())
+
+(define //t_/guarded_/int_/any '())
+
+(define //t_/guarded_/int_/one '())
+
+(define //t_/guarded_/pat_/any '())
+
+(define //t_/guarded_/pat_/many '())
+
+(define //t_/guarded_/pat_/one '())
+
+(define //t_/guarded_/var_/any '())
+
+(define //t_/guarded_/var_/one '())
+
+(define //t_/guardeds '())
+
+(define //t_/hash_/table '())
+
+(define //t_/head '())
+
+(define //t_/if '())
+
+(define //t_/ifmatch_/action '())
+
+(define //t_/ifmatch_/assign '())
+
+(define //t_/ifmatch_/assigns '())
+
+(define //t_/ifmatch_/cond '())
+
+(define //t_/ifmatch_/defn '())
+
+(define //t_/ifmatch_/defns '())
+
+(define //t_/ifmatch_/expn '())
+
+(define //t_/ifmatch_/expns '())
+
+(define //t_/ifmatch_/guarded '())
+
+(define //t_/ifmatch_/lvalue '())
+
+(define //t_/ifmatch_/lvalues '())
+
+(define //t_/ifmatch_/stat '())
+
+(define //t_/ifmatch_/stats '())
+
+(define //t_/implies '())
+
+(define //t_/in '())
+
+(define //t_/index '())
+
+(define //t_/int '())
+
+(define //t_/intersection '())
+
+(define //t_/invert '())
+
+(define //t_/join '())
+
+(define //t_/last '())
+
+(define //t_/length '())
+
+(define //t_/less '())
+
+(define //t_/less_/eq '())
+
+(define //t_/lvalue '())
+
+(define //t_/lvalue_/datatype '())
+
+(define //t_/lvalue_/int_/any '())
+
+(define //t_/lvalue_/int_/one '())
+
+(define //t_/lvalue_/pat_/any '())
+
+(define //t_/lvalue_/pat_/many '())
+
+(define //t_/lvalue_/pat_/one '())
+
+(define //t_/lvalue_/pseudo '())
+
+(define //t_/lvalue_/var_/any '())
+
+(define //t_/lvalue_/var_/one '())
+
+(define //t_/lvalues '())
+
+(define //t_/m/w_/b/funct '())
+
+(define //t_/m/w_/b/funct_/call '())
+
+(define //t_/m/w_/funct '())
+
+(define //t_/m/w_/funct_/call '())
+
+(define //t_/m/w_/proc '())
+
+(define //t_/m/w_/proc_/call '())
+
+(define //t_/map '())
+
+(define //t_/maphash '())
+
+(define //t_/max '())
+
+(define //t_/mem '())
+
+(define //t_/mem_/lvalue '())
+
+(define //t_/mem_/rel '())
+
+(define //t_/mem_/rel_/lvalue '())
+
+(define //t_/mem_/seg '())
+
+(define //t_/mem_/seg_/lvalue '())
+
+(define //t_/member '())
+
+(define //t_/min '())
+
+(define //t_/minus '())
+
+(define //t_/mod '())
+
+(define //t_/name '())
+
+(define //t_/name_/int_/one '())
+
+(define //t_/name_/pat_/one '())
+
+(define //t_/name_/var_/one '())
+
+(define //t_/negate '())
+
+(define //t_/not '())
+
+(define //t_/not_/equal '())
+
+(define //t_/not_/in '())
+
+(define //t_/number '())
+
+(define //t_/numberq '())
+
+(define //t_/odd '())
+
+(define //t_/or '())
+
+(define //t_/plus '())
+
+(define //t_/pop '())
+
+(define //t_/powerset '())
+
+(define //t_/primed_/var '())
+
+(define //t_/prinflush '())
+
+(define //t_/print '())
+
+(define //t_/proc '())
+
+(define //t_/proc_/call '())
+
+(define //t_/push '())
+
+(define //t_/puthash '())
+
+(define //t_/reduce '())
+
+(define //t_/rel_/seg '())
+
+(define //t_/rel_/seg_/lvalue '())
+
+(define //t_/reverse '())
+
+(define //t_/sequence '())
+
+(define //t_/sequenceq '())
+
+(define //t_/set '())
+
+(define //t_/set_/diff '())
+
+(define //t_/sgn '())
+
+(define //t_/skip '())
+
+(define //t_/slength '())
+
+(define //t_/spec '())
+
+(define //t_/stat_/int_/any '())
+
+(define //t_/stat_/int_/one '())
+
+(define //t_/stat_/pat_/any '())
+
+(define //t_/stat_/pat_/many '())
+
+(define //t_/stat_/pat_/one '())
+
+(define //t_/stat_/place '())
+
+(define //t_/stat_/pseudo '())
+
+(define //t_/stat_/var_/any '())
+
+(define //t_/stat_/var_/one '())
+
+(define //t_/statement '())
+
+(define //t_/statements '())
+
+(define //t_/string '())
+
+(define //t_/stringq '())
+
+(define //t_/struct '())
+
+(define //t_/struct_/lvalue '())
+
+(define //t_/sub_/seg '())
+
+(define //t_/sub_/seg_/lvalue '())
+
+(define //t_/subset '())
+
+(define //t_/substr '())
+
+(define //t_/tail '())
+
+(define //t_/times '())
+
+(define //t_/true '())
+
+(define //t_/typedef '())
+
+(define //t_/union '())
+
+(define //t_/var '())
+
+(define //t_/var_/lvalue '())
+
+(define //t_/var_/place '())
+
+(define //t_/variable '())
+
+(define //t_/where '())
+
+(define //t_/while '())
+
+(define //t_/x_/b/funct_/call '())
+
+(define //t_/x_/funct_/call '())
+
+(define //t_/x_/proc_/call '())
+
+(define //take_/out '())
+
+(define //target '())
+
+(define //temp '())
+
+(define //temp_/i '())
+
+(define //temp_/p '())
+
+(define //term_/ops '())
+
+(define //term_/posn '())
+
+(define //term_/v '())
+
+(define //text '())
+
+(define //text_/width '())
+
+(define //the_/assigns '())
+
+(define //thin_/back_/edges '())
+
+(define //type '())
+
+(define //type_/ifmatch '())
+
+(define //type_/infix '())
+
+(define //type_/prefix '())
+
+(define //type_/simple '())
+
+(define //type_/special '())
+
+(define //type_/split '())
+
+(define //type_/table '())
+
+(define //types '())
+
+(define //u '())
+
+(define //u/b/a '())
+
+(define //u/b/a_/use_/lengths '())
+
+(define //undefined_/value '())
+
+(define //unfold_/dispatch '())
+
+(define //used '())
+
+(define //v '())
+
+(define //v/l '())
+
+(define //valid '())
+
+(define //var_/f/params '())
+
+(define //var_/params '())
+
+(define //vcons '())
+
+(define //vcons_vals '())
+
+(define //w '())
+
+(define //w/p '())
+
+(define //w/p_/t '())
+
+(define //w/p_/types_/set '())
+
+(define //w/s/l_/option_/quiet '())
+
+(define //w/s_/funct '())
+
+(define //w/s_/indent_/pending '())
+
+(define //w/s_/indents '())
+
+(define //w/s_/nesting '())
+
+(define //w/s_/type '())
+
+(define //w/s_/x_/pos '())
+
+(define //whitespace '())
+
+(define //x '())
+
+(define //z '())
+
+(define //zero_/value '())
+
+(define /__/match_array '())
+
+(define /__/o/k '())
+
+(define /a '())
+
+(define /a1 '())
+
+(define /a2 '())
+
+(define /a3 '())
+
+(define /a4 '())
+
+(define /a_name '())
+
+(define /a_name_lvar '())
+
+(define /a_name_var '())
+
+(define /a_prefix_ops '())
+
+(define /accs '())
+
+(define /action '())
+
+(define /actions '())
+
+(define /actual '())
+
+(define /actual_pars '())
+
+(define /actual_vals '())
+
+(define /actual_vars '())
+
+(define /add_assertions '())
+
+(define /add_par '())
+
+(define /addr '())
+
+(define /address_of '())
+
+(define /address_of_name '())
+
+(define /adt_/buffer '())
+
+(define /adt_/command_/future '())
+
+(define /adt_/command_/history '())
+
+(define /adt_/command_/list '())
+
+(define /adt_/data '())
+
+(define /adt_/dummy_/guarded '())
+
+(define /adt_/edit_/posn_/stack '())
+
+(define /adt_/edit_/program_/stack '())
+
+(define /adt_/edit_/to_/stack '())
+
+(define /adt_/fail_/message '())
+
+(define /adt_/in_/a_/trans '())
+
+(define /adt_/item '())
+
+(define /adt_/passed '())
+
+(define /adt_/path_/items '())
+
+(define /adt_/posn '())
+
+(define /adt_/posn_/future '())
+
+(define /adt_/posn_/history '())
+
+(define /adt_/posn_n '())
+
+(define /adt_/program '())
+
+(define /adt_/program_/future '())
+
+(define /adt_/program_/history '())
+
+(define /adt_/skip_/statement '())
+
+(define /adt_/skip_/statements '())
+
+(define /adt_/t/r_/next_/number '())
+
+(define /adt_/t/r_/start_/p '())
+
+(define /adt_/t/r_/start_/span '())
+
+(define /adt_/trans_/count '())
+
+(define /adt_/trans_/tests '())
+
+(define /all_inits '())
+
+(define /aname '())
+
+(define /apar '())
+
+(define /ar '())
+
+(define /arg '())
+
+(define /arg1 '())
+
+(define /args '())
+
+(define /arrays '())
+
+(define /as '())
+
+(define /ass '())
+
+(define /assem '())
+
+(define /assert '())
+
+(define /assign '())
+
+(define /assign0 '())
+
+(define /assign1 '())
+
+(define /assign2 '())
+
+(define /assigned '())
+
+(define /assigned1 '())
+
+(define /assigns '())
+
+(define /b '())
+
+(define /bad '())
+
+(define /bad_var '())
+
+(define /badnum '())
+
+(define /base '())
+
+(define /big '())
+
+(define /bigname '())
+
+(define /bignum '())
+
+(define /bin '())
+
+(define /bit '())
+
+(define /bit_and '())
+
+(define /bit_ops '())
+
+(define /bit_or '())
+
+(define /bit_xor '())
+
+(define /block '())
+
+(define /block_file '())
+
+(define /blocks '())
+
+(define /bodies '())
+
+(define /body '())
+
+(define /body_var '())
+
+(define /bottom '())
+
+(define /bus '())
+
+(define /c '())
+
+(define /c1 '())
+
+(define /c2 '())
+
+(define /call '())
+
+(define /call_budget '())
+
+(define /call_depth '())
+
+(define /call_graph '())
+
+(define /call_n '())
+
+(define /call_stack '())
+
+(define /call_types '())
+
+(define /call_via_ptr '())
+
+(define /call_via_ptr_pars '())
+
+(define /calls '())
+
+(define /calls_ok '())
+
+(define /calls_processed '())
+
+(define /calls_z '())
+
+(define /cc '())
+
+(define /cc1_name '())
+
+(define /cc_assigned '())
+
+(define /cc_name '())
+
+(define /cc_val '())
+
+(define /cc_values '())
+
+(define /cf_name '())
+
+(define /chain_reg '())
+
+(define /change '())
+
+(define /changed '())
+
+(define /char_table '())
+
+(define /chars '())
+
+(define /chars1 '())
+
+(define /class '())
+
+(define /clobber '())
+
+(define /clobber1 '())
+
+(define /clobber2 '())
+
+(define /clobbered '())
+
+(define /close '())
+
+(define /closes '())
+
+(define /code '())
+
+(define /codes '())
+
+(define /col_no '())
+
+(define /colour '())
+
+(define /comment '())
+
+(define /comments '())
+
+(define /common '())
+
+(define /comp '())
+
+(define /comp1 '())
+
+(define /comp2 '())
+
+(define /comps '())
+
+(define /cond '())
+
+(define /condition '())
+
+(define /cons '())
+
+(define /constants '())
+
+(define /cont '())
+
+(define /control '())
+
+(define /controls '())
+
+(define /count '())
+
+(define /cstack '())
+
+(define /d '())
+
+(define /d1 '())
+
+(define /d2 '())
+
+(define /data '())
+
+(define /date_time_functs '())
+
+(define /dats '())
+
+(define /dec_conds '())
+
+(define /defines '())
+
+(define /defn '())
+
+(define /defns '())
+
+(define /defs '())
+
+(define /del_file '())
+
+(define /delete '())
+
+(define /delimit '())
+
+(define /denom '())
+
+(define /deny '())
+
+(define /dest '())
+
+(define /dest_occ '())
+
+(define /dest_value '())
+
+(define /destination '())
+
+(define /dfs '())
+
+(define /dfs_num '())
+
+(define /diff '())
+
+(define /digit '())
+
+(define /dispatch '())
+
+(define /dispatch_call '())
+
+(define /dispatch_codes '())
+
+(define /dispatch_n '())
+
+(define /dispatch_node '())
+
+(define /dispatch_posn '())
+
+(define /dist '())
+
+(define /div '())
+
+(define /dn '())
+
+(define /doit '())
+
+(define /done '())
+
+(define /double '())
+
+(define /dsects '())
+
+(define /dsects_done '())
+
+(define /dummy '())
+
+(define /dummy_compiler_data '())
+
+(define /e '())
+
+(define /e1 '())
+
+(define /e2 '())
+
+(define /e3 '())
+
+(define /e4 '())
+
+(define /e5 '())
+
+(define /e_to_v '())
+
+(define /e_to_v_l '())
+
+(define /effective_size '())
+
+(define /effort '())
+
+(define /el '())
+
+(define /else '())
+
+(define /elt '())
+
+(define /elts '())
+
+(define /empty/e '())
+
+(define /empty/l '())
+
+(define /end '())
+
+(define /end/l '())
+
+(define /entry '())
+
+(define /entry/l '())
+
+(define /entry_point '())
+
+(define /equ '())
+
+(define /ess_file '())
+
+(define /exit '())
+
+(define /exit_flag '())
+
+(define /exp '())
+
+(define /exp_sgn '())
+
+(define /expansions '())
+
+(define /expn '())
+
+(define /expns '())
+
+(define /exponent '())
+
+(define /exps '())
+
+(define /external '())
+
+(define /extra '())
+
+(define /f '())
+
+(define /factors '())
+
+(define /false '())
+
+(define /fix_last '())
+
+(define /fl_flag/x '())
+
+(define /fl_flag1 '())
+
+(define /fl_flag2 '())
+
+(define /fl_flag3 '())
+
+(define /fl_flag4 '())
+
+(define /fl_flag5 '())
+
+(define /fl_flag6 '())
+
+(define /fl_flag7 '())
+
+(define /fl_flag8 '())
+
+(define /fl_flag9 '())
+
+(define /flag '())
+
+(define /flag_posn '())
+
+(define /flags '())
+
+(define /floop '())
+
+(define /floop_depth '())
+
+(define /footer '())
+
+(define /foreach '())
+
+(define /formal_pars '())
+
+(define /formal_vals '())
+
+(define /formal_vars '())
+
+(define /forward_edge '())
+
+(define /found '())
+
+(define /freq '())
+
+(define /fringe '())
+
+(define /funct '())
+
+(define /funct_result '())
+
+(define /g_exp_types '())
+
+(define /g_prefix_ops '())
+
+(define /gap '())
+
+(define /global_calls '())
+
+(define /globals '())
+
+(define /good '())
+
+(define /guard '())
+
+(define /guarded '())
+
+(define /guards '())
+
+(define /head '())
+
+(define /heads '())
+
+(define /hex '())
+
+(define /hsaved '())
+
+(define /i '())
+
+(define /i1 '())
+
+(define /i2 '())
+
+(define /i3 '())
+
+(define /ignore '())
+
+(define /inc '())
+
+(define /ind '())
+
+(define /indent_str '())
+
+(define /index '())
+
+(define /index_vars '())
+
+(define /indexes '())
+
+(define /init '())
+
+(define /init/l '())
+
+(define /initial_call_budget '())
+
+(define /inits '())
+
+(define /inline_par '())
+
+(define /intersect1 '())
+
+(define /intersect2 '())
+
+(define /inverts '())
+
+(define /item '())
+
+(define /j '())
+
+(define /k '())
+
+(define /keep '())
+
+(define /keep_vals '())
+
+(define /keep_vars '())
+
+(define /key '())
+
+(define /l '())
+
+(define /label '())
+
+(define /last '())
+
+(define /last/l '())
+
+(define /last_inc '())
+
+(define /last_posn '())
+
+(define /len '())
+
+(define /lhs '())
+
+(define /line '())
+
+(define /lines '())
+
+(define /links '())
+
+(define /list '())
+
+(define /ll '())
+
+(define /local '())
+
+(define /locals '())
+
+(define /loop '())
+
+(define /loop_check '())
+
+(define /loops '())
+
+(define /lvalues '())
+
+(define /m '())
+
+(define /m_one '())
+
+(define /macro_decls '())
+
+(define /main '())
+
+(define /main_list '())
+
+(define /make_n '())
+
+(define /make_name '())
+
+(define /match '())
+
+(define /matches '())
+
+(define /max '())
+
+(define /min '())
+
+(define /min_/b '())
+
+(define /min_/p '())
+
+(define /min_/q '())
+
+(define /min_dist '())
+
+(define /min_n '())
+
+(define /min_name '())
+
+(define /min_size '())
+
+(define /mins '())
+
+(define /move '())
+
+(define /n '())
+
+(define /n1 '())
+
+(define /n2 '())
+
+(define /n3 '())
+
+(define /name '())
+
+(define /names '())
+
+(define /nbsp '())
+
+(define /need_flag '())
+
+(define /needed '())
+
+(define /new '())
+
+(define /new/i '())
+
+(define /new/l '())
+
+(define /new/x '())
+
+(define /new1 '())
+
+(define /new2 '())
+
+(define /new_/r '())
+
+(define /new_assigns '())
+
+(define /new_block '())
+
+(define /new_defns '())
+
+(define /new_intersect '())
+
+(define /new_name '())
+
+(define /new_pars '())
+
+(define /new_path '())
+
+(define /new_prec '())
+
+(define /new_size '())
+
+(define /new_tvs '())
+
+(define /new_union '())
+
+(define /new_vals '())
+
+(define /new_vars '())
+
+(define /newcomp '())
+
+(define /newcond '())
+
+(define /newl '())
+
+(define /newsub '())
+
+(define /newtests '())
+
+(define /newvars '())
+
+(define /next '())
+
+(define /next_level '())
+
+(define /node '())
+
+(define /nodes '())
+
+(define /nos '())
+
+(define /not_/b '())
+
+(define /not_comp '())
+
+(define /notstacks '())
+
+(define /notused '())
+
+(define /nstack '())
+
+(define /num '())
+
+(define /numb_types '())
+
+(define /nums '())
+
+(define /o_where '())
+
+(define /occ '())
+
+(define /occs '())
+
+(define /ok '())
+
+(define /old '())
+
+(define /old/l '())
+
+(define /old_assign '())
+
+(define /old_name '())
+
+(define /one_line '())
+
+(define /only '())
+
+(define /op '())
+
+(define /op1 '())
+
+(define /op2 '())
+
+(define /op_1 '())
+
+(define /open '())
+
+(define /open/l '())
+
+(define /orig '())
+
+(define /orig/l '())
+
+(define /orig_/v/l '())
+
+(define /orig_cc_values '())
+
+(define /orig_posn '())
+
+(define /orig_program '())
+
+(define /orig_tests '())
+
+(define /orig_val '())
+
+(define /orig_var '())
+
+(define /os_name '())
+
+(define /other '())
+
+(define /outer '())
+
+(define /overwrite '())
+
+(define /p '())
+
+(define /p1 '())
+
+(define /p11 '())
+
+(define /p2 '())
+
+(define /p22 '())
+
+(define /p3 '())
+
+(define /pack '())
+
+(define /pair '())
+
+(define /pairs '())
+
+(define /par '())
+
+(define /parent '())
+
+(define /pars '())
+
+(define /part '())
+
+(define /pat '())
+
+(define /pats '())
+
+(define /pattern_type '())
+
+(define /phi '())
+
+(define /pivot '())
+
+(define /pointers '())
+
+(define /pop '())
+
+(define /pop_regs '())
+
+(define /port '())
+
+(define /pos '())
+
+(define /posn '())
+
+(define /posn_n '())
+
+(define /posns '())
+
+(define /prec '())
+
+(define /pred '())
+
+(define /prefix '())
+
+(define /proc '())
+
+(define /proc_done '())
+
+(define /procs '())
+
+(define /push '())
+
+(define /push_regs '())
+
+(define /q '())
+
+(define /quote '())
+
+(define /r '())
+
+(define /r1_name '())
+
+(define /r1_new '())
+
+(define /rbody '())
+
+(define /re_sort '())
+
+(define /recurse '())
+
+(define /redef '())
+
+(define /redundant '())
+
+(define /ref '())
+
+(define /reg '())
+
+(define /reg_/d/s/e/c/ts '())
+
+(define /reg_init_count '())
+
+(define /reg_inits '())
+
+(define /reg_stack '())
+
+(define /registers '())
+
+(define /regs '())
+
+(define /rel '())
+
+(define /rel_posn '())
+
+(define /rels '())
+
+(define /rename '())
+
+(define /rename_exp '())
+
+(define /rename_lvalue '())
+
+(define /renames '())
+
+(define /replace '())
+
+(define /req_tv '())
+
+(define /res '())
+
+(define /rest '())
+
+(define /restored '())
+
+(define /restores '())
+
+(define /result '())
+
+(define /result_code '())
+
+(define /result_vars '())
+
+(define /return_elts '())
+
+(define /rhs '())
+
+(define /root '())
+
+(define /row_no '())
+
+(define /runs '())
+
+(define /s1 '())
+
+(define /s_prefix_ops '())
+
+(define /same '())
+
+(define /save '())
+
+(define /save_comps '())
+
+(define /saved '())
+
+(define /saved/l2 '())
+
+(define /saves '())
+
+(define /seen '())
+
+(define /seen_code '())
+
+(define /set '())
+
+(define /shape '())
+
+(define /sixth '())
+
+(define /size '())
+
+(define /size_1 '())
+
+(define /size_2 '())
+
+(define /size_3 '())
+
+(define /sizeof '())
+
+(define /sizes '())
+
+(define /skip_st '())
+
+(define /skipped_vars '())
+
+(define /skips '())
+
+(define /slice_file '())
+
+(define /source '())
+
+(define /space '())
+
+(define /span '())
+
+(define /spec '())
+
+(define /speculative_unroll '())
+
+(define /split '())
+
+(define /src '())
+
+(define /ssa_file '())
+
+(define /stack '())
+
+(define /stack_val '())
+
+(define /stacks '())
+
+(define /start '())
+
+(define /stat '())
+
+(define /stats '())
+
+(define /step '())
+
+(define /steps '())
+
+(define /str '())
+
+(define /string_append '())
+
+(define /strings '())
+
+(define /struct_p '())
+
+(define /style '())
+
+(define /sub '())
+
+(define /sub2_indent '())
+
+(define /sub3_indent '())
+
+(define /sub_/a/s '())
+
+(define /sub_indent '())
+
+(define /succ '())
+
+(define /succs '())
+
+(define /summ '())
+
+(define /swap '())
+
+(define /sym_val_flag '())
+
+(define /sysmacs '())
+
+(define /t '())
+
+(define /tab '())
+
+(define /tab1 '())
+
+(define /tab2 '())
+
+(define /tag '())
+
+(define /tail '())
+
+(define /take_out '())
+
+(define /taken '())
+
+(define /target '())
+
+(define /targets '())
+
+(define /temp '())
+
+(define /terminal '())
+
+(define /test '())
+
+(define /tested '())
+
+(define /tests '())
+
+(define /then '())
+
+(define /thick '())
+
+(define /this_level '())
+
+(define /title '())
+
+(define /tmp '())
+
+(define /tmp_e '())
+
+(define /tmp_result '())
+
+(define /tmp_v '())
+
+(define /tmp_var '())
+
+(define /to '())
+
+(define /todo '())
+
+(define /token1 '())
+
+(define /token2 '())
+
+(define /top '())
+
+(define /topsort '())
+
+(define /total '())
+
+(define /tpf_call '())
+
+(define /tr_new '())
+
+(define /trans '())
+
+(define /true '())
+
+(define /tv '())
+
+(define /tvs '())
+
+(define /type '())
+
+(define /types '())
+
+(define /unfold '())
+
+(define /union1 '())
+
+(define /union2 '())
+
+(define /unroll '())
+
+(define /up '())
+
+(define /updates '())
+
+(define /used '())
+
+(define /v '())
+
+(define /v1 '())
+
+(define /v2 '())
+
+(define /v3 '())
+
+(define /v4 '())
+
+(define /v_save '())
+
+(define /v_to_e '())
+
+(define /v_to_e_l '())
+
+(define /val '())
+
+(define /val_keep '())
+
+(define /vals '())
+
+(define /value '())
+
+(define /values '())
+
+(define /var '())
+
+(define /var_keep '())
+
+(define /var_val '())
+
+(define /var_value '())
+
+(define /vars '())
+
+(define /vcons '())
+
+(define /vv '())
+
+(define /w '())
+
+(define /w_store '())
+
+(define /wanted '())
+
+(define /where '())
+
+(define /where_posn '())
+
+(define /word '())
+
+(define /ws_macro_pars '())
+
+(define /x '())
+
+(define /x1 '())
+
+(define /x86_regs '())
+
+(define /y '())
+
+(define /y1 '())
+
+(define /y2 '())
+
+(define /yy '())
+
+(define /yy_ch '())
+
+(define /yy_line '())
+
+(define /yy_lineno '())
+
+(define /yy_print '())
+
+(define /yy_sym '())
+
+(define /yy_value '())
+
+(define /z '())
+
+(define /z1 '())
+
+(define /z_name '())
+
+(define /zf_name '())
+
+(define alist '())
+
+(define funct-result '())
+
+(define i '())
+
+(define k '())
+
+(define key-val-pair '())
+
+(define l '())
+
+(define map-result '())
+
+(define maphash-index '())
+
+(define r '())
+
+(define random-state-global '())
+
+(define rbs '())
+
+(define reduce-result '())
+
+(define res '())
+
+(define seq '())
+
+(define this '())
+
+(define val2 '())
+
+(define var '())
+
+(define x '())
+

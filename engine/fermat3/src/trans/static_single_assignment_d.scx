@@ -1,0 +1,44 @@
+(set! //t/r_/static_/single_/assignment
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/static_/single_/assignment 1)
+  "Static_Single_Assignment")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/static_/single_/assignment 1)
+  "Static_Single_Assignment")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/static_/single_/assignment 1)
+  @static_single_assignment_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/static_/single_/assignment 1)
+  @static_single_assignment_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/static_/single_/assignment 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/static_/single_/assignment 1)
+  "Convert WSL code to Static Single Assignment form
+by renaming variables and adding phi function assignments.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/static_/single_/assignment 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/static_/single_/assignment 1)
+  "")
+

@@ -1,0 +1,24 @@
+
+j
+java:S1192Q"ODefine a constant instead of duplicating this literal "StartDirectory" 6 times.(žÕ´Ìÿÿÿÿÿ
+`
+java:S1192;"JDefine a constant instead of duplicating this literal "EditorGUI" 3 times.(ô©“ç
+F
+java:S1066í"/Merge this if statement with the enclosing one.(º•Í‰
+m
+java:S3776)"RRefactor this method to reduce its Cognitive Complexity from 76 to the 15 allowed.(¼ Òþüÿÿÿÿ
+`
+java:S3457."KFormat specifiers or lambda should be used instead of string concatenation.(Õéèo
+D	java:S108¹")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ
+Z
+java:S1659¾">Declare "w" and all following declarations on a separate line.(¡„’ïÿÿÿÿÿ
+Z
+java:S1659×">Declare "w" and all following declarations on a separate line.(¡„’ïÿÿÿÿÿ
+Z
+java:S1659à">Declare "w" and all following declarations on a separate line.(¡„’ïÿÿÿÿÿ
+X
+java:S1126“"AReplace this if-then-else statement by a single return statement.(èòŽ€
+X
+java:S1126¦"AReplace this if-then-else statement by a single return statement.(èòŽ€
+â
+java:S6541)"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 195 to 64, Complexity from 51 to 14, Nesting Level from 3 to 2, Number of Variables from 28 to 6.(¼ Òþüÿÿÿÿ

@@ -1,0 +1,42 @@
+(define (/foreach-remove_all_redundant_vars-1
+         //depth
+         //a/s_/type)
+  (cond ((and (or (= (@st (@i)) //t_/var)
+                  (= (@st (@i)) //t_/m/w_/funct)
+                  (= (@st (@i)) //t_/m/w_/b/funct))
+              (@trans? //t/r_/remove_/redundant_/vars))
+         (@pass))))
+
+(define (/foreach-remove_all_redundant_vars-2
+         //depth
+         //a/s_/type)
+  (cond ((or (= (@st (@i)) //t_/var)
+             (= (@st (@i)) //t_/m/w_/funct)
+             (= (@st (@i)) //t_/m/w_/b/funct))
+         (cond ((@trans? //t/r_/remove_/redundant_/vars)
+                (@trans //t/r_/remove_/redundant_/vars ""))))))
+
+(define (@remove_all_redundant_vars_test)
+  (cond ((and (not (= (@gt (@i)) //t_/statement))
+              (not (= (@gt (@i)) //t_/statements)))
+         (@fail "The selected item is not a statement or sequence "))
+        (#t
+         (@ateach_statement
+           /foreach-remove_all_redundant_vars-1
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (cond ((not (@passed?))
+                (@fail "No VAR statement has redundant variables"))))))
+
+(define (@remove_all_redundant_vars_code //data)
+  (@ateach_statement
+    /foreach-remove_all_redundant_vars-2
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips)))))
+
+#t
+

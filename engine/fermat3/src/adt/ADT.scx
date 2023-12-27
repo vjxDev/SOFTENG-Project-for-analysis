@@ -1,0 +1,511 @@
+(set! //options_/file "options")
+
+(set! //data_/file "")
+
+(set! /adt_/program '())
+
+(set! /adt_/posn '())
+
+(set! /adt_/posn_n 0)
+
+(set! /adt_/item '())
+
+(set! /adt_/path_/items '())
+
+(set! /adt_/program_/history '())
+
+(set! /adt_/posn_/history '())
+
+(set! /adt_/command_/history '())
+
+(set! /adt_/program_/future '())
+
+(set! /adt_/posn_/future '())
+
+(set! /adt_/command_/future '())
+
+(set! /adt_/in_/a_/trans 0)
+
+(set! /adt_/data '())
+
+(set! /adt_/buffer '())
+
+(set! /adt_/edit_/program_/stack '())
+
+(set! /adt_/edit_/posn_/stack '())
+
+(set! /adt_/edit_/to_/stack '())
+
+(define (@v1 //i) (@v (list-ref //i (+ 1 1))))
+
+(define (@program) /adt_/program)
+
+(define (@item) /adt_/item)
+
+(define (@i) /adt_/item)
+
+(define (@parent) (car /adt_/path_/items))
+
+(define (@gparent) (car (cdr /adt_/path_/items)))
+
+(define (@ggparent)
+  (car (cdr (cdr /adt_/path_/items))))
+
+(define (@posn)
+  (if (= /adt_/posn_n 0)
+    '()
+    (reverse (cons /adt_/posn_n /adt_/posn))))
+
+(define (@posn_n) /adt_/posn_n)
+
+(define (@command_list) /adt_/command_/list)
+
+(define (@data) /adt_/data)
+
+(define (@buffer) /adt_/buffer)
+
+(define (@span) 0)
+
+(define (@name /value)
+  (@make //t_/name /value '()))
+
+(define (@right?)
+  (and (> /adt_/posn_n 0)
+       (< /adt_/posn_n (@size (car /adt_/path_/items)))))
+
+(define (@right)
+  (set! /adt_/posn_n (+ /adt_/posn_n 1))
+  (set! /adt_/item
+    (list-ref
+      (car /adt_/path_/items)
+      (+ 1 /adt_/posn_n))))
+
+(define (@left?) (> /adt_/posn_n 1))
+
+(define (@left)
+  (set! /adt_/posn_n (- /adt_/posn_n 1))
+  (set! /adt_/item
+    (list-ref
+      (car /adt_/path_/items)
+      (+ 1 /adt_/posn_n))))
+
+(define (@up?) (> /adt_/posn_n 0))
+
+(define (@up)
+  (cond ((not (null? /adt_/posn))
+         (set! /adt_/posn_n (car /adt_/posn))
+         (set! /adt_/posn (cdr /adt_/posn)))
+        (#t (set! /adt_/posn_n 0)))
+  (set! /adt_/item (car /adt_/path_/items))
+  (set! /adt_/path_/items (cdr /adt_/path_/items)))
+
+(define (@up_to_statement)
+  (let while-loop ()
+    (cond ((and (@up?)
+                (not (= (@gt /adt_/item) //t_/statement)))
+           (@up)
+           (while-loop))
+          (#t #t))))
+
+(define (@down?) (@cs? /adt_/item))
+
+(define (@down) (@down_to 1))
+
+(define (@down_last)
+  (@down_to (@size /adt_/item)))
+
+(define (@to /n) (@up) (@down_to /n))
+
+(define (@to_last) (@up) (@down_last))
+
+(define (@down_to /n)
+  (cond ((> /adt_/posn_n 0)
+         (set! /adt_/posn (cons /adt_/posn_n /adt_/posn))))
+  (set! /adt_/posn_n /n)
+  (set! /adt_/path_/items
+    (cons /adt_/item /adt_/path_/items))
+  (set! /adt_/item (list-ref /adt_/item (+ 1 /n))))
+
+(define (@goto /posn)
+  (set! /adt_/posn '())
+  (set! /adt_/path_/items '())
+  (set! /adt_/item /adt_/program)
+  (let while-loop ()
+    (cond ((and (not (null? /posn)) (@cs? /adt_/item))
+           (begin
+             (set! /adt_/posn (cons (car /posn) /adt_/posn))
+             (set! /adt_/path_/items
+               (cons /adt_/item /adt_/path_/items))
+             (set! /adt_/item
+               (list-ref /adt_/item (+ 1 (car /posn))))
+             (set! /posn (cdr /posn)))
+           (while-loop))
+          (#t #t)))
+  (cond ((not (null? /adt_/posn))
+         (set! /adt_/posn_n (car /adt_/posn))
+         (set! /adt_/posn (cdr /adt_/posn)))
+        (#t (set! /adt_/posn_n 0))))
+
+(define (@valid_posn? //i /posn)
+  (or (null? /posn)
+      (and (>= (@size //i) (car /posn))
+           (@valid_posn?
+             (list-ref //i (+ 1 (car /posn)))
+             (cdr /posn)))))
+
+(define (@cut)
+  (set! /adt_/buffer /adt_/item)
+  (@delete))
+
+(define (@delete)
+  (cond ((> /adt_/posn_n 0)
+         (let ((/parent (car /adt_/path_/items)))
+           (set! /parent
+             (@make (@st /parent)
+                    '()
+                    (@delete_nth (@cs /parent) /adt_/posn_n)))
+           (@restore_path_items /parent)))
+        (#t
+         (set! /adt_/program '())
+         (set! /adt_/item '()))))
+
+(define (@restore_path_items /parent)
+  (let ((/posn /adt_/posn) (/new_path '()))
+    (set! /new_path (cons /parent /new_path))
+    (set! /adt_/path_/items (cdr /adt_/path_/items))
+    (set! /adt_/program /parent)
+    (let while-loop ()
+      (cond ((not (null? /posn))
+             (begin
+               (set! /parent (car /adt_/path_/items))
+               (set! /parent
+                 (@make (@st /parent)
+                        '()
+                        (@replace_nth
+                          (@cs /parent)
+                          (car /posn)
+                          /adt_/program)))
+               (set! /posn (cdr /posn))
+               (set! /new_path (cons /parent /new_path))
+               (set! /adt_/path_/items (cdr /adt_/path_/items))
+               (set! /adt_/program /parent))
+             (while-loop))
+            (#t #t)))
+    (set! /adt_/path_/items (reverse /new_path))
+    (cond ((<= /adt_/posn_n (@size (car /adt_/path_/items)))
+           (set! /adt_/item
+             (list-ref
+               (car /adt_/path_/items)
+               (+ 1 /adt_/posn_n))))
+          (#t (set! /adt_/item '())))))
+
+(define (@delete_nth //l /n)
+  (if (= /n 1)
+    (cdr //l)
+    (cons (car //l) (@delete_nth (cdr //l) (- /n 1)))))
+
+(define (@replace_nth //l /n /v)
+  (if (= /n 1)
+    (cons /v (cdr //l))
+    (cons (car //l)
+          (@replace_nth (cdr //l) (- /n 1) /v))))
+
+(define (@splice_nth //l /n //lv)
+  (if (= /n 1)
+    (concat //lv (cdr //l))
+    (cons (car //l)
+          (@splice_nth (cdr //l) (- /n 1) //lv))))
+
+(define (@paste_before_nth //l /n /v)
+  (if (= /n 1)
+    (cons /v //l)
+    (cons (car //l)
+          (@paste_before_nth (cdr //l) (- /n 1) /v))))
+
+(define (@splice_before_nth //l /n //lv)
+  (if (= /n 1)
+    (concat //lv //l)
+    (cons (car //l)
+          (@splice_before_nth (cdr //l) (- /n 1) //lv))))
+
+(define (@cut_rest)
+  (set! /adt_/buffer
+    (nthcdr (@posn_n) (@cs (@parent))))
+  (@delete_rest))
+
+(define (@delete_rest)
+  (cond ((> /adt_/posn_n 0)
+         (let ((/parent (car /adt_/path_/items)))
+           (set! /parent
+             (@make (@st /parent)
+                    '()
+                    (firstn /adt_/posn_n (@cs /parent))))
+           (@restore_path_items /parent)))
+        (#t
+         (set! /adt_/program '())
+         (set! /adt_/item '()))))
+
+(define (@paste_over /new)
+  (cond ((null? /new)
+         (error "@Paste_Over called with empty item")))
+  (cond ((eq? /new /adt_/item) #t)
+        ((> /adt_/posn_n 0)
+         (let ((/parent (car /adt_/path_/items)))
+           (set! /parent
+             (@make (@st /parent)
+                    '()
+                    (@replace_nth (@cs /parent) /adt_/posn_n /new)))
+           (@restore_path_items /parent)))
+        (#t
+         (set! /adt_/program /new)
+         (set! /adt_/item /new))))
+
+(define (@splice_over /new)
+  (cond ((> /adt_/posn_n 0)
+         (let ((/parent (car /adt_/path_/items)))
+           (set! /parent
+             (@make (@st /parent)
+                    '()
+                    (@splice_nth (@cs /parent) /adt_/posn_n /new)))
+           (@restore_path_items /parent)))
+        (#t
+         (set! /adt_/program /new)
+         (set! /adt_/item /new))))
+
+(define (@paste_before /new)
+  (cond ((null? /new)
+         (error "@Paste_Before called with empty item")))
+  (let ((/parent (car /adt_/path_/items)))
+    (set! /parent
+      (@make (@st /parent)
+             '()
+             (@paste_before_nth
+               (@cs /parent)
+               /adt_/posn_n
+               /new)))
+    (@restore_path_items /parent)))
+
+(define (@paste_after /new)
+  (cond ((null? /new)
+         (error "@Paste_After called with empty item")))
+  (let ((/parent (car /adt_/path_/items)))
+    (set! /parent
+      (@make (@st /parent)
+             '()
+             (@paste_before_nth
+               (@cs /parent)
+               (+ /adt_/posn_n 1)
+               /new)))
+    (@restore_path_items /parent)))
+
+(define (@splice_before /new)
+  (let ((/parent (car /adt_/path_/items)))
+    (set! /parent
+      (@make (@st /parent)
+             '()
+             (@splice_before_nth
+               (@cs /parent)
+               /adt_/posn_n
+               /new)))
+    (@restore_path_items /parent)))
+
+(define (@splice_after /new)
+  (let ((/parent (car /adt_/path_/items)))
+    (set! /parent
+      (@make (@st /parent)
+             '()
+             (@splice_before_nth
+               (@cs /parent)
+               (+ /adt_/posn_n 1)
+               /new)))
+    (@restore_path_items /parent)))
+
+(define (@clear_state)
+  (set! /adt_/program_/history '())
+  (set! /adt_/posn_/history '())
+  (set! /adt_/command_/history '())
+  (set! /adt_/program_/future '())
+  (set! /adt_/command_/list '()))
+
+(define (@save_state)
+  (set! /adt_/program_/future '())
+  (set! /adt_/program_/history
+    (cons /adt_/program /adt_/program_/history))
+  (set! /adt_/command_/history
+    (cons /adt_/command_/list /adt_/command_/history))
+  (set! /adt_/posn_/history
+    (if (> /adt_/posn_n 0)
+      (cons (cons /adt_/posn_n /adt_/posn)
+            /adt_/posn_/history)
+      (cons '() /adt_/posn_/history))))
+
+(define (@undo)
+  (cond ((not (null? /adt_/program_/history))
+         (set! /adt_/program_/future
+           (cons /adt_/program /adt_/program_/future))
+         (set! /adt_/posn_/future
+           (if (> /adt_/posn_n 0)
+             (cons (cons /adt_/posn_n /adt_/posn)
+                   /adt_/posn_/future)
+             (cons '() /adt_/posn_/future)))
+         (set! /adt_/command_/future
+           (cons /adt_/command_/list /adt_/command_/future))
+         (set! /adt_/program (car /adt_/program_/history))
+         (@goto (reverse (car /adt_/posn_/history)))
+         (set! /adt_/command_/list
+           (car /adt_/command_/history))
+         (set! /adt_/program_/history
+           (cdr /adt_/program_/history))
+         (set! /adt_/posn_/history
+           (cdr /adt_/posn_/history))
+         (set! /adt_/command_/history
+           (cdr /adt_/command_/history)))))
+
+(define (@undoable?)
+  (not (null? /adt_/program_/history)))
+
+(define (@redo)
+  (cond ((not (null? /adt_/program_/future))
+         (set! /adt_/program_/history
+           (cons /adt_/program /adt_/program_/history))
+         (set! /adt_/posn_/history
+           (if (> /adt_/posn_n 0)
+             (cons (cons /adt_/posn_n /adt_/posn)
+                   /adt_/posn_/history)
+             (cons '() /adt_/posn_/history)))
+         (set! /adt_/command_/history
+           (cons (@command_list) /adt_/command_/history))
+         (set! /adt_/program (car /adt_/program_/future))
+         (@goto (car /adt_/posn_/future))
+         (set! /adt_/command_/list
+           (car /adt_/command_/future))
+         (set! /adt_/program_/future
+           (cdr /adt_/program_/future))
+         (set! /adt_/posn_/future
+           (cdr /adt_/posn_/future))
+         (set! /adt_/command_/future
+           (cdr /adt_/command_/future)))))
+
+(define (@redoable?)
+  (not (null? /adt_/program_/future)))
+
+(define (@save_command /c)
+  (set! /adt_/command_/list
+    (cons /c /adt_/command_/list)))
+
+(define (@pop_command)
+  (set! /adt_/command_/list
+    (cdr /adt_/command_/list)))
+
+(define (@initialise_adt)
+  (set! /adt_/program_/history '())
+  (set! /adt_/posn_/history '())
+  (set! /adt_/command_/history '())
+  (set! /adt_/program_/future '())
+  (set! /adt_/posn_/future '())
+  (set! /adt_/command_/future '())
+  (set! /adt_/command_/list '())
+  (set! /adt_/data '())
+  (set! /adt_/buffer '())
+  (set! /adt_/program
+    (@make //t_/statements
+           '()
+           (list (@make //t_/stat_/pat_/one '() '()))))
+  (@goto '()))
+
+(define (@new_program //i)
+  (set! /adt_/program //i)
+  (@goto '()))
+
+(define (@original_program)
+  (if (not (null? /adt_/program_/history))
+    (last-1 /adt_/program_/history)
+    /adt_/program))
+
+(define (@dtable_get //i /name)
+  (@assoc /name (car //i)))
+
+(define (@dtable_value_part /result)
+  (cdr /result))
+
+(define (@dtable_put //i /name /value)
+  (set-car!
+    //i
+    (cons (cons /name /value) (car //i))))
+
+(define (@prpr) (@print_wsl (@program) ""))
+
+(define (@prit) (@print_wsl (@item) ""))
+
+(define (@print_wsl //i /indent)
+  (cond ((@has_value_type? (@st //i))
+         (begin
+           (display /indent)
+           (begin
+             (display (@type_name (@st //i)))
+             (begin
+               (display " ")
+               (begin
+                 (display (@value_string //i))
+                 (newline)
+                 (force-output))))))
+        (#t
+         (begin
+           (display /indent)
+           (begin
+             (display (@type_name (@st //i)))
+             (newline)
+             (force-output)))
+         (let ((/c (@cs //i)))
+           (let while-loop ()
+             (cond ((not (null? /c))
+                    (begin
+                      (@print_wsl
+                        (car /c)
+                        (concat
+                          /indent
+                          (if (= (@gt //i) //t_/statement) ":  " "   ")))
+                      (set! /c (cdr /c)))
+                    (while-loop))
+                   (#t #t)))))))
+
+(define (@write_raw_item //i /port)
+  (let ((/comp '()))
+    (@write "(() " /port)
+    (@write (@st //i) /port)
+    (cond ((@has_value_type? (@st //i))
+           (cond ((not (null? (@v //i)))
+                  (@write " . " /port)
+                  (cond ((or (= (@st //i) //t_/string)
+                             (= (@st //i) //t_/comment))
+                         (@write
+                           (concat (concat //quote (@v //i)) //quote)
+                           /port))
+                        ((or (= (@st //i) //t_/number)
+                             (= (@st //i) //t_/exit))
+                         (@write (@v //i) /port))
+                        (#t
+                         (@write
+                           (string-append
+                             (concat
+                               (concat
+                                 (string-append ",(@Make_Name " //quote)
+                                 (@n_string (@v //i)))
+                               //quote)
+                             ")")
+                           /port))))))
+          (#t
+           (let ((var-save /comp) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (begin
+                        (@write " " /port)
+                        (@write_raw_item /comp /port))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save))))
+    (@write ")" /port)))
+

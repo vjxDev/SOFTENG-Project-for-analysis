@@ -1,0 +1,398 @@
+(define fermat ".")
+
+(define perl "perl")
+
+(define ds "/")
+
+(define (user-interrupt . args) (quit 13))
+
+(define (gethash tab key)
+  (let ((result (gethash-1 tab key)))
+    (if result (cdr result) '())))
+
+(define (@hash_keys tab)
+  (let ((res '()) (i 0) (x '()))
+    (let ((var-save i)
+          (for-step 1)
+          (for-end (- (vector-length tab) 1)))
+      (set! i 0)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= i for-end))
+                   (and (< 1 0) (>= i for-end)))
+               (set! x (vector-ref tab i))
+               (let while-loop ()
+                 (cond ((not (null? x))
+                        (set! res (cons (caar x) res))
+                        (set! x (cdr x))
+                        (while-loop))
+                       (#t #t)))
+               (set! i (+ i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! i var-save))
+    res))
+
+(define (@assoc key alist)
+  (or (assq key alist) '()))
+
+(define (build-vector n f)
+  (let ((v (make-vector n)))
+    (do ((i 0 (+ i 1)))
+        ((>= i n) v)
+      (vector-set! v i (f i)))))
+
+(define (frac x) 0)
+
+(define (int x) x)
+
+(define (sgn x)
+  (cond ((< x 0) -1) ((= x 0) 0) (#t 1)))
+
+(define (sequence? x) (or (null? x) (pair? x)))
+
+(define (concat a b)
+  (if (or (null? a) (pair? a))
+    (append a b)
+    (string-append (@string a) (@string b))))
+
+(define (vector-elts ar)
+  (let ((res '()) (i 0))
+    (let ((var-save i) (for-step -1) (for-end 0))
+      (set! i (- (vector-length ar) 1))
+      (let for-loop ()
+        (cond ((or (and (> -1 0) (<= i for-end))
+                   (and (< -1 0) (>= i for-end)))
+               (set! res (cons (vector-ref ar i) res))
+               (set! i (+ i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! i var-save))
+    res))
+
+(define (replace-nth object n value)
+  (cond ((vector? object)
+         (vector-set! object (- n 1) value)
+         object)
+        ((<= n 1)
+         (if (null? object)
+           (list value)
+           (cons value (cdr object))))
+        (#t
+         (if (null? object)
+           (append (make-null-list (- n 1)) (list value))
+           (cons (car object)
+                 (replace-nth (cdr object) (- n 1) value))))))
+
+(define (make-null-list n)
+  (let ((r '()))
+    (do ((i 0 (+ i 1)))
+        ((>= i n) r)
+      (set! r (cons '() r)))))
+
+(define (@update_segment object from to val)
+  (cond ((vector? object)
+         (if (vector? val)
+           (let ((var-save i) (for-step 1) (for-end to))
+             (set! i from)
+             (let for-loop ()
+               (cond ((or (and (> 1 0) (<= i for-end))
+                          (and (< 1 0) (>= i for-end)))
+                      (vector-set!
+                        object
+                        (- i 1)
+                        (vector-ref val (- i from)))
+                      (set! i (+ i for-step))
+                      (for-loop))
+                     (#t #t)))
+             (set! i var-save))
+           (let ((var-save i) (for-step 1) (for-end to))
+             (set! i from)
+             (let for-loop ()
+               (cond ((or (and (> 1 0) (<= i for-end))
+                          (and (< 1 0) (>= i for-end)))
+                      (vector-set!
+                        object
+                        (- i 1)
+                        (list-ref val (- i from)))
+                      (set! i (+ i for-step))
+                      (for-loop))
+                     (#t #t)))
+             (set! i var-save)))
+         object)
+        (#t
+         (if (vector? val)
+           (let ((val2 '()))
+             (let ((var-save i)
+                   (for-step 1)
+                   (for-end (vector-length val)))
+               (set! i 0)
+               (let for-loop ()
+                 (cond ((or (and (> 1 0) (<= i for-end))
+                            (and (< 1 0) (>= i for-end)))
+                        (set! val2 (cons (vector-ref val i) val2))
+                        (set! i (+ i for-step))
+                        (for-loop))
+                       (#t #t)))
+               (set! i var-save))
+             (append
+               (firstn (- from 1) object)
+               val2
+               (nthcdr to object)))
+           (append
+             (firstn (- from 1) object)
+             val
+             (nthcdr to object))))))
+
+(define (@sub_seg object from to)
+  (if (vector? object)
+    (let ((v (make-vector (+ 1 (- to from)) '())))
+      (let ((var-save i) (for-step 1) (for-end to))
+        (set! i from)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= i for-end))
+                     (and (< 1 0) (>= i for-end)))
+                 (vector-set!
+                   v
+                   (- i from)
+                   (vector-ref object (- i 1)))
+                 (set! i (+ i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! i var-save))
+      v)
+    (firstn
+      (+ 1 (- to from))
+      (nthcdr (- from 1) object))))
+
+(define (@rel_seg object from len)
+  (if (vector? object)
+    (let ((v (make-vector len '())))
+      (let ((var-save i)
+            (for-step 1)
+            (for-end (- (+ from len) 1)))
+        (set! i from)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= i for-end))
+                     (and (< 1 0) (>= i for-end)))
+                 (vector-set!
+                   v
+                   (- i from)
+                   (vector-ref object (- i 1)))
+                 (set! i (+ i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! i var-save))
+      v)
+    (firstn len (nthcdr (- from 1) object))))
+
+(define (@final_seg object from)
+  (if (vector? object)
+    (let ((v (make-vector
+               (+ 1 (- (vector-length object) from))
+               '())))
+      (let ((var-save i)
+            (for-step 1)
+            (for-end (vector-length object)))
+        (set! i from)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= i for-end))
+                     (and (< 1 0) (>= i for-end)))
+                 (vector-set!
+                   v
+                   (- i from)
+                   (vector-ref object (- i 1)))
+                 (set! i (+ i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! i var-save))
+      v)
+    (nthcdr (- from 1) object)))
+
+(define (firstn n l)
+  (if (or (= n 0) (null? l))
+    '()
+    (cons (car l) (firstn (- n 1) (cdr l)))))
+
+(define (last-1 lst)
+  (if (null? (cdr lst))
+    (car lst)
+    (last-1 (cdr lst))))
+
+(define (butlast-1 lst)
+  (if (null? (cdr lst))
+    '()
+    (cons (car lst) (butlast-1 (cdr lst)))))
+
+(define (nthcdr n lst)
+  (if (zero? n) lst (nthcdr (+ -1 n) (cdr lst))))
+
+(define (@gen_less? a b)
+  (cond ((number? a) (if (number? b) (< a b) #t))
+        ((or (null? a) (pair? a))
+         (cond ((number? b) #f)
+               ((or (null? b) (pair? b)) (@gen_less_lists? a b))
+               (#t #f)))
+        ((string? a)
+         (cond ((or (number? b) (pair? b)) #f)
+               ((string? b) (string<? a b))
+               (#t (@gen_less? a (@string b)))))
+        (#t (@gen_less? (@string a) b))))
+
+(define (@gen_less_lists? a b)
+  (cond ((null? a) (not (null? b)))
+        ((null? b) #f)
+        ((equal? (car a) (car b))
+         (@gen_less? (cdr a) (cdr b)))
+        ((@gen_less? (car a) (car b)) #t)
+        (#t #f)))
+
+(define (@string obj)
+  (cond ((string? obj) obj)
+        ((number? obj) (number->string obj))
+        ((symbol? obj) (symbol->string obj))
+        ((null? obj) "")
+        ((char? obj) (string obj))
+        (#t
+         (error "@String"
+                "Don't know how to convert:"
+                obj))))
+
+(define spaces-100
+  "                                                                                                    ")
+
+(define (@format len obj)
+  (let ((str (@string obj)))
+    (cond ((> len 0)
+           (string-append
+             (let ((f 0))
+               (substring
+                 spaces-100
+                 f
+                 (+ f
+                    (min (max (- len (string-length str)) 0) 100))))
+             str))
+          ((< len 0)
+           (string-append
+             str
+             (let ((f 0))
+               (substring
+                 spaces-100
+                 f
+                 (+ f
+                    (min (max (- (- len) (string-length str)) 0) 100))))))
+          (#t str))))
+
+(define (@random n) (+ (myrandom n) 1))
+
+(define (@seed_random_state str)
+  (set! random-state-global
+    (seed->random-state str)))
+
+(define //backslash (string (integer->char 92)))
+
+(define //quote (string (integer->char 34)))
+
+(define //tab (string (integer->char 9)))
+
+(define //newline (string (integer->char 10)))
+
+(define //not/sign (string (integer->char 172)))
+
+(define //u/t/f8/prefix
+  (string (integer->char 194)))
+
+(define //a/r/g/v '())
+
+(define /__/d/u/m/m/y__ '())
+
+(define //standard_/input_/port
+  (current-input-port))
+
+(define //standard_/output_/port
+  (current-output-port))
+
+(define (@open_input_file filename)
+  (open-input-file filename))
+
+(define (@open_output_file filename)
+  (open-output-file filename))
+
+(define (@close_input_port port)
+  (close-input-port port))
+
+(define (@close_output_port port)
+  (close-output-port port))
+
+(define return-char (integer->char 13))
+
+(define (@read_line port)
+  (let* ((char (read-char port)))
+    (if (eof-object? char)
+      char
+      (do ((char char (read-char port))
+           (clist '() (cons char clist)))
+          ((or (eof-object? char) (char=? #\newline char))
+           (if (and (not (null? clist))
+                    (char=? (car clist) return-char))
+             (list->string (reverse (cdr clist)))
+             (list->string (reverse clist))))))))
+
+(define (@read_line_proc line port)
+  (cons (@read_line port) (cons port '())))
+
+(define (@write_line str port)
+  (display str port)
+  (newline port))
+
+(define (@write str port) (display str port))
+
+(define (@file_exists? filename)
+  (file-exists? filename))
+
+(define (@eof? obj) (eof-object? obj))
+
+(define (@eol? obj) (char=? obj #\newline))
+
+(define (@read_char port) (read-char port))
+
+(define (@peek_char port) (peek-char port))
+
+(define (@delete_file file) (delete-file file))
+
+(define (@create_folder folder)
+  (eqv? 0
+        (system (string-append "mkdir \"" folder "\""))))
+
+(define (perlscript cmd args)
+  (system
+    (string-append
+      perl
+      " -I "
+      //quote
+      fermat
+      ds
+      "config"
+      //quote
+      " "
+      //quote
+      fermat
+      ds
+      "bin"
+      ds
+      cmd
+      //quote
+      " -FermaT "
+      //quote
+      fermat
+      //quote
+      " "
+      args)))
+
+(define (@runtime) (get-internal-run-time))
+
+(define (@list_to_string list)
+  (list->string (map integer->char list)))
+
+(define (@string_to_list str)
+  (map char->integer (string->list str)))
+

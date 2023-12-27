@@ -1,0 +1,81 @@
+(define (/foreach-find_terminals-1 //depth //a/s_/type)
+  (set! /posn (@posn))
+  (let while-loop ()
+    (cond ((and (= (@st (@i)) //t_/comment)
+                (not (equal? (@v (@i)) (@v /comment)))
+                (@left?))
+           (@left)
+           (while-loop))
+          (#t #t)))
+  (cond ((and (= (@st (@i)) //t_/comment)
+              (equal? (@v (@i)) (@v /comment)))
+         #t)
+        (#t
+         (@paste_after /comment)
+         (cond ((and (= (@st (@i)) //t_/proc_/call)
+                     (not (member
+                            (@v (list-ref (@i) (+ 1 1)))
+                            //procs_/done)))
+                (@goto_proc_body (@v (list-ref (@i) (+ 1 1))))
+                (cond ((= (@st (@i)) //t_/proc)
+                       (@ft_process
+                         /comment
+                         (cons (@v (list-ref (@i) (+ 1 1))) //procs_/done)))))
+               ((= (@st (@i)) //t_/cond)
+                (@ft_process /comment //procs_/done)))))
+  (@goto /posn))
+
+(define (@find_terminals_test) (@pass))
+
+(define (@find_terminals_code //data)
+  (cond ((or (null? //data) (equal? //data ""))
+         (set! //data (@n_string (@value (@i))))))
+  (@ft_process
+    (@make //t_/comment
+           (string-append
+             (string-append "<Terminal: " //data)
+             ">")
+           '())
+    '()))
+
+(define (@ft_process /comment-par //procs_/done-par)
+  (let ((//procs_/done-save //procs_/done)
+        (/comment-save /comment))
+    (set! //procs_/done //procs_/done-par)
+    (set! /comment /comment-par)
+    (let ((/posn-save /posn))
+      (set! /posn '())
+      (@ateach_terminal
+        /foreach-find_terminals-1
+        0
+        (@as_type)
+        1)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /posn /posn-save))
+    (set! //procs_/done //procs_/done-save)
+    (set! /comment /comment-save)))
+
+(define (@goto_proc_body /name)
+  (let while-loop ()
+    (cond ((and (@up?) (not (= (@st (@i)) //t_/where)))
+           (@up)
+           (while-loop))
+          (#t #t)))
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@down)
+         (let while-loop ()
+           (cond ((and (@right?)
+                       (or (not (= (@st (@i)) //t_/proc))
+                           (not (equal? (@v (list-ref (@i) (+ 1 1))) /name))))
+                  (@right)
+                  (while-loop))
+                 (#t #t)))
+         (cond ((or (not (= (@st (@i)) //t_/proc))
+                    (not (equal? (@v (list-ref (@i) (+ 1 1))) /name)))
+                (@up)
+                (@up)
+                (cond ((@up?) (@up) (@goto_proc_body /name))))))))
+
+#t
+

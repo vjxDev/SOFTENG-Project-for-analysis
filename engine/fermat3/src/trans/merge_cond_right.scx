@@ -1,0 +1,104 @@
+(define (@merge_cond_right_test)
+  (cond ((not (= (@st (@i)) //t_/cond))
+         (@fail "Current item is not a Cond (IF statement)"))
+        ((not (= (@size (@i)) 2))
+         (@fail "IF statement must have exactly two branches"))
+        ((and (null? (@set_intersect
+                       (@variables
+                         (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                       (@set_union
+                         (@assigned
+                           (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2)))
+                         (@assigned
+                           (list-ref (list-ref (@i) (+ 1 2)) (+ 1 2))))))
+              (null? (@set_intersect
+                       //call_/types_/set
+                       (@stat_types (@i)))))
+         (let ((/n (@posn_n))
+               (//b (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+               (/not/b
+                 (@not (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))))
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (cond ((not (@right?))
+                           (@fail "No suitable Cond found")
+                           (set! /fl_flag1 1))
+                          (#t
+                           (@right)
+                           (cond ((or (= (@st (@i)) //t_/comment)
+                                      (= (@st (@i)) //t_/skip))
+                                  (set! /fl_flag1 0))
+                                 ((and (= (@st (@i)) //t_/cond)
+                                       (= (@size (@i)) 2))
+                                  (cond ((or (@equal?
+                                               /not/b
+                                               (list-ref
+                                                 (list-ref (@i) (+ 1 1))
+                                                 (+ 1 1)))
+                                             (@equal?
+                                               //b
+                                               (list-ref
+                                                 (list-ref (@i) (+ 1 1))
+                                                 (+ 1 1))))
+                                         (@pass))
+                                        (#t
+                                         (@fail "The next Cond does not have the same (or opposite) test")))
+                                  (set! /fl_flag1 1))
+                                 (#t
+                                  (@fail "No suitable Cond found")
+                                  (set! /fl_flag1 1)))))
+                    (while-loop))
+                   (#t #t)))
+           (@to /n)))
+        (#t
+         (@fail "The condition could be modified in the body"))))
+
+(define (@merge_cond_right_code //data)
+  (let ((//b (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+        (/not/b
+          (@not (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))))
+        (/n (@posn_n))
+        (//s1 '())
+        (//s2 '()))
+    (@right)
+    (let while-loop ()
+      (cond ((not (= (@st (@i)) //t_/cond))
+             (@right)
+             (while-loop))
+            (#t #t)))
+    (cond ((@equal?
+             //b
+             (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+           (set! //s1
+             (@cs (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))))
+           (set! //s2
+             (@cs (list-ref (list-ref (@i) (+ 1 2)) (+ 1 2)))))
+          ((@equal?
+             /not/b
+             (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+           (set! //s2
+             (@cs (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))))
+           (set! //s1
+             (@cs (list-ref (list-ref (@i) (+ 1 2)) (+ 1 2)))))
+          (#t
+           (error "@Merge_Cond_Right_Code: next Cond has a different condition!")))
+    (cond ((not (null? //s1))
+           (@delete)
+           (@to /n)
+           (@down)
+           (@down_last)
+           (@down_last)
+           (@splice_after //s1)
+           (@up)
+           (@up)
+           (@right)
+           (@down_last)
+           (@down_last)
+           (@splice_after //s2)
+           (@up)
+           (@up)
+           (@up)))))
+
+#t
+

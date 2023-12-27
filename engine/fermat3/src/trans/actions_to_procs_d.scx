@@ -1,0 +1,37 @@
+(set! //t/r_/actions_/to_/procs (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/actions_/to_/procs 1)
+  "Actions to Procs")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/actions_/to_/procs 1)
+  "Actions_To_Procs")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/actions_/to_/procs 1)
+  @actions_to_procs_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/actions_/to_/procs 1)
+  @actions_to_procs_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/actions_/to_/procs 1)
+  (list "Rewrite" "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/actions_/to_/procs 1)
+  "Search for actions which call one other action and make them into procs.")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/actions_/to_/procs 1)
+  "")
+

@@ -1,0 +1,44 @@
+(set! //t/r_/make_/reducible (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/make_/reducible 1)
+  "Make_Reducible")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/make_/reducible 1)
+  "Make_Reducible")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/make_/reducible 1)
+  @make_reducible_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/make_/reducible 1)
+  @make_reducible_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/make_/reducible 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/make_/reducible 1)
+  "Use absorption if necessary to make the selected item
+reducible (ie all terminal statements with terminal value 1 are
+in terminal positions in the given item). ")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/make_/reducible 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/make_/reducible 1)
+  "")
+

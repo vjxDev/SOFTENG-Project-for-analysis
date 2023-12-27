@@ -1,0 +1,46 @@
+(set! //t/r_/add_/loop_/to_/action
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/add_/loop_/to_/action 1)
+  "Add_Loop_To_Action")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/add_/loop_/to_/action 1)
+  @add_loop_to_action_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/add_/loop_/to_/action 1)
+  @add_loop_to_action_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/add_/loop_/to_/action 1)
+  "Add_Loop_To_Action")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/add_/loop_/to_/action 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/add_/loop_/to_/action 1)
+  "If an action is only called by one other action,
+in a regular system we can merge the calls to the first action
+by introducing a Floop, replacing the calls by EXITs and adding a single call
+after the loop. ")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/add_/loop_/to_/action 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/add_/loop_/to_/action 1)
+  "")
+

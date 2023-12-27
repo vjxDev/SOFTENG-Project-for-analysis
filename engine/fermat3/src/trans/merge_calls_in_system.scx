@@ -1,0 +1,919 @@
+(define (/foreach-merge_calls_in_system-1
+         //depth
+         //a/s_/type)
+  (set! /rest (cdr (@cs (@i))))
+  (@down)
+  (set! /fl_flag2 0)
+  (let while-loop ()
+    (cond ((= /fl_flag2 0)
+           (begin
+             (let while-loop ()
+               (cond ((and (or (not (= //t_/cond (@st (@i))))
+                               (<= //max_/cond_/size (@size (@i)))
+                               (not (@right?)))
+                           (@right?))
+                      (begin (set! /rest (cdr /rest)) (@right))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((and (or (not (= //t_/cond (@st (@i))))
+                             (<= //max_/cond_/size (@size (@i)))
+                             (not (@right?)))
+                         (not (@right?)))
+                    (set! /fl_flag2 1))
+                   (#t (set! /fl_flag2 0)))
+             (cond ((= /fl_flag2 0)
+                    (cond ((and (not (null? (@set_difference
+                                              (@multi_calls
+                                                (@make //t_/statements
+                                                       '()
+                                                       (cons (@i) /rest))
+                                                2)
+                                              (list //z))))
+                                (not (null? (@set_difference
+                                              (@set_intersect
+                                                (@multi_calls (@i) 1)
+                                                (@multi_calls
+                                                  (@make //t_/statements
+                                                         '()
+                                                         /rest)
+                                                  1))
+                                              (list //z)))))
+                           (set! /n 0)
+                           (@down)
+                           (@down_to 2)
+                           (cond ((not (@gen_improper? (@i) "Reg"))
+                                  (set! /n (+ /n 1))))
+                           (@up)
+                           (let while-loop ()
+                             (cond ((@right?)
+                                    (begin
+                                      (@right)
+                                      (@down_to 2)
+                                      (cond ((not (@gen_improper? (@i) "Reg"))
+                                             (set! /n (+ /n 1))))
+                                      (@up))
+                                    (while-loop))
+                                   (#t #t)))
+                           (@up)
+                           (@right)
+                           (cond ((= (@st (@i)) //t_/call) (set! /n 0)))
+                           (@left)
+                           (cond ((and (<= /n 1)
+                                       (>= (if (vector? (@posn))
+                                             (vector-length (@posn))
+                                             (length (@posn)))
+                                           80))
+                                  (begin
+                                    (display " B1(")
+                                    (begin
+                                      (display
+                                        (if (vector? (@posn))
+                                          (vector-length (@posn))
+                                          (length (@posn))))
+                                      (begin (display ") ") (force-output))))
+                                  (set! /fl_flag2 0))
+                                 ((<= /n 1)
+                                  (begin (display "e") (force-output))
+                                  (set! /expansions (+ /expansions 1))
+                                  (let ((/len (+ (if (vector? (@posn))
+                                                   (vector-length (@posn))
+                                                   (length (@posn)))
+                                                 (@max_pos_l (@i)))))
+                                    (set! /fl_flag1 0)
+                                    (let while-loop ()
+                                      (cond ((= /fl_flag1 0)
+                                             (cond ((not (@right?))
+                                                    (set! /fl_flag1 1))
+                                                   (#t
+                                                    (@right)
+                                                    (cond ((>= (+ /len
+                                                                  (@max_pos_l
+                                                                    (@i)))
+                                                               80)
+                                                           (begin
+                                                             (display " B2(")
+                                                             (begin
+                                                               (display
+                                                                 (+ /len
+                                                                    (@max_pos_l
+                                                                      (@i))))
+                                                               (begin
+                                                                 (display ") ")
+                                                                 (force-output))))
+                                                           (@left)
+                                                           (set! /fl_flag1 1))
+                                                          (#t
+                                                           (@left)
+                                                           (@gen_expand_forward
+                                                             "Reg")
+                                                           (set! /len
+                                                             (+ (if (vector?
+                                                                      (@posn))
+                                                                  (vector-length
+                                                                    (@posn))
+                                                                  (length
+                                                                    (@posn)))
+                                                                (@max_pos_l
+                                                                  (@i))))
+                                                           (set! /fl_flag1
+                                                             0)))))
+                                             (while-loop))
+                                            (#t #t))))
+                                  (set! /fl_flag2 1))
+                                 (#t (set! /fl_flag2 0))))
+                          (#t (set! /fl_flag2 0)))
+                    (cond ((= /fl_flag2 0)
+                           (cond ((not (@right?)) (set! /fl_flag2 1))
+                                 (#t
+                                  (set! /rest (cdr /rest))
+                                  (@right)
+                                  (set! /fl_flag2 0))))))))
+           (while-loop))
+          (#t #t)))
+  (@up))
+
+(define (/foreach-merge_calls_in_system-2
+         //depth
+         //a/s_/type)
+  (set! /rest (cdr (@cs (@i))))
+  (@down)
+  (set! /fl_flag2 0)
+  (let while-loop ()
+    (cond ((= /fl_flag2 0)
+           (begin
+             (let while-loop ()
+               (cond ((and (or (not (= //t_/cond (@st (@i))))
+                               (<= //max_/cond_/size (@size (@i)))
+                               (not (@right?)))
+                           (@right?))
+                      (begin (set! /rest (cdr /rest)) (@right))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((and (or (not (= //t_/cond (@st (@i))))
+                             (<= //max_/cond_/size (@size (@i)))
+                             (not (@right?)))
+                         (not (@right?)))
+                    (set! /fl_flag2 1))
+                   (#t (set! /fl_flag2 0)))
+             (cond ((= /fl_flag2 0)
+                    (cond ((and (not (null? (@set_difference
+                                              (@multi_calls
+                                                (@make //t_/statements
+                                                       '()
+                                                       (cons (@i) /rest))
+                                                2)
+                                              (list //z))))
+                                (not (null? (@set_difference
+                                              (@set_intersect
+                                                (@multi_calls (@i) 1)
+                                                (@multi_calls
+                                                  (@make //t_/statements
+                                                         '()
+                                                         /rest)
+                                                  1))
+                                              (list //z)))))
+                           (set! /n 0)
+                           (@down)
+                           (@down_to 2)
+                           (cond ((not (@gen_improper? (@i) "Reg"))
+                                  (set! /n (+ /n 1))))
+                           (@up)
+                           (let while-loop ()
+                             (cond ((@right?)
+                                    (begin
+                                      (@right)
+                                      (@down_to 2)
+                                      (cond ((not (@gen_improper? (@i) "Reg"))
+                                             (set! /n (+ /n 1))))
+                                      (@up))
+                                    (while-loop))
+                                   (#t #t)))
+                           (@up)
+                           (@right)
+                           (cond ((= (@st (@i)) //t_/call) (set! /n 0)))
+                           (@left)
+                           (cond ((and (<= /n 1)
+                                       (>= (if (vector? (@posn))
+                                             (vector-length (@posn))
+                                             (length (@posn)))
+                                           80))
+                                  (begin
+                                    (display " B1(")
+                                    (begin
+                                      (display
+                                        (if (vector? (@posn))
+                                          (vector-length (@posn))
+                                          (length (@posn))))
+                                      (begin (display ") ") (force-output))))
+                                  (set! /fl_flag2 0))
+                                 ((<= /n 1)
+                                  (begin (display "e") (force-output))
+                                  (set! /expansions (+ /expansions 1))
+                                  (let ((/len (+ (if (vector? (@posn))
+                                                   (vector-length (@posn))
+                                                   (length (@posn)))
+                                                 (@max_pos_l (@i)))))
+                                    (set! /fl_flag1 0)
+                                    (let while-loop ()
+                                      (cond ((= /fl_flag1 0)
+                                             (cond ((not (@right?))
+                                                    (set! /fl_flag1 1))
+                                                   (#t
+                                                    (@right)
+                                                    (cond ((>= (+ /len
+                                                                  (@max_pos_l
+                                                                    (@i)))
+                                                               80)
+                                                           (begin
+                                                             (display " B2(")
+                                                             (begin
+                                                               (display
+                                                                 (+ /len
+                                                                    (@max_pos_l
+                                                                      (@i))))
+                                                               (begin
+                                                                 (display ") ")
+                                                                 (force-output))))
+                                                           (@left)
+                                                           (set! /fl_flag1 1))
+                                                          (#t
+                                                           (@left)
+                                                           (@gen_expand_forward
+                                                             "Reg")
+                                                           (set! /len
+                                                             (+ (if (vector?
+                                                                      (@posn))
+                                                                  (vector-length
+                                                                    (@posn))
+                                                                  (length
+                                                                    (@posn)))
+                                                                (@max_pos_l
+                                                                  (@i))))
+                                                           (set! /fl_flag1
+                                                             0)))))
+                                             (while-loop))
+                                            (#t #t))))
+                                  (set! /fl_flag2 1))
+                                 (#t (set! /fl_flag2 0))))
+                          (#t (set! /fl_flag2 0)))
+                    (cond ((= /fl_flag2 0)
+                           (cond ((not (@right?)) (set! /fl_flag2 1))
+                                 (#t
+                                  (set! /rest (cdr /rest))
+                                  (@right)
+                                  (set! /fl_flag2 0))))))))
+           (while-loop))
+          (#t #t)))
+  (@up))
+
+(define (/foreach-merge_calls_in_system-3
+         //depth
+         //a/s_/type)
+  (@down)
+  (set! /fl_flag1 0)
+  (let while-loop ()
+    (cond ((= /fl_flag1 0)
+           (cond ((and (@gen_improper? (@i) "Reg") (@right?))
+                  (@delete_rest)
+                  (begin (display "x") (force-output))
+                  (set! /fl_flag1 1))
+                 ((@right?) (@right) (set! /fl_flag1 0))
+                 (#t (set! /fl_flag1 1)))
+           (while-loop))
+          (#t #t))))
+
+(define (/foreach-merge_calls_in_system-4
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/cond)
+              (< (@size (@i)) //max_/cond_/size))
+         (cond ((@trans? //t/r_/simplify_/item)
+                (@trans //t/r_/simplify_/item "")
+                (begin (display "s") (force-output)))))))
+
+(define (/foreach-merge_calls_in_system-5
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/cond)
+              (< (@size (@i)) //max_/cond_/size))
+         (set! /call '())
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (@down_last)
+                    (@down_last)
+                    (cond ((= (@st (@i)) //t_/call)
+                           (cond ((and (null? /call)
+                                       (member (@v (@i)) /take_out))
+                                  (set! /call (@i))
+                                  (set! /fl_flag1 0))
+                                 (#t (set! /fl_flag1 0))))
+                          ((not (@gen_improper? (@i) "Reg"))
+                           (set! /call '())
+                           (@up)
+                           (@up)
+                           (set! /fl_flag1 1))
+                          (#t (set! /fl_flag1 0)))
+                    (cond ((= /fl_flag1 0)
+                           (@up)
+                           (@up)
+                           (cond ((not (@right?)) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (cond ((not (null? /call))
+                (begin
+                  (display (@n_string (@v /call)))
+                  (begin (display " ") (force-output)))
+                (set! /n (+ /n 1))
+                (@down)
+                (set! /fl_flag1 0)
+                (let while-loop ()
+                  (cond ((= /fl_flag1 0)
+                         (begin
+                           (@down_last)
+                           (@down_last)
+                           (cond ((and (= (@st (@i)) //t_/call)
+                                       (equal? (@v (@i)) (@v /call)))
+                                  (@paste_over /skip_st)))
+                           (@up)
+                           (@up)
+                           (cond ((not (@right?)) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))
+                         (while-loop))
+                        (#t #t)))
+                (@up)
+                (@paste_after /call))))))
+
+(define (/foreach-merge_calls_in_system-6
+         //depth
+         //a/s_/type)
+  (@down)
+  (let while-loop ()
+    (cond ((@right?)
+           (cond ((= (@st (@i)) //t_/cond)
+                  (@right)
+                  (cond ((= (@st (@i)) //t_/call)
+                         (@left)
+                         (@trans //t/r_/absorb_/right ""))))
+                 (#t (@right)))
+           (while-loop))
+          (#t #t))))
+
+(define (/foreach-merge_calls_in_system-7
+         //depth
+         //a/s_/type)
+  (cond ((and (= /push 1)
+              (= (@st (@i)) //t_/push)
+              (= (@st (list-ref (@i) (+ 1 1)))
+                 //t_/var_/lvalue)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /call_stack)
+              (@fd_is_code?
+                (list-ref (@i) (+ 1 2))
+                //code_/hash))
+         (set! /call (@fd_find_call 4 //code_/hash))
+         (cond ((and (not (null? /call))
+                     (not (member /call /ignore)))
+                (puthash
+                  //return_/regs
+                  /call
+                  (@set_union
+                    (gethash //return_/regs /call)
+                    (list (@v (list-ref (@i) (+ 1 1))))))
+                (set! //entry_/actions
+                  (@set_union //entry_/actions (list /call))))))
+        ((= (@st (@i)) //t_/assignment)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((and (= (@st (list-ref (@i) (+ 1 1)))
+                                   //t_/var_/lvalue)
+                                (@fd_is_code?
+                                  (list-ref (@i) (+ 1 2))
+                                  //code_/hash)
+                                (not (@starts_with?
+                                       (@v (list-ref (@i) (+ 1 1)))
+                                       "HANDLE_")))
+                           (set! /call (@fd_find_call 4 //code_/hash))
+                           (cond ((and (not (null? /call))
+                                       (not (member /call /ignore)))
+                                  (puthash
+                                    //return_/regs
+                                    /call
+                                    (@set_union
+                                      (gethash //return_/regs /call)
+                                      (list (@v (list-ref (@i) (+ 1 1))))))
+                                  (set! //entry_/actions
+                                    (@set_union
+                                      //entry_/actions
+                                      (list /call)))))))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t)))
+         (@up))))
+
+(define /%const__merge_calls_in_system__1
+  (@make 145 '() '()))
+
+(define /%const__merge_calls_in_system__2
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '()) (@make 217 -2 '()))))))
+
+(define (@merge_calls_in_system_test)
+  (cond ((not (= (@st (@i)) //t_/a_/s))
+         (@fail "Selected item is not an action system"))
+        (#t
+         (cond ((not (equal? (@system_type (@i)) "Reg"))
+                (@fail "Action System is not regular"))
+               ((< (@size (list-ref (@i) (+ 1 2))) 2)
+                (@fail "Only one action in the system"))
+               (#t (@pass))))))
+
+(define (@merge_calls_in_system_code //data)
+  (let ((/n-save /n)
+        (//z-save //z)
+        (//p '())
+        (/expansions-save /expansions)
+        (/loops 0)
+        (/skip_st-save /skip_st)
+        (/actions (@cs (list-ref (@i) (+ 1 2))))
+        (/action '())
+        (/start (@v (list-ref (@i) (+ 1 1))))
+        (/new '())
+        (/calls '())
+        (/take_out-save /take_out)
+        (/ignore-save /ignore)
+        (/dispatch (@make_name "dispatch"))
+        (/rest-save /rest)
+        (/call-save /call)
+        (/size (@total_size (@i)))
+        (/struct (@struct_metric (@i)))
+        (/orig (@i)))
+    (set! /n 0)
+    (set! //z (@make_name "Z"))
+    (set! /expansions 0)
+    (set! /skip_st /%const__merge_calls_in_system__1)
+    (set! /take_out '())
+    (set! /ignore '())
+    (set! /rest '())
+    (set! /call '())
+    (@edit)
+    (begin
+      (display "Using Expansion to reduce calls... ")
+      (force-output))
+    (let ((var-save /action) (seq-save /actions))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /action (car for-tmp))
+               (begin
+                 (@new_program (list-ref /action (+ 1 2)))
+                 (set! /loops 0)
+                 (cond ((not (equal?
+                               (@v (list-ref /action (+ 1 1)))
+                               /dispatch))
+                        (set! /expansions 0)
+                        (@ateach_stats
+                          /foreach-merge_calls_in_system-1
+                          0
+                          (@as_type)
+                          0)
+                        (cond ((null? (@program)) (@new_program (@skips))))
+                        (set! /loops (+ /loops 1))
+                        (let while-loop ()
+                          (cond ((and (not (= /expansions 0)) (<= /loops 10))
+                                 (begin
+                                   (set! /expansions 0)
+                                   (@ateach_stats
+                                     /foreach-merge_calls_in_system-2
+                                     0
+                                     (@as_type)
+                                     0)
+                                   (cond ((null? (@program))
+                                          (@new_program (@skips))))
+                                   (set! /loops (+ /loops 1)))
+                                 (while-loop))
+                                (#t #t)))))
+                 (set! /new
+                   (cons (@make //t_/action
+                                '()
+                                (list (list-ref /action (+ 1 1)) (@program)))
+                         /new)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /action var-save))
+    (begin (display "") (newline) (force-output))
+    (set! /actions (reverse /new))
+    (begin
+      (display "Deleting unreachable code... ")
+      (force-output))
+    (set! /new '())
+    (let ((var-save /action) (seq-save /actions))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /action (car for-tmp))
+               (begin
+                 (@new_program (list-ref /action (+ 1 2)))
+                 (cond ((not (equal?
+                               (@v (list-ref /action (+ 1 1)))
+                               /dispatch))
+                        (@foreach_stats
+                          /foreach-merge_calls_in_system-3
+                          0
+                          (@as_type)
+                          0)
+                        (cond ((null? (@program)) (@new_program (@skips))))
+                        (set! //p (@posn))
+                        (@foreach_statement
+                          /foreach-merge_calls_in_system-4
+                          0
+                          (@as_type)
+                          0)
+                        (cond ((null? (@program)) (@new_program (@skips))))))
+                 (set! /new
+                   (cons (@make //t_/action
+                                '()
+                                (list (list-ref /action (+ 1 1)) (@program)))
+                         /new)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /action var-save))
+    (set! /actions (reverse /new))
+    (begin (display "") (newline) (force-output))
+    (begin
+      (display "Taking out calls... ")
+      (force-output))
+    (set! /ignore
+      (@make_set
+        (cons //z
+              (cons /dispatch
+                    (@mc_entry_actions
+                      (@make //t_/a_/s
+                             '()
+                             (list (@name /start)
+                                   (@make //t_/actions '() /actions)))
+                      1)))))
+    (begin
+      (display "Entry actions (not taken out) = ")
+      (begin
+        (display
+          (let ((l (@final_seg /ignore 3)) (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@n_string (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result)))
+        (newline)
+        (force-output)))
+    (set! /loops 0)
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (set! /n 0)
+               (set! /new '())
+               (let ((var-save /action) (seq-save /actions))
+                 (if (vector? seq-save)
+                   (set! seq-save (vector-elts seq-save)))
+                 (let for-in-loop ((for-tmp seq-save))
+                   (cond ((not (null? for-tmp))
+                          (set! /action (car for-tmp))
+                          (begin
+                            (@new_program (list-ref /action (+ 1 2)))
+                            (cond ((not (equal?
+                                          (@v (list-ref /action (+ 1 1)))
+                                          /dispatch))
+                                   (set! /take_out
+                                     (@set_difference
+                                       (@multi_calls (@program) 2)
+                                       /ignore))
+                                   (@foreach_statement
+                                     /foreach-merge_calls_in_system-5
+                                     0
+                                     (@as_type)
+                                     0)
+                                   (cond ((null? (@program))
+                                          (@new_program (@skips))))))
+                            (set! /new
+                              (cons (@make //t_/action
+                                           '()
+                                           (list (list-ref /action (+ 1 1))
+                                                 (@program)))
+                                    /new)))
+                          (for-in-loop (cdr for-tmp)))
+                         (#t #t)))
+                 (set! /action var-save))
+               (set! /actions (reverse /new))
+               (begin (display "") (newline) (force-output))
+               (set! /loops (+ /loops 1))
+               (cond ((> /loops 100)
+                      (begin
+                        (display
+                          "ERROR: too many loops in Merge_Calls!!!")
+                        (newline)
+                        (force-output))
+                      (set! /fl_flag2 1))
+                     ((= /n 0) (set! /fl_flag2 1))
+                     (#t (set! /fl_flag2 0))))
+             (while-loop))
+            (#t #t)))
+    (@undo_edit)
+    (@paste_over
+      (@make //t_/a_/s
+             '()
+             (list (@name /start)
+                   (@make //t_/actions '() /actions))))
+    (cond ((@trans? //t/r_/delete_/all_/skips)
+           (@trans //t/r_/delete_/all_/skips "")))
+    (cond ((and (> (@total_size (@i)) 20000)
+                (> (* 2 (@total_size (@i))) (* 3 /size)))
+           (begin
+             (display "Size has increased too much!")
+             (newline)
+             (force-output))
+           (@paste_over /orig))
+          ((> (@struct_metric (@i)) (+ /struct 50))
+           (begin
+             (display "Struct_Metric has increased too much!")
+             (newline)
+             (force-output))
+           (@paste_over /orig)))
+    (set! /n /n-save)
+    (set! //z //z-save)
+    (set! /expansions /expansions-save)
+    (set! /skip_st /skip_st-save)
+    (set! /take_out /take_out-save)
+    (set! /ignore /ignore-save)
+    (set! /rest /rest-save)
+    (set! /call /call-save)))
+
+(define (@multi_calls //i //n)
+  (let ((//r '()) (/calls (@calls //i)))
+    (let while-loop ()
+      (cond ((not (null? /calls))
+             (begin
+               (cond ((>= (let ((name (let ((name /calls))
+                                        (if (vector? name)
+                                          (vector-ref name (- 1 1))
+                                          (list-ref name (- 1 1))))))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1))))
+                          //n)
+                      (set! //r
+                        (cons (let ((name (let ((name /calls))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))
+                              //r))))
+               (set! /calls (cdr /calls)))
+             (while-loop))
+            (#t #t)))
+    (@make_set //r)))
+
+(define (@mc_entry_actions //i /push-par)
+  (let ((/push-save /push)
+        (/ignore-save /ignore)
+        (//codes '())
+        (/code '())
+        (//code_/hash-save //code_/hash)
+        (//return_/regs-save //return_/regs)
+        (//entry_/actions-save //entry_/actions)
+        (/call-save /call)
+        (/call_stack-save /call_stack)
+        (funct-result '()))
+    (set! /push /push-par)
+    (set! /ignore
+      (list (@make_name "dispatch")
+            (@make_name "Z")
+            (@v (list-ref //i (+ 1 1)))))
+    (set! //code_/hash (my-make-hash-table 16))
+    (set! //return_/regs (my-make-hash-table 16))
+    (set! //entry_/actions '())
+    (set! /call '())
+    (set! /call_stack (@make_name "call_stack"))
+    (@edit)
+    (@new_program //i)
+    (@foreach_stats
+      /foreach-merge_calls_in_system-6
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! //codes
+      (@find_dispatch_codes (@make_name "dispatch")))
+    (cond ((not (null? //codes))
+           (let ((var-save /code) (seq-save //codes))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /code (car for-tmp))
+                      (cond ((> /code 4) (puthash //code_/hash /code 1)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /code var-save))
+           (@ateach_statement
+             /foreach-merge_calls_in_system-7
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))))
+    (@undo_edit)
+    (let ((var-save /call) (seq-save //entry_/actions))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /call (car for-tmp))
+               (cond ((not (= (if (vector? (gethash //return_/regs /call))
+                                (vector-length (gethash //return_/regs /call))
+                                (length (gethash //return_/regs /call)))
+                              1))
+                      (set! //entry_/actions
+                        (@set_difference //entry_/actions (list /call)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /call var-save))
+    (let ((var-save /call) (seq-save //entry_/actions))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /call (car for-tmp))
+               (cond ((@starts_with? /call "A_")
+                      (set! //entry_/actions
+                        (@set_difference //entry_/actions (list /call)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /call var-save))
+    (set! funct-result //entry_/actions)
+    (set! /push /push-save)
+    (set! /ignore /ignore-save)
+    (set! //code_/hash //code_/hash-save)
+    (set! //return_/regs //return_/regs-save)
+    (set! //entry_/actions //entry_/actions-save)
+    (set! /call /call-save)
+    (set! /call_stack /call_stack-save)
+    funct-result))
+
+(set! /inline_par (@make_name "inline_par"))
+
+(define (@fd_is_code? //i //codes)
+  (let ((//o/k 0))
+    (cond ((= (@st //i) //t_/number)
+           (cond ((not (null? (gethash //codes (@v //i))))
+                  (set! //o/k 1))))
+          ((= (@st //i) //t_/x_/funct_/call)
+           (cond ((and (equal? (@v (list-ref //i (+ 1 1))) /inline_par)
+                       (= (@size (list-ref //i (+ 1 2))) 2)
+                       (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                          //t_/number)
+                       (not (null? (gethash
+                                     //codes
+                                     (@v (list-ref
+                                           (list-ref //i (+ 1 2))
+                                           (+ 1 1)))))))
+                  (set! //o/k 1)))))
+    (= //o/k 1)))
+
+(define (@fd_find_call /n-par //codes)
+  (let ((/n-save /n)
+        (/posn (@posn))
+        (//r '())
+        (funct-result '()))
+    (set! /n /n-par)
+    (let while-loop ()
+      (cond ((and (@up?) (not (= (@gt (@i)) //t_/statement)))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (cond ((= (@gt (@i)) //t_/statement)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t
+                           (@right)
+                           (let ((/__/o/k 1))
+                             (set! /__/o/k
+                               (@new_match
+                                 /%const__merge_calls_in_system__2
+                                 (@i)
+                                 /__/o/k))
+                             (cond ((= /__/o/k 1)
+                                    (let ((/__e_save /e) (/__v_save /v))
+                                      (set! /e (vector-ref /__/match_array 1))
+                                      (set! /v (vector-ref /__/match_array 0))
+                                      (cond ((or (and (= (@st /e) //t_/number)
+                                                      (not (null? (gethash
+                                                                    //codes
+                                                                    (@v /e)))))
+                                                 (and (= (@st /e)
+                                                         //t_/x_/funct_/call)
+                                                      (equal?
+                                                        (@v (list-ref
+                                                              /e
+                                                              (+ 1 1)))
+                                                        /inline_par)))
+                                             (set! /n 0)))
+                                      (set! /e /__e_save)
+                                      (set! /v /__v_save)))))
+                           (cond ((= /n 0) (set! /fl_flag1 1))
+                                 ((= (@st (@i)) //t_/call)
+                                  (set! //r (@v (@i)))
+                                  (set! /fl_flag1 1))
+                                 (#t
+                                  (cond ((not (= (@st (@i)) //t_/comment))
+                                         (set! /n (- /n 1))))
+                                  (cond ((or (= (@st (@i)) //t_/cond)
+                                             (= (@st (@i)) //t_/proc_/call))
+                                         (set! /fl_flag1 1))
+                                        (#t (set! /fl_flag1 0)))))))
+                    (while-loop))
+                   (#t #t)))))
+    (@goto /posn)
+    (set! funct-result //r)
+    (set! /n /n-save)
+    funct-result))
+
+(define (@find_dispatch_codes /dispatch)
+  (let ((/codes '())
+        (/destination (@make_name "destination"))
+        (/largest 0)
+        (/regs '())
+        (/tmp '()))
+    (@edit)
+    (@down_last)
+    (@down_last)
+    (let while-loop ()
+      (cond ((and (@left?)
+                  (not (equal? (@v (list-ref (@i) (+ 1 1))) /dispatch)))
+             (@left)
+             (while-loop))
+            (#t #t)))
+    (cond ((equal? (@v (list-ref (@i) (+ 1 1))) /dispatch)
+           (@down_last)
+           (@down)
+           (let while-loop ()
+             (cond ((and (not (= (@st (@i)) //t_/cond)) (@right?))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))
+           (cond ((= (@st (@i)) //t_/cond)
+                  (@down)
+                  (set! /fl_flag1 0)
+                  (let while-loop ()
+                    (cond ((= /fl_flag1 0)
+                           (begin
+                             (@down)
+                             (cond ((= (@st (@i)) //t_/equal)
+                                    (cond ((and (= (@st (list-ref (@i) (+ 1 1)))
+                                                   //t_/variable)
+                                                (equal?
+                                                  (@v (list-ref (@i) (+ 1 1)))
+                                                  /destination)
+                                                (= (@st (list-ref (@i) (+ 1 2)))
+                                                   //t_/number))
+                                           (set! /codes
+                                             (cons (@v (list-ref (@i) (+ 1 2)))
+                                                   /codes)))
+                                          ((and (= (@st (list-ref (@i) (+ 1 2)))
+                                                   //t_/variable)
+                                                (equal?
+                                                  (@v (list-ref (@i) (+ 1 2)))
+                                                  /destination)
+                                                (= (@st (list-ref (@i) (+ 1 1)))
+                                                   //t_/number))
+                                           (set! /codes
+                                             (cons (@v (list-ref (@i) (+ 1 1)))
+                                                   /codes))))))
+                             (@up)
+                             (cond ((not (@right?)) (set! /fl_flag1 1))
+                                   (#t (@right) (set! /fl_flag1 0))))
+                           (while-loop))
+                          (#t #t)))))))
+    (set! /codes (reverse /codes))
+    (@undo_edit)
+    /codes))
+
+#t
+

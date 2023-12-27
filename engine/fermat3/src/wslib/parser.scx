@@ -1,0 +1,3141 @@
+(define (@list_to_set //l)
+  (let ((//r (my-make-hash-table 16)) (/elt '()))
+    (let ((var-save /elt) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (puthash //r /elt 1)
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    //r))
+
+(define (@list_to_vector //l)
+  (let ((//r (make-vector 1999 0)) (/elt 0))
+    (let ((var-save /elt) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (if (vector? //r)
+                 (vector-set! //r (- /elt 1) 1)
+                 (set! //r (replace-nth //r /elt 1)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    //r))
+
+(set! //s_/b/e/c/o/m/e/s 1)
+
+(set! //s_/e/q/u/a/l 2)
+
+(set! //s_/p/l/u/s 3)
+
+(set! //s_/m/i/n/u/s 4)
+
+(set! //s_/t/i/m/e/s 5)
+
+(set! //s_/s/l/a/s/h 6)
+
+(set! //s_/s/e/m/i/c/o/l/o/n 7)
+
+(set! //s_/c/o/l/o/n 8)
+
+(set! //s_/n/e/q 9)
+
+(set! //s_/l/p/a/r/e/n 10)
+
+(set! //s_/r/p/a/r/e/n 11)
+
+(set! //s_/c/o/m/m/a 12)
+
+(set! //s_/l/b/r/a/c/k/e/t 13)
+
+(set! //s_/r/b/r/a/c/k/e/t 14)
+
+(set! //s_/l/a/n/g/l/e 15)
+
+(set! //s_/r/a/n/g/l/e 16)
+
+(set! //s_/l/b/r/a/c/e 17)
+
+(set! //s_/r/b/r/a/c/e 18)
+
+(set! //s_/q/u/o/t/e/s 19)
+
+(set! //s_/c/o/n/c/a/t 20)
+
+(set! //s_/d/e/f/i/n/e 21)
+
+(set! //s_/i/f 22)
+
+(set! //s_/t/h/e/n 23)
+
+(set! //s_/e/l/s/i/f 24)
+
+(set! //s_/e/l/s/e 25)
+
+(set! //s_/f/i 26)
+
+(set! //s_/w/h/i/l/e 27)
+
+(set! //s_/d/o 28)
+
+(set! //s_/o/d 29)
+
+(set! //s_/v/a/r 30)
+
+(set! //s_/a/n/d 31)
+
+(set! //s_/o/r 32)
+
+(set! //s_/n/o/t 33)
+
+(set! //s_/c/o/m/m/e/n/t 34)
+
+(set! //s_/i/d/e/n/t/i/f/i/e/r 35)
+
+(set! //s_/n/u/m/b/e/r 36)
+
+(set! //s_/s/t/r/i/n/g 37)
+
+(set! //s_/l/e/q 38)
+
+(set! //s_/g/e/q 39)
+
+(set! //s_/b/o/x 40)
+
+(set! //s_/a/r/r/o/w 41)
+
+(set! //s_/i/n/t/e/r/s/e/c/t 42)
+
+(set! //s_/u/n/i/o/n 43)
+
+(set! //s_/b/a/c/k/s/l/a/s/h 44)
+
+(set! //s_/d_/i/f 45)
+
+(set! //s_/e/x/p/o/n/e/n/t 46)
+
+(set! //s_/d_/d/o 47)
+
+(set! //s_/s/k/i/p 48)
+
+(set! //s_/t/r/u/e 49)
+
+(set! //s_/f/a/l/s/e 50)
+
+(set! //s_/q/u/e/r/y 51)
+
+(set! //s_/f/u/l/l/s/t/o/p 52)
+
+(set! //s_/i/n 53)
+
+(set! //s_/n/o/t/i/n 54)
+
+(set! //s_/m/e/m/b/e/r 55)
+
+(set! //s_/s/u/b/s/e/t 56)
+
+(set! //s_/e/v/e/n 57)
+
+(set! //s_/o/d/d 58)
+
+(set! //s_/e/m/p/t/y 59)
+
+(set! //s_/f/o/r/a/l/l 60)
+
+(set! //s_/e/x/i/s/t/s 61)
+
+(set! //s_/m/o/d 62)
+
+(set! //s_/d/i/v 63)
+
+(set! //s_/e/n/d/v/a/r 64)
+
+(set! //s_/e/x/i/t 65)
+
+(set! //s_/d/o/t/d/o/t 66)
+
+(set! //s_/c/a/l/l 68)
+
+(set! //s_/a/c/t/i/o/n/s 69)
+
+(set! //s_/e/n/d/a/c/t/i/o/n/s 70)
+
+(set! //s_/f/o/r 71)
+
+(set! //s_/t/o 72)
+
+(set! //s_/s/t/e/p 73)
+
+(set! //s_/a/t 74)
+
+(set! //s_/e/n/d 75)
+
+(set! //s_/s/c/o/p/a/r/e/n 76)
+
+(set! //s_/p/l/i/n/k_/p 77)
+
+(set! //s_/p/l/i/n/k_/x/p 78)
+
+(set! //s_/p/l/i/n/k_/x/f 79)
+
+(set! //s_/p/l/i/n/k_/x/c 80)
+
+(set! //s_/r/e/t/u/r/n/s 81)
+
+(set! //s_/v/b/a/r 82)
+
+(set! //s_/p/u/s/h 83)
+
+(set! //s_/p/o/p 84)
+
+(set! //s_/j/o/i/n 85)
+
+(set! //s_/e/n/d/j/o/i/n 86)
+
+(set! //s_/d/o/t/s/p/a/c/e 87)
+
+(set! //s_/p/r/i/n/t 88)
+
+(set! //s_/p/r/i/n/f/l/u/s/h 89)
+
+(set! //s_/n/a/t/s 90)
+
+(set! //s_/i/n/t/s 91)
+
+(set! //s_/r/a/t/s 92)
+
+(set! //s_/r/e/a/l/s 93)
+
+(set! //s_/a/r/r/a/y 94)
+
+(set! //s_/s/e/q/u/e/n/c/e 95)
+
+(set! //s_/s/t/r/i/n/g/b/f 96)
+
+(set! //s_/n/u/m/b/e/r/q 97)
+
+(set! //s_/c/o/l/o/n/c/o/l/o/n 98)
+
+(set! //s_/a/b/s 100)
+
+(set! //s_/i/n/t 101)
+
+(set! //s_/f/r/a/c 102)
+
+(set! //s_/s/g/n 103)
+
+(set! //s_/m/i/n 104)
+
+(set! //s_/m/a/x 105)
+
+(set! //s_/m/a/p 106)
+
+(set! //s_/r/e/d/u/c/e 107)
+
+(set! //s_/h/e/a/d 108)
+
+(set! //s_/t/a/i/l 109)
+
+(set! //s_/l/a/s/t 110)
+
+(set! //s_/b/u/t/l/a/s/t 111)
+
+(set! //s_/r/e/v/e/r/s/e 112)
+
+(set! //s_/p/o/w/e/r/s/e/t 113)
+
+(set! //s_/l/e/n/g/t/h 114)
+
+(set! //s_/f/i/l/l1 115)
+
+(set! //s_/e/n/d/f/i/l/l 116)
+
+(set! //s_/c/a/r/e/t 117)
+
+(set! //s_/s/l/e/n/g/t/h 118)
+
+(set! //s_/s/u/b/s/t/r 119)
+
+(set! //s_/i/n/d/e/x 120)
+
+(set! //s_/m/a/p/h/a/s/h 121)
+
+(set! //s_/e/r/r/o/r 122)
+
+(set! //s_/f/i/l/l 123)
+
+(set! //s_/a/d/d/r 124)
+
+(set! //s_/b/e/g/i/n 500)
+
+(set! //s_/w/h/e/r/e 501)
+
+(set! //s_/p/r/o/c 502)
+
+(set! //s_/f/u/n/c/t 503)
+
+(set! //s_/b/f/u/n/c/t 504)
+
+(set! //s_/m/w_/p/r/o/c 505)
+
+(set! //s_/m/w_/f/u/n/c/t 506)
+
+(set! //s_/m/w_/b/f/u/n/c/t 507)
+
+(set! //s_/s/p/e/c 508)
+
+(set! //s_/e/n/d/s/p/e/c 509)
+
+(set! //s_/f/o/r/e/a/c/h 510)
+
+(set! //s_/a/t/e/a/c/h 511)
+
+(set! //s_/i/f/m/a/t/c/h 512)
+
+(set! //s_/e/n/d/m/a/t/c/h 513)
+
+(set! //s_/m/e/m 514)
+
+(set! //s_/s/t/a/t/e/m/e/n/t 520)
+
+(set! //s_/s/t/a/t/e/m/e/n/t/s 521)
+
+(set! //s_/e/x/p/r/e/s/s/i/o/n 522)
+
+(set! //s_/e/x/p/r/e/s/s/i/o/n/s 523)
+
+(set! //s_/c/o/n/d/i/t/i/o/n 524)
+
+(set! //s_/v/a/r/i/a/b/l/e 526)
+
+(set! //s_/d/e/f/i/n/i/t/i/o/n 527)
+
+(set! //s_/d/e/f/i/n/i/t/i/o/n/s 528)
+
+(set! //s_/l/v/a/l/u/e 529)
+
+(set! //s_/l/v/a/l/u/e/s 530)
+
+(set! //s_/s/t/s 531)
+
+(set! //s_/n/a/s 532)
+
+(set! //s_/a/s/s/i/g/n 533)
+
+(set! //s_/a/s/s/i/g/n/s 534)
+
+(set! //s_/g/u/a/r/d/e/d 535)
+
+(set! //s_/a/c/t/i/o/n 536)
+
+(set! //s_/t/e/r/m/i/n/a/l 537)
+
+(set! //s_/g/l/o/b/a/l 538)
+
+(set! //s_/p/a/t_/o/n/e 700)
+
+(set! //s_/p/a/t_/m/a/n/y 701)
+
+(set! //s_/p/a/t_/a/n/y 702)
+
+(set! //s_/i/n/t_/o/n/e 703)
+
+(set! //s_/i/n/t_/a/n/y 704)
+
+(set! //s_/v/a/r_/o/n/e 705)
+
+(set! //s_/v/a/r_/a/n/y 706)
+
+(set! //s_/a/t_/p/a/t_/o/n/e 707)
+
+(set! //s_/s/t/a/t_/p/l/a/c/e 800)
+
+(set! //s_/e/x/p/n_/p/l/a/c/e 801)
+
+(set! //s_/v/a/r_/p/l/a/c/e 802)
+
+(set! //s_/c/o/n/d_/p/l/a/c/e 803)
+
+(set! //s_/h/a/s/h_/t/a/b/l/e 804)
+
+(set! //s_/p/r/i/m/e 805)
+
+(set! //s_/a/b/o/r/t 997)
+
+(set! //s_/i/n/v/a/l/i/d 998)
+
+(set! //s_/e/o/f 999)
+
+(set! /yy_ch '())
+
+(set! /yy_sym 0)
+
+(set! /yy_value '())
+
+(set! /token1 0)
+
+(set! /token2 '())
+
+(set! /yy_lineno 0)
+
+(set! /yy_line '())
+
+(set! //whitespace
+  (@list_to_set (list " " //tab //newline)))
+
+(set! //digits
+  (@list_to_set
+    (list "1" "2" "3" "4" "5" "6" "7" "8" "9" "0")))
+
+(set! //keywords
+  (list (list //s_/i/f "IF")
+        (list //s_/t/h/e/n "THEN")
+        (list //s_/e/l/s/i/f "ELSIF")
+        (list //s_/e/l/s/e "ELSE")
+        (list //s_/f/i "FI")
+        (list //s_/d_/i/f "D_IF")
+        (list //s_/w/h/i/l/e "WHILE")
+        (list //s_/d/o "DO")
+        (list //s_/d_/d/o "D_DO")
+        (list //s_/o/d "OD")
+        (list //s_/v/a/r "VAR")
+        (list //s_/e/n/d/v/a/r "ENDVAR")
+        (list //s_/s/k/i/p "SKIP")
+        (list //s_/a/n/d "AND")
+        (list //s_/o/r "OR")
+        (list //s_/n/o/t "NOT")
+        (list //s_/c/o/m/m/e/n/t "COMMENT")
+        (list //s_/c/o/m/m/e/n/t "COMMENT")
+        (list //s_/p/r/i/n/t "PRINT")
+        (list //s_/p/r/i/n/f/l/u/s/h "PRINFLUSH")
+        (list //s_/t/r/u/e "TRUE")
+        (list //s_/f/a/l/s/e "FALSE")
+        (list //s_/i/n "IN")
+        (list //s_/n/o/t/i/n "NOTIN")
+        (list //s_/e/v/e/n "EVEN")
+        (list //s_/o/d/d "ODD")
+        (list //s_/e/m/p/t/y "EMPTY")
+        (list //s_/s/u/b/s/e/t "SUBSET")
+        (list //s_/m/e/m/b/e/r "MEMBER")
+        (list //s_/f/o/r/a/l/l "FORALL")
+        (list //s_/e/x/i/s/t/s "EXISTS")
+        (list //s_/s/e/q/u/e/n/c/e "SEQUENCE")
+        (list //s_/s/t/r/i/n/g/b/f "STRING")
+        (list //s_/n/u/m/b/e/r/q "NUMBER")
+        (list //s_/a/r/r/a/y "ARRAY")
+        (list //s_/r/e/d/u/c/e "REDUCE")
+        (list //s_/m/a/p "MAP")
+        (list //s_/h/e/a/d "HEAD")
+        (list //s_/t/a/i/l "TAIL")
+        (list //s_/b/u/t/l/a/s/t "BUTLAST")
+        (list //s_/l/a/s/t "LAST")
+        (list //s_/r/e/v/e/r/s/e "REVERSE")
+        (list //s_/l/e/n/g/t/h "LENGTH")
+        (list //s_/p/o/w/e/r/s/e/t "POWERSET")
+        (list //s_/a/b/s "ABS")
+        (list //s_/i/n/t "INT")
+        (list //s_/f/r/a/c "FRAC")
+        (list //s_/s/g/n "SGN")
+        (list //s_/m/a/x "MAX")
+        (list //s_/m/i/n "MIN")
+        (list //s_/m/o/d "MOD")
+        (list //s_/d/i/v "DIV")
+        (list //s_/p/u/s/h "PUSH")
+        (list //s_/p/o/p "POP")
+        (list //s_/s/l/e/n/g/t/h "SLENGTH")
+        (list //s_/s/u/b/s/t/r "SUBSTR")
+        (list //s_/i/n/d/e/x "INDEX")
+        (list //s_/m/a/p/h/a/s/h "MAPHASH")
+        (list //s_/e/r/r/o/r "ERROR")
+        (list //s_/j/o/i/n "JOIN")
+        (list //s_/e/n/d/j/o/i/n "ENDJOIN")
+        (list //s_/c/a/l/l "CALL")
+        (list //s_/a/c/t/i/o/n/s "ACTIONS")
+        (list //s_/f/o/r "FOR")
+        (list //s_/t/o "TO")
+        (list //s_/s/t/e/p "STEP")
+        (list //s_/e/n/d "END")
+        (list //s_/b/e/g/i/n "BEGIN")
+        (list //s_/w/h/e/r/e "WHERE")
+        (list //s_/m/w_/p/r/o/c "MW_PROC")
+        (list //s_/m/w_/f/u/n/c/t "MW_FUNCT")
+        (list //s_/m/w_/b/f/u/n/c/t "MW_BFUNCT")
+        (list //s_/p/r/o/c "PROC")
+        (list //s_/f/u/n/c/t "FUNCT")
+        (list //s_/b/f/u/n/c/t "BFUNCT")
+        (list //s_/e/n/d/a/c/t/i/o/n/s "ENDACTIONS")
+        (list //s_/r/e/t/u/r/n/s "RETURNS")
+        (list //s_/s/p/e/c "SPEC")
+        (list //s_/e/n/d/s/p/e/c "ENDSPEC")
+        (list //s_/i/f/m/a/t/c/h "IFMATCH")
+        (list //s_/e/n/d/m/a/t/c/h "ENDMATCH")
+        (list //s_/f/o/r/e/a/c/h "FOREACH")
+        (list //s_/a/t/e/a/c/h "ATEACH")
+        (list //s_/f/i/l/l "FILL")
+        (list //s_/e/n/d/f/i/l/l "ENDFILL")
+        (list //s_/s/t/a/t_/p/l/a/c/e "$Statement$")
+        (list //s_/e/x/p/n_/p/l/a/c/e "$Expn$")
+        (list //s_/v/a/r_/p/l/a/c/e "$Var$")
+        (list //s_/c/o/n/d_/p/l/a/c/e "$Condition$")
+        (list //s_/h/a/s/h_/t/a/b/l/e "HASH_TABLE")
+        (list //s_/n/a/t/s "%N")
+        (list //s_/i/n/t/s "%Z")
+        (list //s_/r/a/t/s "%Q")
+        (list //s_/r/e/a/l/s "%R")
+        (list //s_/s/t/a/t/e/m/e/n/t "Statement")
+        (list //s_/s/t/a/t/e/m/e/n/t/s "Statements")
+        (list //s_/e/x/p/r/e/s/s/i/o/n "Expression")
+        (list //s_/e/x/p/r/e/s/s/i/o/n/s "Expressions")
+        (list //s_/c/o/n/d/i/t/i/o/n "Condition")
+        (list //s_/v/a/r/i/a/b/l/e "Variable")
+        (list //s_/d/e/f/i/n/i/t/i/o/n "Definition")
+        (list //s_/d/e/f/i/n/i/t/i/o/n/s "Definitions")
+        (list //s_/l/v/a/l/u/e "Lvalue")
+        (list //s_/l/v/a/l/u/e/s "Lvalues")
+        (list //s_/s/t/s "STS")
+        (list //s_/n/a/s "NAS")
+        (list //s_/a/s/s/i/g/n "Assign")
+        (list //s_/a/s/s/i/g/n/s "Assigns")
+        (list //s_/g/u/a/r/d/e/d "Guarded")
+        (list //s_/a/c/t/i/o/n "Action")
+        (list //s_/t/e/r/m/i/n/a/l "Terminal")
+        (list //s_/g/l/o/b/a/l "Global")
+        (list //s_/e/x/i/t "EXIT")
+        (list //s_/a/b/o/r/t "ABORT")
+        (list //s_/a/d/d/r "ADDRESS_OF")))
+
+(set! //reserved_/words
+  (@list_to_vector
+    (list //s_/i/f
+          //s_/t/h/e/n
+          //s_/e/l/s/i/f
+          //s_/e/l/s/e
+          //s_/f/i
+          //s_/w/h/i/l/e
+          //s_/d/o
+          //s_/o/d
+          //s_/s/k/i/p
+          //s_/v/a/r
+          //s_/a/n/d
+          //s_/o/r
+          //s_/n/o/t
+          //s_/c/o/m/m/e/n/t
+          //s_/d_/i/f
+          //s_/d_/d/o
+          //s_/e/o/f
+          //s_/c/a/l/l
+          //s_/m/w_/p/r/o/c
+          //s_/m/w_/f/u/n/c/t
+          //s_/m/w_/b/f/u/n/c/t
+          //s_/b/e/g/i/n
+          //s_/w/h/e/r/e
+          //s_/e/n/d
+          //s_/r/e/t/u/r/n/s
+          //s_/f/o/r
+          //s_/a/c/t/i/o/n/s
+          //s_/e/n/d/a/c/t/i/o/n/s
+          //s_/e/n/d/j/o/i/n
+          //s_/e/n/d/s/p/e/c
+          //s_/m/o/d
+          //s_/d/i/v
+          //s_/e/x/i/t
+          //s_/a/b/o/r/t)))
+
+(set! //closing_/toks
+  (@list_to_vector
+    (list //s_/f/i
+          //s_/o/d
+          //s_/l/p/a/r/e/n
+          //s_/e/l/s/e
+          //s_/e/l/s/i/f
+          //s_/w/h/e/r/e
+          //s_/e/n/d/v/a/r
+          //s_/e/o/f
+          //s_/r/e/t/u/r/n/s
+          //s_/e/n/d/j/o/i/n)))
+
+(set! //special_/chars
+  (@list_to_set
+    (list //quote
+          "+"
+          "="
+          "-"
+          ")"
+          "("
+          "*"
+          "^"
+          "}"
+          "{"
+          "?"
+          "!"
+          "|"
+          "^"
+          "]"
+          "["
+          ":"
+          ","
+          "."
+          "<"
+          ">"
+          "/"
+          "'"
+          //backslash
+          "eof"
+          ";")))
+
+(set! //special_/or_/white
+  (@list_to_set
+    (list //quote
+          "+"
+          "="
+          "-"
+          ")"
+          "("
+          "*"
+          "^"
+          "}"
+          "{"
+          "?"
+          "!"
+          "|"
+          "^"
+          "]"
+          "["
+          ":"
+          ","
+          "."
+          "<"
+          ">"
+          "/"
+          "'"
+          //backslash
+          "eof"
+          ";"
+          " "
+          //tab
+          //newline)))
+
+(set! //types
+  (list (list //t_/equal //s_/e/q/u/a/l)
+        (list //t_/not_/equal //s_/n/e/q)
+        (list //t_/less //s_/l/a/n/g/l/e)
+        (list //t_/less_/eq //s_/l/e/q)
+        (list //t_/greater //s_/r/a/n/g/l/e)
+        (list //t_/greater_/eq //s_/g/e/q)
+        (list //t_/true //s_/t/r/u/e)
+        (list //t_/false //s_/f/a/l/s/e)
+        (list //t_/plus //s_/p/l/u/s)
+        (list //t_/minus //s_/m/i/n/u/s)
+        (list //t_/times //s_/t/i/m/e/s)
+        (list //t_/divide //s_/s/l/a/s/h)
+        (list //t_/exponent //s_/e/x/p/o/n/e/n/t)
+        (list //t_/set_/diff //s_/b/a/c/k/s/l/a/s/h)
+        (list //t_/union //s_/u/n/i/o/n)
+        (list //t_/intersection //s_/i/n/t/e/r/s/e/c/t)
+        (list //t_/mod //s_/m/o/d)
+        (list //t_/div //s_/d/i/v)
+        (list //t_/concat //s_/c/o/n/c/a/t)
+        (list //t_/array //s_/a/r/r/a/y)
+        (list //t_/primed_/var //s_/p/r/i/m/e)
+        (list //t_/and //s_/a/n/d)
+        (list //t_/or //s_/o/r)
+        (list //t_/even //s_/e/v/e/n)
+        (list //t_/odd //s_/o/d/d)
+        (list //t_/empty //s_/e/m/p/t/y)
+        (list //t_/in //s_/i/n)
+        (list //t_/not_/in //s_/n/o/t/i/n)
+        (list //t_/member //s_/m/e/m/b/e/r)
+        (list //t_/subset //s_/s/u/b/s/e/t)
+        (list //t_/forall //s_/f/o/r/a/l/l)
+        (list //t_/exists //s_/e/x/i/s/t/s)
+        (list //t_/stringq //s_/s/t/r/i/n/g/b/f)
+        (list //t_/numberq //s_/n/u/m/b/e/r/q)
+        (list //t_/sequenceq //s_/s/e/q/u/e/n/c/e)
+        (list //t_/abs //s_/a/b/s)
+        (list //t_/int //s_/i/n/t)
+        (list //t_/frac //s_/f/r/a/c)
+        (list //t_/sgn //s_/s/g/n)
+        (list //t_/max //s_/m/a/x)
+        (list //t_/min //s_/m/i/n)
+        (list //t_/length //s_/l/e/n/g/t/h)
+        (list //t_/slength //s_/s/l/e/n/g/t/h)
+        (list //t_/index //s_/i/n/d/e/x)
+        (list //t_/substr //s_/s/u/b/s/t/r)
+        (list //t_/reduce //s_/r/e/d/u/c/e)
+        (list //t_/map //s_/m/a/p)
+        (list //t_/tail //s_/t/a/i/l)
+        (list //t_/head //s_/h/e/a/d)
+        (list //t_/butlast //s_/b/u/t/l/a/s/t)
+        (list //t_/last //s_/l/a/s/t)
+        (list //t_/powerset //s_/p/o/w/e/r/s/e/t)
+        (list //t_/reverse //s_/r/e/v/e/r/s/e)
+        (list //t_/skip //s_/s/k/i/p)
+        (list //t_/for //s_/f/o/r)
+        (list //t_/actions //s_/a/c/t/i/o/n/s)
+        (list //t_/call //s_/c/a/l/l)
+        (list //t_/stat_/place //s_/s/t/a/t_/p/l/a/c/e)
+        (list //t_/expn_/place //s_/e/x/p/n_/p/l/a/c/e)
+        (list //t_/var_/place //s_/v/a/r_/p/l/a/c/e)
+        (list //t_/cond_/place //s_/c/o/n/d_/p/l/a/c/e)
+        (list //t_/exit //s_/e/x/i/t)
+        (list //t_/abort //s_/a/b/o/r/t)
+        (list //t_/address_/of //s_/a/d/d/r)))
+
+(set! /char_table
+  (list (list "eof" //s_/e/o/f)
+        (list "?" //s_/q/u/e/r/y)
+        (list "," //s_/c/o/m/m/a)
+        (list "]" //s_/r/b/r/a/c/k/e/t)
+        (list "{" //s_/l/b/r/a/c/e)
+        (list "}" //s_/r/b/r/a/c/e)
+        (list "(" //s_/l/p/a/r/e/n)
+        (list ")" //s_/r/p/a/r/e/n)
+        (list "|" //s_/v/b/a/r)
+        (list ";" //s_/s/e/m/i/c/o/l/o/n)
+        (list "^" //s_/c/a/r/e/t)))
+
+(set! //prefix_/conds
+  (@list_to_vector
+    (list //s_/e/v/e/n
+          //s_/o/d/d
+          //s_/e/m/p/t/y
+          //s_/s/u/b/s/e/t
+          //s_/m/e/m/b/e/r
+          //s_/f/o/r/a/l/l
+          //s_/e/x/i/s/t/s
+          //s_/s/t/r/i/n/g/b/f
+          //s_/n/u/m/b/e/r/q
+          //s_/s/e/q/u/e/n/c/e)))
+
+(set! /numb_types
+  (@list_to_vector
+    (list //s_/n/a/t/s
+          //s_/i/n/t/s
+          //s_/r/a/t/s
+          //s_/r/e/a/l/s)))
+
+(set! /a_prefix_ops
+  (@list_to_vector
+    (list //s_/a/b/s
+          //s_/i/n/t
+          //s_/f/r/a/c
+          //s_/s/g/n
+          //s_/m/a/x
+          //s_/m/i/n
+          //s_/l/e/n/g/t/h
+          //s_/s/l/e/n/g/t/h
+          //s_/i/n/d/e/x
+          //s_/a/d/d/r)))
+
+(set! /s_prefix_ops
+  (@list_to_vector
+    (list //s_/m/a/p
+          //s_/p/o/w/e/r/s/e/t
+          //s_/t/a/i/l
+          //s_/b/u/t/l/a/s/t
+          //s_/r/e/v/e/r/s/e
+          //s_/a/r/r/a/y
+          //s_/s/u/b/s/t/r)))
+
+(set! /g_prefix_ops
+  (@list_to_vector
+    (list //s_/r/e/d/u/c/e //s_/h/e/a/d //s_/l/a/s/t)))
+
+(set! /g_exp_types
+  (@list_to_vector
+    (list //t_/variable
+          //t_/var_/place
+          //t_/expn_/place
+          //t_/x_/funct_/call
+          //t_/m/w_/funct_/call
+          //t_/aref
+          //t_/sub_/seg
+          //t_/rel_/seg
+          //t_/final_/seg
+          //t_/funct_/call
+          //t_/reduce
+          //t_/head
+          //t_/last
+          //t_/gethash
+          //t_/if
+          //t_/expn_/pat_/one
+          //t_/expn_/pat_/many
+          //t_/expn_/pat_/any
+          //t_/expn_/int_/one
+          //t_/expn_/int_/any
+          //t_/expn_/var_/one
+          //t_/expn_/var_/any
+          //t_/struct
+          //t_/string
+          //t_/primed_/var
+          //t_/mem
+          //t_/mem_/seg
+          //t_/mem_/rel)))
+
+(set! //term_/ops
+  (@list_to_vector
+    (list //s_/p/l/u/s //s_/m/i/n/u/s)))
+
+(set! //factor_/ops
+  (@list_to_vector
+    (list //s_/t/i/m/e/s
+          //s_/s/l/a/s/h
+          //s_/m/o/d
+          //s_/d/i/v)))
+
+(set! //math_/exps
+  (@list_to_vector
+    (list //t_/abs
+          //t_/int
+          //t_/max
+          //t_/min
+          //t_/length
+          //t_/number
+          //t_/negate
+          //t_/plus
+          //t_/minus
+          //t_/times
+          //t_/divide
+          //t_/exponent
+          //t_/mod
+          //t_/div)))
+
+(set! //s_/term_/ops
+  (@list_to_vector (list //s_/b/a/c/k/s/l/a/s/h)))
+
+(set! //s_/factor_/ops
+  (@list_to_vector
+    (list //s_/c/o/n/c/a/t //s_/u/n/i/o/n)))
+
+(set! //s_/atom_/ops
+  (@list_to_vector (list //s_/i/n/t/e/r/s/e/c/t)))
+
+(set! //seq_/exps
+  (@list_to_vector
+    (list //t_/concat
+          //t_/set_/diff
+          //t_/union
+          //t_/intersection
+          //t_/map
+          //t_/powerset
+          //t_/tail
+          //t_/butlast
+          //t_/reverse)))
+
+(set! //rel_/ops
+  (@list_to_vector
+    (list //s_/e/q/u/a/l
+          //s_/n/e/q
+          //s_/l/a/n/g/l/e
+          //s_/l/e/q
+          //s_/r/a/n/g/l/e
+          //s_/g/e/q
+          //s_/i/n
+          //s_/n/o/t/i/n)))
+
+(set! //bool_/ops
+  (@list_to_vector (list //s_/a/n/d //s_/o/r)))
+
+(set! //patterns
+  (@list_to_vector
+    (list //s_/p/a/t_/o/n/e
+          //s_/p/a/t_/m/a/n/y
+          //s_/p/a/t_/a/n/y
+          //s_/i/n/t_/o/n/e
+          //s_/i/n/t_/a/n/y
+          //s_/v/a/r_/o/n/e
+          //s_/v/a/r_/a/n/y
+          //s_/a/t_/p/a/t_/o/n/e)))
+
+(set! //error_/count 0)
+
+(define (@parse_file /infile /type)
+  (let ((//s '())
+        (//input_/port-save //input_/port)
+        (funct-result '()))
+    (set! //input_/port '())
+    (cond ((equal? /infile "")
+           (set! //input_/port //standard_/input_/port)
+           (@initialise)
+           (set! //s (@yy_parse /type))
+           (@yy_check_end))
+          ((@file_exists? /infile)
+           (set! //input_/port (@open_input_file /infile))
+           (@initialise)
+           (set! //s (@yy_parse /type))
+           (@yy_check_end)
+           (@close_input_port //input_/port))
+          (#t
+           (begin
+             (display
+               (string-append
+                 (string-append
+                   "@Parse_File: file "
+                   (@string /infile))
+                 " not found!"))
+             (newline)
+             (force-output))))
+    (set! funct-result //s)
+    (set! //input_/port //input_/port-save)
+    funct-result))
+
+(set! //input_/port '())
+
+(define (@yy_parse /type)
+  (let ((//s '()))
+    (cond ((= /type //t_/statements)
+           (set! //s (@yy_statements)))
+          ((= /type //t_/statement)
+           (set! //s (@yy_statement)))
+          ((= /type //t_/expression)
+           (set! //s (@yy_expression)))
+          ((= /type //t_/expressions)
+           (set! //s (@yy_expressions)))
+          ((= /type //t_/condition)
+           (set! //s (@yy_condition)))
+          ((= /type //t_/definition)
+           (set! //s (@yy_define)))
+          ((= /type //t_/definitions)
+           (set! //s (@yy_defines)))
+          ((= /type //t_/assign) (set! //s (@yy_assign)))
+          ((= /type //t_/assigns)
+           (set! //s (@make //t_/assigns '() (@yy_assigns))))
+          ((= /type //t_/action) (set! //s (@yy_action)))
+          ((= /type //t_/guarded)
+           (set! //s
+             (@yy_guard_gen
+               (list //s_/t/h/e/n //s_/a/r/r/o/w))))
+          ((= /type //t_/lvalue) (set! //s (@yy_lvalue)))
+          ((= /type //t_/lvalues) (set! //s (@yy_lvalues))))
+    //s))
+
+(define (@syntax_error /spiel)
+  (set! //error_/count (+ //error_/count 1))
+  (cond ((or (= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+             (= /token1 //s_/n/u/m/b/e/r)
+             (= /token1 //s_/s/t/r/i/n/g))
+         (begin
+           (display "!!!! Line ")
+           (begin
+             (display /yy_lineno)
+             (begin
+               (display ": Syntax Error: ")
+               (begin
+                 (display /spiel)
+                 (begin
+                   (display ": ")
+                   (begin
+                     (display /token1)
+                     (begin
+                       (display ": ")
+                       (begin
+                         (display /token2)
+                         (newline)
+                         (force-output))))))))))
+        (#t
+         (begin
+           (display "!!!! Line ")
+           (begin
+             (display /yy_lineno)
+             (begin
+               (display ": Syntax Error: ")
+               (begin
+                 (display /spiel)
+                 (begin
+                   (display ": ")
+                   (begin
+                     (display /token1)
+                     (newline)
+                     (force-output))))))))))
+
+(define (@warning /spiel)
+  (begin
+    (display "**** Line ")
+    (begin
+      (display /yy_lineno)
+      (begin
+        (display ": Warning: ")
+        (begin
+          (display /spiel)
+          (begin
+            (display ": ")
+            (begin
+              (display /token1)
+              (newline)
+              (force-output))))))))
+
+(define (@yy_skip_symbol /symbol /message)
+  (cond ((not (= /token1 /symbol))
+         (@syntax_error /message))
+        (#t (@yy_lex))))
+
+(define (@yy_old_print /str)
+  (begin (display /str) (newline) (force-output)))
+
+(define (@yy_print /str) #t #t)
+
+(set! /pattern_type (my-make-hash-table 16))
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/p/a/t_/o/n/e)
+  //t_/stat_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/p/a/t_/m/a/n/y)
+  //t_/stat_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/p/a/t_/a/n/y)
+  //t_/stat_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/i/n/t_/o/n/e)
+  //t_/stat_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/i/n/t_/a/n/y)
+  //t_/stat_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/v/a/r_/o/n/e)
+  //t_/stat_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/statement //s_/v/a/r_/a/n/y)
+  //t_/stat_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/p/a/t_/o/n/e)
+  //t_/cond_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/p/a/t_/m/a/n/y)
+  //t_/cond_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/p/a/t_/a/n/y)
+  //t_/cond_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/i/n/t_/o/n/e)
+  //t_/cond_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/i/n/t_/a/n/y)
+  //t_/cond_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/v/a/r_/o/n/e)
+  //t_/cond_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/condition //s_/v/a/r_/a/n/y)
+  //t_/cond_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/p/a/t_/o/n/e)
+  //t_/expn_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/p/a/t_/m/a/n/y)
+  //t_/expn_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/p/a/t_/a/n/y)
+  //t_/expn_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/i/n/t_/o/n/e)
+  //t_/expn_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/i/n/t_/a/n/y)
+  //t_/expn_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/v/a/r_/o/n/e)
+  //t_/expn_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/expression //s_/v/a/r_/a/n/y)
+  //t_/expn_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/p/a/t_/o/n/e)
+  //t_/lvalue_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/p/a/t_/m/a/n/y)
+  //t_/lvalue_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/p/a/t_/a/n/y)
+  //t_/lvalue_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/i/n/t_/o/n/e)
+  //t_/lvalue_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/i/n/t_/a/n/y)
+  //t_/lvalue_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/v/a/r_/o/n/e)
+  //t_/lvalue_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/lvalue //s_/v/a/r_/a/n/y)
+  //t_/lvalue_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/p/a/t_/o/n/e)
+  //t_/guarded_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/p/a/t_/m/a/n/y)
+  //t_/guarded_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/p/a/t_/a/n/y)
+  //t_/guarded_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/i/n/t_/o/n/e)
+  //t_/guarded_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/i/n/t_/a/n/y)
+  //t_/guarded_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/v/a/r_/o/n/e)
+  //t_/guarded_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/guarded //s_/v/a/r_/a/n/y)
+  //t_/guarded_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/p/a/t_/o/n/e)
+  //t_/assign_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/p/a/t_/m/a/n/y)
+  //t_/assign_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/p/a/t_/a/n/y)
+  //t_/assign_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/i/n/t_/o/n/e)
+  //t_/assign_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/i/n/t_/a/n/y)
+  //t_/assign_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/v/a/r_/o/n/e)
+  //t_/assign_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/assign //s_/v/a/r_/a/n/y)
+  //t_/assign_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/p/a/t_/o/n/e)
+  //t_/action_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/p/a/t_/m/a/n/y)
+  //t_/action_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/p/a/t_/a/n/y)
+  //t_/action_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/i/n/t_/o/n/e)
+  //t_/action_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/i/n/t_/a/n/y)
+  //t_/action_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/v/a/r_/o/n/e)
+  //t_/action_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/action //s_/v/a/r_/a/n/y)
+  //t_/action_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/p/a/t_/o/n/e)
+  //t_/defn_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/p/a/t_/m/a/n/y)
+  //t_/defn_/pat_/many)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/p/a/t_/a/n/y)
+  //t_/defn_/pat_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/i/n/t_/o/n/e)
+  //t_/defn_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/i/n/t_/a/n/y)
+  //t_/defn_/int_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/v/a/r_/o/n/e)
+  //t_/defn_/var_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/definition //s_/v/a/r_/a/n/y)
+  //t_/defn_/var_/any)
+
+(puthash
+  /pattern_type
+  (list //t_/name //s_/p/a/t_/o/n/e)
+  //t_/name_/pat_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/name //s_/i/n/t_/o/n/e)
+  //t_/name_/int_/one)
+
+(puthash
+  /pattern_type
+  (list //t_/name //s_/v/a/r_/o/n/e)
+  //t_/name_/var_/one)
+
+(define (@yy_check_end)
+  (cond ((not (= /token1 //s_/e/o/f))
+         (let while-loop ()
+           (cond ((and (not (= /token1 //s_/e/o/f))
+                       (not (= /token1 //s_/s/e/m/i/c/o/l/o/n)))
+                  (@yy_lex)
+                  (while-loop))
+                 (#t #t)))
+         (cond ((= /token1 //s_/e/o/f)
+                (@syntax_error
+                  "Extra characters at end of program"))
+               (#t
+                (@syntax_error
+                  "Extra characters at end of statement")
+                (@yy_lex))))))
+
+(define (@yy_statements)
+  (let ((//s '()) (/temp '()))
+    (set! //s (list (@yy_statement)))
+    (let while-loop ()
+      (cond ((= /token1 //s_/s/e/m/i/c/o/l/o/n)
+             (begin
+               (@yy_lex)
+               (set! /temp (@yy_statement))
+               (cond ((equal? /temp '())
+                      (cond ((= /token1 //s_/e/o/f)
+                             (@syntax_error
+                               "Missing <return> at end of final line"))))
+                     (#t (set! //s (cons /temp //s)))))
+             (while-loop))
+            (#t #t)))
+    (cond ((equal? //s (list '()))
+           (set! //s (list (@skip)))))
+    (@make //t_/statements '() (reverse //s))))
+
+(define (@yy_statement)
+  (let ((//s '()))
+    (cond ((= (let ((name //closing_/toks))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           #t)
+          ((= /token1 //s_/i/n/v/a/l/i/d)
+           (@syntax_error
+             (string-append "Invalid token: " /token2))
+           (set! //s (@make //t_/stat_/place '() '()))
+           (@yy_lex))
+          ((= /token1 //s_/i/f) (set! //s (@yy_if)))
+          ((= /token1 //s_/d_/i/f)
+           (set! //s (@yy_d_generic //t_/d_/if //s_/f/i)))
+          ((= /token1 //s_/d_/d/o)
+           (set! //s (@yy_d_generic //t_/d_/do //s_/o/d)))
+          ((= /token1 //s_/w/h/i/l/e)
+           (set! //s (@yy_while)))
+          ((= /token1 //s_/d/o) (set! //s (@yy_floop)))
+          ((= /token1 //s_/e/x/i/t) (set! //s (@yy_exit)))
+          ((= /token1 //s_/f/o/r) (set! //s (@yy_for)))
+          ((= /token1 //s_/v/a/r) (set! //s (@yy_var)))
+          ((= /token1 //s_/c/o/m/m/e/n/t)
+           (set! //s (@yy_comment)))
+          ((= /token1 //s_/l/b/r/a/c/e)
+           (set! //s (@yy_assert)))
+          ((= /token1 //s_/l/a/n/g/l/e)
+           (set! //s (@yy_assignment)))
+          ((= /token1 //s_/p/u/s/h) (set! //s (@yy_push)))
+          ((= /token1 //s_/p/o/p) (set! //s (@yy_pop)))
+          ((= /token1 //s_/j/o/i/n) (set! //s (@yy_join)))
+          ((= /token1 //s_/a/c/t/i/o/n/s)
+           (set! //s (@yy_as)))
+          ((= /token1 //s_/c/a/l/l) (set! //s (@yy_call)))
+          ((= /token1 //s_/p/r/i/n/t)
+           (set! //s (@yy_gen_print //t_/print)))
+          ((= /token1 //s_/p/r/i/n/f/l/u/s/h)
+           (set! //s (@yy_gen_print //t_/prinflush)))
+          ((= /token1 //s_/m/w_/p/r/o/c)
+           (set! //s (@yy_mw_proc)))
+          ((= /token1 //s_/m/w_/f/u/n/c/t)
+           (set! //s (@yy_mw_funct)))
+          ((= /token1 //s_/m/w_/b/f/u/n/c/t)
+           (set! //s (@yy_mw_bfunct)))
+          ((= /token1 //s_/b/e/g/i/n)
+           (set! //s (@yy_where)))
+          ((= /token1 //s_/p/l/i/n/k_/p)
+           (set! //s (@yy_aproc_call)))
+          ((= /token1 //s_/a/t)
+           (set! //s (@yy_mw_proc_call)))
+          ((= /token1 //s_/a/t_/p/a/t_/o/n/e)
+           (set! //s (@yy_mw_proc_call)))
+          ((= /token1 //s_/p/l/i/n/k_/x/p)
+           (set! //s (@yy_x_proc_call)))
+          ((= /token1 //s_/f/o/r/e/a/c/h)
+           (set! //s (@yy_foreach)))
+          ((= /token1 //s_/a/t/e/a/c/h)
+           (set! //s (@yy_ateach)))
+          ((= /token1 //s_/i/f/m/a/t/c/h)
+           (set! //s (@yy_ifmatch)))
+          ((= /token1 //s_/m/a/p/h/a/s/h)
+           (set! //s (@yy_maphash)))
+          ((= /token1 //s_/e/r/r/o/r)
+           (set! //s (@yy_error)))
+          ((= /token1 //s_/s/p/e/c) (set! //s (@yy_spec)))
+          ((= /token1 //s_/m/e/m)
+           (set! //s
+             (@make //t_/assignment '() (list (@yy_assign)))))
+          ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (cond ((equal? /token2 "")
+                  (set! //s (@yy_stat_pattern)))
+                 (#t
+                  (error "@yy_gen_pat(S, <T_Statement>) not yet implemented!"))))
+          ((or (= /token1 //s_/s/k/i/p)
+               (= /token1 //s_/a/b/o/r/t)
+               (= /token1 //s_/s/t/a/t_/p/l/a/c/e))
+           (set! //s (@yy_trivial)))
+          ((= /token1 //s_/n/u/m/b/e/r)
+           (@syntax_error
+             "Number invalid at start of statement")
+           (@yy_lex))
+          ((not (equal? (gethash //key_/table /token2) '()))
+           (@reserved_word_error /token2))
+          ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+           (let ((/name-save /name))
+             (set! /name (@make_name /token2))
+             (@yy_lex)
+             (cond ((= /token1 //s_/l/p/a/r/e/n)
+                    (set! //s (@yy_proc_call /name)))
+                   (#t
+                    (set! //s
+                      (@yy_single_assign
+                        (@make //t_/var_/lvalue /name '())))))
+             (set! /name /name-save)))
+          (#t
+           (@syntax_error
+             "Invalid string at start of statement")))
+    //s))
+
+(define (@reserved_word_error //tok)
+  (@syntax_error
+    (string-append
+      (string-append "reserved word " //tok)
+      " not valid here")))
+
+(define (@yy_trivial)
+  (let ((/type (gethash //type_/table /token1)))
+    (@yy_lex)
+    (@make /type '() '())))
+
+(define (@yy_if)
+  (let ((/guards '())
+        (/cond '())
+        (/body '())
+        (/type '()))
+    (@yy_lex)
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! /guards
+             (list (@yy_guarded_pattern (list //s_/t/h/e/n)))))
+          (#t
+           (set! /cond (@yy_condition))
+           (@yy_skip_symbol //s_/t/h/e/n "Missing `THEN'")
+           (set! /body (@yy_statements))
+           (set! /guards
+             (list (@make //t_/guarded '() (list /cond /body))))))
+    (let while-loop ()
+      (cond ((= /token1 //s_/e/l/s/i/f)
+             (set! /guards (cons (@yy_guarded) /guards))
+             (while-loop))
+            (#t #t)))
+    (cond ((= /token1 //s_/e/l/s/e)
+           (set! /guards (cons (@yy_guarded) /guards)))
+          (#t
+           (set! /cond (@make //t_/true '() '()))
+           (set! /body (@skips))
+           (set! /guards
+             (cons (@make //t_/guarded '() (list /cond /body))
+                   /guards))))
+    (@yy_skip_symbol
+      //s_/f/i
+      "Duff guard syntax or un-terminated IF")
+    (@make //t_/cond '() (reverse /guards))))
+
+(define (@yy_d_generic /type /terminator)
+  (let ((//guards '()) (//cond '()) (//body '()))
+    (@yy_lex)
+    (set! //cond (@yy_condition))
+    (@yy_skip_symbol //s_/a/r/r/o/w "Missing ->")
+    (set! //body (@yy_statements))
+    (set! //guards
+      (list (@make //t_/guarded '() (list //cond //body))))
+    (let while-loop ()
+      (cond ((= /token1 //s_/b/o/x)
+             (set! //guards (cons (@yy_guarded) //guards))
+             (while-loop))
+            (#t #t)))
+    (@yy_skip_symbol
+      /terminator
+      "Duff guard syntax or un-terminated `Dijkstra'-construct")
+    (@make /type '() (reverse //guards))))
+
+(define (@yy_guarded)
+  (let ((/condition '())
+        (/body '())
+        (/type '())
+        (//s '()))
+    (cond ((= /token1 //s_/e/l/s/i/f)
+           (@yy_lex)
+           (set! //s (@yy_guard_gen (list //s_/t/h/e/n))))
+          ((= /token1 //s_/b/o/x)
+           (@yy_lex)
+           (set! //s (@yy_guard_gen (list //s_/a/r/r/o/w))))
+          ((= /token1 //s_/e/l/s/e)
+           (set! /condition (@make //t_/true '() '()))
+           (@yy_lex)
+           (set! /body (@yy_statements))
+           (set! //s
+             (@make //t_/guarded '() (list /condition /body)))))
+    //s))
+
+(define (@yy_guard_gen /then_sym)
+  (let ((/condition '()) (/body '()) (//s '()))
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //s (@yy_guarded_pattern /then_sym)))
+          (#t
+           (set! /condition (@yy_condition))
+           (cond ((member /token1 /then_sym) (@yy_lex))
+                 (#t (@syntax_error "Missing delimiter in guard")))
+           (set! /body (@yy_statements))
+           (set! //s
+             (@make //t_/guarded '() (list /condition /body)))))
+    //s))
+
+(define (@yy_parse_pattern /type /name-par /comps-par)
+  (let ((/comps-save /comps)
+        (/name-save /name)
+        (funct-result '()))
+    (set! /comps /comps-par)
+    (set! /name /name-par)
+    (@yy_lex)
+    (cond ((or (equal? /type //s_/i/n/t_/o/n/e)
+               (equal? /type //s_/i/n/t_/a/n/y))
+           (@yy_skip_symbol
+             //s_/l/p/a/r/e/n
+             "Missing '(' in pattern interpolation")
+           (set! /comps (list (@yy_expression)))
+           (@yy_skip_symbol
+             //s_/r/p/a/r/e/n
+             "Missing ')' in pattern interpolation"))
+          ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+           (set! /name (@make_name /token2))
+           (@yy_lex))
+          ((= /token1 //s_/n/u/m/b/e/r)
+           (set! /name (- /token2))
+           (@yy_lex))
+          (#t
+           (@syntax_error "Missing name in pattern")
+           (set! /name (@make_name "_Missing_"))))
+    (set! funct-result (list /name /comps))
+    (set! /comps /comps-save)
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_guarded_pattern /then_sym)
+  (let ((/type /token1)
+        (/cond '())
+        (/body '())
+        (/name-save /name)
+        (//s '())
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (let ((/-result-
+            (@yy_parse_pattern /type /name /comps)))
+      (set! /name (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /comps (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (cond ((or (= /token1 //s_/e/l/s/i/f)
+               (= /token1 //s_/b/o/x)
+               (= /token1 //s_/e/l/s/e)
+               (= /token1 //s_/f/i)
+               (= /token1 //s_/e/n/d/f/i/l/l))
+           (set! /type
+             (gethash /pattern_type (list //t_/guarded /type)))
+           (set! //s (@make /type /name /comps)))
+          (#t
+           (cond ((member /token1 /then_sym)
+                  (set! /type
+                    (gethash
+                      /pattern_type
+                      (list //t_/condition /type)))
+                  (set! /cond (@make /type /name /comps)))
+                 ((or (= /token1 //s_/e/x/p/o/n/e/n/t)
+                      (= (let ((name //term_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1)
+                      (= (let ((name //factor_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1)
+                      (= (let ((name //s_/term_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1)
+                      (= (let ((name //s_/factor_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1)
+                      (= (let ((name //s_/atom_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1)
+                      (= (let ((name //rel_/ops))
+                           (if (vector? name)
+                             (vector-ref name (- /token1 1))
+                             (list-ref name (- /token1 1))))
+                         1))
+                  (set! /type
+                    (gethash
+                      /pattern_type
+                      (list //t_/expression /type)))
+                  (set! /cond
+                    (@yy_rest_of_cond (@make /type /name /comps))))
+                 (#t
+                  (set! /type
+                    (gethash
+                      /pattern_type
+                      (list //t_/condition /type)))
+                  (set! /cond
+                    (@yy_rest_of_cond (@make /type /name /comps)))))
+           (cond ((not (member /token1 /then_sym))
+                  (@syntax_error "Missing `THEN' or `[]'"))
+                 (#t (@yy_lex)))
+           (set! /body (@yy_statements))
+           (set! //s
+             (@make //t_/guarded '() (list /cond /body)))))
+    (set! funct-result //s)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_while)
+  (let ((/condition '()) (/body '()))
+    (@yy_lex)
+    (set! /condition (@yy_condition))
+    (@yy_skip_symbol
+      //s_/d/o
+      "Missing `DO' in while-loop")
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol
+      //s_/o/d
+      "Unterminated WHILE loop")
+    (@make //t_/while '() (list /condition /body))))
+
+(define (@yy_floop)
+  (let ((/body '()))
+    (@yy_lex)
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol //s_/o/d "Missing `OD'")
+    (@make //t_/floop '() (list /body))))
+
+(define (@yy_exit)
+  (let ((/n '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' in exit statement")
+    (cond ((not (= /token1 //s_/n/u/m/b/e/r))
+           (@syntax_error
+             "Numeric argument to EXIT expected")
+           (set! /n (- 1)))
+          ((not (equal? (quotient /token2 1) /token2))
+           (@syntax_error
+             (string-append
+               (string-append
+                 "Natural number argument to EXIT required, got "
+                 /token2)
+               " instead"))
+           (set! /n (- 1))
+           (@yy_lex))
+          (#t (set! /n /token2) (@yy_lex)))
+    (@yy_skip_symbol
+      //s_/r/p/a/r/e/n
+      "Missing `)' in EXIT statement")
+    (@make //t_/exit /n '())))
+
+(define (@yy_for)
+  (let ((/comps-save /comps)
+        (/index '())
+        (//s '())
+        (funct-result '()))
+    (set! /comps '())
+    (@yy_lex)
+    (cond ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+           (set! /index
+             (@make //t_/var_/lvalue (@make_name /token2) '()))
+           (@yy_lex))
+          ((= /token1 //s_/p/a/t_/o/n/e)
+           (@yy_lex)
+           (set! /index
+             (@make //t_/lvalue_/pat_/one
+                    (@make_name /token2)
+                    '()))
+           (@yy_lex))
+          (#t
+           (@syntax_error "Missing for-loop index variable")
+           (set! /index
+             (@make //t_/var_/lvalue
+                    (@make_name "_Missing_")
+                    '()))))
+    (cond ((= /token1 //s_/i/n)
+           (set! //s (@yy_forin /index)))
+          (#t
+           (@yy_skip_symbol
+             //s_/b/e/c/o/m/e/s
+             "Missing `:='")
+           (set! /comps (list (@yy_expression)))
+           (@yy_skip_symbol //s_/t/o "Missing `TO'")
+           (set! /comps (cons (@yy_expression) /comps))
+           (@yy_skip_symbol //s_/s/t/e/p "Missing `STEP'")
+           (set! /comps (cons (@yy_expression) /comps))
+           (@yy_skip_symbol //s_/d/o "Missing `DO'")
+           (set! /comps (cons (@yy_statements) /comps))
+           (@yy_skip_symbol //s_/o/d "Missing `OD'")
+           (set! //s
+             (@make //t_/for
+                    '()
+                    (cons /index (reverse /comps))))))
+    (set! funct-result //s)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_forin /index)
+  (let ((/set '()) (/body '()))
+    (@yy_lex)
+    (set! /set (@yy_expression))
+    (@yy_skip_symbol //s_/d/o "Missing `DO'")
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol //s_/o/d "Missing `OD'")
+    (@make //t_/for_/in '() (list /index /set /body))))
+
+(define (@yy_var)
+  (let ((/assigns '()) (/body '()) (/delimit 0))
+    (@yy_lex)
+    (cond ((= /token1 //s_/l/a/n/g/l/e)
+           (set! /delimit 1)
+           (@yy_lex)))
+    (set! /assigns (@yy_assigns))
+    (cond ((equal? /assigns '())
+           (@warning "No local variables in VAR")))
+    (set! /assigns (@make //t_/assigns '() /assigns))
+    (cond ((= /delimit 1)
+           (@yy_skip_symbol
+             //s_/r/a/n/g/l/e
+             "Missing `>' after assigns")))
+    (@yy_skip_symbol
+      //s_/c/o/l/o/n
+      "Missing `:' after assigns")
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol
+      //s_/e/n/d/v/a/r
+      "Missing `ENDVAR'")
+    (@make //t_/var '() (list /assigns /body))))
+
+(define (@yy_assert)
+  (let ((/cond '()))
+    (@yy_lex)
+    (set! /cond (@yy_condition))
+    (@yy_skip_symbol
+      //s_/r/b/r/a/c/e
+      "Missing ``}'' in assertion")
+    (@make //t_/assert '() (list /cond))))
+
+(define (@yy_comment)
+  (let ((//text '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/c/o/l/o/n
+      "Missing `:' in COMMENT statement")
+    (cond ((not (= /token1 //s_/s/t/r/i/n/g))
+           (@syntax_error "Missing comment text")
+           (set! //text " ")
+           (let while-loop ()
+             (cond ((and (not (= /token1 //s_/s/e/m/i/c/o/l/o/n))
+                         (= (let ((name //reserved_/words))
+                              (if (vector? name)
+                                (vector-ref name (- /token1 1))
+                                (list-ref name (- /token1 1))))
+                            0))
+                    (@yy_lex)
+                    (while-loop))
+                   (#t #t))))
+          (#t (set! //text /token2) (@yy_lex)))
+    (@make //t_/comment //text '())))
+
+(define (@yy_single_assign //lhs)
+  (let ((/key '()) (/value '()) (//s '()))
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (cond ((= /token1 //s_/l/b/r/a/c/k/e/t)
+                    (set! //lhs (@yy_lv_array_ref //lhs))
+                    (set! /fl_flag1 0))
+                   ((= /token1 //s_/f/u/l/l/s/t/o/p)
+                    (@yy_lex)
+                    (cond ((= /token1 //s_/l/p/a/r/e/n)
+                           (set! /key (@yy_expression))
+                           (set! /fl_flag1 1))
+                          (#t
+                           (set! //lhs (@yy_lv_struct_ref //lhs))
+                           (set! /fl_flag1 0))))
+                   (#t (set! /fl_flag1 1)))
+             (while-loop))
+            (#t #t)))
+    (cond ((= /token1 //s_/b/e/c/o/m/e/s)
+           (cond ((not (equal? /key '()))
+                  (@yy_lex)
+                  (set! /value (@yy_expression))
+                  (set! //s
+                    (@make //t_/puthash '() (list //lhs /key /value))))
+                 (#t
+                  (set! //s
+                    (@make //t_/assignment
+                           '()
+                           (list (@yy_infix_op //lhs //t_/assign)))))))
+          (#t
+           (@syntax_error "`:=' expected")
+           (set! //s (@make //t_/stat_/place '() '()))
+           (let while-loop ()
+             (cond ((and (not (= /token1 //s_/s/e/m/i/c/o/l/o/n))
+                         (not (= /token1 //s_/e/o/f)))
+                    (@yy_lex)
+                    (while-loop))
+                   (#t #t)))))
+    //s))
+
+(define (@yy_assignment)
+  (let ((/assigns '()))
+    (@yy_lex)
+    (set! /assigns (@yy_assigns))
+    (@yy_skip_symbol
+      //s_/r/a/n/g/l/e
+      "Missing `>' after assignments")
+    (@make //t_/assignment '() /assigns)))
+
+(define (@yy_assigns)
+  (let ((/assigns '()) (/flag 0))
+    (cond ((= /token1 //s_/l/a/n/g/l/e)
+           (set! /flag 1)
+           (@yy_lex)))
+    (set! /assigns (list (@yy_assign)))
+    (let while-loop ()
+      (cond ((= /token1 //s_/c/o/m/m/a)
+             (begin
+               (@yy_lex)
+               (set! /assigns (cons (@yy_assign) /assigns)))
+             (while-loop))
+            (#t #t)))
+    (cond ((= /flag 1)
+           (@yy_skip_symbol //s_/r/a/n/g/l/e "Missing `>'")))
+    (reverse /assigns)))
+
+(define (@yy_assign)
+  (let ((/lhs '()) (//s '()))
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //s (@yy_assign_pattern)))
+          (#t
+           (cond ((and (not (= /token1 //s_/i/d/e/n/t/i/f/i/e/r))
+                       (not (= /token1 //s_/m/e/m)))
+                  (@syntax_error "Variable name expected")
+                  (set! /lhs (@make //t_/var_/place '() '())))
+                 (#t
+                  (set! /lhs (@yy_lvalue))
+                  (cond ((not (= /token1 //s_/b/e/c/o/m/e/s))
+                         (@syntax_error "Missing assignment operator")))))
+           (set! //s (@yy_infix_op /lhs //t_/assign))))
+    //s))
+
+(define (@yy_assign_pattern)
+  (let ((//s '())
+        (/name-save /name)
+        (/type /token1)
+        (/lhs '())
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (let ((/-result-
+            (@yy_parse_pattern /type /name /comps)))
+      (set! /name (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /comps (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (cond ((= /token1 //s_/b/e/c/o/m/e/s)
+           (set! /type
+             (gethash /pattern_type (list //t_/lvalue /type)))
+           (set! /lhs (@make /type /name /comps))
+           (set! //s (@yy_infix_op /lhs //t_/assign)))
+          ((or (= /token1 //s_/l/b/r/a/c/k/e/t)
+               (= /token1 //s_/f/u/l/l/s/t/o/p))
+           (set! /type
+             (gethash /pattern_type (list //t_/lvalue /type)))
+           (set! /lhs
+             (@yy_lv_array_check (@make /type /name /comps)))
+           (cond ((not (= /token1 //s_/b/e/c/o/m/e/s))
+                  (@syntax_error "Missing assignment operator")))
+           (set! //s (@yy_infix_op /lhs //t_/assign)))
+          (#t
+           (set! /type
+             (gethash /pattern_type (list //t_/assign /type)))
+           (set! //s (@make /type /name /comps))))
+    (set! funct-result //s)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_lv_array_check //i)
+  (let ((//s //i))
+    (let while-loop ()
+      (cond ((or (= //s_/f/u/l/l/s/t/o/p /token1)
+                 (= //s_/l/b/r/a/c/k/e/t /token1))
+             (cond ((= /token1 //s_/l/b/r/a/c/k/e/t)
+                    (set! //s (@yy_lv_array_ref //s)))
+                   (#t (@yy_lex) (set! //s (@yy_lv_struct_ref //s))))
+             (while-loop))
+            (#t #t)))
+    //s))
+
+(define (@yy_infix_op /lhs /type)
+  (let ((/rhs '()))
+    (@yy_lex)
+    (set! /rhs (@yy_expression))
+    (@make /type '() (list /lhs /rhs))))
+
+(define (@yy_push)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (list (@yy_lvalue)))
+    (@yy_skip_symbol //s_/c/o/m/m/a "Missing `,'")
+    (set! /args (cons (@yy_expression) /args))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result
+      (@make //t_/push '() (reverse /args)))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_pop)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (list (@yy_lvalue)))
+    (@yy_skip_symbol //s_/c/o/m/m/a "Missing `,'")
+    (set! /args (cons (@yy_lvalue) /args))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result
+      (@make //t_/pop '() (reverse /args)))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_join)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (set! /args (list (@yy_statements)))
+    (@yy_skip_symbol //s_/c/o/m/m/a "Missing `,'")
+    (set! /args (cons (@yy_statements) /args))
+    (@yy_skip_symbol
+      //s_/e/n/d/j/o/i/n
+      "Missing `)'")
+    (set! funct-result
+      (@make //t_/join '() (reverse /args)))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_name /thing)
+  (let ((/name-save /name)
+        (/type /token1)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (let ((/-result-
+                   (@yy_parse_pattern /type /name /comps)))
+             (set! /name (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /comps (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (cond ((null? (gethash /pattern_type (list //t_/name /type)))
+                  (@syntax_error
+                    (string-append
+                      "Invalid pattern for Name in "
+                      /thing))
+                  (set! /name (@name (@make_name "_missing_"))))
+                 (#t
+                  (set! /name
+                    (@make (gethash /pattern_type (list //t_/name /type))
+                           /name
+                           /comps)))))
+          ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+           (set! /name (@name (@make_name /token2)))
+           (@yy_lex))
+          (#t
+           (@syntax_error
+             (string-append "Missing name in " /thing))
+           (set! /name (@name (@make_name "_Missing_")))))
+    (set! funct-result /name)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_as)
+  (let ((/actions '())
+        (/name-save /name)
+        (funct-result '()))
+    (set! /name '())
+    (@yy_lex)
+    (set! /name (@yy_name "action system"))
+    (@yy_skip_symbol //s_/c/o/l/o/n "Missing `:'")
+    (set! /actions (@yy_actions))
+    (set! funct-result
+      (@make //t_/a_/s '() (list /name /actions)))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_actions)
+  (let ((/actions (list (@yy_action))))
+    (let while-loop ()
+      (cond ((and (not (= /token1 //s_/e/n/d/a/c/t/i/o/n/s))
+                  (not (= /token1 //s_/e/o/f)))
+             (cond ((not (= /token1 //s_/e/n/d/a/c/t/i/o/n/s))
+                    (set! /actions (cons (@yy_action) /actions))))
+             (while-loop))
+            (#t #t)))
+    (@yy_skip_symbol
+      //s_/e/n/d/a/c/t/i/o/n/s
+      "Missing `ENDACTIONS'")
+    (@make //t_/actions '() (reverse /actions))))
+
+(define (@yy_action)
+  (let ((/name-save /name)
+        (/body '())
+        (/type /token1)
+        (//s '())
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (let ((/-result-
+                   (@yy_parse_pattern /type /name /comps)))
+             (set! /name (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /comps (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (cond ((= /token1 //s_/d/e/f/i/n/e)
+                  (cond ((null? (gethash /pattern_type (list //t_/name /type)))
+                         (@syntax_error
+                           "Invalid pattern for Name in action")
+                         (set! /name (@name (@make_name "_missing_"))))
+                        (#t
+                         (set! /name
+                           (@make (gethash /pattern_type (list //t_/name /type))
+                                  /name
+                                  /comps)))))
+                 (#t
+                  (set! //s
+                    (@make (gethash /pattern_type (list //t_/action /type))
+                           /name
+                           /comps)))))
+          (#t
+           (cond ((not (= /token1 //s_/i/d/e/n/t/i/f/i/e/r))
+                  (@syntax_error "Missing action name")
+                  (set! /name (@name (@make_name "_missing_"))))
+                 (#t (set! /name (@name (@make_name /token2)))))
+           (@yy_lex)))
+    (cond ((null? //s)
+           (@yy_skip_symbol
+             //s_/d/e/f/i/n/e
+             "Missing `==' in action")
+           (set! /body (@yy_statements))
+           (cond ((and (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                       (not (= /token1 //s_/e/n/d)))
+                  (@syntax_error "Missing `.' at end of action"))
+                 (#t (@yy_lex)))
+           (set! //s
+             (@make //t_/action '() (list /name /body)))))
+    (set! funct-result //s)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_call)
+  (let ((/name-save /name) (funct-result '()))
+    (set! /name '())
+    (@yy_lex)
+    (cond ((not (= /token1 //s_/i/d/e/n/t/i/f/i/e/r))
+           (@syntax_error "Missing action name")
+           (set! /name (@make_name "_Missing_")))
+          (#t (set! /name (@make_name /token2)) (@yy_lex)))
+    (set! funct-result (@make //t_/call /name '()))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_gen_print /type)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (@yy_expressions))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result
+      (@make /type '() (list /args)))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_mw_proc)
+  (let ((/name-save /name)
+        (/body '())
+        (funct-result '()))
+    (set! /name '())
+    (cond (#f
+           (begin
+             (display "MW Proc: token1 = ")
+             (begin
+               (display /token1)
+               (begin
+                 (display " token2 = ")
+                 (begin
+                   (display /token2)
+                   (newline)
+                   (force-output)))))))
+    (@yy_lex)
+    (set! /name (@yy_at_name))
+    (set! /body (@yy_generic_proc))
+    (set! funct-result
+      (@make //t_/m/w_/proc '() (cons /name /body)))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_at_name)
+  (let ((/name-save /name) (funct-result '()))
+    (set! /name '())
+    (cond ((= /token1 //s_/a/t)
+           (set! /name
+             (@make //t_/name
+                    (@make_name (string-append "@" /token2))
+                    '()))
+           (@yy_lex))
+          ((= /token1 //s_/a/t_/p/a/t_/o/n/e)
+           (set! /name
+             (@make //t_/name_/pat_/one
+                    (@make_name /token2)
+                    '()))
+           (@yy_lex))
+          (#t
+           (@syntax_error "Missing `@' symbol in proc name")
+           (cond ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+                  (set! /name
+                    (@make //t_/name
+                           (@make_name (string-append "@" /token2))
+                           '()))
+                  (@yy_lex)))))
+    (set! funct-result /name)
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_mw_funct)
+  (let ((/name-save /name)
+        (/body '())
+        (funct-result '()))
+    (set! /name '())
+    (@yy_lex)
+    (cond ((= /token1 //s_/a/t)
+           (set! /name
+             (@make_name (string-append "@" /token2)))
+           (@yy_lex))
+          (#t
+           (@syntax_error
+             "Missing `@' symbol in funct. name")
+           (cond ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+                  (set! /name
+                    (@make_name (string-append "@" /token2)))
+                  (@yy_lex))
+                 (#t
+                  (@syntax_error "Missing funct. name")
+                  (set! /name (@make_name "@_Missing_"))))))
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /args (@make //t_/lvalues '() '())))
+          (#t (set! /args (@yy_lvalues))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "`)' expected")
+    (@yy_skip_symbol //s_/d/e/f/i/n/e "Missing `=='")
+    (cond ((= /token1 //s_/v/a/r)
+           (@yy_lex)
+           (let ((/flag 0))
+             (cond ((= /token1 //s_/l/a/n/g/l/e)
+                    (set! /flag 1)
+                    (@yy_lex)))
+             (cond ((and (not (= /token1 //s_/r/a/n/g/l/e))
+                         (not (= /token1 //s_/c/o/l/o/n)))
+                    (set! /ass
+                      (@make //t_/assigns '() (@yy_assigns))))
+                   (#t (set! /ass (@make //t_/assigns '() '()))))
+             (cond ((= /flag 1)
+                    (@yy_skip_symbol //s_/r/a/n/g/l/e "Missing `>'")))))
+          (#t (set! /ass (@make //t_/assigns '() '()))))
+    (@yy_skip_symbol //s_/c/o/l/o/n "Missing `:'")
+    (set! /body (@yy_statements))
+    (set! /exp (@yy_expression))
+    (cond ((and (not (= /token1 //s_/f/u/l/l/s/t/o/p))
+                (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                (not (= /token1 //s_/e/n/d)))
+           (@syntax_error
+             "Missing end delimiter for MW Funct"))
+          (#t (@yy_lex)))
+    (set! funct-result
+      (@make //t_/m/w_/funct
+             '()
+             (list (@make //t_/name /name '())
+                   /args
+                   /ass
+                   /body
+                   /exp)))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_mw_bfunct)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (/ass-save /ass)
+        (/body '())
+        (/cond '())
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (set! /ass '())
+    (@yy_lex)
+    (cond ((= /token1 //s_/a/t)
+           (set! /name
+             (@make_name
+               (string-append (string-append "@" /token2) "?")))
+           (@yy_lex))
+          (#t
+           (@syntax_error
+             "Missing `@' symbol in b_funct. name")
+           (cond ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+                  (set! /name
+                    (@make_name
+                      (string-append (string-append "@" /token2) "?")))
+                  (@yy_lex))
+                 (#t
+                  (@syntax_error "Missing bfunct. name")
+                  (set! /name (@make_name "@_Missing_?"))))))
+    (@yy_skip_symbol
+      //s_/q/u/e/r/y
+      "Missing `?' after bfunct. name")
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /args (@make //t_/lvalues '() '())))
+          (#t (set! /args (@yy_lvalues))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "`)' expected")
+    (@yy_skip_symbol //s_/d/e/f/i/n/e "Missing `=='")
+    (cond ((= /token1 //s_/v/a/r)
+           (@yy_lex)
+           (let ((/flag 0))
+             (cond ((= /token1 //s_/l/a/n/g/l/e)
+                    (set! /flag 1)
+                    (@yy_lex)))
+             (cond ((and (not (= /token1 //s_/r/a/n/g/l/e))
+                         (not (= /token1 //s_/c/o/l/o/n)))
+                    (set! /ass
+                      (@make //t_/assigns '() (@yy_assigns))))
+                   (#t (set! /ass (@make //t_/assigns '() '()))))
+             (cond ((= /flag 1)
+                    (@yy_skip_symbol //s_/r/a/n/g/l/e "Missing `>'")))))
+          (#t (set! /ass (@make //t_/assigns '() '()))))
+    (@yy_skip_symbol //s_/c/o/l/o/n "Missing `:'")
+    (set! /body (@yy_statements))
+    (set! /cond (@yy_condition))
+    (cond ((and (not (= /token1 //s_/f/u/l/l/s/t/o/p))
+                (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                (not (= /token1 //s_/e/n/d)))
+           (@syntax_error
+             "Missing end delimiter for BFunct"))
+          (#t (@yy_lex)))
+    (set! funct-result
+      (@make //t_/m/w_/b/funct
+             '()
+             (list (@make //t_/name /name '())
+                   /args
+                   /ass
+                   /body
+                   /cond)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    (set! /ass /ass-save)
+    funct-result))
+
+(define (@yy_generic_proc)
+  (let ((/vals '()) (/vars '()) (/body '()))
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (cond ((= /token1 //s_/r/p/a/r/e/n) #t)
+          (#t
+           (cond ((= /token1 //s_/v/a/r)
+                  (set! /vals (@make //t_/lvalues '() '())))
+                 (#t (set! /vals (@yy_lvalues))))
+           (cond ((= /token1 //s_/v/a/r)
+                  (@yy_lex)
+                  (cond ((= /token1 //s_/r/p/a/r/e/n)
+                         (set! /vars (@make //t_/lvalues '() '())))
+                        (#t (set! /vars (@yy_lvalues))))))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "`)' expected")
+    (@yy_skip_symbol //s_/d/e/f/i/n/e "Missing `=='")
+    (set! /body (@yy_statements))
+    (cond ((and (not (= /token1 //s_/f/u/l/l/s/t/o/p))
+                (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                (not (= /token1 //s_/e/n/d)))
+           (@syntax_error "Missing `END'"))
+          (#t (@yy_lex)))
+    (cond ((equal? /vals '())
+           (set! /vals (@make //t_/lvalues '() '()))))
+    (cond ((equal? /vars '())
+           (set! /vars (@make //t_/lvalues '() '()))))
+    (list /vals /vars /body)))
+
+(define (@yy_where)
+  (let ((//s '()) (/defines '()))
+    (@yy_lex)
+    (set! //s (@yy_statements))
+    (@yy_skip_symbol
+      //s_/w/h/e/r/e
+      "Missing `WHERE'")
+    (set! /defines (@yy_defines))
+    (@yy_skip_symbol
+      //s_/e/n/d
+      "Missing `END' after WHERE-block")
+    (@make //t_/where '() (list //s /defines))))
+
+(define (@yy_defines)
+  (let ((/d (list (@yy_define))))
+    (let while-loop ()
+      (cond ((or (= /token1 //s_/p/r/o/c)
+                 (= /token1 //s_/f/u/n/c/t)
+                 (= /token1 //s_/b/f/u/n/c/t)
+                 (= /token1 //s_/c/o/m/m/a))
+             (begin
+               (cond ((= /token1 //s_/c/o/m/m/a) (@yy_lex)))
+               (set! /d (cons (@yy_define) /d)))
+             (while-loop))
+            (#t #t)))
+    (@make //t_/definitions '() (reverse /d))))
+
+(define (@yy_define)
+  (let ((//s '()))
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //s (@yy_defn_pattern)))
+          ((= /token1 //s_/p/r/o/c) (set! //s (@yy_proc)))
+          ((= /token1 //s_/f/u/n/c/t)
+           (set! //s (@yy_funct)))
+          ((= /token1 //s_/b/f/u/n/c/t)
+           (set! //s (@yy_bfunct)))
+          (#t
+           (@syntax_error
+             "Expected PROC, FUNCT or BFUNCT definition")
+           (@yy_lex)))
+    //s))
+
+(define (@yy_defn_pattern)
+  (let ((/name-save /name)
+        (/type /token1)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (let ((/-result-
+            (@yy_parse_pattern /type /name /comps)))
+      (set! /name (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /comps (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (set! /type
+      (gethash
+        /pattern_type
+        (list //t_/definition /type)))
+    (set! funct-result (@make /type /name /comps))
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_proc)
+  (let ((/name-save /name)
+        (/body '())
+        (funct-result '()))
+    (set! /name '())
+    (@yy_lex)
+    (set! /name (@yy_name "PROC"))
+    (set! /body (@yy_generic_proc))
+    (set! funct-result
+      (@make //t_/proc '() (cons /name /body)))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@yy_funct)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (/ass-save /ass)
+        (/body '())
+        (/exp-save /exp)
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (set! /ass '())
+    (set! /exp '())
+    (@yy_lex)
+    (set! /name (@yy_name "FUNCT definition"))
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /args (@make //t_/lvalues '() '())))
+          (#t (set! /args (@yy_lvalues))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "`)' expected")
+    (@yy_skip_symbol //s_/d/e/f/i/n/e "Missing `=='")
+    (cond ((= /token1 //s_/v/a/r)
+           (@yy_lex)
+           (@yy_skip_symbol //s_/l/a/n/g/l/e "Missing `<'")
+           (cond ((= /token1 //s_/r/a/n/g/l/e)
+                  (set! /ass (@make //t_/assigns '() '())))
+                 (#t
+                  (set! /ass
+                    (@make //t_/assigns '() (@yy_assigns)))))
+           (@yy_skip_symbol //s_/r/a/n/g/l/e "Missing `>'"))
+          ((= /token1 //s_/c/o/l/o/n)
+           (set! /ass (@make //t_/assigns '() '())))
+          (#t (set! /ass (@yy_f_assigns))))
+    (@yy_skip_symbol //s_/c/o/l/o/n "Missing `:'")
+    (set! /body (@yy_statements))
+    (set! /exp (@yy_expression))
+    (cond ((and (not (= /token1 //s_/f/u/l/l/s/t/o/p))
+                (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                (not (= /token1 //s_/e/n/d)))
+           (@syntax_error "Missing `END'"))
+          (#t (@yy_lex)))
+    (set! funct-result
+      (@make //t_/funct
+             '()
+             (list /name /args /ass /body /exp)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    (set! /ass /ass-save)
+    (set! /exp /exp-save)
+    funct-result))
+
+(define (@yy_bfunct)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (/ass-save /ass)
+        (/body '())
+        (/cond '())
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (set! /ass '())
+    (@yy_lex)
+    (set! /name (@yy_name "BFUNCT definition"))
+    (cond ((= /token1 //s_/q/u/e/r/y)
+           (cond ((= (@st /name) //t_/name)
+                  (set! /name
+                    (@name (@make_name
+                             (string-append (@n_string (@v /name)) "?"))))))
+           (@yy_lex)))
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /args (@make //t_/lvalues '() '())))
+          (#t (set! /args (@yy_lvalues))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "`)' expected")
+    (@yy_skip_symbol //s_/d/e/f/i/n/e "Missing `=='")
+    (cond ((= /token1 //s_/v/a/r)
+           (@yy_lex)
+           (@yy_skip_symbol //s_/l/a/n/g/l/e "Missing `<'")
+           (cond ((= /token1 //s_/r/a/n/g/l/e)
+                  (set! /ass (@make //t_/assigns '() '())))
+                 (#t
+                  (set! /ass
+                    (@make //t_/assigns '() (@yy_assigns)))))
+           (@yy_skip_symbol //s_/r/a/n/g/l/e "Missing `>'"))
+          ((= /token1 //s_/c/o/l/o/n)
+           (set! /ass (@make //t_/assigns '() '())))
+          (#t (set! /ass (@yy_f_assigns))))
+    (@yy_skip_symbol //s_/c/o/l/o/n "Missing `:'")
+    (set! /body (@yy_statements))
+    (set! /cond (@yy_condition))
+    (cond ((and (not (= /token1 //s_/f/u/l/l/s/t/o/p))
+                (not (= /token1 //s_/d/o/t/s/p/a/c/e))
+                (not (= /token1 //s_/e/n/d)))
+           (@syntax_error "Missing `END'"))
+          (#t (@yy_lex)))
+    (set! funct-result
+      (@make //t_/b/funct
+             '()
+             (list /name /args /ass /body /cond)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    (set! /ass /ass-save)
+    funct-result))
+
+(define (@yy_f_assigns)
+  (let ((/assigns '()))
+    (set! /assigns (list (@yy_assign)))
+    (let while-loop ()
+      (cond ((= /token1 //s_/s/e/m/i/c/o/l/o/n)
+             (begin
+               (@yy_lex)
+               (set! /assigns (cons (@yy_assign) /assigns)))
+             (while-loop))
+            (#t #t)))
+    (@make //t_/assigns '() (reverse /assigns))))
+
+(define (@yy_proc_call /name-par)
+  (let ((/name-save /name)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name /name-par)
+    (set! /comps (@yy_proc_arg_list))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result
+      (@make //t_/proc_/call
+             '()
+             (cons (@make //t_/name /name '()) /comps)))
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_proc_arg_list)
+  (let ((/vals '()) (/vars '()))
+    (@yy_lex)
+    (cond ((= /token1 //s_/v/a/r)
+           (@yy_lex)
+           (set! /vals (@make //t_/expressions '() '())))
+          ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /vals (@make //t_/expressions '() '())))
+          (#t
+           (set! /vals (@yy_expressions))
+           (cond ((= /token1 //s_/v/a/r) (@yy_lex)))))
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (set! /vars (@make //t_/lvalues '() '())))
+          (#t (set! /vars (@yy_lvalues))))
+    (list /vals /vars)))
+
+(define (@yy_aproc_call)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (@yy_lex)
+    (set! /name (@yy_name "!P call"))
+    (cond ((not (= /token1 //s_/l/p/a/r/e/n))
+           (@syntax_error
+             "Missing `(' or missing argument list"))
+          (#t
+           (set! /args (@yy_proc_arg_list))
+           (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")))
+    (set! funct-result
+      (@make //t_/a_/proc_/call '() (cons /name /args)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_mw_proc_call)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (set! /name
+      (@make_name (string-append "@" /token2)))
+    (@yy_lex)
+    (cond ((= /token1 //s_/l/p/a/r/e/n)
+           (set! /args (@yy_proc_arg_list))
+           (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'"))
+          (#t
+           (set! /args
+             (list (@make //t_/expressions '() '())
+                   (@make //t_/lvalues '() '())))))
+    (set! funct-result
+      (@make //t_/m/w_/proc_/call
+             '()
+             (cons (@make //t_/name /name '()) /args)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_x_proc_call)
+  (let ((/name-save /name)
+        (/args-save /args)
+        (funct-result '()))
+    (set! /name '())
+    (set! /args '())
+    (@yy_lex)
+    (cond ((not (= /token1 //s_/i/d/e/n/t/i/f/i/e/r))
+           (@syntax_error "Missing procedure name in call")
+           (set! /name (@make_name "_Missing_")))
+          (#t (set! /name (@make_name /token2)) (@yy_lex)))
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (cond ((not (= /token1 //s_/r/p/a/r/e/n))
+           (set! /args (@yy_expressions))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (cond ((equal? /args '())
+           (set! /args (@make //t_/expressions '() '()))))
+    (set! funct-result
+      (@make //t_/x_/proc_/call
+             '()
+             (list (@make //t_/name /name '()) /args)))
+    (set! /name /name-save)
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_foreach)
+  (let ((/type '()) (/body '()) (//s '()))
+    (@yy_lex)
+    (cond ((= /token1 //s_/s/t/a/t/e/m/e/n/t)
+           (set! /type //t_/foreach_/stat)
+           (@yy_lex))
+          ((= /token1 //s_/s/t/a/t/e/m/e/n/t/s)
+           (set! /type //t_/foreach_/stats)
+           (@yy_lex))
+          ((= /token1 //s_/v/a/r/i/a/b/l/e)
+           (set! /type //t_/foreach_/variable)
+           (@yy_lex))
+          ((= /token1 //s_/l/v/a/l/u/e)
+           (set! /type //t_/foreach_/lvalue)
+           (@yy_lex))
+          ((= /token1 //s_/s/t/s)
+           (set! /type //t_/foreach_/s/t/s)
+           (@yy_lex))
+          ((= /token1 //s_/n/a/s)
+           (set! /type //t_/foreach_/n/a/s)
+           (@yy_lex))
+          ((= /token1 //s_/e/x/p/r/e/s/s/i/o/n)
+           (set! /type //t_/foreach_/expn)
+           (@yy_lex))
+          ((= /token1 //s_/c/o/n/d/i/t/i/o/n)
+           (set! /type //t_/foreach_/cond)
+           (@yy_lex))
+          ((= /token1 //s_/t/e/r/m/i/n/a/l)
+           (@yy_lex)
+           (cond ((= /token1 //s_/s/t/a/t/e/m/e/n/t)
+                  (set! /type //t_/foreach_/t/s)
+                  (@yy_lex))
+                 ((= /token1 //s_/s/t/a/t/e/m/e/n/t/s)
+                  (set! /type //t_/foreach_/t/ss)
+                  (@yy_lex))
+                 (#t
+                  (@syntax_error
+                    "Wrong type in `FOREACH Terminal'")
+                  (@yy_lex))))
+          ((= /token1 //s_/g/l/o/b/a/l)
+           (@yy_lex)
+           (cond ((= /token1 //s_/v/a/r/i/a/b/l/e)
+                  (@yy_lex)
+                  (set! /type //t_/foreach_/global_/var))
+                 (#t
+                  (@syntax_error "Wrong type in `FOREACH Global'")
+                  (@yy_lex))))
+          (#t
+           (@syntax_error
+             "Wrong or missing type in `FOREACH'")
+           (@yy_lex)))
+    (@yy_skip_symbol
+      //s_/d/o
+      "Missing `DO' in `FOREACH'")
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol
+      //s_/o/d
+      "Missing `OD' in `FOREACH'")
+    (cond ((equal? /type '())
+           (set! //s (@make //t_/stat_/place '() '())))
+          (#t (set! //s (@make /type '() (list /body)))))
+    //s))
+
+(define (@yy_ateach)
+  (let ((/type '()) (/body '()) (//s '()))
+    (@yy_lex)
+    (cond ((= /token1 //s_/s/t/a/t/e/m/e/n/t)
+           (set! /type //t_/ateach_/stat)
+           (@yy_lex))
+          ((= /token1 //s_/s/t/a/t/e/m/e/n/t/s)
+           (set! /type //t_/ateach_/stats)
+           (@yy_lex))
+          ((= /token1 //s_/v/a/r/i/a/b/l/e)
+           (set! /type //t_/ateach_/variable)
+           (@yy_lex))
+          ((= /token1 //s_/l/v/a/l/u/e)
+           (set! /type //t_/ateach_/lvalue)
+           (@yy_lex))
+          ((= /token1 //s_/s/t/s)
+           (set! /type //t_/ateach_/s/t/s)
+           (@yy_lex))
+          ((= /token1 //s_/n/a/s)
+           (set! /type //t_/ateach_/n/a/s)
+           (@yy_lex))
+          ((= /token1 //s_/e/x/p/r/e/s/s/i/o/n)
+           (set! /type //t_/ateach_/expn)
+           (@yy_lex))
+          ((= /token1 //s_/c/o/n/d/i/t/i/o/n)
+           (set! /type //t_/ateach_/cond)
+           (@yy_lex))
+          ((= /token1 //s_/t/e/r/m/i/n/a/l)
+           (@yy_lex)
+           (cond ((= /token1 //s_/s/t/a/t/e/m/e/n/t)
+                  (set! /type //t_/ateach_/t/s)
+                  (@yy_lex))
+                 ((= /token1 //s_/s/t/a/t/e/m/e/n/t/s)
+                  (set! /type //t_/ateach_/t/ss)
+                  (@yy_lex))
+                 (#t
+                  (@syntax_error "Wrong type in `ATEACH Terminal'")
+                  (@yy_lex))))
+          ((= /token1 //s_/g/l/o/b/a/l)
+           (@yy_lex)
+           (cond ((= /token1 //s_/v/a/r/i/a/b/l/e)
+                  (@yy_lex)
+                  (set! /type //t_/ateach_/global_/var))
+                 (#t
+                  (@syntax_error "Wrong type in `ATEACH Global'")
+                  (@yy_lex))))
+          (#t
+           (@syntax_error
+             "Wrong or missing type in `ATEACH'")
+           (@yy_lex)))
+    (@yy_skip_symbol
+      //s_/d/o
+      "Missing `DO' in `ATEACH'")
+    (set! /body (@yy_statements))
+    (@yy_skip_symbol
+      //s_/o/d
+      "Missing `OD' in `ATEACH'")
+    (cond ((equal? /type '())
+           (set! //s (@make //t_/stat_/place '() '())))
+          (#t (set! //s (@make /type '() (list /body)))))
+    //s))
+
+(define (@yy_ifmatch)
+  (let ((//s '()))
+    (@yy_lex)
+    (cond ((= /token1 //s_/s/t/a/t/e/m/e/n/t)
+           (set! //s
+             (@yy_ifmatch_s //t_/statement //t_/ifmatch_/stat)))
+          ((= /token1 //s_/s/t/a/t/e/m/e/n/t/s)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/statements
+               //t_/ifmatch_/stats)))
+          ((= /token1 //s_/l/v/a/l/u/e)
+           (set! //s
+             (@yy_ifmatch_s //t_/lvalue //t_/ifmatch_/lvalue)))
+          ((= /token1 //s_/l/v/a/l/u/e/s)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/lvalues
+               //t_/ifmatch_/lvalues)))
+          ((= /token1 //s_/e/x/p/r/e/s/s/i/o/n)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/expression
+               //t_/ifmatch_/expn)))
+          ((= /token1 //s_/e/x/p/r/e/s/s/i/o/n/s)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/expressions
+               //t_/ifmatch_/expns)))
+          ((= /token1 //s_/c/o/n/d/i/t/i/o/n)
+           (set! //s
+             (@yy_ifmatch_s //t_/condition //t_/ifmatch_/cond)))
+          ((= /token1 //s_/a/s/s/i/g/n)
+           (set! //s
+             (@yy_ifmatch_s //t_/assign //t_/ifmatch_/assign)))
+          ((= /token1 //s_/a/s/s/i/g/n/s)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/assigns
+               //t_/ifmatch_/assigns)))
+          ((= /token1 //s_/d/e/f/i/n/i/t/i/o/n)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/definition
+               //t_/ifmatch_/defn)))
+          ((= /token1 //s_/d/e/f/i/n/i/t/i/o/n/s)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/definitions
+               //t_/ifmatch_/defns)))
+          ((= /token1 //s_/g/u/a/r/d/e/d)
+           (set! //s
+             (@yy_ifmatch_s
+               //t_/guarded
+               //t_/ifmatch_/guarded)))
+          ((= /token1 //s_/a/c/t/i/o/n)
+           (set! //s
+             (@yy_ifmatch_s //t_/action //t_/ifmatch_/action)))
+          (#t
+           (@syntax_error "Incorrect type in `IFMATCH'")
+           (set! //s (@make //t_/stat_/place '() '()))))
+    //s))
+
+(define (@yy_ifmatch_s //g/t /result_type)
+  (let ((/pat '()) (/body '()))
+    (@yy_lex)
+    (set! /pat (@yy_parse //g/t))
+    (set! /body (@yy_ifmatch_body))
+    (@make /result_type '() (cons /pat /body))))
+
+(define (@yy_ifmatch_body)
+  (let ((//s1 '()) (//s2 '()))
+    (@yy_skip_symbol
+      //s_/t/h/e/n
+      "Missing `THEN' in Ifmatch_Statement")
+    (set! //s1 (@yy_statements))
+    (cond ((= /token1 //s_/e/l/s/e)
+           (@yy_lex)
+           (set! //s2 (@yy_statements)))
+          (#t (set! //s2 (@skips))))
+    (@yy_skip_symbol
+      //s_/e/n/d/m/a/t/c/h
+      "Missing `ENDMATCH'")
+    (list //s1 //s2)))
+
+(define (@yy_error)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (list (@yy_expressions)))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result (@make //t_/error '() /args))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_spec)
+  (let ((/vars '()) (/cond '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/a/n/g/l/e
+      "Missing `<' in specification statement")
+    (set! /vars (@yy_lvalues))
+    (@yy_skip_symbol
+      //s_/r/a/n/g/l/e
+      "Missing `>' in specification statement")
+    (@yy_skip_symbol
+      //s_/c/o/l/o/n
+      "Missing `:' in specification statement")
+    (set! /cond (@yy_condition))
+    (@yy_skip_symbol
+      //s_/e/n/d/s/p/e/c
+      "Missing `ENDSPEC' in specification statement")
+    (@make //t_/spec '() (list /vars /cond))))
+
+(define (@yy_maphash)
+  (let ((/args-save /args) (funct-result '()))
+    (set! /args '())
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (cond ((not (= /token1 //s_/s/t/r/i/n/g))
+           (@syntax_error
+             "Missing string argument in MAPHASH")
+           (set! /args
+             (list (@name (@make_name "_Missing_")))))
+          (#t
+           (set! /args (list (@name (@make_name /token2))))
+           (@yy_lex)
+           (@yy_skip_symbol
+             //s_/c/o/m/m/a
+             "Missing `,' or 2nd argument in MAPHASH")))
+    (set! /args
+      (concat /args (list (@yy_s_expression))))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+    (set! funct-result
+      (@make //t_/maphash '() /args))
+    (set! /args /args-save)
+    funct-result))
+
+(define (@yy_stat_pattern)
+  (let ((/type /token1)
+        (/name-save /name)
+        (//s '())
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (let ((/-result-
+            (@yy_parse_pattern /type /name /comps)))
+      (set! /name (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /comps (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (cond ((or (= /token1 //s_/b/e/c/o/m/e/s)
+               (= /token1 //s_/l/b/r/a/c/k/e/t)
+               (= /token1 //s_/f/u/l/l/s/t/o/p))
+           (set! /type
+             (gethash /pattern_type (list //t_/lvalue /type)))
+           (set! //s
+             (@yy_single_assign (@make /type /name /comps))))
+          (#t
+           (set! /type
+             (gethash
+               /pattern_type
+               (list //t_/statement /type)))
+           (set! //s (@make /type /name /comps))))
+    (set! funct-result //s)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_lvalues)
+  (let ((/vals (list (@yy_lvalue))))
+    (let while-loop ()
+      (cond ((= /token1 //s_/c/o/m/m/a)
+             (begin
+               (@yy_lex)
+               (set! /vals (cons (@yy_lvalue) /vals)))
+             (while-loop))
+            (#t #t)))
+    (@make //t_/lvalues '() (reverse /vals))))
+
+(define (@yy_lvalue)
+  (let ((/name-save /name)
+        (//s '())
+        (/type /token1)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name '())
+    (set! /comps '())
+    (cond ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (let ((/-result-
+                   (@yy_parse_pattern /type /name /comps)))
+             (set! /name (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /comps (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (set! /type
+             (gethash /pattern_type (list //t_/lvalue /type)))
+           (set! //s (@make /type /name /comps)))
+          ((= /token1 //s_/m/e/m)
+           (set! //s (@yy_lv_mem_ref)))
+          (#t
+           (cond ((not (= /token1 //s_/i/d/e/n/t/i/f/i/e/r))
+                  (@syntax_error
+                    "Missing variable name for Lvalue")
+                  (set! /name (@make_name "_Missing_")))
+                 (#t (set! /name (@make_name /token2)) (@yy_lex)))
+           (set! //s (@make //t_/var_/lvalue /name '()))))
+    (set! //s (@yy_lv_array_check //s))
+    (set! funct-result //s)
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@yy_lv_array_ref /lval)
+  (let ((/exps '()) (//s '()) (/type '()))
+    (@yy_lex)
+    (set! /exps (list (@yy_expression)))
+    (cond ((= /token1 //s_/r/b/r/a/c/k/e/t)
+           (set! /type //t_/aref_/lvalue)
+           (set! /exps
+             (list (@make //t_/expressions '() /exps))))
+          ((= /token1 //s_/c/o/m/m/a)
+           (set! /type //t_/rel_/seg_/lvalue)
+           (@yy_lex)
+           (set! /exps
+             (concat /exps (list (@yy_expression)))))
+          ((= /token1 //s_/d/o/t/d/o/t)
+           (@yy_lex)
+           (cond ((= /token1 //s_/r/b/r/a/c/k/e/t)
+                  (set! /type //t_/final_/seg_/lvalue))
+                 (#t
+                  (set! /type //t_/sub_/seg_/lvalue)
+                  (set! /exps
+                    (concat /exps (list (@yy_expression)))))))
+          (#t
+           (@syntax_error "Malformed array subscript")
+           (set! /type //t_/aref_/lvalue)))
+    (@yy_skip_symbol
+      //s_/r/b/r/a/c/k/e/t
+      "Missing `]'")
+    (set! /exps (cons /lval /exps))
+    (@make /type '() /exps)))
+
+(define (@yy_lv_mem_ref)
+  (let ((/exps '()) (//s '()) (/type '()))
+    (@yy_lex)
+    (set! /exps (list (@yy_expression)))
+    (cond ((= /token1 //s_/r/b/r/a/c/k/e/t)
+           (set! /type //t_/mem_/lvalue))
+          ((= /token1 //s_/c/o/m/m/a)
+           (set! /type //t_/mem_/rel_/lvalue)
+           (@yy_lex)
+           (set! /exps
+             (concat /exps (list (@yy_expression)))))
+          ((= /token1 //s_/d/o/t/d/o/t)
+           (@yy_lex)
+           (cond ((= /token1 //s_/r/b/r/a/c/k/e/t)
+                  (@syntax_error "Malformed memory sub seg"))
+                 (#t
+                  (set! /type //t_/mem_/seg_/lvalue)
+                  (set! /exps
+                    (concat /exps (list (@yy_expression)))))))
+          (#t
+           (@syntax_error "Malformed memory subscript")
+           (set! /type //t_/mem_/lvalue)))
+    (@yy_skip_symbol
+      //s_/r/b/r/a/c/k/e/t
+      "Missing `]' in memory reference")
+    (@make /type '() /exps)))
+
+(define (@yy_lv_struct_ref /lval)
+  (let ((/name-save /name) (funct-result '()))
+    (set! /name '())
+    (cond ((= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+           (set! /name (@make_name /token2))
+           (@yy_lex))
+          (#t
+           (@syntax_error "Missing structure element name")
+           (set! /name (@make_name "_Missing_"))))
+    (set! funct-result
+      (@make //t_/struct_/lvalue
+             '()
+             (list (@make //t_/name /name '()) /lval)))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@initialise)
+  (set! //error_/count 0)
+  (set! /yy_lineno 1)
+  (let ((/temp //keywords) (//a '()))
+    (set! //key_/table (my-make-hash-table 16))
+    (let while-loop ()
+      (cond ((not (equal? /temp '()))
+             (begin
+               (set! //a (car /temp))
+               (puthash
+                 //key_/table
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1))))
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1)))))
+               (set! /temp (cdr /temp)))
+             (while-loop))
+            (#t #t)))
+    (set! /temp //types)
+    (set! //a '())
+    (set! //type_/table (my-make-hash-table 16))
+    (let while-loop ()
+      (cond ((not (equal? /temp '()))
+             (begin
+               (set! //a (car /temp))
+               (puthash
+                 //type_/table
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1))))
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1)))))
+               (set! /temp (cdr /temp)))
+             (while-loop))
+            (#t #t)))
+    (set! /temp /char_table)
+    (set! //a '())
+    (set! //char_/table (my-make-hash-table 16))
+    (set! //single_/chars
+      (@list_to_set
+        (let ((l /temp) (map-result '()))
+          (let while-loop ()
+            (cond ((not (null? l))
+                   (set! map-result (cons (car (car l)) map-result))
+                   (set! l (cdr l))
+                   (while-loop))
+                  (#t #t)))
+          (reverse map-result))))
+    (let while-loop ()
+      (cond ((not (equal? /temp '()))
+             (begin
+               (set! //a (car /temp))
+               (puthash
+                 //char_/table
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1))))
+                 (let ((name //a))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1)))))
+               (set! /temp (cdr /temp)))
+             (while-loop))
+            (#t #t))))
+  (set! /yy_ch (@yy_next))
+  (cond ((equal? /yy_ch "#")
+         (set! /yy_ch (@read_line //input_/port))
+         (set! /yy_lineno 2)
+         (set! /yy_ch (@yy_next))))
+  (@yy_crank)
+  (@yy_lex))
+

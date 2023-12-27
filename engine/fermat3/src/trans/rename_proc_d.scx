@@ -1,0 +1,42 @@
+(set! //t/r_/rename_/proc (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/rename_/proc 1)
+  "Rename_Proc")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/rename_/proc 1)
+  "Rename_Proc")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/rename_/proc 1)
+  @rename_proc_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/rename_/proc 1)
+  @rename_proc_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/rename_/proc 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/rename_/proc 1)
+  "Rename a PROC to given new name.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/rename_/proc 1)
+  "Enter a new name for the procedure")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/rename_/proc 1)
+  "")
+

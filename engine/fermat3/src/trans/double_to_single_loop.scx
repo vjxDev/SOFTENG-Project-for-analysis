@@ -1,0 +1,164 @@
+(define (/foreach-double_to_single_loop-1
+         //depth
+         //a/s_/type)
+  (cond ((member //depth (@gen_tvs (@i) //a/s/type))
+         (set! //n (+ //n 1)))))
+
+(define (/foreach-double_to_single_loop-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= //depth 0) (= //r 1))
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((and (member 1 (@gen_tvs (@i) //a/s/type))
+                                (@right?))
+                           (@right)
+                           (cond ((and (= (@st (@i)) //t_/exit) (> (@v (@i)) 0))
+                                  (set! //n (- 1)))
+                                 (#t (set! //n 0)))
+                           (@left)
+                           (cond ((= //n 0)
+                                  (cond ((= (@st (@i)) //t_/cond)
+                                         (@gcr_cond_fix)))
+                                  (@ateach_terminal
+                                    /foreach-double_to_single_loop-1
+                                    0
+                                    (@as_type)
+                                    1)
+                                  (cond ((null? (@program))
+                                         (@new_program (@skips))))
+                                  (cond ((> //n 1)
+                                         (set! //r 0)
+                                         (set! /fl_flag1 1))
+                                        (#t (set! /fl_flag1 0))))
+                                 (#t (set! /fl_flag1 0))))
+                          (#t (set! /fl_flag1 0)))
+                    (cond ((= /fl_flag1 0)
+                           (cond ((not (@right?)) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up))))
+
+(define (/foreach-double_to_single_loop-3
+         //depth
+         //a/s_/type)
+  (@down_last)
+  (set! /fl_flag1 0)
+  (let while-loop ()
+    (cond ((= /fl_flag1 0)
+           (begin
+             (cond ((and (= //depth 1)
+                         (member 1 (@tvs))
+                         (@trans? //t/r_/fully_/absorb_/right))
+                    (begin (display "a") (force-output))
+                    (cond ((= (@st (@i)) //t_/cond) (@gcr_cond_fix)))
+                    (@trans //t/r_/fully_/absorb_/right "")))
+             (cond ((not (@left?)) (set! /fl_flag1 1))
+                   (#t (@left) (set! /fl_flag1 0))))
+           (while-loop))
+          (#t #t)))
+  (@up))
+
+(define (@double_to_single_loop_test)
+  (let ((//a/s (@as_type)))
+    (cond ((not (and (= (@st (@i)) //t_/floop)
+                     (= (@size (list-ref (@i) (+ 1 1))) 1)
+                     (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                        //t_/floop)))
+           (@fail "Not a double loop"))
+          ((@gen_can_reduce?
+             (list-ref
+               (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+               (+ 1 1))
+             //a/s)
+           (@pass))
+          (#t (@fail "Body cannot be easily reduced")))))
+
+(define (@gen_can_reduce? //i //a/s/type-par)
+  (let ((//a/s/type-save //a/s/type)
+        (//n-save //n)
+        (//r-save //r)
+        (funct-result '()))
+    (set! //a/s/type //a/s/type-par)
+    (set! //n 0)
+    (set! //r 1)
+    (cond ((@gen_reducible? //i //a/s/type) (set! //r 1))
+          (#t
+           (@edit)
+           (@new_program //i)
+           (@ateach_stats
+             /foreach-double_to_single_loop-2
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@undo_edit)))
+    (set! funct-result (= //r 1))
+    (set! //a/s/type //a/s/type-save)
+    (set! //n //n-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@double_to_single_loop_code //data)
+  (cond ((@trans? //t/r_/remove_/dummy_/loop)
+         (@trans //t/r_/remove_/dummy_/loop ""))
+        (#t
+         (let ((//a/s (@as_type)))
+           (@down)
+           (@down)
+           (cond ((@trans? //t/r_/remove_/dummy_/loop)
+                  (@trans //t/r_/remove_/dummy_/loop ""))
+                 (#t
+                  (cond ((@trans? //t/r_/delete_/unreachable_/code)
+                         (@trans //t/r_/delete_/unreachable_/code "")))
+                  (cond ((not (@gen_reducible? (list-ref (@i) (+ 1 1)) //a/s))
+                         (begin
+                           (display
+                             " Using absorption to reduce loop body...")
+                           (force-output))
+                         (@ateach_stats
+                           /foreach-double_to_single_loop-3
+                           0
+                           (@as_type)
+                           0)
+                         (cond ((null? (@program)) (@new_program (@skips))))
+                         (begin (display "") (newline) (force-output))))
+                  (@splice_over
+                    (@cs (@increment
+                           (list-ref (@i) (+ 1 1))
+                           //a/s
+                           (- 1)
+                           1)))
+                  (@up)
+                  (@up)))))))
+
+(define (@gcr_cond_fix)
+  (cond ((and (= (@st (@i)) //t_/cond)
+              (> (@size (@i)) 2)
+              (member
+                1
+                (@gen_tvs (list-ref (@i) (+ 1 1)) //a/s/type))
+              (@gen_proper? (list-ref (@i) (+ 1 2)) //a/s/type)
+              (@gen_proper? (list-ref (@i) (+ 1 3)) //a/s/type))
+         (cond ((and (@right?)
+                     (= (@st (list-ref (@parent) (+ 1 (+ (@posn_n) 1))))
+                        //t_/exit)
+                     (> (@v (list-ref (@parent) (+ 1 (+ (@posn_n) 1))))
+                        0))
+                #t)
+               ((@trans? //t/r_/elsif_/to_/else_/if)
+                (@trans //t/r_/elsif_/to_/else_/if "")
+                (@down_to 2)
+                (@down_last)
+                (@down_last)
+                (@paste_after (@skip))
+                (@up)
+                (@up)
+                (@up))))))
+
+#t
+

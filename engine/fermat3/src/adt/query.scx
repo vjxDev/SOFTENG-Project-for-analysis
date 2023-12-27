@@ -1,0 +1,4184 @@
+(define (/foreach-query-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/variable)
+         (set! /vars (@set_union (list (@v (@i))) /vars)))))
+
+(define (/foreach-query-2 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/var_/lvalue)
+         (set! /vars (@set_union (list (@v (@i))) /vars)))))
+
+(define /%const__query__1
+  (@make 112 (@make_name "Z") '()))
+
+(set! //qry_/vars (@make_name "Qry_Vars"))
+
+(set! //qry_/clobbered
+  (@make_name "Qry_Clobbered"))
+
+(set! //qry_/redefined
+  (@make_name "Qry_Redefined"))
+
+(set! //qry_/u/b/a (@make_name "Qry_UBA"))
+
+(set! //qry_/elts_/u/b/a
+  (@make_name "Qty_Elts_UBA"))
+
+(set! //qry_/elts (@make_name "Qry_Elts"))
+
+(set! //qry_/elts_/redefined
+  (@make_name "Qry_Elts_Redefined"))
+
+(set! //qry_/calls (@make_name "Qry_Calls"))
+
+(set! //qry_/proc_/calls
+  (@make_name "Qry_Proc_Calls"))
+
+(set! //qry_/a_/proc_/calls
+  (@make_name "Qry_A_Proc_Calls"))
+
+(set! //qry_/funct_/calls
+  (@make_name "Qry_Funct_Calls"))
+
+(set! //qry_/x_/funct_/calls
+  (@make_name "Qry_X_Funct_Calls"))
+
+(set! //qry_/max_/dep (@make_name "Qry_Max_Dep"))
+
+(set! //qry_/rec_/t/vs
+  (@make_name "Qry_Rec_TVs"))
+
+(set! //qry_/reg_/t/vs
+  (@make_name "Qry_Reg_TVs"))
+
+(set! //qry_/hyb_/t/vs
+  (@make_name "Qry_Hyb_TVs"))
+
+(set! //qry_/max_/pos_/l
+  (@make_name "Qry_Max_Pos_L"))
+
+(set! //assume_/a_/s_/regular 0)
+
+(set! /os_name (@make_name "os"))
+
+(define (@variables //i)
+  (let ((//result (@qry_vars //i)))
+    (@set_union
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1))))
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1)))))))
+
+(define (@assigned //i)
+  (let ((//result (@qry_vars //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 1 1))
+        (list-ref name (- 1 1))))))
+
+(define (@used //i)
+  (let ((//result (@qry_vars //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 2 1))
+        (list-ref name (- 2 1))))))
+
+(define (@assd_only //i)
+  (let ((//result (@qry_vars //i)))
+    (@set_difference
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1))))
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1)))))))
+
+(define (@used_only //i)
+  (let ((//result (@qry_vars //i)))
+    (@set_difference
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1))))
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1)))))))
+
+(define (@assd_to_self //i)
+  (let ((//result (@qry_vars //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 3 1))
+        (list-ref name (- 3 1))))))
+
+(define (@qry_vars //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//result '()))
+    (cond ((not (@cs? //i))
+           (set! //result
+             (list (if (= //s/t //t_/var_/lvalue)
+                     (list (@v //i))
+                     '())
+                   (if (= //s/t //t_/variable) (list (@v //i)) '())
+                   (if (or (= //s/t //t_/var_/lvalue)
+                           (= //s/t //t_/variable))
+                     (list (@v //i))
+                     '()))))
+          ((or (= //g/t //t_/expression)
+               (= //g/t //t_/condition)
+               (= //g/t //t_/expressions))
+           (set! //result
+             (list '() (@qry_exp_vars //i) '())))
+          (#t
+           (let ((//previous (@dtable_get //i //qry_/vars))
+                 (//assd '())
+                 (//used '())
+                 (//self '())
+                 (//comps (@cs //i))
+                 (//temp '()))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //comps))
+                             (begin
+                               (cond ((or (= (@gt (car //comps))
+                                             //t_/expression)
+                                          (= (@gt (car //comps))
+                                             //t_/condition))
+                                      (set! //used
+                                        (@set_union
+                                          //used
+                                          (@qry_exp_vars (car //comps)))))
+                                     (#t
+                                      (set! //temp (@qry_vars (car //comps)))
+                                      (cond ((= //s/t //t_/assign)
+                                             (set! //self
+                                               (@set_union
+                                                 //self
+                                                 (let ((name //temp))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 3 1))
+                                                     (list-ref
+                                                       name
+                                                       (- 3 1)))))))
+                                            ((or (= //g/t //t_/statement)
+                                                 (= //g/t //t_/assignment)
+                                                 (= //g/t //t_/variable)
+                                                 (= //g/t //t_/statements)
+                                                 (= //g/t //t_/guarded)
+                                                 (= //g/t //t_/action))
+                                             (set! //self
+                                               (@set_union
+                                                 (@set_difference
+                                                   (let ((name //temp))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 3 1))
+                                                       (list-ref name (- 3 1))))
+                                                   //used)
+                                                 (@set_difference
+                                                   //self
+                                                   (let ((name //temp))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 2 1))
+                                                       (list-ref
+                                                         name
+                                                         (- 2 1))))))))
+                                            (#t (set! //self '())))
+                                      (set! //assd
+                                        (@set_union
+                                          //assd
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                      (set! //used
+                                        (@set_union
+                                          //used
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 2 1))
+                                              (list-ref name (- 2 1))))))))
+                               (set! //comps (cdr //comps)))
+                             (while-loop))
+                            (#t #t)))
+                    (cond ((= //s/t //t_/var)
+                           (let ((//local_/vars
+                                   (@make_set
+                                     (let ((l (@cs (list-ref //i (+ 1 1))))
+                                           (map-result '()))
+                                       (let while-loop ()
+                                         (cond ((not (null? l))
+                                                (set! map-result
+                                                  (cons (@qry_get_lvar (car l))
+                                                        map-result))
+                                                (set! l (cdr l))
+                                                (while-loop))
+                                               (#t #t)))
+                                       (reverse map-result)))))
+                             (set! //assd
+                               (@set_difference //assd //local_/vars))
+                             (set! //used
+                               (@set_difference //used //local_/vars))
+                             (set! //self
+                               (@set_difference //self //local_/vars))))
+                          ((= //s/t //t_/for)
+                           (let ((//loop_/var
+                                   (list (@v (list-ref //i (+ 1 1))))))
+                             (set! //assd
+                               (@set_difference //assd //loop_/var))
+                             (set! //used
+                               (@set_difference //used //loop_/var))
+                             (set! //self
+                               (@set_difference //self //loop_/var))))
+                          ((or (= //s/t //t_/proc)
+                               (= //s/t //t_/funct)
+                               (= //s/t //t_/b/funct))
+                           (let ((//local_/vars
+                                   (@set_union
+                                     (@assigned (list-ref //i (+ 1 2)))
+                                     (@assigned (list-ref //i (+ 1 3))))))
+                             (set! //assd
+                               (@set_difference //assd //local_/vars))
+                             (set! //used
+                               (@set_difference //used //local_/vars))
+                             (set! //self
+                               (@set_difference //self //local_/vars))))
+                          ((or (= //s/t //t_/print)
+                               (= //s/t //t_/prinflush)
+                               (= //s/t //t_/error))
+                           (set! //assd (@set_union //assd (list /os_name)))
+                           (set! //used (@set_union //used (list /os_name))))
+                          ((= //s/t //t_/pop)
+                           (set! //used
+                             (@set_union
+                               //used
+                               (@assigned (list-ref //i (+ 1 2)))))
+                           (set! //self '()))
+                          ((or (= //s/t //t_/mem_/lvalue)
+                               (= //s/t //t_/mem_/seg_/lvalue)
+                               (= //s/t //t_/mem_/rel_/lvalue))
+                           (set! //assd (@set_union //assd (list /a_name)))
+                           (set! //used (@set_union //used (list /a_name))))
+                          ((or (= //s/t //t_/struct_/lvalue)
+                               (= //s/t //t_/aref_/lvalue)
+                               (= //s/t //t_/sub_/seg_/lvalue)
+                               (= //s/t //t_/rel_/seg_/lvalue)
+                               (= //s/t //t_/final_/seg_/lvalue)
+                               (= //s/t //t_/proc_/call)
+                               (= //s/t //t_/a_/proc_/call)
+                               (= //s/t //t_/m/w_/proc_/call)
+                               (= //s/t //t_/push))
+                           (set! //used (@set_union //used //assd))))
+                    (set! //result (list //assd //used //self))
+                    (@dtable_put //i //qry_/vars //result))))))
+    //result))
+
+(set! /a_name (@make_name "a"))
+
+(set! /a_name_var
+  (@make //t_/variable /a_name '()))
+
+(set! /a_name_lvar
+  (@make //t_/var_/lvalue /a_name '()))
+
+(set! /address_of (@make_name "address_of"))
+
+(set! /address_of_name
+  (@make //t_/name /address_of '()))
+
+(set! /sizeof (@make_name "sizeof"))
+
+(define (@is_mem? //i)
+  (or (and (or (= (@st //i) //t_/aref)
+               (= (@st //i) //t_/aref_/lvalue))
+           (or (= (@st (list-ref //i (+ 1 1))) //t_/variable)
+               (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue))
+           (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+      (= (@st //i) //t_/mem)
+      (= (@st //i) //t_/mem_/lvalue)))
+
+(define (@is_dsect? //i)
+  (or (and (or (= (@st //i) //t_/aref)
+               (= (@st //i) //t_/aref_/lvalue))
+           (or (= (@st (list-ref //i (+ 1 1))) //t_/variable)
+               (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue))
+           (equal? (@v (list-ref //i (+ 1 1))) /a_name)
+           (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+              //t_/variable))
+      (and (or (= (@st //i) //t_/mem)
+               (= (@st //i) //t_/mem_/lvalue))
+           (= (@st (list-ref //i (+ 1 1))) //t_/variable))))
+
+(define (@is_dsect_struct? //i)
+  (let ((//o/k 0))
+    (cond ((or (= (@st //i) //t_/struct)
+               (= (@st //i) //t_/struct_/lvalue))
+           (cond ((@is_dsect_struct? (list-ref //i (+ 1 2)))
+                  (set! //o/k 1))))
+          ((@is_mem? //i)
+           (cond ((= (@st (@get_mem //i)) //t_/variable)
+                  (set! //o/k 1)))))
+    (= //o/k 1)))
+
+(define (@is_mem_rel? //i)
+  (or (and (or (= (@st //i) //t_/rel_/seg)
+               (= (@st //i) //t_/rel_/seg_/lvalue))
+           (or (= (@st (list-ref //i (+ 1 1))) //t_/variable)
+               (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue))
+           (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+      (= (@st //i) //t_/mem_/rel)
+      (= (@st //i) //t_/mem_/rel_/lvalue)))
+
+(define (@get_mem //i)
+  (if (or (= (@st //i) //t_/mem)
+          (= (@st //i) //t_/mem_/lvalue))
+    (list-ref //i (+ 1 1))
+    (list-ref (list-ref //i (+ 1 2)) (+ 1 1))))
+
+(define (@get_mem_rel //i)
+  (if (or (= (@st //i) //t_/mem_/rel)
+          (= (@st //i) //t_/mem_/rel_/lvalue))
+    (list-ref //i (+ 1 1))
+    (list-ref //i (+ 1 2))))
+
+(define (@get_mem_rel_n //i)
+  (if (or (= (@st //i) //t_/mem_/rel)
+          (= (@st //i) //t_/mem_/rel_/lvalue))
+    (list-ref //i (+ 1 2))
+    (list-ref //i (+ 1 3))))
+
+(define (@is_addr? //i)
+  (or (and (= (@st //i) //t_/x_/funct_/call)
+           (equal? (@v (list-ref //i (+ 1 1))) /address_of))
+      (= (@st //i) //t_/address_/of)))
+
+(define (@get_addr //i)
+  (if (= (@st //i) //t_/address_/of)
+    (list-ref //i (+ 1 1))
+    (list-ref (list-ref //i (+ 1 2)) (+ 1 1))))
+
+(set! //mem_/version 0)
+
+(define (@make_addr //i)
+  (if (= //mem_/version 0)
+    (@make //t_/x_/funct_/call
+           '()
+           (list /address_of_name
+                 (@make //t_/expressions '() (list //i))))
+    (@make //t_/address_/of '() (list //i))))
+
+(define (@make_mem //i)
+  (if (= //mem_/version 0)
+    (@make //t_/aref
+           '()
+           (list /a_name_var
+                 (@make //t_/expressions '() (list //i))))
+    (@make //t_/mem '() (list //i))))
+
+(define (@make_mem_l //i)
+  (if (= //mem_/version 0)
+    (@make //t_/aref_/lvalue
+           '()
+           (list /a_name_lvar
+                 (@make //t_/expressions '() (list //i))))
+    (@make //t_/mem_/lvalue '() (list //i))))
+
+(define (@make_mem_seg //i /n)
+  (if (= //mem_/version 0)
+    (@make //t_/rel_/seg
+           '()
+           (list /a_name_var //i /n))
+    (@make //t_/mem_/rel '() (list //i /n))))
+
+(define (@make_mem_seg_l //i /n)
+  (if (= //mem_/version 0)
+    (@make //t_/rel_/seg_/lvalue
+           '()
+           (list /a_name_lvar //i /n))
+    (@make //t_/mem_/rel_/lvalue '() (list //i /n))))
+
+(define (@qry_exp_vars //i)
+  (if (@cs? //i)
+    (if (@is_addr? //i)
+      (@qry_exp_vars_a (@get_addr //i))
+      (if (or (= (@st //i) //t_/forall)
+              (= (@st //i) //t_/exists))
+        (@set_difference
+          (@qry_exp_vars (list-ref //i (+ 1 2)))
+          (@variables (list-ref //i (+ 1 1))))
+        (if (or (= (@st //i) //t_/mem)
+                (= (@st //i) //t_/mem_/seg)
+                (= (@st //i) //t_/mem_/rel))
+          (@set_union
+            (list /a_name)
+            (let ((l (let ((l (@cs //i)) (map-result '()))
+                       (let while-loop ()
+                         (cond ((not (null? l))
+                                (set! map-result
+                                  (cons (@qry_exp_vars (car l)) map-result))
+                                (set! l (cdr l))
+                                (while-loop))
+                               (#t #t)))
+                       (reverse map-result)))
+                  (reduce-result '()))
+              (cond ((null? l) '())
+                    (#t
+                     (set! reduce-result (car l))
+                     (set! l (cdr l))
+                     (let while-loop ()
+                       (cond ((not (null? l))
+                              (set! reduce-result
+                                (@set_union reduce-result (car l)))
+                              (set! l (cdr l))
+                              (while-loop))
+                             (#t #t)))
+                     reduce-result))))
+          (let ((l (let ((l (@cs //i)) (map-result '()))
+                     (let while-loop ()
+                       (cond ((not (null? l))
+                              (set! map-result
+                                (cons (@qry_exp_vars (car l)) map-result))
+                              (set! l (cdr l))
+                              (while-loop))
+                             (#t #t)))
+                     (reverse map-result)))
+                (reduce-result '()))
+            (cond ((null? l) '())
+                  (#t
+                   (set! reduce-result (car l))
+                   (set! l (cdr l))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! reduce-result
+                              (@set_union reduce-result (car l)))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   reduce-result))))))
+    (if (= (@st //i) //t_/variable)
+      (list (@v //i))
+      '())))
+
+(define (@qry_exp_vars_a //i)
+  (if (member
+        (@st //i)
+        (list //t_/aref
+              //t_/sub_/seg
+              //t_/rel_/seg
+              //t_/final_/seg))
+    (@set_union
+      (@qry_exp_vars_a (list-ref //i (+ 1 1)))
+      (let ((l (let ((l (cdr (@cs //i))) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@qry_exp_vars (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result))))
+    (if (@cs? //i)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@qry_exp_vars_a (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      '())))
+
+(define (@all_variables //i)
+  (if (@cs? //i)
+    (if (or (= (@st //i) //t_/mem)
+            (= (@st //i) //t_/mem_/seg)
+            (= (@st //i) //t_/mem_/rel))
+      (@set_union
+        (list /a_name)
+        (let ((l (let ((l (@cs //i)) (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result
+                              (cons (@qry_exp_vars (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result)))
+              (reduce-result '()))
+          (cond ((null? l) '())
+                (#t
+                 (set! reduce-result (car l))
+                 (set! l (cdr l))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! reduce-result
+                            (@set_union reduce-result (car l)))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 reduce-result))))
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@all_variables (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result))))
+    (if (or (= (@st //i) //t_/variable)
+            (= (@st //i) //t_/var_/lvalue))
+      (list (@v //i))
+      '())))
+
+(define (@primed_vars //i)
+  (if (@cs? //i)
+    (let ((l (let ((l (@cs //i)) (map-result '()))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! map-result
+                          (cons (@primed_vars (car l)) map-result))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               (reverse map-result)))
+          (reduce-result '()))
+      (cond ((null? l) '())
+            (#t
+             (set! reduce-result (car l))
+             (set! l (cdr l))
+             (let while-loop ()
+               (cond ((not (null? l))
+                      (set! reduce-result
+                        (@set_union reduce-result (car l)))
+                      (set! l (cdr l))
+                      (while-loop))
+                     (#t #t)))
+             reduce-result)))
+    (if (= (@st //i) //t_/primed_/var)
+      (list (@v //i))
+      '())))
+
+(define (@lvars //i)
+  (@make_set
+    (let ((l (@cs //i)) (map-result '()))
+      (let while-loop ()
+        (cond ((not (null? l))
+               (set! map-result
+                 (cons (@qry_get_lvar (car l)) map-result))
+               (set! l (cdr l))
+               (while-loop))
+              (#t #t)))
+      (reverse map-result))))
+
+(define (@qry_get_lvar //i)
+  (@lvalue_name (list-ref //i (+ 1 1))))
+
+(define (@lvalue_name //i)
+  (if (= (@st //i) //t_/var_/lvalue)
+    (@v //i)
+    (if (= (@st //i) //t_/struct_/lvalue)
+      (@lvalue_name (list-ref //i (+ 1 2)))
+      (if (or (= (@st //i) //t_/lvalue_/pat_/one)
+              (= (@st //i) //t_/lvalue_/pat_/many)
+              (= (@st //i) //t_/lvalue_/pat_/any))
+        (@v //i)
+        (if (or (= (@st //i) //t_/mem_/lvalue)
+                (= (@st //i) //t_/mem_/seg_/lvalue)
+                (= (@st //i) //t_/mem_/rel_/lvalue))
+          /a_name
+          (@lvalue_name (list-ref //i (+ 1 1))))))))
+
+(define (@elt_lvars //i)
+  (@make_set
+    (let ((l (@cs //i)) (map-result '()))
+      (let while-loop ()
+        (cond ((not (null? l))
+               (set! map-result
+                 (cons (@qry_get_lvar_elts (car l)) map-result))
+               (set! l (cdr l))
+               (while-loop))
+              (#t #t)))
+      (reverse map-result))))
+
+(define (@qry_get_lvar_elts //i)
+  (@struct_elts (list-ref //i (+ 1 1))))
+
+(define (@struct_elts_old //i)
+  (if (or (= (@st //i) //t_/variable)
+          (= (@st //i) //t_/var_/lvalue))
+    (list (@v //i))
+    (if (or (= (@st //i) //t_/struct)
+            (= (@st //i) //t_/struct_/lvalue))
+      (concat
+        (@struct_elts (list-ref //i (+ 1 2)))
+        (list (@v (list-ref //i (+ 1 1)))))
+      (if (or (= (@st //i) //t_/lvalue_/pat_/one)
+              (= (@st //i) //t_/lvalue_/pat_/many)
+              (= (@st //i) //t_/lvalue_/pat_/any))
+        (list (@v //i))
+        (@struct_elts (list-ref //i (+ 1 2)))))))
+
+(define (@struct_elts //i)
+  (if (or (= (@st //i) //t_/variable)
+          (= (@st //i) //t_/var_/lvalue)
+          (= (@st //i) //t_/lvalue_/pat_/one)
+          (= (@st //i) //t_/lvalue_/pat_/many)
+          (= (@st //i) //t_/lvalue_/pat_/any))
+    (list (@v //i))
+    (if (or (= (@st //i) //t_/struct)
+            (= (@st //i) //t_/struct_/lvalue))
+      (concat
+        (@struct_elts (list-ref //i (+ 1 2)))
+        (list (@v (list-ref //i (+ 1 1)))))
+      (if (and (or (and (= (@st //i) //t_/aref)
+                        (= (@st (list-ref //i (+ 1 1))) //t_/variable))
+                   (and (= (@st //i) //t_/aref_/lvalue)
+                        (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue)))
+               (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+        (cons /a_name
+              (@struct_elts
+                (list-ref (list-ref //i (+ 1 2)) (+ 1 1))))
+        (if (or (= (@st //i) //t_/mem)
+                (= (@st //i) //t_/mem_/lvalue))
+          (cons /a_name
+                (@struct_elts (list-ref //i (+ 1 1))))
+          (if (@cs? //i)
+            (@struct_elts (list-ref //i (+ 1 1)))
+            '()))))))
+
+(define (@wc_struct_elts //i)
+  (let ((//r (@struct_elts //i)))
+    (cond ((and (> (if (vector? //r)
+                     (vector-length //r)
+                     (length //r))
+                   1)
+                (equal? (car //r) /a_name))
+           (set! //r (cdr //r))))
+    //r))
+
+(define (@clobbered //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//clob '()))
+    (cond ((@cs? //i)
+           (let ((//previous (@dtable_get //i //qry_/clobbered)))
+             (cond ((null? //previous)
+                    (cond ((= //s/t //t_/assign)
+                           (set! //clob
+                             (list (@lvalue_name (list-ref //i (+ 1 1))))))
+                          ((= //s/t //t_/for)
+                           (set! //clob
+                             (@set_difference
+                               (@clobbered (list-ref //i (+ 1 4)))
+                               (list (@v (list-ref //i (+ 1 1)))))))
+                          ((= //s/t //t_/var)
+                           (set! //clob
+                             (@set_difference
+                               (@clobbered (list-ref //i (+ 1 2)))
+                               (@lvars (list-ref //i (+ 1 1))))))
+                          ((= //s/t //t_/while) (set! //clob '()))
+                          ((= //s/t //t_/guarded)
+                           (set! //clob (@clobbered (list-ref //i (+ 1 2)))))
+                          ((or (= //g/t //t_/statements)
+                               (= //s/t //t_/assignment))
+                           (set! //clob
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@clobbered (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_union
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result)))))
+                          ((or (= //g/t //t_/expression)
+                               (= //g/t //t_/expression))
+                           (set! //clob '()))
+                          (#t
+                           (set! //clob
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@clobbered (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_intersect
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result))))))
+                    (@dtable_put //i //qry_/clobbered //clob))
+                   (#t
+                    (set! //clob (@dtable_value_part //previous)))))))
+    //clob))
+
+(define (@redefined //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//redf '()))
+    (cond ((@cs? //i)
+           (let ((//previous (@dtable_get //i //qry_/redefined)))
+             (cond ((null? //previous)
+                    (cond ((= //s/t //t_/assign)
+                           (cond ((and (not (member
+                                              (@lvalue_name
+                                                (list-ref //i (+ 1 1)))
+                                              (@used (list-ref //i (+ 1 2)))))
+                                       (not (member
+                                              (@lvalue_name
+                                                (list-ref //i (+ 1 1)))
+                                              (@used (list-ref //i (+ 1 1))))))
+                                  (set! //redf
+                                    (list (@lvalue_name
+                                            (list-ref //i (+ 1 1))))))))
+                          ((= //s/t //t_/for)
+                           (set! //redf
+                             (@set_difference
+                               (@redefined (list-ref //i (+ 1 4)))
+                               (list (@v (list-ref //i (+ 1 1)))))))
+                          ((= //s/t //t_/var)
+                           (set! //redf
+                             (@set_difference
+                               (@redefined (list-ref //i (+ 1 2)))
+                               (@lvars (list-ref //i (+ 1 1))))))
+                          ((= //s/t //t_/while) (set! //redf '()))
+                          ((= //s/t //t_/guarded)
+                           (set! //redf (@redefined (list-ref //i (+ 1 2)))))
+                          ((= //s/t //t_/pop)
+                           (set! //redef
+                             (@variables (list-ref //i (+ 1 1)))))
+                          ((or (= //g/t //t_/statements)
+                               (= //s/t //t_/assignment))
+                           (set! //redf
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@redefined (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_union
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result)))))
+                          ((or (= //g/t //t_/expression)
+                               (= //g/t //t_/condition))
+                           (set! //redf '()))
+                          (#t
+                           (set! //redf
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@redefined (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_intersect
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result))))))
+                    (@dtable_put //i //qry_/redefined //redf))
+                   (#t
+                    (set! //redf (@dtable_value_part //previous)))))))
+    //redf))
+
+(set! /pop_regs (@make_name "pop_regs"))
+
+(define (@uba //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//result '()))
+    (cond ((or (= //g/t //t_/expression)
+               (= //g/t //t_/condition)
+               (= //g/t //t_/expressions))
+           (set! //result (@qry_exp_vars //i)))
+          ((not (@cs? //i)) (set! //result '()))
+          (#t
+           (let ((//previous (@dtable_get //i //qry_/u/b/a))
+                 (//comps (@cs //i))
+                 (//assigned '()))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   (#t
+                    (cond ((= //g/t //t_/statements)
+                           (let while-loop ()
+                             (cond ((not (null? //comps))
+                                    (begin
+                                      (set! //result
+                                        (@set_union
+                                          //result
+                                          (@set_difference
+                                            (@uba (car //comps))
+                                            //assigned)))
+                                      (set! //assigned
+                                        (@set_union
+                                          //assigned
+                                          (@redefined (car //comps))))
+                                      (cond ((@gen_improper?
+                                               (car //comps)
+                                               "Hyb")
+                                             (set! //comps '()))
+                                            (#t (set! //comps (cdr //comps)))))
+                                    (while-loop))
+                                   (#t #t))))
+                          ((= //s/t //t_/pop)
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@variables (list-ref //i (+ 1 2))))))
+                          ((and (= //s/t //t_/a_/proc_/call)
+                                (equal? (@v (list-ref //i (+ 1 1))) /pop_regs))
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@variables
+                                 (last-1 (@cs (list-ref //i (+ 1 3))))))))
+                          ((or (= //s/t //t_/struct_/lvalue)
+                               (= //s/t //t_/proc_/call)
+                               (= //s/t //t_/a_/proc_/call)
+                               (= //s/t //t_/aref_/lvalue)
+                               (= //s/t //t_/sub_/seg_/lvalue)
+                               (= //s/t //t_/rel_/seg_/lvalue)
+                               (= //s/t //t_/final_/seg_/lvalue)
+                               (= //s/t //t_/push))
+                           (set! //result
+                             (@set_union //result (@variables //i))))
+                          (#t
+                           (let while-loop ()
+                             (cond ((not (null? //comps))
+                                    (begin
+                                      (set! //result
+                                        (@set_union
+                                          //result
+                                          (@uba (car //comps))))
+                                      (set! //comps (cdr //comps)))
+                                    (while-loop))
+                                   (#t #t)))
+                           (cond ((= //s/t //t_/var)
+                                  (set! //result
+                                    (@set_difference
+                                      //result
+                                      (@set_difference
+                                        (@lvars (list-ref //i (+ 1 1)))
+                                        (@used (list-ref //i (+ 1 1)))))))
+                                 ((= //s/t //t_/for)
+                                  (set! //result
+                                    (@set_difference
+                                      //result
+                                      (list (@v (list-ref //i (+ 1 1))))))))))
+                    (@dtable_put //i //qry_/u/b/a //result))))))
+    //result))
+
+(define (@elts_uba //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//result '()))
+    (cond ((or (= //g/t //t_/expression)
+               (= //g/t //t_/condition)
+               (= //g/t //t_/expressions))
+           (set! //result (@qry_exp_elts //i)))
+          ((not (@cs? //i)) (set! //result '()))
+          (#t
+           (let ((//previous (@dtable_get //i //qry_/elts_/u/b/a))
+                 (//comps (@cs //i))
+                 (//assigned '()))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   (#t
+                    (cond ((= //g/t //t_/statements)
+                           (let while-loop ()
+                             (cond ((not (null? //comps))
+                                    (begin
+                                      (set! //result
+                                        (@set_union
+                                          //result
+                                          (@set_difference
+                                            (@elts_uba (car //comps))
+                                            //assigned)))
+                                      (set! //assigned
+                                        (@set_union
+                                          //assigned
+                                          (@elts_redefined (car //comps))))
+                                      (cond ((@gen_improper?
+                                               (car //comps)
+                                               "Hyb")
+                                             (set! //comps '()))
+                                            (#t (set! //comps (cdr //comps)))))
+                                    (while-loop))
+                                   (#t #t))))
+                          ((= //s/t //t_/pop)
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@elements (list-ref //i (+ 1 2))))))
+                          ((and (= //s/t //t_/a_/proc_/call)
+                                (equal? (@v (list-ref //i (+ 1 1))) /pop_regs))
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@elements (list-ref //i (+ 1 1))))))
+                          ((and (= //s/t //t_/sub_/seg_/lvalue)
+                                (= //u/b/a_/use_/lengths 1)
+                                (not (null? //data_/names))
+                                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                                (= (@v (list-ref //i (+ 1 2))) 1)
+                                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                                (= (@st (@wc_length (list-ref //i (+ 1 1))))
+                                   //t_/number)
+                                (<= (@v (@wc_length (list-ref //i (+ 1 1))))
+                                    (@v (list-ref //i (+ 1 3))))))
+                          ((= //s/t //t_/aref_/lvalue)
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@set_union
+                                 (@elements (list-ref //i (+ 1 1)))
+                                 (@elements (list-ref //i (+ 1 2)))))))
+                          ((or (= //s/t //t_/sub_/seg_/lvalue)
+                               (= //s/t //t_/rel_/seg_/lvalue)
+                               (= //s/t //t_/final_/seg_/lvalue))
+                           (set! //result
+                             (@set_union
+                               //result
+                               (@set_union
+                                 (@elements (list-ref //i (+ 1 1)))
+                                 (@set_union
+                                   (@elements (list-ref //i (+ 1 2)))
+                                   (@elements (list-ref //i (+ 1 3))))))))
+                          ((or (= //s/t //t_/struct_/lvalue)
+                               (= //s/t //t_/proc_/call)
+                               (= //s/t //t_/a_/proc_/call)
+                               (= //s/t //t_/push))
+                           (set! //result
+                             (@set_union //result (@elements //i))))
+                          ((and (= //s/t //t_/assign)
+                                (or (= (@st (list-ref //i (+ 1 1)))
+                                       //t_/var_/lvalue)
+                                    (= (@st (list-ref //i (+ 1 1)))
+                                       //t_/struct_/lvalue)))
+                           (set! //result (@elts_used //i)))
+                          (#t
+                           (let while-loop ()
+                             (cond ((not (null? //comps))
+                                    (begin
+                                      (set! //result
+                                        (@set_union
+                                          //result
+                                          (@elts_uba (car //comps))))
+                                      (set! //comps (cdr //comps)))
+                                    (while-loop))
+                                   (#t #t)))
+                           (cond ((= //s/t //t_/var)
+                                  (set! //result
+                                    (@set_difference
+                                      //result
+                                      (@set_difference
+                                        (@elt_lvars (list-ref //i (+ 1 1)))
+                                        (@elts_used (list-ref //i (+ 1 1)))))))
+                                 ((= //s/t //t_/for)
+                                  (set! //result
+                                    (@set_difference
+                                      //result
+                                      (list (list (@v (list-ref
+                                                        //i
+                                                        (+ 1 1)))))))))))
+                    (@dtable_put //i //qry_/elts_/u/b/a //result))))))
+    //result))
+
+(define (@rename /old-par /new)
+  (let ((/old-save /old))
+    (set! /old /old-par)
+    (cond ((and (= (@st (@i)) //t_/var_/lvalue)
+                (equal? (@v (@i)) /old))
+           (@paste_over (@make //t_/var_/lvalue /new '())))
+          ((and (= (@st (@i)) //t_/variable)
+                (equal? (@v (@i)) /old))
+           (@paste_over (@make //t_/variable /new '()))))
+    (cond ((and (@components? (@i))
+                (member /old (@all_variables (@i))))
+           (@down)
+           (@rename /old /new)
+           (let while-loop ()
+             (cond ((@right?)
+                    (begin (@right) (@rename /old /new))
+                    (while-loop))
+                   (#t #t)))
+           (@up)))
+    (set! /old /old-save)))
+
+(define (@elements //i)
+  (let ((//result (@qry_elts //i)))
+    (@set_union
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1))))
+      (let ((name //result))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1)))))))
+
+(define (@elts_assigned //i)
+  (let ((//result (@qry_elts //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 1 1))
+        (list-ref name (- 1 1))))))
+
+(define (@elts_used //i)
+  (let ((//result (@qry_elts //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 2 1))
+        (list-ref name (- 2 1))))))
+
+(define (@elts_assd_to_self //i)
+  (let ((//result (@qry_elts //i)))
+    (let ((name //result))
+      (if (vector? name)
+        (vector-ref name (- 3 1))
+        (list-ref name (- 3 1))))))
+
+(set! //max_/subfield 4)
+
+(define (@qry_elts //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//result '()))
+    (cond ((not (@cs? //i))
+           (set! //result
+             (list (if (= //s/t //t_/var_/lvalue)
+                     (list (list (@v //i)))
+                     '())
+                   (if (= //s/t //t_/variable)
+                     (list (list (@v //i)))
+                     '())
+                   (if (or (= //s/t //t_/var_/lvalue)
+                           (= //s/t //t_/variable))
+                     (list (list (@v //i)))
+                     '()))))
+          ((and (= //s/t //t_/struct)
+                (@qry_simple_struct? (list-ref //i (+ 1 2))))
+           (set! //result
+             (list '() (list (@struct_elts //i)) '())))
+          ((and (= //s/t //t_/struct_/lvalue)
+                (@qry_simple_lstruct? (list-ref //i (+ 1 2))))
+           (set! //result
+             (list (list (@struct_elts //i)) '() '())))
+          ((or (= //s/t //t_/aref)
+               (= //s/t //t_/aref_/lvalue)
+               (= //s/t //t_/sub_/seg)
+               (= //s/t //t_/sub_/seg_/lvalue)
+               (= //s/t //t_/rel_/seg)
+               (= //s/t //t_/rel_/seg_/lvalue))
+           (set! //result (@qry_aref_elts //i)))
+          ((or (= //g/t //t_/expression)
+               (= //g/t //t_/condition)
+               (= //g/t //t_/expressions))
+           (set! //result
+             (list '() (@qry_exp_elts //i) '())))
+          (#t
+           (let ((//previous (@dtable_get //i //qry_/elts))
+                 (//assd '())
+                 (//used '())
+                 (//self '())
+                 (//temp '())
+                 (//comps (@cs //i)))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //comps))
+                             (begin
+                               (cond ((or (= (@gt (car //comps))
+                                             //t_/expression)
+                                          (= (@gt (car //comps))
+                                             //t_/condition))
+                                      (set! //used
+                                        (@set_union
+                                          //used
+                                          (@qry_exp_elts (car //comps)))))
+                                     (#t
+                                      (set! //temp (@qry_elts (car //comps)))
+                                      (cond ((= //s/t //t_/assign)
+                                             (set! //self
+                                               (@set_union
+                                                 //self
+                                                 (let ((name //temp))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 3 1))
+                                                     (list-ref
+                                                       name
+                                                       (- 3 1)))))))
+                                            ((or (= //g/t //t_/statement)
+                                                 (= //g/t //t_/assignment)
+                                                 (= //g/t //t_/variable)
+                                                 (= //g/t //t_/statements)
+                                                 (= //g/t //t_/guarded)
+                                                 (= //g/t //t_/action))
+                                             (set! //self
+                                               (@set_union
+                                                 (@set_difference
+                                                   (let ((name //temp))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 3 1))
+                                                       (list-ref name (- 3 1))))
+                                                   //used)
+                                                 (@set_difference
+                                                   //self
+                                                   (let ((name //temp))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 2 1))
+                                                       (list-ref
+                                                         name
+                                                         (- 2 1))))))))
+                                            (#t (set! //self '())))
+                                      (set! //assd
+                                        (@set_union
+                                          //assd
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                      (set! //used
+                                        (@set_union
+                                          //used
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 2 1))
+                                              (list-ref name (- 2 1))))))))
+                               (set! //comps (cdr //comps)))
+                             (while-loop))
+                            (#t #t)))
+                    (cond ((= //s/t //t_/var)
+                           (let ((//local_/vars
+                                   (@elt_lvars (list-ref //i (+ 1 1)))))
+                             (set! //assd
+                               (@set_difference //assd //local_/vars))
+                             (set! //used
+                               (@set_difference //used //local_/vars))
+                             (set! //self
+                               (@set_difference //self //local_/vars))))
+                          ((= //s/t //t_/for)
+                           (let ((//loop_/var
+                                   (list (@v (list-ref //i (+ 1 1))))))
+                             (set! //assd
+                               (@set_difference //assd //loop_/var))
+                             (set! //used
+                               (@set_difference //used //loop_/var))
+                             (set! //self
+                               (@set_difference //self //loop_/var))))
+                          ((or (= //s/t //t_/proc)
+                               (= //s/t //t_/funct)
+                               (= //s/t //t_/b/funct))
+                           (let ((//local_/vars
+                                   (@set_union
+                                     (@elts_assigned (list-ref //i (+ 1 2)))
+                                     (@elts_assigned (list-ref //i (+ 1 3))))))
+                             (set! //assd
+                               (@set_difference //assd //local_/vars))
+                             (set! //used
+                               (@set_difference //used //local_/vars))
+                             (set! //self
+                               (@set_difference //self //local_/vars))))
+                          ((or (= //s/t //t_/print)
+                               (= //s/t //t_/prinflush)
+                               (= //s/t //t_/error))
+                           (set! //assd
+                             (@set_union //assd (list (list /os_name))))
+                           (set! //used
+                             (@set_union //used (list (list /os_name)))))
+                          ((= //s/t //t_/pop)
+                           (set! //used
+                             (@set_union
+                               //used
+                               (@elts_assigned (list-ref //i (+ 1 2)))))
+                           (set! //self '()))
+                          ((or (= //s/t //t_/struct_/lvalue)
+                               (= //s/t //t_/aref_/lvalue)
+                               (= //s/t //t_/sub_/seg_/lvalue)
+                               (= //s/t //t_/rel_/seg_/lvalue)
+                               (= //s/t //t_/final_/seg_/lvalue)
+                               (= //s/t //t_/proc_/call)
+                               (= //s/t //t_/a_/proc_/call)
+                               (= //s/t //t_/push)
+                               (= //s/t //t_/mem_/lvalue)
+                               (= //s/t //t_/mem_/seg_/lvalue)
+                               (= //s/t //t_/mem_/rel_/lvalue))
+                           (set! //used (@set_union //used //assd))))
+                    (set! //result (list //assd //used //self))
+                    (@dtable_put //i //qry_/elts //result))))))
+    //result))
+
+(define (@qry_simple_struct? //i)
+  (or (= (@st //i) //t_/variable)
+      (and (= (@st //i) //t_/aref)
+           (= (@st (list-ref //i (+ 1 1))) //t_/variable)
+           (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+      (= (@st //i) //t_/mem)
+      (and (= (@st //i) //t_/struct)
+           (@qry_simple_struct? (list-ref //i (+ 1 2))))))
+
+(define (@qry_simple_lstruct? //i)
+  (or (= (@st //i) //t_/var_/lvalue)
+      (and (= (@st //i) //t_/aref_/lvalue)
+           (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue)
+           (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+      (= (@st //i) //t_/mem_/lvalue)
+      (and (= (@st //i) //t_/struct_/lvalue)
+           (@qry_simple_lstruct? (list-ref //i (+ 1 2))))))
+
+(set! //u/b/a_/use_/lengths 0)
+
+(define (@qry_aref_elts //i)
+  (let ((//s/t (@st //i))
+        (//r1 (list (@struct_elts (list-ref //i (+ 1 1)))))
+        (//r2 '()))
+    (cond ((and (null? (car //r1))
+                (not (null? (@elements (list-ref //i (+ 1 1))))))
+           (set! //r1 (@elements (list-ref //i (+ 1 1)))))
+          ((and (or (= //s/t //t_/aref)
+                    (= //s/t //t_/aref_/lvalue))
+                (= (@size (list-ref //i (+ 1 2))) 1)
+                (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                   //t_/number))
+           (set! //r1
+             (@qry_add_index1
+               //r1
+               (list (@v (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))))))
+          ((and (or (= //s/t //t_/sub_/seg)
+                    (= //s/t //t_/sub_/seg_/lvalue))
+                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                (< (- (@v (list-ref //i (+ 1 3)))
+                      (@v (list-ref //i (+ 1 2))))
+                   //max_/subfield))
+           (set! //r1
+             (@qry_add_index1
+               //r1
+               (@num_list
+                 (@v (list-ref //i (+ 1 2)))
+                 (@v (list-ref //i (+ 1 3)))))))
+          ((and (or (= //s/t //t_/rel_/seg)
+                    (= //s/t //t_/rel_/seg_/lvalue))
+                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                (<= (@v (list-ref //i (+ 1 3))) //max_/subfield))
+           (set! //r1
+             (@qry_add_index1
+               //r1
+               (@num_list
+                 (@v (list-ref //i (+ 1 2)))
+                 (- (+ (@v (list-ref //i (+ 1 2)))
+                       (@v (list-ref //i (+ 1 3))))
+                    1)))))
+          ((and (= //s/t //t_/sub_/seg_/lvalue)
+                (= //u/b/a_/use_/lengths 1)
+                (not (null? //data_/names))
+                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                (= (@v (list-ref //i (+ 1 2))) 1)
+                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                (= (@st (@wc_length (list-ref //i (+ 1 1))))
+                   //t_/number)
+                (<= (@v (@wc_length (list-ref //i (+ 1 1))))
+                    (@v (list-ref //i (+ 1 3))))))
+          (#t
+           (cond ((and (or (= (@st (list-ref //i (+ 1 1))) //t_/variable)
+                           (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue))
+                       (equal? (@v (list-ref //i (+ 1 1))) /a_name))
+                  (set! //r1 (@set_union //r1 (@elts_addr //i)))))
+           (set! //r2
+             (@set_union
+               //r1
+               (let ((l (let ((l (cdr (@components //i))) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@qry_exp_elts (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                     (reduce-result '()))
+                 (cond ((null? l) '())
+                       (#t
+                        (set! reduce-result (car l))
+                        (set! l (cdr l))
+                        (let while-loop ()
+                          (cond ((not (null? l))
+                                 (set! reduce-result
+                                   (@set_union reduce-result (car l)))
+                                 (set! l (cdr l))
+                                 (while-loop))
+                                (#t #t)))
+                        reduce-result)))))))
+    (cond ((or (= (@st (list-ref //i (+ 1 1))) //t_/aref)
+               (= (@st (list-ref //i (+ 1 1)))
+                  //t_/aref_/lvalue)
+               (= (@st (list-ref //i (+ 1 1))) //t_/sub_/seg)
+               (= (@st (list-ref //i (+ 1 1)))
+                  //t_/sub_/seg_/lvalue)
+               (= (@st (list-ref //i (+ 1 1))) //t_/rel_/seg)
+               (= (@st (list-ref //i (+ 1 1)))
+                  //t_/rel_/seg_/lvalue))
+           (let ((/sub (@qry_aref_elts (list-ref //i (+ 1 1)))))
+             (set! //r1
+               (@set_union
+                 //r1
+                 (let ((name /sub))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1))))))
+             (set! //r2
+               (@set_union
+                 //r2
+                 (let ((name /sub))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1)))))))))
+    (if (= (@gt //i) //t_/lvalue)
+      (list //r1 //r2 '())
+      (list '() (@set_union //r1 //r2) '()))))
+
+(define (@qry_add_index //r /nums)
+  (let ((/new_/r '())
+        (/new '())
+        (/elt-save /elt)
+        (/num '())
+        (funct-result '()))
+    (set! /elt '())
+    (cond ((null? /nums) (set! /nums (list 0))))
+    (let ((var-save /old) (seq-save //r))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /old (car for-tmp))
+               (begin
+                 (set! /new '())
+                 (let ((var-save /elt) (seq-save /old))
+                   (if (vector? seq-save)
+                     (set! seq-save (vector-elts seq-save)))
+                   (let for-in-loop ((for-tmp seq-save))
+                     (cond ((not (null? for-tmp))
+                            (set! /elt (car for-tmp))
+                            (let ((var-save /num) (seq-save /nums))
+                              (if (vector? seq-save)
+                                (set! seq-save (vector-elts seq-save)))
+                              (let for-in-loop ((for-tmp seq-save))
+                                (cond ((not (null? for-tmp))
+                                       (set! /num (car for-tmp))
+                                       (cond ((equal? /elt (list /a_name))
+                                              (set! /new (cons /elt /new)))
+                                             (#t
+                                              (set! /new
+                                                (cons (concat
+                                                        /elt
+                                                        (list (- /num)))
+                                                      /new))))
+                                       (for-in-loop (cdr for-tmp)))
+                                      (#t #t)))
+                              (set! /num var-save))
+                            (for-in-loop (cdr for-tmp)))
+                           (#t #t)))
+                   (set! /elt var-save))
+                 (set! /new_/r (cons /new /new_/r)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /old var-save))
+    (set! funct-result (@make_set /new_/r))
+    (set! /elt /elt-save)
+    funct-result))
+
+(define (@qry_add_index1 /old-par /nums)
+  (let ((/old-save /old)
+        (/new '())
+        (/elt-save /elt)
+        (/num '())
+        (funct-result '()))
+    (set! /old /old-par)
+    (set! /elt '())
+    (cond ((null? /nums) (set! /nums (list 0))))
+    (let ((var-save /elt) (seq-save /old))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (let ((var-save /num) (seq-save /nums))
+                 (if (vector? seq-save)
+                   (set! seq-save (vector-elts seq-save)))
+                 (let for-in-loop ((for-tmp seq-save))
+                   (cond ((not (null? for-tmp))
+                          (set! /num (car for-tmp))
+                          (cond ((equal? /elt (list /a_name))
+                                 (set! /new (cons /elt /new)))
+                                (#t
+                                 (set! /new
+                                   (cons (concat /elt (list (- /num))) /new))))
+                          (for-in-loop (cdr for-tmp)))
+                         (#t #t)))
+                 (set! /num var-save))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (set! funct-result (@make_set /new))
+    (set! /old /old-save)
+    (set! /elt /elt-save)
+    funct-result))
+
+(define (@num_list /n /m)
+  (let ((//r '()))
+    (let while-loop ()
+      (cond ((<= /n /m)
+             (begin
+               (set! //r (cons /n //r))
+               (set! /n (+ /n 1)))
+             (while-loop))
+            (#t #t)))
+    (reverse //r)))
+
+(define (@qry_exp_elts //i)
+  (let ((//result '()) (//s/t (@st //i)))
+    (cond ((@is_addr? //i)
+           (set! //result (@qry_exp_elts_a (@get_addr //i))))
+          ((and (= //s/t //t_/struct)
+                (@qry_simple_struct? (list-ref //i (+ 1 2))))
+           (set! //result (list (@struct_elts //i))))
+          ((and (= //s/t //t_/struct_/lvalue)
+                (@qry_simple_lstruct? (list-ref //i (+ 1 2))))
+           (set! //result (list (@struct_elts //i))))
+          ((and (or (= //s/t //t_/aref)
+                    (= //s/t //t_/aref_/lvalue))
+                (= (@size (list-ref //i (+ 1 2))) 1)
+                (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                   //t_/number))
+           (set! //result
+             (@qry_add_index1
+               (@qry_exp_elts (list-ref //i (+ 1 1)))
+               (list (@v (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))))))
+          ((and (or (= //s/t //t_/sub_/seg)
+                    (= //s/t //t_/sub_/seg_/lvalue))
+                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                (< (- (@v (list-ref //i (+ 1 3)))
+                      (@v (list-ref //i (+ 1 2))))
+                   //max_/subfield))
+           (set! //result
+             (@qry_add_index1
+               (@qry_exp_elts (list-ref //i (+ 1 1)))
+               (@num_list
+                 (@v (list-ref //i (+ 1 2)))
+                 (@v (list-ref //i (+ 1 3)))))))
+          ((and (or (= //s/t //t_/rel_/seg)
+                    (= //s/t //t_/rel_/seg_/lvalue))
+                (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                (= (@st (list-ref //i (+ 1 3))) //t_/number)
+                (<= (@v (list-ref //i (+ 1 3))) //max_/subfield))
+           (set! //result
+             (@qry_add_index1
+               (@qry_exp_elts (list-ref //i (+ 1 1)))
+               (@num_list
+                 (@v (list-ref //i (+ 1 2)))
+                 (- (+ (@v (list-ref //i (+ 1 3)))
+                       (@v (list-ref //i (+ 1 2))))
+                    1)))))
+          ((or (= //s/t //t_/rel_/seg)
+               (= //s/t //t_/sub_/seg)
+               (= //s/t //t_/aref))
+           (set! //result
+             (@set_union
+               (let ((l (let ((l (@components //i)) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@qry_exp_elts (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                     (reduce-result '()))
+                 (cond ((null? l) '())
+                       (#t
+                        (set! reduce-result (car l))
+                        (set! l (cdr l))
+                        (let while-loop ()
+                          (cond ((not (null? l))
+                                 (set! reduce-result
+                                   (@set_union reduce-result (car l)))
+                                 (set! l (cdr l))
+                                 (while-loop))
+                                (#t #t)))
+                        reduce-result)))
+               (@elts_addr //i))))
+          ((and (= //s/t //t_/x_/funct_/call)
+                (equal? (@v (list-ref //i (+ 1 1))) /sizeof))
+           #t)
+          ((@cs? //i)
+           (set! //result
+             (let ((l (let ((l (@components //i)) (map-result '()))
+                        (let while-loop ()
+                          (cond ((not (null? l))
+                                 (set! map-result
+                                   (cons (@qry_exp_elts (car l)) map-result))
+                                 (set! l (cdr l))
+                                 (while-loop))
+                                (#t #t)))
+                        (reverse map-result)))
+                   (reduce-result '()))
+               (cond ((null? l) '())
+                     (#t
+                      (set! reduce-result (car l))
+                      (set! l (cdr l))
+                      (let while-loop ()
+                        (cond ((not (null? l))
+                               (set! reduce-result
+                                 (@set_union reduce-result (car l)))
+                               (set! l (cdr l))
+                               (while-loop))
+                              (#t #t)))
+                      reduce-result)))))
+          ((or (= //s/t //t_/variable)
+               (= //s/t //t_/var_/lvalue))
+           (set! //result (list (list (@v //i))))))
+    //result))
+
+(define (@qry_exp_elts_a //i)
+  (if (member
+        (@st //i)
+        (list //t_/aref
+              //t_/sub_/seg
+              //t_/rel_/seg
+              //t_/final_/seg))
+    (@set_union
+      (@qry_exp_elts_a (list-ref //i (+ 1 1)))
+      (let ((l (let ((l (cdr (@cs //i))) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@qry_exp_elts (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result))))
+    (if (@cs? //i)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@qry_exp_elts_a (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      '())))
+
+(define (@elts_redefined //i)
+  (let ((//s/t (@st //i))
+        (//g/t (@gt //i))
+        (//redef-save //redef)
+        (//l '())
+        (//cs '())
+        (funct-result '()))
+    (set! //redef '())
+    (cond ((@cs? //i)
+           (let ((//previous
+                   (@dtable_get //i //qry_/elts_/redefined)))
+             (cond ((null? //previous)
+                    (cond ((= //s/t //t_/assign)
+                           (let ((//a1 (@elts_assigned (list-ref //i (+ 1 1)))))
+                             (cond ((and (not (@elt_clash_list?
+                                                (@elts_used
+                                                  (list-ref //i (+ 1 2)))
+                                                //a1))
+                                         (not (@elt_clash_list?
+                                                (@elts_used
+                                                  (list-ref //i (+ 1 1)))
+                                                //a1)))
+                                    (set! //redef //a1)))))
+                          ((= //s/t //t_/for)
+                           (set! //redef
+                             (@elt_remove
+                               (@elts_redefined (list-ref //i (+ 1 5)))
+                               (list (@v (list-ref //i (+ 1 1)))))))
+                          ((= //s/t //t_/var)
+                           (set! //redef
+                             (@elt_subtract
+                               (@elts_redefined (list-ref //i (+ 1 2)))
+                               (@elt_lvars (list-ref //i (+ 1 1))))))
+                          ((= //s/t //t_/while) (set! //redef '()))
+                          ((= //s/t //t_/floop)
+                           (set! //l '())
+                           (set! //cs (@cs (list-ref //i (+ 1 1))))
+                           (let while-loop ()
+                             (cond ((not (null? //cs))
+                                    (cond ((@gen_proper? (car //cs) "Hyb")
+                                           (set! //l (cons (car //cs) //l))
+                                           (set! //cs (cdr //cs)))
+                                          (#t (set! //cs '())))
+                                    (while-loop))
+                                   (#t #t)))
+                           (cond ((null? //l) (set! //redef '()))
+                                 (#t
+                                  (set! //redef
+                                    (let ((l (let ((l (reverse //l))
+                                                   (map-result '()))
+                                               (let while-loop ()
+                                                 (cond ((not (null? l))
+                                                        (set! map-result
+                                                          (cons (@elts_redefined
+                                                                  (car l))
+                                                                map-result))
+                                                        (set! l (cdr l))
+                                                        (while-loop))
+                                                       (#t #t)))
+                                               (reverse map-result)))
+                                          (reduce-result '()))
+                                      (cond ((null? l) '())
+                                            (#t
+                                             (set! reduce-result (car l))
+                                             (set! l (cdr l))
+                                             (let while-loop ()
+                                               (cond ((not (null? l))
+                                                      (set! reduce-result
+                                                        (@set_union
+                                                          reduce-result
+                                                          (car l)))
+                                                      (set! l (cdr l))
+                                                      (while-loop))
+                                                     (#t #t)))
+                                             reduce-result)))))))
+                          ((= //s/t //t_/guarded)
+                           (set! //redef
+                             (@elts_redefined (list-ref //i (+ 1 2)))))
+                          ((= //s/t //t_/pop)
+                           (set! //redef (@elements (list-ref //i (+ 1 1)))))
+                          ((or (= //g/t //t_/statements)
+                               (= //s/t //t_/assignment))
+                           (set! //redef
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@elts_redefined
+                                                           (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_union
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result)))))
+                          ((or (= //g/t //t_/expression)
+                               (= //g/t //t_/condition))
+                           (set! //redef '()))
+                          (#t
+                           (set! //redef
+                             (let ((l (let ((l (@cs //i)) (map-result '()))
+                                        (let while-loop ()
+                                          (cond ((not (null? l))
+                                                 (set! map-result
+                                                   (cons (@elts_redefined
+                                                           (car l))
+                                                         map-result))
+                                                 (set! l (cdr l))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (reverse map-result)))
+                                   (reduce-result '()))
+                               (cond ((null? l) '())
+                                     (#t
+                                      (set! reduce-result (car l))
+                                      (set! l (cdr l))
+                                      (let while-loop ()
+                                        (cond ((not (null? l))
+                                               (set! reduce-result
+                                                 (@set_intersect
+                                                   reduce-result
+                                                   (car l)))
+                                               (set! l (cdr l))
+                                               (while-loop))
+                                              (#t #t)))
+                                      reduce-result))))))
+                    (@dtable_put //i //qry_/elts_/redefined //redef))
+                   (#t
+                    (set! //redef (@dtable_value_part //previous)))))))
+    (set! funct-result //redef)
+    (set! //redef //redef-save)
+    funct-result))
+
+(define (@elt_remove //v /elt)
+  (if (null? //v)
+    '()
+    (if (@prefix? /elt (car //v))
+      (@elt_remove (cdr //v) /elt)
+      (if (@gen_less? /elt (car //v))
+        //v
+        (cons (car //v) (@elt_remove (cdr //v) /elt))))))
+
+(define (@elt_subtract //v //w)
+  (if (null? //v)
+    '()
+    (if (null? //w)
+      //v
+      (if (@prefix? (car //w) (car //v))
+        (@elt_subtract (cdr //v) //w)
+        (if (@gen_less? (car //w) (car //v))
+          (@elt_subtract //v (cdr //w))
+          (cons (car //v) (@elt_subtract (cdr //v) //w)))))))
+
+(define (@elt_remove_fields //v)
+  (if (null? //v)
+    //v
+    (if (null? (cdr //v))
+      //v
+      (if (@prefix? (car //v) (car (cdr //v)))
+        (@elt_remove_fields
+          (cons (car //v) (cdr (cdr //v))))
+        (cons (car //v) (@elt_remove_fields (cdr //v)))))))
+
+(define (@elt_to_expn //v)
+  (let ((//r (@make //t_/variable (car //v) '())))
+    (cond ((and (equal? (car //v) /a_name)
+                (not (null? (cdr //v))))
+           (set! //v (cdr //v))
+           (set! //r
+             (@make_mem (@make //t_/variable (car //v) '())))))
+    (set! //v (cdr //v))
+    (let while-loop ()
+      (cond ((and (not (null? //v)) (> (car //v) 0))
+             (begin
+               (set! //r
+                 (@make //t_/struct
+                        '()
+                        (list (@name (car //v)) //r)))
+               (set! //v (cdr //v)))
+             (while-loop))
+            (#t #t)))
+    //r))
+
+(define (@elt_to_lvalue //v)
+  (let ((//r (@make //t_/var_/lvalue (car //v) '())))
+    (cond ((and (equal? (car //v) /a_name)
+                (not (null? (cdr //v))))
+           (set! //v (cdr //v))
+           (set! //r
+             (@make_mem_l (@make //t_/variable (car //v) '())))))
+    (set! //v (cdr //v))
+    (let while-loop ()
+      (cond ((and (not (null? //v)) (> (car //v) 0))
+             (begin
+               (set! //r
+                 (@make //t_/struct_/lvalue
+                        '()
+                        (list (@name (car //v)) //r)))
+               (set! //v (cdr //v)))
+             (while-loop))
+            (#t #t)))
+    //r))
+
+(define (@elt_to_string /elt-par)
+  (let ((/elt-save /elt)
+        (/item '())
+        (//r '())
+        (funct-result '()))
+    (set! /elt /elt-par)
+    (cond ((sequence? /elt)
+           (cond ((and (> (if (vector? /elt)
+                            (vector-length /elt)
+                            (length /elt))
+                          1)
+                       (equal? (car /elt) /a_name)
+                       (> (let ((name /elt))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1))))
+                          0))
+                  (set! /elt (cdr /elt))))
+           (set! //r (@name_or_num_string (car /elt)))
+           (let ((var-save /item) (seq-save (cdr /elt)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /item (car for-tmp))
+                      (cond ((<= /item 0)
+                             (set! //r
+                               (string-append
+                                 (concat
+                                   (string-append //r "[")
+                                   (@string (- /item)))
+                                 "]")))
+                            (#t
+                             (set! //r
+                               (concat
+                                 (string-append //r ".")
+                                 (@name_or_num_string /item)))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /item var-save)))
+          (#t (set! //r (@name_or_num_string /elt))))
+    (set! funct-result //r)
+    (set! /elt /elt-save)
+    funct-result))
+
+(define (@name_or_num_string /n)
+  (if (string? /n)
+    /n
+    (if (and (number? /n) (<= /n 0))
+      (@string (- /n))
+      (@n_string /n))))
+
+(define (@elt_clash? //v /e)
+  (let ((//r 0))
+    (let while-loop ()
+      (cond ((not (null? //v))
+             (cond ((and #f (equal? (car //v) (list /a_name)))
+                    (set! //v (cdr //v)))
+                   ((or (@either_prefix? (car //v) /e)
+                        (@dsect_clash? (car //v) /e))
+                    (set! //r 1)
+                    (set! //v '()))
+                   (#t (set! //v (cdr //v))))
+             (while-loop))
+            (#t #t)))
+    (= //r 1)))
+
+(define (@either_prefix? //a //b)
+  (or (null? //a)
+      (null? //b)
+      (and (not (null? //a))
+           (not (null? //b))
+           (equal? (car //a) (car //b))
+           (@either_prefix? (cdr //a) (cdr //b)))))
+
+(define (@dsect_clash? //a //b)
+  (or (and (= (if (vector? //a)
+                (vector-length //a)
+                (length //a))
+              1)
+           (> (if (vector? //b)
+                (vector-length //b)
+                (length //b))
+              1)
+           (equal?
+             (let ((name //b))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             /a_name)
+           (equal?
+             (let ((name //a))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             (let ((name //b))
+               (if (vector? name)
+                 (vector-ref name (- 2 1))
+                 (list-ref name (- 2 1))))))
+      (and (= (if (vector? //b)
+                (vector-length //b)
+                (length //b))
+              1)
+           (> (if (vector? //a)
+                (vector-length //a)
+                (length //a))
+              1)
+           (equal?
+             (let ((name //a))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             /a_name)
+           (equal?
+             (let ((name //b))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             (let ((name //a))
+               (if (vector? name)
+                 (vector-ref name (- 2 1))
+                 (list-ref name (- 2 1))))))))
+
+(define (@elt_clash_list? //v //w)
+  (let ((/found 0))
+    (cond ((and (= (if (vector? //v)
+                     (vector-length //v)
+                     (length //v))
+                   1)
+                (= (if (vector? (car //v))
+                     (vector-length (car //v))
+                     (length (car //v)))
+                   1))
+           (set! //w (@elt_strip_dsect (car (car //v)) //w))))
+    (set! //v (@elt_strip_a //v))
+    (set! //w (@elt_strip_a //w))
+    (let while-loop ()
+      (cond ((and (not (null? //v)) (not (null? //w)))
+             (cond ((@either_prefix? (car //w) (car //v))
+                    (set! /found 1)
+                    (set! //v '()))
+                   ((@gen_less? (car //w) (car //v))
+                    (set! //w (cdr //w)))
+                   (#t (set! //v (cdr //v))))
+             (while-loop))
+            (#t #t)))
+    (= /found 1)))
+
+(define (@elt_strip_a //v)
+  (let ((//r '()))
+    (let ((var-save /elt) (seq-save //v))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (cond ((and (not (null? /elt))
+                           (equal?
+                             (let ((name /elt))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             /a_name)
+                           (> (if (vector? /elt)
+                                (vector-length /elt)
+                                (length /elt))
+                              1))
+                      (set! //r (cons (cdr /elt) //r)))
+                     (#t (set! //r (cons /elt //r))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (@make_set //r)))
+
+(define (@elt_strip_dsect /v //w)
+  (let ((//r '()))
+    (let ((var-save /elt) (seq-save //w))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (cond ((and (> (if (vector? /elt)
+                                (vector-length /elt)
+                                (length /elt))
+                              2)
+                           (equal?
+                             (let ((name /elt))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             /a_name)
+                           (equal?
+                             (let ((name /elt))
+                               (if (vector? name)
+                                 (vector-ref name (- 2 1))
+                                 (list-ref name (- 2 1))))
+                             /v))
+                      #t)
+                     (#t (set! //r (cons /elt //r))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (reverse //r)))
+
+(define (@calls //i)
+  (let ((//result '()))
+    (cond ((@cs? //i)
+           (let ((//previous (@dtable_get //i //qry_/calls))
+                 (/comp-save /comp))
+             (set! /comp '())
+             (cond ((null? //previous)
+                    (let ((var-save /comp) (seq-save (@cs //i)))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /comp (car for-tmp))
+                               (cond ((not (or (= (@st /comp) //t_/a_/s)
+                                               (= (@gt /comp) //t_/expression)
+                                               (= (@gt /comp) //t_/condition)))
+                                      (set! //result
+                                        (@qry_call_join
+                                          //result
+                                          (@calls /comp)))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /comp var-save))
+                    (@dtable_put //i //qry_/calls //result))
+                   (#t
+                    (set! //result (@dtable_value_part //previous))))
+             (set! /comp /comp-save)))
+          ((= (@st //i) //t_/call)
+           (set! //result (list (list (@v //i) 1)))))
+    //result))
+
+(define (@called? //name //i)
+  (not (null? (@assoc //name (@calls //i)))))
+
+(define (@call_freq //name //i)
+  (let ((//result (@assoc //name (@calls //i))))
+    (cond ((null? //result) (set! //result 0))
+          (#t (set! //result (car (cdr //result)))))
+    //result))
+
+(define (@proc_calls //i)
+  (let ((//result '()))
+    (cond ((@cs? //i)
+           (let ((//previous (@dtable_get //i //qry_/proc_/calls))
+                 (//temp (@cs //i)))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   ((= (@st //i) //t_/proc_/call)
+                    (set! //result
+                      (list (list (@v (list-ref //i (+ 1 1))) 1))))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //temp))
+                             (begin
+                               (cond ((and (not (= (@gt (car //temp))
+                                                   //t_/expression))
+                                           (not (= (@gt (car //temp))
+                                                   //t_/condition))
+                                           (not (= (@gt (car //temp))
+                                                   //t_/expressions)))
+                                      (set! //result
+                                        (@qry_call_join
+                                          //result
+                                          (@proc_calls (car //temp))))))
+                               (set! //temp (cdr //temp)))
+                             (while-loop))
+                            (#t #t)))
+                    (cond ((= (@st //i) //t_/where)
+                           (set! //temp (@cs (list-ref //i (+ 1 2))))
+                           (let while-loop ()
+                             (cond ((not (null? //temp))
+                                    (begin
+                                      (cond ((= (@st (car //temp)) //t_/proc)
+                                             (set! //result
+                                               (@qry_remove_a_call
+                                                 //result
+                                                 (@v (list-ref
+                                                       (car //temp)
+                                                       (+ 1 1)))))))
+                                      (set! //temp (cdr //temp)))
+                                    (while-loop))
+                                   (#t #t)))))
+                    (@dtable_put //i //qry_/proc_/calls //result))))))
+    //result))
+
+(define (@a_proc_calls //i)
+  (let ((//result '()))
+    (cond ((@cs? //i)
+           (let ((//previous
+                   (@dtable_get //i //qry_/a_/proc_/calls))
+                 (//temp (@cs //i)))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   ((= (@st //i) //t_/a_/proc_/call)
+                    (set! //result
+                      (list (list (@v (list-ref //i (+ 1 1))) 1))))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //temp))
+                             (begin
+                               (cond ((and (not (= (@gt (car //temp))
+                                                   //t_/expression))
+                                           (not (= (@gt (car //temp))
+                                                   //t_/condition))
+                                           (not (= (@gt (car //temp))
+                                                   //t_/expressions)))
+                                      (set! //result
+                                        (@qry_call_join
+                                          //result
+                                          (@a_proc_calls (car //temp))))))
+                               (set! //temp (cdr //temp)))
+                             (while-loop))
+                            (#t #t)))
+                    (cond ((= (@st //i) //t_/where)
+                           (set! //temp (@cs (list-ref //i (+ 1 2))))
+                           (let while-loop ()
+                             (cond ((not (null? //temp))
+                                    (begin
+                                      (cond ((= (@st (car //temp)) //t_/proc)
+                                             (set! //result
+                                               (@qry_remove_a_call
+                                                 //result
+                                                 (@v (list-ref
+                                                       (car //temp)
+                                                       (+ 1 1)))))))
+                                      (set! //temp (cdr //temp)))
+                                    (while-loop))
+                                   (#t #t)))))
+                    (@dtable_put //i //qry_/a_/proc_/calls //result))))))
+    //result))
+
+(define (@proc_called? //name //i)
+  (not (null? (@assoc //name (@proc_calls //i)))))
+
+(define (@proc_call_freq //name //i)
+  (let ((//result (@assoc //name (@proc_calls //i))))
+    (cond ((null? //result) (set! //result 0))
+          (#t (set! //result (car (cdr //result)))))
+    //result))
+
+(define (@non_recursive_calls //name //i)
+  (let ((//result
+          (@proc_call_freq //name (list-ref //i (+ 1 1))))
+        (/bodies (@cs (list-ref //i (+ 1 2)))))
+    (let while-loop ()
+      (cond ((not (null? /bodies))
+             (begin
+               (cond ((and (= (@st (car /bodies)) //t_/proc)
+                           (not (equal?
+                                  //name
+                                  (@v (list-ref (car /bodies) (+ 1 1))))))
+                      (set! //result
+                        (+ //result
+                           (@proc_call_freq
+                             //name
+                             (list-ref (car /bodies) (+ 1 4)))))))
+               (set! /bodies (cdr /bodies)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@funct_calls //i)
+  (let ((//result '()))
+    (cond ((@cs? //i)
+           (let ((//previous
+                   (@dtable_get //i //qry_/funct_/calls))
+                 (//temp (@cs //i)))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   ((or (= (@st //i) //t_/funct_/call)
+                        (= (@st //i) //t_/b/funct_/call))
+                    (set! //result
+                      (list (list (@v (list-ref //i (+ 1 1))) 1)))
+                    (@dtable_put //i //qry_/funct_/calls //result))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //temp))
+                             (begin
+                               (set! //result
+                                 (@qry_call_join
+                                   //result
+                                   (@funct_calls (car //temp))))
+                               (set! //temp (cdr //temp)))
+                             (while-loop))
+                            (#t #t)))
+                    (@dtable_put //i //qry_/funct_/calls //result))))))
+    //result))
+
+(define (@funct_called? //name //i)
+  (not (null? (@assoc //name (@funct_calls //i)))))
+
+(define (@funct_call_freq //name //i)
+  (let ((//result (@assoc //name (@funct_calls //i))))
+    (cond ((null? //result) (set! //result 0))
+          (#t (set! //result (car (cdr //result)))))
+    //result))
+
+(define (@x_funct_calls //i)
+  (let ((//result '()))
+    (cond ((@cs? //i)
+           (let ((//previous
+                   (@dtable_get //i //qry_/x_/funct_/calls))
+                 (//temp (@cs //i)))
+             (cond ((not (null? //previous))
+                    (set! //result (@dtable_value_part //previous)))
+                   ((or (= (@st //i) //t_/x_/funct_/call)
+                        (= (@st //i) //t_/x_/b/funct_/call))
+                    (set! //result
+                      (list (list (@v (list-ref //i (+ 1 1))) 1)))
+                    (@dtable_put //i //qry_/x_/funct_/calls //result))
+                   (#t
+                    (let while-loop ()
+                      (cond ((not (null? //temp))
+                             (begin
+                               (set! //result
+                                 (@qry_call_join
+                                   //result
+                                   (@x_funct_calls (car //temp))))
+                               (set! //temp (cdr //temp)))
+                             (while-loop))
+                            (#t #t)))
+                    (@dtable_put //i //qry_/x_/funct_/calls //result))))))
+    //result))
+
+(define (@x_funct_called? //name //i)
+  (not (null? (@assoc //name (@x_funct_calls //i)))))
+
+(define (@x_funct_call_freq //name //i)
+  (let ((//result (@assoc //name (@x_funct_calls //i))))
+    (cond ((null? //result) (set! //result 0))
+          (#t (set! //result (car (cdr //result)))))
+    //result))
+
+(set! /dec_conds
+  (@make_set
+    (let ((l (list "dec_eq"
+                   "dec_not_eq"
+                   "dec_greater"
+                   "dec_greater_eq"
+                   "dec_less"
+                   "dec_less_eq"))
+          (map-result '()))
+      (let while-loop ()
+        (cond ((not (null? l))
+               (set! map-result
+                 (cons (@make_name (car l)) map-result))
+               (set! l (cdr l))
+               (while-loop))
+              (#t #t)))
+      (reverse map-result))))
+
+(define (@unsafe_test? //i)
+  (let ((/found 0))
+    (cond ((and (= (@st //i) //t_/x_/b/funct_/call)
+                (member (@v (list-ref //i (+ 1 1))) /dec_conds))
+           (set! /found 1))
+          ((or (= (@st //i) //t_/and)
+               (= (@st //i) //t_/or)
+               (= (@st //i) //t_/not))
+           (let ((var-save /comp) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (cond ((@unsafe_test? /comp) (set! /found 1)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save))))
+    (= /found 1)))
+
+(define (@non_recursive_funct_calls //name //i)
+  (let ((//result
+          (@funct_call_freq //name (list-ref //i (+ 1 1))))
+        (/bodies (@cs (list-ref //i (+ 1 2)))))
+    (let while-loop ()
+      (cond ((not (null? /bodies))
+             (begin
+               (cond ((not (equal?
+                             //name
+                             (@v (list-ref (car /bodies) (+ 1 1)))))
+                      (set! //result
+                        (+ //result
+                           (@funct_call_freq //name (car /bodies))))))
+               (set! /bodies (cdr /bodies)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@qry_call_join //l1 //l2)
+  (if (null? //l1)
+    //l2
+    (if (null? //l2)
+      //l1
+      (if (equal? (car (car //l1)) (car (car //l2)))
+        (cons (list (car (car //l1))
+                    (+ (car (cdr (car //l1))) (car (cdr (car //l2)))))
+              (@qry_call_join (cdr //l1) (cdr //l2)))
+        (if (< (car (car //l1)) (car (car //l2)))
+          (cons (car //l1)
+                (@qry_call_join (cdr //l1) //l2))
+          (cons (car //l2)
+                (@qry_call_join //l1 (cdr //l2))))))))
+
+(define (@qry_remove_a_call //l /name)
+  (if (null? //l)
+    '()
+    (if (equal? /name (car (car //l)))
+      (cdr //l)
+      (cons (car //l)
+            (@qry_remove_a_call (cdr //l) /name)))))
+
+(define (@simple? //i)
+  (and (= (@gt //i) //t_/statement)
+       (and (not (= (@st //i) //t_/cond))
+            (not (= (@st //i) //t_/d_/if))
+            (not (= (@st //i) //t_/floop))
+            (not (= (@st //i) //t_/join)))))
+
+(define (@terminal_n? //i /n)
+  (and (<= 1 /n)
+       (<= /n (@size //i))
+       (or (or (= (@st //i) //t_/cond)
+               (= (@st //i) //t_/d_/if)
+               (= (@st //i) //t_/join))
+           (and (not (= (@st //i) //t_/floop))
+                (= /n (@size //i))))))
+
+(define (@terminal_posn? //i /p)
+  (or (null? /p)
+      (and (@terminal_n? //i (car /p))
+           (@terminal_posn?
+             (list-ref //i (+ 1 (car /p)))
+             (cdr /p)))))
+
+(define (@outermost_floop_terminal? //i /p)
+  (let ((//o/k 0)
+        (//temp_/i //i)
+        (//temp_/p '())
+        (//old_/p /p)
+        (//term_/posn 1))
+    (let while-loop ()
+      (cond ((and (= //o/k 0) (not (null? //old_/p)))
+             (cond ((= (@st //temp_/i) //t_/floop)
+                    (set! //o/k //term_/posn))
+                   (#t
+                    (cond ((and (= //term_/posn 1)
+                                (not (@terminal_n? //temp_/i (car //old_/p))))
+                           (set! //term_/posn (- 1))))
+                    (set! //temp_/i
+                      (list-ref //temp_/i (+ 1 (car //old_/p))))
+                    (set! //temp_/p
+                      (concat //temp_/p (list (car //old_/p))))
+                    (set! //old_/p (cdr //old_/p))))
+             (while-loop))
+            (#t #t)))
+    (= //o/k 1)))
+
+(define (@depth //i /p)
+  (let ((//result 0) (//temp_/i //i) (//old_/p /p))
+    (let while-loop ()
+      (cond ((not (null? //old_/p))
+             (begin
+               (cond ((= (@st //temp_/i) //t_/floop)
+                      (set! //result (+ //result 1))))
+               (set! //temp_/i
+                 (list-ref //temp_/i (+ 1 (car //old_/p))))
+               (set! //old_/p (cdr //old_/p)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@max_depth //i)
+  (let ((//result 0) (//previous '()))
+    (cond ((or (not (@cs? //i))
+               (= (@gt //i) //t_/expression)
+               (= (@gt //i) //t_/expressions)
+               (= (@gt //i) //t_/condition))
+           #t)
+          ((@simple? //i) (set! //result 1))
+          (#t
+           (set! //previous
+             (@dtable_get //i //qry_/max_/dep))
+           (cond ((not (null? //previous))
+                  (set! //result (@dtable_value_part //previous)))
+                 (#t
+                  (set! //result
+                    (+ 1
+                       (let ((l (let ((l (@cs //i)) (map-result '()))
+                                  (let while-loop ()
+                                    (cond ((not (null? l))
+                                           (set! map-result
+                                             (cons (@max_depth (car l))
+                                                   map-result))
+                                           (set! l (cdr l))
+                                           (while-loop))
+                                          (#t #t)))
+                                  (reverse map-result)))
+                             (reduce-result '()))
+                         (cond ((null? l) '())
+                               (#t
+                                (set! reduce-result (car l))
+                                (set! l (cdr l))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! reduce-result
+                                           (max reduce-result (car l)))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                reduce-result)))))
+                  (@dtable_put //i //qry_/max_/dep //result)))))
+    //result))
+
+(define (@rec_tvs //i)
+  (let ((//temp '())
+        (//g (@gt //i))
+        (//s (@st //i))
+        (//result (@dtable_get //i //qry_/rec_/t/vs)))
+    (cond ((null? //result)
+           (cond ((or (= //g //t_/condition)
+                      (= //g //t_/expression)
+                      (= //g //t_/expressions))
+                  (set! //result '()))
+                 ((= //s //t_/abort) (set! //result (list 0)))
+                 ((= //s //t_/exit)
+                  (set! //result (list (@v //i))))
+                 ((@simple? //i) (set! //result (list 0)))
+                 ((= //s //t_/statements)
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@rec_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result)))))
+                 ((= //s //t_/floop)
+                  (set! //temp
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@rec_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))
+                  (let while-loop ()
+                    (cond ((not (null? //temp))
+                           (begin
+                             (cond ((> (car //temp) 0)
+                                    (set! //result
+                                      (concat
+                                        //result
+                                        (list (- (car //temp) 1))))))
+                             (set! //temp (cdr //temp)))
+                           (while-loop))
+                          (#t #t))))
+                 (#t
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@rec_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@set_union reduce-result (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))))
+           (@dtable_put //i //qry_/rec_/t/vs //result))
+          (#t
+           (set! //result (@dtable_value_part //result))))
+    //result))
+
+(set! //omega 536870911)
+
+(define (@reg_tvs //i)
+  (let ((//temp '())
+        (//g (@gt //i))
+        (//s (@st //i))
+        (//result (@dtable_get //i //qry_/reg_/t/vs)))
+    (cond ((null? //result)
+           (cond ((or (= //g //t_/condition)
+                      (= //g //t_/expression)
+                      (= //g //t_/expressions))
+                  (set! //result '()))
+                 ((= //s //t_/abort) (set! //result (list 0)))
+                 ((= //s //t_/exit)
+                  (set! //result (list (@v //i))))
+                 ((= //s //t_/call)
+                  (set! //result (list //omega)))
+                 ((@simple? //i) (set! //result (list 0)))
+                 ((= //s //t_/statements)
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@reg_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result)))))
+                 ((= //s //t_/floop)
+                  (set! //temp
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@reg_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))
+                  (let while-loop ()
+                    (cond ((not (null? //temp))
+                           (begin
+                             (cond ((equal? (car //temp) //omega)
+                                    (set! //result
+                                      (concat //result (list (car //temp)))))
+                                   ((> (car //temp) 0)
+                                    (set! //result
+                                      (concat
+                                        //result
+                                        (list (- (car //temp) 1))))))
+                             (set! //temp (cdr //temp)))
+                           (while-loop))
+                          (#t #t))))
+                 (#t
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@reg_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@set_union reduce-result (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))))
+           (@dtable_put //i //qry_/reg_/t/vs //result))
+          (#t
+           (set! //result (@dtable_value_part //result))))
+    //result))
+
+(define (@hyb_tvs //i)
+  (let ((//temp '())
+        (//g (@gt //i))
+        (//s (@st //i))
+        (//result (@dtable_get //i //qry_/hyb_/t/vs)))
+    (cond ((null? //result)
+           (cond ((or (= //g //t_/condition)
+                      (= //g //t_/expression)
+                      (= //g //t_/expressions))
+                  (set! //result '()))
+                 ((= //s //t_/abort) (set! //result (list 0)))
+                 ((= //s //t_/exit)
+                  (set! //result (list (@v //i))))
+                 ((= //s //t_/call)
+                  (cond ((equal? (@v //i) (@make_name "Z"))
+                         (set! //result (list //omega)))
+                        (#t (set! //result (list 0 //omega)))))
+                 ((@simple? //i) (set! //result (list 0)))
+                 ((= //s //t_/statements)
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@hyb_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result)))))
+                 ((= //s //t_/floop)
+                  (set! //temp
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@hyb_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@tv_conditional_union
+                                          reduce-result
+                                          (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))
+                  (let while-loop ()
+                    (cond ((not (null? //temp))
+                           (begin
+                             (cond ((equal? (car //temp) //omega)
+                                    (set! //result
+                                      (concat //result (list (car //temp)))))
+                                   ((> (car //temp) 0)
+                                    (set! //result
+                                      (concat
+                                        //result
+                                        (list (- (car //temp) 1))))))
+                             (set! //temp (cdr //temp)))
+                           (while-loop))
+                          (#t #t))))
+                 (#t
+                  (set! //result
+                    (let ((l (let ((l (@components //i)) (map-result '()))
+                               (let while-loop ()
+                                 (cond ((not (null? l))
+                                        (set! map-result
+                                          (cons (@hyb_tvs (car l)) map-result))
+                                        (set! l (cdr l))
+                                        (while-loop))
+                                       (#t #t)))
+                               (reverse map-result)))
+                          (reduce-result '()))
+                      (cond ((null? l) '())
+                            (#t
+                             (set! reduce-result (car l))
+                             (set! l (cdr l))
+                             (let while-loop ()
+                               (cond ((not (null? l))
+                                      (set! reduce-result
+                                        (@set_union reduce-result (car l)))
+                                      (set! l (cdr l))
+                                      (while-loop))
+                                     (#t #t)))
+                             reduce-result))))))
+           (@dtable_put //i //qry_/hyb_/t/vs //result))
+          (#t
+           (set! //result (@dtable_value_part //result))))
+    //result))
+
+(define (@gen_tvs //i //a/s)
+  (if (equal? //a/s "Rec")
+    (@rec_tvs //i)
+    (if (equal? //a/s "Reg")
+      (@reg_tvs //i)
+      (@hyb_tvs //i))))
+
+(define (@tv_conditional_union //a //b)
+  (if (member 0 //a)
+    (@set_union (@set_difference //a (list 0)) //b)
+    //a))
+
+(define (@gen_reachable? //i /p //a/s)
+  (let ((//o/k 1) (//temp '()) (//c 1))
+    (cond ((not (or (null? /p) (@simple? //i)))
+           (cond ((= (@st //i) //t_/statements)
+                  (set! //temp (@cs //i))
+                  (let while-loop ()
+                    (cond ((and (= //o/k 1)
+                                (not (null? //temp))
+                                (< //c (car /p)))
+                           (begin
+                             (cond ((not (member
+                                           0
+                                           (@gen_tvs (car //temp) //a/s)))
+                                    (set! //o/k 0)))
+                             (set! //temp (cdr //temp))
+                             (set! //c (+ //c 1)))
+                           (while-loop))
+                          (#t #t)))))
+           (cond ((and (= //o/k 1)
+                       (not (@gen_reachable?
+                              (list-ref //i (+ 1 (car /p)))
+                              (cdr /p)
+                              //a/s)))
+                  (set! //o/k 0)))))
+    (= //o/k 1)))
+
+(define (@gen_terminal? //i /p //a/s)
+  (let ((//o/k 0)
+        (/d 0)
+        (//t/vs '())
+        (/n 0)
+        (//o/f/t 0)
+        (//reach 1)
+        (//comps '())
+        (//temp_/i //i)
+        (//temp_/p '())
+        (//old_/p /p)
+        (//term_/posn 1))
+    (let while-loop ()
+      (cond ((not (null? //old_/p))
+             (begin
+               (cond ((= //reach 1)
+                      (cond ((@simple? //temp_/i) (set! //reach 2))
+                            ((= (@st //temp_/i) //t_/statements)
+                             (set! //comps (@cs //temp_/i))
+                             (set! /n 1)
+                             (let while-loop ()
+                               (cond ((and (= //reach 1)
+                                           (not (null? //comps))
+                                           (< /n (car //old_/p)))
+                                      (begin
+                                        (cond ((not (member
+                                                      0
+                                                      (@gen_tvs
+                                                        (car //comps)
+                                                        //a/s)))
+                                               (set! //reach 0)))
+                                        (set! //comps (cdr //comps))
+                                        (set! /n (+ /n 1)))
+                                      (while-loop))
+                                     (#t #t)))))))
+               (cond ((= (@st //temp_/i) //t_/floop)
+                      (set! /d (+ /d 1))
+                      (cond ((= //o/f/t 0) (set! //o/f/t //term_/posn)))))
+               (cond ((and (= //term_/posn 1)
+                           (not (@terminal_n? //temp_/i (car //old_/p))))
+                      (set! //term_/posn (- 1))))
+               (set! //temp_/i
+                 (list-ref //temp_/i (+ 1 (car //old_/p))))
+               (set! //temp_/p
+                 (concat //temp_/p (list (car //old_/p))))
+               (set! //old_/p (cdr //old_/p)))
+             (while-loop))
+            (#t #t)))
+    (cond ((not (= //reach 0))
+           (set! //t/vs (@gen_tvs (@get //i /p) //a/s))
+           (let while-loop ()
+             (cond ((and (= //o/k 0) (not (null? //t/vs)))
+                    (begin
+                      (set! /n (car //t/vs))
+                      (cond ((or (equal? /n //omega)
+                                 (> /n /d)
+                                 (and (equal? /n /d) (= //o/f/t 1))
+                                 (and (= /d 0) (= //term_/posn 1)))
+                             (set! //o/k 1)))
+                      (set! //t/vs (cdr //t/vs)))
+                    (while-loop))
+                   (#t #t)))))
+    (= //o/k 1)))
+
+(set! //proper_/t/vs_/set
+  (@make_set (list 0 //omega)))
+
+(define (@gen_proper? //i //a/s)
+  (@set_subset?
+    (@gen_tvs //i //a/s)
+    //proper_/t/vs_/set))
+
+(define (@gen_improper? //i //a/s)
+  (let ((//o/k 1) (//temp (@gen_tvs //i //a/s)))
+    (let while-loop ()
+      (cond ((and (= //o/k 1) (not (null? //temp)))
+             (begin
+               (cond ((and (not (equal? (car //temp) //omega))
+                           (<= (car //temp) 0))
+                      (set! //o/k 0)))
+               (set! //temp (cdr //temp)))
+             (while-loop))
+            (#t #t)))
+    (= //o/k 1)))
+
+(define (@gen_reducible? //i //a/s)
+  (@gen_do_rdc? //i //i '() 0 //a/s))
+
+(define (@gen_do_rdc? //top //i /p /d //a/s)
+  (let ((//o/k 1)
+        (//t/c (@components //i))
+        (//t/n 1)
+        (/d2 /d))
+    (cond ((and (not (= (@gt //i) //t_/expression))
+                (not (= (@gt //i) //t_/condition)))
+           (cond ((and (@gen_terminal? //top /p //a/s)
+                       (= (@st //i) //t_/exit)
+                       (= (@v //i) (+ /d 1)))
+                  (cond ((not (or (@terminal_posn? //top /p)
+                                  (and (> (@v //i) /d)
+                                       (@outermost_floop_terminal? //top /p))))
+                         (set! //o/k 0)))))
+           (cond ((not (@simple? //i))
+                  (let while-loop ()
+                    (cond ((and (= //o/k 1) (not (null? //t/c)))
+                           (begin
+                             (cond ((= (@st //i) //t_/floop)
+                                    (set! /d2 (+ /d 1))))
+                             (cond ((not (@gen_do_rdc?
+                                           //top
+                                           (car //t/c)
+                                           (concat /p (list //t/n))
+                                           /d2
+                                           //a/s))
+                                    (set! //o/k 0)))
+                             (set! //t/c (cdr //t/c))
+                             (set! //t/n (+ //t/n 1)))
+                           (while-loop))
+                          (#t #t)))))))
+    (= //o/k 1)))
+
+(define (@gen_dummy? //i //a/s)
+  (and (= (@st //i) //t_/floop)
+       (@gen_reducible? (list-ref //i (+ 1 1)) //a/s)
+       (@gen_improper? (list-ref //i (+ 1 1)) //a/s)))
+
+(define (@regular? //i)
+  (@set_subset? (@reg_tvs //i) (list //omega)))
+
+(define (@regular_system? //i)
+  (let ((//o/k 0) (//temp '()))
+    (cond ((not (= (@st //i) //t_/a_/s)) (set! //o/k 0))
+          ((= //assume_/a_/s_/regular 1) (set! //o/k 1))
+          (#t
+           (set! //o/k 1)
+           (set! //temp (@cs (list-ref //i (+ 1 2))))
+           (let while-loop ()
+             (cond ((and (= //o/k 1) (not (null? //temp)))
+                    (begin
+                      (cond ((not (@regular? (car //temp))) (set! //o/k 0)))
+                      (set! //temp (cdr //temp)))
+                    (while-loop))
+                   (#t #t)))))
+    (= //o/k 1)))
+
+(define (@recursive? //i)
+  (let ((//o/k 1) (//temp '()))
+    (cond ((@simple? //i)
+           (cond ((@equal? //i /%const__query__1) (set! //o/k 0))))
+          ((not (@has_comps? //i)) #t)
+          (#t
+           (set! //temp (@cs //i))
+           (let while-loop ()
+             (cond ((and (= //o/k 1) (not (null? //temp)))
+                    (begin
+                      (cond ((not (@recursive? (car //temp))) (set! //o/k 0)))
+                      (set! //temp (cdr //temp)))
+                    (while-loop))
+                   (#t #t)))))
+    (= //o/k 1)))
+
+(define (@recursive_system? //i)
+  (let ((//o/k (if (= (@st //i) //t_/a_/s) 1 0))
+        (//temp (@cs (list-ref //i (+ 1 2)))))
+    (let while-loop ()
+      (cond ((and (= //o/k 1) (not (null? //temp)))
+             (begin
+               (cond ((not (@recursive? (car //temp))) (set! //o/k 0)))
+               (set! //temp (cdr //temp)))
+             (while-loop))
+            (#t #t)))
+    (= //o/k 1)))
+
+(define (@system_type //i)
+  (if (= //assume_/a_/s_/regular 1)
+    "Reg"
+    (@system_type_gen //i)))
+
+(define (@system_type_gen //i)
+  (let ((//type "Reg")
+        (//rec 1)
+        (//z (@make_name "Z"))
+        (//actions (@cs (list-ref //i (+ 1 2)))))
+    (let while-loop ()
+      (cond ((not (null? //actions))
+             (begin
+               (cond ((not (@regular? (car //actions)))
+                      (set! //type "Hyb")))
+               (cond ((> (@call_freq //z (car //actions)) 0)
+                      (set! //rec 0)))
+               (set! //actions (cdr //actions)))
+             (while-loop))
+            (#t #t)))
+    (cond ((= //rec 1) (set! //type "Rec")))
+    //type))
+
+(define (@in_reg_system?)
+  (or (= //assume_/a_/s_/regular 1)
+      (@in_reg_system_gen?)))
+
+(define (@in_reg_system_gen?)
+  (let ((//p (@posn)))
+    (let while-loop ()
+      (cond ((and (not (= (@st (@get (@program) //p)) //t_/actions))
+                  (not (null? //p)))
+             (set! //p (butlast-1 //p))
+             (while-loop))
+            (#t #t)))
+    (and (= (@st (@get (@program) //p)) //t_/actions)
+         (@regular? (@get (@program) //p)))))
+
+(define (@in_rec_system?)
+  (and (= //assume_/a_/s_/regular 0)
+       (@in_rec_system_gen?)))
+
+(define (@in_rec_system_gen?)
+  (let ((//p (@posn)))
+    (let while-loop ()
+      (cond ((and (not (= (@st (@get (@program) //p)) //t_/actions))
+                  (not (null? //p)))
+             (set! //p (butlast-1 //p))
+             (while-loop))
+            (#t #t)))
+    (and (= (@st (@get (@program) //p)) //t_/actions)
+         (@recursive? (@get (@program) //p)))))
+
+(define (@in_hyb_system?)
+  (and (= //assume_/a_/s_/regular 0)
+       (@in_hyb_system_gen?)))
+
+(define (@in_hyb_system_gen?)
+  (let ((//p (@posn)))
+    (let while-loop ()
+      (cond ((and (not (= (@st (@get (@program) //p)) //t_/actions))
+                  (not (null? //p)))
+             (set! //p (butlast-1 //p))
+             (while-loop))
+            (#t #t)))
+    (and (not (and (= (@st (@get (@program) //p)) //t_/actions)
+                   (@regular? (@get (@program) //p))))
+         (not (or (not (= (@st (@get (@program) //p)) //t_/actions))
+                  (@recursive? (@get (@program) //p)))))))
+
+(define (@as_type)
+  (if (= //assume_/a_/s_/regular 1)
+    "Reg"
+    (@as_type_gen)))
+
+(define (@as_type_gen)
+  (let ((//p (@posn)) (//result '()))
+    (let while-loop ()
+      (cond ((and (not (= (@st (@get (@program) //p)) //t_/actions))
+                  (not (null? //p)))
+             (set! //p (butlast-1 //p))
+             (while-loop))
+            (#t #t)))
+    (cond ((= (@st (@get (@program) //p)) //t_/actions)
+           (cond ((@regular? (@get (@program) //p))
+                  (set! //result "Reg"))
+                 ((@recursive? (@get (@program) //p))
+                  (set! //result "Rec"))
+                 (#t (set! //result "Hyb"))))
+          ((not (null? //a/s_/type))
+           (set! //result //a/s_/type))
+          (#t (set! //result "Hyb")))
+    //result))
+
+(define (@tvs) (@gen_tvs (@i) (@as_type)))
+
+(define (@is_reachable? /p)
+  (@gen_reachable? (@i) /p (@as_type)))
+
+(define (@is_terminal? /p)
+  (@gen_terminal? (@i) /p (@as_type)))
+
+(define (@is_terminal_posn? /p)
+  (@terminal_posn? (@i) /p))
+
+(define (@is_proper?)
+  (@gen_proper? (@i) (@as_type)))
+
+(define (@is_improper?)
+  (@gen_improper? (@i) (@as_type)))
+
+(define (@is_reducible?)
+  (@gen_reducible? (@i) (@as_type)))
+
+(define (@is_dummy?)
+  (@gen_dummy? (@i) (@as_type)))
+
+(define (@all_vars //i)
+  (let ((/vars-save /vars) (funct-result '()))
+    (set! /vars '())
+    (@edit)
+    (@new_program //i)
+    (@ateach_expn /foreach-query-1 0 (@as_type) 0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@ateach_lvalue /foreach-query-2 0 (@as_type) 0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result /vars)
+    (set! /vars /vars-save)
+    funct-result))
+
+(define (@max_pos_l //i)
+  (let ((//r 1) (//previous '()) (//temp '()))
+    (cond ((@cs? //i)
+           (set! //previous
+             (@dtable_get //i //qry_/max_/pos_/l))
+           (cond ((not (null? //previous))
+                  (set! //r (@dtable_value_part //previous)))
+                 (#t
+                  (set! //r
+                    (+ 1
+                       (let ((l (let ((l (@components //i)) (map-result '()))
+                                  (let while-loop ()
+                                    (cond ((not (null? l))
+                                           (set! map-result
+                                             (cons (@max_pos_l (car l))
+                                                   map-result))
+                                           (set! l (cdr l))
+                                           (while-loop))
+                                          (#t #t)))
+                                  (reverse map-result)))
+                             (reduce-result '()))
+                         (cond ((null? l) '())
+                               (#t
+                                (set! reduce-result (car l))
+                                (set! l (cdr l))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! reduce-result
+                                           (max reduce-result (car l)))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                reduce-result)))))
+                  (@dtable_put //i //qry_/max_/pos_/l //r)))))
+    //r))
+
+(define (@full_uba //i /procs /proc_vars)
+  (let ((//r '()))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@uba //i)))
+          (#t
+           (let ((//g/t (@gt //i))
+                 (//s/t (@st //i))
+                 (/redef-save /redef)
+                 (/comps (@cs //i))
+                 (/comp-save /comp))
+             (set! /redef '())
+             (set! /comp '())
+             (cond ((= //g/t //t_/statements)
+                    (let while-loop ()
+                      (cond ((not (null? /comps))
+                             (begin
+                               (set! /comp (car /comps))
+                               (set! /comps (cdr /comps))
+                               (set! //r
+                                 (@set_union
+                                   //r
+                                   (@set_difference
+                                     (@full_uba /comp /procs /proc_vars)
+                                     /redef)))
+                               (set! /redef
+                                 (@set_union
+                                   /redef
+                                   (@full_redefined /comp /procs /proc_vars)))
+                               (cond ((@gen_improper? /comp "Hyb")
+                                      (set! /comps '()))))
+                             (while-loop))
+                            (#t #t))))
+                   ((= //s/t //t_/proc_/call)
+                    (let ((/name (@v (list-ref //i (+ 1 1)))))
+                      (cond ((null? (gethash /procs /name))
+                             (set! //r (@uba //i)))
+                            ((not (null? (gethash /proc_vars /name)))
+                             (set! //r (car (cdr (gethash /proc_vars /name)))))
+                            (#t
+                             (puthash
+                               /proc_vars
+                               /name
+                               (list (list '() '() '()) '() '()))
+                             (set! /vars
+                               (@full_vars
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (set! //r
+                               (@full_uba
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (set! /redef
+                               (@full_redefined
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (puthash
+                               /proc_vars
+                               /name
+                               (list /vars //r /redef))))))
+                   ((or (= //s/t //t_/a_/proc_/call)
+                        (= //s/t //t_/push))
+                    (set! //r (@set_union //r (@variables //i))))
+                   ((= //s/t //t_/where)
+                    (let ((var-save /defn)
+                          (seq-save (@cs (list-ref //i (+ 1 2)))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /defn (car for-tmp))
+                               (cond ((= (@st /defn) //t_/proc)
+                                      (puthash
+                                        /procs
+                                        (@v (list-ref /defn (+ 1 1)))
+                                        /defn)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /defn var-save))
+                    (set! //r
+                      (@full_uba
+                        (list-ref //i (+ 1 1))
+                        /procs
+                        /proc_vars)))
+                   (#t
+                    (let ((var-save /comp) (seq-save /comps))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /comp (car for-tmp))
+                               (set! //r
+                                 (@set_union
+                                   //r
+                                   (@full_uba /comp /procs /proc_vars)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /comp var-save))
+                    (cond ((= //s/t //t_/var)
+                           (set! //r
+                             (@set_difference
+                               //r
+                               (@set_difference
+                                 (@lvars (list-ref //i (+ 1 1)))
+                                 (@used (list-ref //i (+ 1 1)))))))
+                          ((= //s/t //t_/for)
+                           (set! //r
+                             (@set_difference
+                               //r
+                               (list (@v (list-ref //i (+ 1 1))))))))))
+             (set! /redef /redef-save)
+             (set! /comp /comp-save))))
+    //r))
+
+(define (@full_redefined //i /procs /proc_vars)
+  (let ((//r '()) (//g/t (@gt //i)) (//s/t (@st //i)))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@redefined //i)))
+          ((= //s/t //t_/proc_/call)
+           (let ((/name (@v (list-ref //i (+ 1 1))))
+                 (/vars-save /vars)
+                 (//u/b/a-save //u/b/a))
+             (set! /vars '())
+             (set! //u/b/a '())
+             (cond ((null? (gethash /procs /name))
+                    (set! //r (@redefined //i)))
+                   ((not (null? (gethash /proc_vars /name)))
+                    (set! //r
+                      (car (cdr (cdr (gethash /proc_vars /name))))))
+                   (#t
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list (list '() '() '()) '() '()))
+                    (set! /vars
+                      (@full_vars
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //u/b/a
+                      (@full_uba
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //r
+                      (@full_redefined
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list /vars //u/b/a //r))))
+             (set! /vars /vars-save)
+             (set! //u/b/a //u/b/a-save)))
+          ((= //s/t //t_/for)
+           (set! //r
+             (@set_difference
+               (@full_redefined
+                 (list-ref //i (+ 1 4))
+                 /procs
+                 /proc_vars)
+               (list (@v (list-ref //i (+ 1 1)))))))
+          ((= //s/t //t_/var)
+           (set! //r
+             (@set_difference
+               (@full_redefined
+                 (list-ref //i (+ 1 2))
+                 /procs
+                 /proc_vars)
+               (@lvars (list-ref //i (+ 1 1))))))
+          ((= //s/t //t_/while) (set! //r '()))
+          ((= //s/t //t_/guarded)
+           (set! //r
+             (@full_redefined
+               (list-ref //i (+ 1 2))
+               /procs
+               /proc_vars)))
+          ((= //g/t //t_/statements)
+           (let ((var-save /comp) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (set! //r
+                        (@set_union
+                          //r
+                          (@full_redefined /comp /procs /proc_vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save)))
+          (#t
+           (set! //r
+             (@full_redefined
+               (list-ref //i (+ 1 1))
+               /procs
+               /proc_vars))
+           (let ((var-save /comp) (seq-save (cdr (@cs //i))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (set! //r
+                        (@set_intersect
+                          //r
+                          (@full_redefined /comp /procs /proc_vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save))))
+    //r))
+
+(define (@full_vars //i /procs /proc_vars)
+  (let ((//r '()))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@qry_vars //i)))
+          ((= (@st //i) //t_/proc_/call)
+           (let ((/name (@v (list-ref //i (+ 1 1)))))
+             (cond ((null? (gethash /procs /name))
+                    (set! //r (@qry_vars //i)))
+                   ((not (null? (gethash /proc_vars /name)))
+                    (set! //r (car (gethash /proc_vars /name))))
+                   (#t
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list (list '() '() '()) '() '()))
+                    (set! //r
+                      (@full_vars
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! /redef
+                      (@full_redefined
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //u/b/a
+                      (@full_uba
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list //r //u/b/a /redef))))))
+          (#t
+           (let ((//s/t (@st //i))
+                 (//g/t (@gt //i))
+                 (//comps (@cs //i))
+                 (//assd '())
+                 (//used '())
+                 (//self '())
+                 (//temp '()))
+             (let while-loop ()
+               (cond ((not (null? //comps))
+                      (begin
+                        (cond ((or (= (@gt (car //comps)) //t_/expression)
+                                   (= (@gt (car //comps)) //t_/condition))
+                               (set! //used
+                                 (@set_union
+                                   //used
+                                   (@qry_exp_vars (car //comps)))))
+                              (#t
+                               (set! //temp
+                                 (@full_vars (car //comps) /procs /proc_vars))
+                               (cond ((= //s/t //t_/assign)
+                                      (set! //self
+                                        (@set_union
+                                          //self
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 3 1))
+                                              (list-ref name (- 3 1)))))))
+                                     ((or (= //g/t //t_/statement)
+                                          (= //g/t //t_/assignment)
+                                          (= //g/t //t_/variable)
+                                          (= //g/t //t_/statements)
+                                          (= //g/t //t_/guarded)
+                                          (= //g/t //t_/action))
+                                      (set! //self
+                                        (@set_union
+                                          (@set_difference
+                                            (let ((name //temp))
+                                              (if (vector? name)
+                                                (vector-ref name (- 3 1))
+                                                (list-ref name (- 3 1))))
+                                            //used)
+                                          (@set_difference
+                                            //self
+                                            (let ((name //temp))
+                                              (if (vector? name)
+                                                (vector-ref name (- 2 1))
+                                                (list-ref name (- 2 1))))))))
+                                     (#t (set! //self '())))
+                               (set! //assd
+                                 (@set_union
+                                   //assd
+                                   (let ((name //temp))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1))))))
+                               (set! //used
+                                 (@set_union
+                                   //used
+                                   (let ((name //temp))
+                                     (if (vector? name)
+                                       (vector-ref name (- 2 1))
+                                       (list-ref name (- 2 1))))))))
+                        (set! //comps (cdr //comps)))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((= //s/t //t_/var)
+                    (let ((//local_/vars
+                            (@make_set
+                              (let ((l (@cs (list-ref //i (+ 1 1))))
+                                    (map-result '()))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! map-result
+                                           (cons (@qry_get_lvar (car l))
+                                                 map-result))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                (reverse map-result)))))
+                      (set! //assd
+                        (@set_difference //assd //local_/vars))
+                      (set! //used
+                        (@set_difference //used //local_/vars))
+                      (set! //self
+                        (@set_difference //self //local_/vars))))
+                   ((= //s/t //t_/for)
+                    (let ((//loop_/var (list (@v (list-ref //i (+ 1 1))))))
+                      (set! //assd
+                        (@set_difference //assd //loop_/var))
+                      (set! //used
+                        (@set_difference //used //loop_/var))
+                      (set! //self
+                        (@set_difference //self //loop_/var))))
+                   ((or (= //s/t //t_/proc)
+                        (= //s/t //t_/funct)
+                        (= //s/t //t_/b/funct))
+                    (let ((//local_/vars
+                            (@set_union
+                              (@assigned (list-ref //i (+ 1 2)))
+                              (@assigned (list-ref //i (+ 1 3))))))
+                      (set! //assd
+                        (@set_difference //assd //local_/vars))
+                      (set! //used
+                        (@set_difference //used //local_/vars))
+                      (set! //self
+                        (@set_difference //self //local_/vars))))
+                   ((or (= //s/t //t_/print)
+                        (= //s/t //t_/prinflush)
+                        (= //s/t //t_/error))
+                    (set! //assd (@set_union //assd (list /os_name)))
+                    (set! //used (@set_union //used (list /os_name))))
+                   ((= //s/t //t_/pop)
+                    (set! //used
+                      (@set_union
+                        //used
+                        (@assigned (list-ref //i (+ 1 2)))))
+                    (set! //self '()))
+                   ((or (= //s/t //t_/struct_/lvalue)
+                        (= //s/t //t_/aref_/lvalue)
+                        (= //s/t //t_/sub_/seg_/lvalue)
+                        (= //s/t //t_/rel_/seg_/lvalue)
+                        (= //s/t //t_/final_/seg_/lvalue)
+                        (= //s/t //t_/proc_/call)
+                        (= //s/t //t_/a_/proc_/call)
+                        (= //s/t //t_/push))
+                    (set! //used (@set_union //used //assd))))
+             (set! //r (list //assd //used //self)))))
+    //r))
+
+(define (@full_variables //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (@set_union
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1))))
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1)))))))
+
+(define (@full_assigned //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (let ((name //r))
+      (if (vector? name)
+        (vector-ref name (- 1 1))
+        (list-ref name (- 1 1))))))
+
+(define (@full_used //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (let ((name //r))
+      (if (vector? name)
+        (vector-ref name (- 2 1))
+        (list-ref name (- 2 1))))))
+
+(define (@full_assd_only //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (@set_difference
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1))))
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1)))))))
+
+(define (@full_used_only //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (@set_difference
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 2 1))
+          (list-ref name (- 2 1))))
+      (let ((name //r))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1)))))))
+
+(define (@full_assd_to_self //i /procs /proc_vars)
+  (let ((//r (@full_vars //i /procs /proc_vars)))
+    (let ((name //r))
+      (if (vector? name)
+        (vector-ref name (- 3 1))
+        (list-ref name (- 3 1))))))
+
+(define (@full_elts_uba //i /procs /proc_vars)
+  (let ((//r '()))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@elts_uba //i)))
+          (#t
+           (let ((//g/t (@gt //i))
+                 (//s/t (@st //i))
+                 (/redef-save /redef)
+                 (/comps (@cs //i))
+                 (/comp-save /comp))
+             (set! /redef '())
+             (set! /comp '())
+             (cond ((= //g/t //t_/statements)
+                    (let while-loop ()
+                      (cond ((not (null? /comps))
+                             (begin
+                               (set! /comp (car /comps))
+                               (set! /comps (cdr /comps))
+                               (set! //r
+                                 (@set_union
+                                   //r
+                                   (@set_difference
+                                     (@full_elts_uba /comp /procs /proc_vars)
+                                     /redef)))
+                               (set! /redef
+                                 (@set_union
+                                   /redef
+                                   (@full_elts_redefined
+                                     /comp
+                                     /procs
+                                     /proc_vars)))
+                               (cond ((@gen_improper? /comp "Hyb")
+                                      (set! /comps '()))))
+                             (while-loop))
+                            (#t #t))))
+                   ((= //s/t //t_/proc_/call)
+                    (let ((/name (@v (list-ref //i (+ 1 1)))))
+                      (cond ((null? (gethash /procs /name))
+                             (set! //r (@elts_uba //i)))
+                            ((not (null? (gethash /proc_vars /name)))
+                             (set! //r (car (cdr (gethash /proc_vars /name)))))
+                            (#t
+                             (puthash
+                               /proc_vars
+                               /name
+                               (list (list '() '() '()) '() '()))
+                             (set! /vars
+                               (@full_elts
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (set! //r
+                               (@full_elts_uba
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (set! /redef
+                               (@full_elts_redefined
+                                 (list-ref (gethash /procs /name) (+ 1 4))
+                                 /procs
+                                 /proc_vars))
+                             (puthash
+                               /proc_vars
+                               /name
+                               (list /vars //r /redef))))))
+                   ((or (= //s/t //t_/a_/proc_/call)
+                        (= //s/t //t_/push))
+                    (set! //r (@set_union //r (@elements //i))))
+                   ((= //s/t //t_/where)
+                    (let ((var-save /defn)
+                          (seq-save (@cs (list-ref //i (+ 1 2)))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /defn (car for-tmp))
+                               (cond ((= (@st /defn) //t_/proc)
+                                      (puthash
+                                        /procs
+                                        (@v (list-ref /defn (+ 1 1)))
+                                        /defn)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /defn var-save))
+                    (set! //r
+                      (@full_elts_uba
+                        (list-ref //i (+ 1 1))
+                        /procs
+                        /proc_vars)))
+                   (#t
+                    (let ((var-save /comp) (seq-save /comps))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /comp (car for-tmp))
+                               (set! //r
+                                 (@set_union
+                                   //r
+                                   (@full_elts_uba /comp /procs /proc_vars)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /comp var-save))
+                    (cond ((= //s/t //t_/var)
+                           (set! //r
+                             (@set_difference
+                               //r
+                               (@set_difference
+                                 (@elt_lvars (list-ref //i (+ 1 1)))
+                                 (@elts_used (list-ref //i (+ 1 1)))))))
+                          ((= //s/t //t_/for)
+                           (set! //r
+                             (@set_difference
+                               //r
+                               (list (list (@v (list-ref //i (+ 1 1)))))))))))
+             (set! /redef /redef-save)
+             (set! /comp /comp-save))))
+    //r))
+
+(define (@full_elts_redefined //i /procs /proc_vars)
+  (let ((//r '()) (//g/t (@gt //i)) (//s/t (@st //i)))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@elts_redefined //i)))
+          ((= //s/t //t_/proc_/call)
+           (let ((/name (@v (list-ref //i (+ 1 1))))
+                 (/vars-save /vars)
+                 (//u/b/a-save //u/b/a))
+             (set! /vars '())
+             (set! //u/b/a '())
+             (cond ((null? (gethash /procs /name))
+                    (set! //r (@elts_redefined //i)))
+                   ((not (null? (gethash /proc_vars /name)))
+                    (set! //r
+                      (car (cdr (cdr (gethash /proc_vars /name))))))
+                   (#t
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list (list '() '() '()) '() '()))
+                    (set! /vars
+                      (@full_elts
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //u/b/a
+                      (@full_elts_uba
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //r
+                      (@full_elts_redefined
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list /vars //u/b/a //r))))
+             (set! /vars /vars-save)
+             (set! //u/b/a //u/b/a-save)))
+          ((= //s/t //t_/for)
+           (set! //r
+             (@set_difference
+               (@full_elts_redefined
+                 (list-ref //i (+ 1 4))
+                 /procs
+                 /proc_vars)
+               (list (list (@v (list-ref //i (+ 1 1))))))))
+          ((= //s/t //t_/var)
+           (set! //r
+             (@set_difference
+               (@full_elts_redefined
+                 (list-ref //i (+ 1 2))
+                 /procs
+                 /proc_vars)
+               (@elt_lvars (list-ref //i (+ 1 1))))))
+          ((= //s/t //t_/while) (set! //r '()))
+          ((= //s/t //t_/guarded)
+           (set! //r
+             (@full_elts_redefined
+               (list-ref //i (+ 1 2))
+               /procs
+               /proc_vars)))
+          ((= //g/t //t_/statements)
+           (let ((var-save /comp) (seq-save (@cs //i)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (set! //r
+                        (@set_union
+                          //r
+                          (@full_elts_redefined /comp /procs /proc_vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save)))
+          (#t
+           (set! //r
+             (@full_elts_redefined
+               (list-ref //i (+ 1 1))
+               /procs
+               /proc_vars))
+           (let ((var-save /comp) (seq-save (cdr (@cs //i))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (set! //r
+                        (@set_intersect
+                          //r
+                          (@full_elts_redefined /comp /procs /proc_vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save))))
+    //r))
+
+(define (@full_elts //i /procs /proc_vars)
+  (let ((//r '()))
+    (cond ((not (member //t_/proc_/call (@stat_types //i)))
+           (set! //r (@qry_elts //i)))
+          ((= (@st //i) //t_/proc_/call)
+           (let ((/name (@v (list-ref //i (+ 1 1)))))
+             (cond ((null? (gethash /procs /name))
+                    (set! //r (@qry_elts //i)))
+                   ((not (null? (gethash /proc_vars /name)))
+                    (set! //r (car (gethash /proc_vars /name))))
+                   (#t
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list (list '() '() '()) '() '()))
+                    (set! //r
+                      (@full_elts
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! /redef
+                      (@full_elts_redefined
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (set! //u/b/a
+                      (@full_elts_uba
+                        (list-ref (gethash /procs /name) (+ 1 4))
+                        /procs
+                        /proc_vars))
+                    (puthash
+                      /proc_vars
+                      /name
+                      (list //r //u/b/a /redef))))))
+          (#t
+           (let ((//s/t (@st //i))
+                 (//g/t (@gt //i))
+                 (//comps (@cs //i))
+                 (//assd '())
+                 (//used '())
+                 (//self '())
+                 (//temp '()))
+             (let while-loop ()
+               (cond ((not (null? //comps))
+                      (begin
+                        (cond ((or (= (@gt (car //comps)) //t_/expression)
+                                   (= (@gt (car //comps)) //t_/condition))
+                               (set! //used
+                                 (@set_union
+                                   //used
+                                   (@qry_exp_elts (car //comps)))))
+                              (#t
+                               (set! //temp
+                                 (@full_elts (car //comps) /procs /proc_vars))
+                               (cond ((= //s/t //t_/assign)
+                                      (set! //self
+                                        (@set_union
+                                          //self
+                                          (let ((name //temp))
+                                            (if (vector? name)
+                                              (vector-ref name (- 3 1))
+                                              (list-ref name (- 3 1)))))))
+                                     ((or (= //g/t //t_/statement)
+                                          (= //g/t //t_/assignment)
+                                          (= //g/t //t_/variable)
+                                          (= //g/t //t_/statements)
+                                          (= //g/t //t_/guarded)
+                                          (= //g/t //t_/action))
+                                      (set! //self
+                                        (@set_union
+                                          (@set_difference
+                                            (let ((name //temp))
+                                              (if (vector? name)
+                                                (vector-ref name (- 3 1))
+                                                (list-ref name (- 3 1))))
+                                            //used)
+                                          (@set_difference
+                                            //self
+                                            (let ((name //temp))
+                                              (if (vector? name)
+                                                (vector-ref name (- 2 1))
+                                                (list-ref name (- 2 1))))))))
+                                     (#t (set! //self '())))
+                               (set! //assd
+                                 (@set_union
+                                   //assd
+                                   (let ((name //temp))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1))))))
+                               (set! //used
+                                 (@set_union
+                                   //used
+                                   (let ((name //temp))
+                                     (if (vector? name)
+                                       (vector-ref name (- 2 1))
+                                       (list-ref name (- 2 1))))))))
+                        (set! //comps (cdr //comps)))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((= //s/t //t_/var)
+                    (let ((//local_/vars
+                            (@make_set
+                              (let ((l (@cs (list-ref //i (+ 1 1))))
+                                    (map-result '()))
+                                (let while-loop ()
+                                  (cond ((not (null? l))
+                                         (set! map-result
+                                           (cons (@qry_get_lvar_elts (car l))
+                                                 map-result))
+                                         (set! l (cdr l))
+                                         (while-loop))
+                                        (#t #t)))
+                                (reverse map-result)))))
+                      (set! //assd
+                        (@set_difference //assd //local_/vars))
+                      (set! //used
+                        (@set_difference //used //local_/vars))
+                      (set! //self
+                        (@set_difference //self //local_/vars))))
+                   ((= //s/t //t_/for)
+                    (let ((//loop_/var
+                            (list (list (@v (list-ref //i (+ 1 1)))))))
+                      (set! //assd
+                        (@set_difference //assd //loop_/var))
+                      (set! //used
+                        (@set_difference //used //loop_/var))
+                      (set! //self
+                        (@set_difference //self //loop_/var))))
+                   ((or (= //s/t //t_/proc)
+                        (= //s/t //t_/funct)
+                        (= //s/t //t_/b/funct))
+                    (let ((//local_/vars
+                            (@set_union
+                              (@elts_assigned (list-ref //i (+ 1 2)))
+                              (@elts_assigned (list-ref //i (+ 1 3))))))
+                      (set! //assd
+                        (@set_difference //assd //local_/vars))
+                      (set! //used
+                        (@set_difference //used //local_/vars))
+                      (set! //self
+                        (@set_difference //self //local_/vars))))
+                   ((or (= //s/t //t_/print)
+                        (= //s/t //t_/prinflush)
+                        (= //s/t //t_/error))
+                    (set! //assd
+                      (@set_union //assd (list (list /os_name))))
+                    (set! //used
+                      (@set_union //used (list (list /os_name)))))
+                   ((= //s/t //t_/pop)
+                    (set! //used
+                      (@set_union
+                        //used
+                        (@elts_assigned (list-ref //i (+ 1 2)))))
+                    (set! //self '()))
+                   ((or (= //s/t //t_/struct_/lvalue)
+                        (= //s/t //t_/aref_/lvalue)
+                        (= //s/t //t_/sub_/seg_/lvalue)
+                        (= //s/t //t_/rel_/seg_/lvalue)
+                        (= //s/t //t_/final_/seg_/lvalue)
+                        (= //s/t //t_/proc_/call)
+                        (= //s/t //t_/a_/proc_/call)
+                        (= //s/t //t_/push))
+                    (set! //used (@set_union //used //assd))))
+             (set! //r (list //assd //used //self)))))
+    //r))
+
+(define (@print_elts /elts)
+  (begin (display "<") (force-output))
+  (let while-loop ()
+    (cond ((not (null? /elts))
+           (begin
+             (cond ((<= (last-1 (car /elts)) 0)
+                    (begin
+                      (display
+                        (@join "."
+                               (let ((l (butlast-1 (car /elts)))
+                                     (map-result '()))
+                                 (let while-loop ()
+                                   (cond ((not (null? l))
+                                          (set! map-result
+                                            (cons (@n_string (car l))
+                                                  map-result))
+                                          (set! l (cdr l))
+                                          (while-loop))
+                                         (#t #t)))
+                                 (reverse map-result))))
+                      (force-output))
+                    (begin
+                      (display ".")
+                      (begin
+                        (display (- (last-1 (car /elts))))
+                        (force-output))))
+                   (#t
+                    (begin
+                      (display
+                        (@join "."
+                               (let ((l (car /elts)) (map-result '()))
+                                 (let while-loop ()
+                                   (cond ((not (null? l))
+                                          (set! map-result
+                                            (cons (@n_string (car l))
+                                                  map-result))
+                                          (set! l (cdr l))
+                                          (while-loop))
+                                         (#t #t)))
+                                 (reverse map-result))))
+                      (force-output))))
+             (set! /elts (cdr /elts))
+             (cond ((not (null? /elts))
+                    (begin (display ", ") (force-output)))))
+           (while-loop))
+          (#t #t)))
+  (begin (display ">") (newline) (force-output)))
+
+(define (@elts_addr //i)
+  (if (@is_addr? //i)
+    (@elements (@get_addr //i))
+    (if (@cs? //i)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@elts_addr (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      '())))
+
+(define (@sizeof_elts //i)
+  (if (and (= (@st //i) //t_/x_/funct_/call)
+           (equal? (@v (list-ref //i (+ 1 1))) /sizeof))
+    (@elements (list-ref //i (+ 1 2)))
+    (if (@cs? //i)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@sizeof_elts (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      '())))
+
+(define (@all_elts //i)
+  (@set_union
+    (@elements //i)
+    (@set_union (@sizeof_elts //i) (@elts_addr //i))))
+

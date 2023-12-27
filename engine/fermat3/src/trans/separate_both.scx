@@ -1,0 +1,15 @@
+(define (@separate_both_test)
+  (cond ((or (= (@st (@i)) //t_/cond)
+             (= (@st (@i)) //t_/assignment))
+         (cond ((or (@trans? //t/r_/separate_/right)
+                    (@trans? //t/r_/separate_/left))
+                (@pass))
+               (#t (@fail "Can't take out in either direction"))))
+        (#t (@fail "Not a Cond or assignment statement"))))
+
+(define (@separate_both_code //data)
+  (cond ((@trans? //t/r_/separate_/left)
+         (@trans //t/r_/separate_/left "")))
+  (cond ((@trans? //t/r_/separate_/right)
+         (@trans //t/r_/separate_/right ""))))
+

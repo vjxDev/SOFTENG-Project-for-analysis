@@ -1,0 +1,43 @@
+(set! //t/r_/collapse_/action_/system
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/collapse_/action_/system 1)
+  "Collapse_Action_System")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/collapse_/action_/system 1)
+  @collapse_action_system_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/collapse_/action_/system 1)
+  @collapse_action_system_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/collapse_/action_/system 1)
+  "Collapse Action System")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/collapse_/action_/system 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/collapse_/action_/system 1)
+  "Collapse action system will use simplifications and substitution to transform an action system into a sequence of statements, possibly inside a DO loop.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/collapse_/action_/system 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/collapse_/action_/system 1)
+  "")
+

@@ -1,0 +1,2487 @@
+(define /%const__summ__1
+  (@make 101
+         '()
+         (list (@make 9 (@make_name "dummy") '())
+               (@make 10
+                      '()
+                      (list (@make 207 (@make_name "r0") '())
+                            (@make 207 (@make_name "r1") '())
+                            (@make 207 (@make_name "r2") '())
+                            (@make 207 (@make_name "r3") '())
+                            (@make 207 (@make_name "r4") '())
+                            (@make 207 (@make_name "r5") '())
+                            (@make 207 (@make_name "r6") '())
+                            (@make 207 (@make_name "r7") '())
+                            (@make 207 (@make_name "r8") '())
+                            (@make 207 (@make_name "r9") '())
+                            (@make 207 (@make_name "r10") '())
+                            (@make 207 (@make_name "r1") '())
+                            (@make 207 (@make_name "r12") '())
+                            (@make 207 (@make_name "r13") '())
+                            (@make 207 (@make_name "r14") '())
+                            (@make 207 (@make_name "r15") '())))
+               (@make 12
+                      '()
+                      (list (@make 501 (@make_name "os") '()))))))
+
+(define /%const__summ__2
+  (@make 17
+         '()
+         (list (@make 110
+                      '()
+                      (list (@make 6
+                                   '()
+                                   (list (@make 501
+                                                (@make_name "exit_flag")
+                                                '())
+                                         (@make 205 1 '()))))))))
+
+(set! /exit_flag (@make_name "exit_flag"))
+
+(set! /a_name (@make_name "a"))
+
+(set! //s_/par_/count (- 1))
+
+(define (@summarise //i-par)
+  (let ((//i-save //i)
+        (//r '())
+        (//s/t (@st //i-par))
+        (//g/t (@gt //i-par))
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((= //g/t //t_/statements)
+           (set! //r (@s_sequence (@cs //i))))
+          ((= //g/t //t_/expression)
+           (set! //r (@s_default //i)))
+          ((= //g/t //t_/condition)
+           (set! //r (@s_default //i)))
+          ((= //s/t //t_/cond)
+           (set! //r (@s_cond (@cs //i))))
+          ((= //s/t //t_/d_/if)
+           (set! //r (@s_cond (@cs //i))))
+          ((= //s/t //t_/assignment)
+           (set! //r (@s_assigns (@cs //i))))
+          ((= //s/t //t_/assert)
+           (set! //r (@s_assert (list-ref //i (+ 1 1)))))
+          ((= //s/t //t_/floop) (set! //r (@s_floop //i)))
+          ((= //s/t //t_/while) (set! //r (@s_while //i)))
+          ((= //s/t //t_/var) (set! //r (@s_var //i)))
+          ((= //s/t //t_/for) (set! //r (@s_for //i)))
+          ((= //s/t //t_/proc_/call)
+           (set! //r (@s_proc_call //i)))
+          ((= //s/t //t_/where) (set! //r (@s_where //i)))
+          (#t (set! //r (@s_default //i))))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_sequence /comps)
+  (let ((//r (list (list 0 '() '() '()))) (/comp '()))
+    (let while-loop ()
+      (cond ((not (null? /comps))
+             (begin
+               (set! /comp (car /comps))
+               (set! /comps (cdr /comps))
+               (cond ((= (@st /comp) //t_/exit)
+                      (set! //r (@s_increment //r (@v /comp)))
+                      (set! /comps '()))
+                     (#t (set! //r (@s_seq //r (@summarise /comp))))))
+             (while-loop))
+            (#t #t)))
+    //r))
+
+(define (@s_increment //l /n)
+  (if (or (null? //l)
+          (> (let ((name (let ((name //l))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             0))
+    //l
+    (@s_merge
+      (list (cons /n
+                  (cdr (let ((name //l))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1)))))))
+      (cdr //l))))
+
+(define (@s_floop //i-par)
+  (let ((//i-save //i)
+        (//r '())
+        (//l '())
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((@gen_improper? (list-ref //i (+ 1 1)) "Hyb")
+           (set! //l
+             (@s_sequence (@cs (list-ref //i (+ 1 1))))))
+          (#t
+           (set! //l
+             (@s_loop
+               (@s_sequence (@cs (list-ref //i (+ 1 1))))))))
+    (cond ((null? //l) (set! //r '()))
+          ((> (let ((name (let ((name //l))
+                            (if (vector? name)
+                              (vector-ref name (- 1 1))
+                              (list-ref name (- 1 1))))))
+                (if (vector? name)
+                  (vector-ref name (- 1 1))
+                  (list-ref name (- 1 1))))
+              0)
+           (set! //r (@s_decrement //l 1)))
+          (#t
+           (set! //r
+             (@s_decrement
+               (@s_seq_sub
+                 (cdr (let ((name //l))
+                        (if (vector? name)
+                          (vector-ref name (- 1 1))
+                          (list-ref name (- 1 1)))))
+                 (cdr //l))
+               1))))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_while //i-par)
+  (let ((//i-save //i)
+        (//l (@s_sequence (@cs (list-ref //i-par (+ 1 2)))))
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((not (null? //l))
+           (set! //l
+             (list (cons 0
+                         (cons (let ((name (let ((name //l))
+                                             (if (vector? name)
+                                               (vector-ref name (- 1 1))
+                                               (list-ref name (- 1 1))))))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               (cons (let ((name (let ((name //l))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 1 1))
+                                                     (list-ref name (- 1 1))))))
+                                       (if (vector? name)
+                                         (vector-ref name (- 3 1))
+                                         (list-ref name (- 3 1))))
+                                     (cons (let ((name (let ((name //l))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- 1 1))
+                                                           (list-ref
+                                                             name
+                                                             (- 1 1))))))
+                                             (if (vector? name)
+                                               (vector-ref name (- 4 1))
+                                               (list-ref name (- 4 1))))
+                                           (@s_deny_condition
+                                             (list-ref //i (+ 1 1)))))))))))
+    (set! funct-result //l)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_loop_old //l)
+  (let ((/clobber '())
+        (/var '())
+        (/pair '())
+        (//r '())
+        (/vars '()))
+    (cond ((null? //l) (set! //r //l))
+          (#t
+           (set! /vars
+             (let ((name (let ((name //l))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 3 1))
+                 (list-ref name (- 3 1)))))
+           (set! /clobber
+             (@set_difference
+               (let ((name (let ((name //l))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 3 1))
+                   (list-ref name (- 3 1))))
+               (let ((name (let ((name //l))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 4 1))
+                   (list-ref name (- 4 1))))))
+           (let ((var-save /pair)
+                 (seq-save
+                   (@final_seg
+                     (let ((name //l))
+                       (if (vector? name)
+                         (vector-ref name (- 1 1))
+                         (list-ref name (- 1 1))))
+                     5)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (cond ((or (not (sequence?
+                                        (let ((name /pair))
+                                          (if (vector? name)
+                                            (vector-ref name (- 2 1))
+                                            (list-ref name (- 2 1))))))
+                                 (not (@elt_clash?
+                                        /clobber
+                                        (let ((name /pair))
+                                          (if (vector? name)
+                                            (vector-ref name (- 2 1))
+                                            (list-ref name (- 2 1)))))))
+                             (set! //r (cons /pair //r)))
+                            (#t
+                             (set! /vars
+                               (@set_union
+                                 (list (let ((name /pair))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1)))))
+                                 /vars))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (set! //r
+             (cons (cons (let ((name (let ((name //l))
+                                       (if (vector? name)
+                                         (vector-ref name (- 1 1))
+                                         (list-ref name (- 1 1))))))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))
+                         (cons (let ((name (let ((name //l))
+                                             (if (vector? name)
+                                               (vector-ref name (- 1 1))
+                                               (list-ref name (- 1 1))))))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               (cons /vars
+                                     (cons (let ((name (let ((name //l))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- 1 1))
+                                                           (list-ref
+                                                             name
+                                                             (- 1 1))))))
+                                             (if (vector? name)
+                                               (vector-ref name (- 4 1))
+                                               (list-ref name (- 4 1))))
+                                           //r))))
+                   (@s_loop (cdr //l))))))
+    //r))
+
+(define (@s_loop //l)
+  (let ((/clobber '())
+        (/var '())
+        (/pair '())
+        (//r '())
+        (/vars '()))
+    (cond ((null? //l) (set! //r //l))
+          (#t
+           (set! /vars
+             (let ((name (let ((name //l))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 3 1))
+                 (list-ref name (- 3 1)))))
+           (set! /clobber
+             (@set_difference
+               (let ((name (let ((name //l))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 3 1))
+                   (list-ref name (- 3 1))))
+               (let ((name (let ((name //l))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 4 1))
+                   (list-ref name (- 4 1))))))
+           (let ((var-save /pair)
+                 (seq-save
+                   (@final_seg
+                     (let ((name //l))
+                       (if (vector? name)
+                         (vector-ref name (- 1 1))
+                         (list-ref name (- 1 1))))
+                     5)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (cond ((and (> (let ((name (let ((name //l))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 1 1))
+                                                     (list-ref name (- 1 1))))))
+                                       (if (vector? name)
+                                         (vector-ref name (- 1 1))
+                                         (list-ref name (- 1 1))))
+                                     0)
+                                  (or (not (sequence?
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 2 1))
+                                                 (list-ref name (- 2 1))))))
+                                      (not (@elt_clash?
+                                             /clobber
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 2 1))
+                                                 (list-ref name (- 2 1))))))))
+                             (set! //r (cons /pair //r)))
+                            (#t
+                             (set! /vars
+                               (@set_union
+                                 (list (let ((name /pair))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1)))))
+                                 /vars))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (set! //r
+             (cons (cons (let ((name (let ((name //l))
+                                       (if (vector? name)
+                                         (vector-ref name (- 1 1))
+                                         (list-ref name (- 1 1))))))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))
+                         (cons (let ((name (let ((name //l))
+                                             (if (vector? name)
+                                               (vector-ref name (- 1 1))
+                                               (list-ref name (- 1 1))))))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               (cons /vars
+                                     (cons (let ((name (let ((name //l))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- 1 1))
+                                                           (list-ref
+                                                             name
+                                                             (- 1 1))))))
+                                             (if (vector? name)
+                                               (vector-ref name (- 4 1))
+                                               (list-ref name (- 4 1))))
+                                           //r))))
+                   (@s_loop (cdr //l))))))
+    //r))
+
+(define (@s_decrement //l /n)
+  (if (null? //l)
+    '()
+    (if (< (let ((name (let ((name //l))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1))))))
+             (if (vector? name)
+               (vector-ref name (- 1 1))
+               (list-ref name (- 1 1))))
+           /n)
+      (@s_decrement (cdr //l) /n)
+      (cons (cons (- (let ((name (let ((name //l))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))))
+                       (if (vector? name)
+                         (vector-ref name (- 1 1))
+                         (list-ref name (- 1 1))))
+                     /n)
+                  (cdr (let ((name //l))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1))))))
+            (@s_decrement (cdr //l) /n)))))
+
+(define (@s_seq //l1 //l2)
+  (if (or (null? //l1) (null? //l2))
+    '()
+    (if (> (let ((name (let ((name //l1))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1))))))
+             (if (vector? name)
+               (vector-ref name (- 1 1))
+               (list-ref name (- 1 1))))
+           0)
+      //l1
+      (@s_merge
+        (list (cons (let ((name (let ((name //l2))
+                                  (if (vector? name)
+                                    (vector-ref name (- 1 1))
+                                    (list-ref name (- 1 1))))))
+                      (if (vector? name)
+                        (vector-ref name (- 1 1))
+                        (list-ref name (- 1 1))))
+                    (@s_seq_vars
+                      (cdr (let ((name //l1))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))
+                      (cdr (let ((name //l2))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))))
+        (@s_merge
+          (cdr //l1)
+          (@s_seq_sub
+            (cdr (let ((name //l1))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1)))))
+            (cdr //l2)))))))
+
+(define (@s_seq_sub /vars //l)
+  (if (null? //l)
+    '()
+    (cons (cons (let ((name (let ((name //l))
+                              (if (vector? name)
+                                (vector-ref name (- 1 1))
+                                (list-ref name (- 1 1))))))
+                  (if (vector? name)
+                    (vector-ref name (- 1 1))
+                    (list-ref name (- 1 1))))
+                (@s_seq_vars
+                  /vars
+                  (cdr (let ((name //l))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1)))))))
+          (@s_seq_sub /vars (cdr //l)))))
+
+(define (@s_seq_vars //l1 //l2)
+  (let ((//r '())
+        (/pair '())
+        (/done-save /done)
+        (/var '())
+        (/assigned1 '())
+        (/clobber1 '())
+        (/clobber2 '())
+        (/tab1 (my-make-hash-table 16))
+        (/y1 '())
+        (/restored '())
+        (/e-save /e)
+        (/v-save /v)
+        (/inc '())
+        (funct-result '()))
+    (set! /done '())
+    (set! /e '())
+    (set! /v '())
+    (cond ((or (null? //l1) (null? //l2)))
+          (#t
+           (set! /e
+             (@set_union
+               (let ((name //l1))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1))))
+               (let ((name //l2))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1))))))
+           (set! /v
+             (@set_union
+               (let ((name //l1))
+                 (if (vector? name)
+                   (vector-ref name (- 2 1))
+                   (list-ref name (- 2 1))))
+               (let ((name //l2))
+                 (if (vector? name)
+                   (vector-ref name (- 2 1))
+                   (list-ref name (- 2 1))))))
+           (set! /tab1 (@list_to_hash (@final_seg //l1 4)))
+           (set! /assigned1
+             (@make_set
+               (let ((l (@final_seg //l1 4)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result (cons (car (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result))))
+           (set! /clobber1
+             (@elt_subtract
+               (let ((name //l1))
+                 (if (vector? name)
+                   (vector-ref name (- 2 1))
+                   (list-ref name (- 2 1))))
+               (@set_union
+                 /assigned1
+                 (let ((name //l1))
+                   (if (vector? name)
+                     (vector-ref name (- 3 1))
+                     (list-ref name (- 3 1)))))))
+           (set! /clobber2
+             (@elt_subtract
+               (let ((name //l2))
+                 (if (vector? name)
+                   (vector-ref name (- 2 1))
+                   (list-ref name (- 2 1))))
+               (@set_union
+                 (@make_set
+                   (let ((l (@final_seg //l2 4)) (map-result '()))
+                     (let while-loop ()
+                       (cond ((not (null? l))
+                              (set! map-result (cons (car (car l)) map-result))
+                              (set! l (cdr l))
+                              (while-loop))
+                             (#t #t)))
+                     (reverse map-result)))
+                 (let ((name //l2))
+                   (if (vector? name)
+                     (vector-ref name (- 3 1))
+                     (list-ref name (- 3 1)))))))
+           (set! /clobber1
+             (@set_difference /clobber1 (list (list /a_name))))
+           (set! /clobber2
+             (@set_difference /clobber2 (list (list /a_name))))
+           (set! /inc
+             (@set_difference
+               (let ((name //l1))
+                 (if (vector? name)
+                   (vector-ref name (- 3 1))
+                   (list-ref name (- 3 1))))
+               /clobber2))
+           (let ((var-save /pair) (seq-save (@final_seg //l2 4)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (begin
+                        (cond ((@elt_clash?
+                                 /assigned1
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1)))))
+                               (set! /done
+                                 (cons (let ((name /pair))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1))))
+                                       /done))))
+                        (set! /y1
+                          (gethash
+                            /tab1
+                            (let ((name /pair))
+                              (if (vector? name)
+                                (vector-ref name (- 2 1))
+                                (list-ref name (- 2 1))))))
+                        (cond ((and (sequence?
+                                      (let ((name /pair))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1)))))
+                                    (@elt_clash?
+                                      /clobber1
+                                      (let ((name /pair))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1))))))
+                               (set! /e
+                                 (@set_union
+                                   /e
+                                   (list (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 2 1))
+                                             (list-ref name (- 2 1)))))))
+                               (set! /v
+                                 (@set_union
+                                   /v
+                                   (list (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1))))))))
+                              ((null? /y1) (set! //r (cons /pair //r)))
+                              ((equal?
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))
+                                 /y1)
+                               (set! /restored (cons /y1 /restored)))
+                              (#t
+                               (set! //r
+                                 (cons (list (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             /y1)
+                                       //r))))
+                        (cond ((member
+                                 (let ((name /pair))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))
+                                 /inc)
+                               (set! /inc
+                                 (@set_difference
+                                   /inc
+                                   (list (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1)))))))))
+                        (cond ((and (sequence?
+                                      (let ((name /pair))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1)))))
+                                    (member
+                                      (let ((name /pair))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1))))
+                                      (let ((name //l1))
+                                        (if (vector? name)
+                                          (vector-ref name (- 3 1))
+                                          (list-ref name (- 3 1))))))
+                               (set! /inc
+                                 (@set_union
+                                   /inc
+                                   (list (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1))))))))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (set! /done (@make_set /done))
+           (let ((var-save /pair) (seq-save (@final_seg //l1 4)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (cond ((and (not (@elt_clash?
+                                         /done
+                                         (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1))))))
+                                  (not (@elt_clash?
+                                         /clobber2
+                                         (let ((name /pair))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1)))))))
+                             (set! //r (cons /pair //r)))
+                            ((member
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               /done))
+                            ((@any_prefix_in?
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               /done))
+                            (#t
+                             (set! /v
+                               (@set_union
+                                 /v
+                                 (list (let ((name /pair))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1)))))))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (set! //r
+             (cons /e
+                   (cons (@elt_remove_fields
+                           (@set_difference /v (@make_set /restored)))
+                         (cons (@set_union
+                                 /inc
+                                 (@elt_subtract
+                                   (let ((name //l2))
+                                     (if (vector? name)
+                                       (vector-ref name (- 3 1))
+                                       (list-ref name (- 3 1))))
+                                   /clobber1))
+                               //r))))))
+    (set! funct-result //r)
+    (set! /done /done-save)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@s_merge //l1 //l2)
+  (if (null? //l1)
+    //l2
+    (if (null? //l2)
+      //l1
+      (if (< (let ((name (let ((name //l1))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             (let ((name (let ((name //l2))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1)))))
+        (cons (let ((name //l1))
+                (if (vector? name)
+                  (vector-ref name (- 1 1))
+                  (list-ref name (- 1 1))))
+              (@s_merge (cdr //l1) //l2))
+        (if (> (let ((name (let ((name //l1))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1))))
+               (let ((name (let ((name //l2))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1))))))
+                 (if (vector? name)
+                   (vector-ref name (- 1 1))
+                   (list-ref name (- 1 1)))))
+          (cons (let ((name //l2))
+                  (if (vector? name)
+                    (vector-ref name (- 1 1))
+                    (list-ref name (- 1 1))))
+                (@s_merge //l1 (cdr //l2)))
+          (cons (cons (let ((name (let ((name //l1))
+                                    (if (vector? name)
+                                      (vector-ref name (- 1 1))
+                                      (list-ref name (- 1 1))))))
+                        (if (vector? name)
+                          (vector-ref name (- 1 1))
+                          (list-ref name (- 1 1))))
+                      (@s_merge_vars
+                        (cdr (let ((name //l1))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1)))))
+                        (cdr (let ((name //l2))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1)))))))
+                (@s_merge (cdr //l1) (cdr //l2))))))))
+
+(set! //s_/tail_/recursive_/call
+  (@make_name "S_Tail_Recursive_Call"))
+
+(define (@s_merge_vars //l1 //l2)
+  (let ((//r '())
+        (/pair '())
+        (/done-save /done)
+        (/tab1 (my-make-hash-table 16))
+        (/tab2 (my-make-hash-table 16))
+        (/v1 '())
+        (/v2 '())
+        (/y2 '())
+        (/e-save /e)
+        (/v-save /v)
+        (/i '())
+        (funct-result '()))
+    (set! /done (my-make-hash-table 16))
+    (set! /e '())
+    (set! /v '())
+    (cond ((or (null? //l1) (null? //l2)))
+          (#t
+           (set! /tab1 (@list_to_hash (@final_seg //l1 4)))
+           (set! /tab2 (@list_to_hash (@final_seg //l2 4)))
+           (set! /v1 (gethash /tab1 (list /exit_flag)))
+           (set! /v2 (gethash /tab2 (list /exit_flag)))
+           (cond ((and (number? /v1)
+                       (= /v1 1)
+                       (not (and (number? /v2) (= /v2 1))))
+                  (set! //r //l2))
+                 ((and (number? /v2)
+                       (= /v2 1)
+                       (not (and (number? /v1) (= /v1 1))))
+                  (set! //r //l1))
+                 (#t
+                  (set! /e
+                    (@set_union
+                      (let ((name //l1))
+                        (if (vector? name)
+                          (vector-ref name (- 1 1))
+                          (list-ref name (- 1 1))))
+                      (let ((name //l2))
+                        (if (vector? name)
+                          (vector-ref name (- 1 1))
+                          (list-ref name (- 1 1))))))
+                  (set! /v
+                    (@set_union
+                      (let ((name //l1))
+                        (if (vector? name)
+                          (vector-ref name (- 2 1))
+                          (list-ref name (- 2 1))))
+                      (let ((name //l2))
+                        (if (vector? name)
+                          (vector-ref name (- 2 1))
+                          (list-ref name (- 2 1))))))
+                  (set! /tab1 (@list_to_hash (@final_seg //l1 4)))
+                  (set! /tab2 (@list_to_hash (@final_seg //l2 4)))
+                  (set! /v1 (gethash /tab1 (list /exit_flag)))
+                  (set! /v2 (gethash /tab2 (list /exit_flag)))
+                  (cond ((and (number? /v1)
+                              (= /v1 0)
+                              (number? /v2)
+                              (not (= /v2 0)))
+                         (let ((/-result-
+                                 (@s_move_assign_vars
+                                   (@final_seg //l2 4)
+                                   /v
+                                   /e)))
+                           (set! /v (car /-result-))
+                           (set! /-result- (cdr /-result-))
+                           (set! /e (car /-result-))
+                           (set! /-result- (cdr /-result-)))
+                         (set! //r (@final_seg //l1 4)))
+                        ((and (number? /v2)
+                              (= /v2 0)
+                              (number? /v1)
+                              (not (= /v1 0)))
+                         (let ((/-result-
+                                 (@s_move_assign_vars
+                                   (@final_seg //l1 4)
+                                   /v
+                                   /e)))
+                           (set! /v (car /-result-))
+                           (set! /-result- (cdr /-result-))
+                           (set! /e (car /-result-))
+                           (set! /-result- (cdr /-result-)))
+                         (set! //r (@final_seg //l2 4)))
+                        (#t
+                         (let ((var-save /pair) (seq-save (@final_seg //l1 4)))
+                           (if (vector? seq-save)
+                             (set! seq-save (vector-elts seq-save)))
+                           (let for-in-loop ((for-tmp seq-save))
+                             (cond ((not (null? for-tmp))
+                                    (set! /pair (car for-tmp))
+                                    (cond ((equal?
+                                             (gethash
+                                               /tab2
+                                               (let ((name /pair))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 1 1))
+                                                   (list-ref name (- 1 1)))))
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 2 1))
+                                                 (list-ref name (- 2 1)))))
+                                           (set! //r (cons /pair //r))
+                                           (puthash
+                                             /done
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             1))
+                                          (#t
+                                           (set! /v
+                                             (@set_union
+                                               (list (let ((name /pair))
+                                                       (if (vector? name)
+                                                         (vector-ref
+                                                           name
+                                                           (- 1 1))
+                                                         (list-ref
+                                                           name
+                                                           (- 1 1)))))
+                                               /v))
+                                           (cond ((sequence?
+                                                    (let ((name /pair))
+                                                      (if (vector? name)
+                                                        (vector-ref
+                                                          name
+                                                          (- 2 1))
+                                                        (list-ref
+                                                          name
+                                                          (- 2 1)))))
+                                                  (set! /e
+                                                    (@set_union
+                                                      (list (let ((name /pair))
+                                                              (if (vector? name)
+                                                                (vector-ref
+                                                                  name
+                                                                  (- 2 1))
+                                                                (list-ref
+                                                                  name
+                                                                  (- 2 1)))))
+                                                      /e))))))
+                                    (for-in-loop (cdr for-tmp)))
+                                   (#t #t)))
+                           (set! /pair var-save))
+                         (let ((var-save /pair) (seq-save (@final_seg //l2 4)))
+                           (if (vector? seq-save)
+                             (set! seq-save (vector-elts seq-save)))
+                           (let for-in-loop ((for-tmp seq-save))
+                             (cond ((not (null? for-tmp))
+                                    (set! /pair (car for-tmp))
+                                    (cond ((null? (gethash
+                                                    /done
+                                                    (let ((name /pair))
+                                                      (if (vector? name)
+                                                        (vector-ref
+                                                          name
+                                                          (- 1 1))
+                                                        (list-ref
+                                                          name
+                                                          (- 1 1))))))
+                                           (set! /v
+                                             (@set_union
+                                               (list (let ((name /pair))
+                                                       (if (vector? name)
+                                                         (vector-ref
+                                                           name
+                                                           (- 1 1))
+                                                         (list-ref
+                                                           name
+                                                           (- 1 1)))))
+                                               /v))
+                                           (cond ((sequence?
+                                                    (let ((name /pair))
+                                                      (if (vector? name)
+                                                        (vector-ref
+                                                          name
+                                                          (- 2 1))
+                                                        (list-ref
+                                                          name
+                                                          (- 2 1)))))
+                                                  (set! /e
+                                                    (@set_union
+                                                      (list (let ((name /pair))
+                                                              (if (vector? name)
+                                                                (vector-ref
+                                                                  name
+                                                                  (- 2 1))
+                                                                (list-ref
+                                                                  name
+                                                                  (- 2 1)))))
+                                                      /e))))))
+                                    (for-in-loop (cdr for-tmp)))
+                                   (#t #t)))
+                           (set! /pair var-save))))
+                  (set! /i
+                    (@set_difference
+                      (@set_union
+                        (let ((name //l1))
+                          (if (vector? name)
+                            (vector-ref name (- 3 1))
+                            (list-ref name (- 3 1))))
+                        (let ((name //l2))
+                          (if (vector? name)
+                            (vector-ref name (- 3 1))
+                            (list-ref name (- 3 1)))))
+                      (@elt_subtract
+                        /v
+                        (@make_set
+                          (let ((l //r) (map-result '()))
+                            (let while-loop ()
+                              (cond ((not (null? l))
+                                     (set! map-result
+                                       (cons (car (car l)) map-result))
+                                     (set! l (cdr l))
+                                     (while-loop))
+                                    (#t #t)))
+                            (reverse map-result))))))
+                  (set! //r (cons /e (cons /v (cons /i //r))))))))
+    (set! funct-result //r)
+    (set! /done /done-save)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@s_move_assign_vars /assigns /v /e)
+  (let ((/pair '()))
+    (let ((var-save /pair) (seq-save /assigns))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (begin
+                 (set! /v
+                   (@set_union
+                     (list (let ((name /pair))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))
+                     /v))
+                 (cond ((sequence?
+                          (let ((name /pair))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1)))))
+                        (set! /e
+                          (@set_union
+                            (list (let ((name /pair))
+                                    (if (vector? name)
+                                      (vector-ref name (- 2 1))
+                                      (list-ref name (- 2 1)))))
+                            /e)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save)))
+  (list /v /e))
+
+(define (@list_to_hash //l)
+  (let ((//r (my-make-hash-table 16)) (/pair '()))
+    (let ((var-save /pair) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (puthash
+                 //r
+                 (let ((name /pair))
+                   (if (vector? name)
+                     (vector-ref name (- 1 1))
+                     (list-ref name (- 1 1))))
+                 (let ((name /pair))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    //r))
+
+(define (@s_cond /comps)
+  (let ((//r '())
+        (/comp '())
+        (/deny (@make //t_/true '() '())))
+    (cond ((or (> (if (vector? /comps)
+                    (vector-length /comps)
+                    (length /comps))
+                  20)
+               (> (@total_size (list-ref (car /comps) (+ 1 1)))
+                  200))
+           (set! //r
+             (@s_default (@make //t_/cond '() /comps))))
+          (#t
+           (let while-loop ()
+             (cond ((not (null? /comps))
+                    (begin
+                      (set! /comp (car /comps))
+                      (set! /comps (cdr /comps))
+                      (set! //r
+                        (@s_merge
+                          //r
+                          (@s_seq
+                            (@s_cond_test
+                              (@and /deny (list-ref /comp (+ 1 1))))
+                            (@summarise (list-ref /comp (+ 1 2))))))
+                      (cond ((not (null? /comps))
+                             (set! /deny
+                               (@and /deny (@not (list-ref /comp (+ 1 1))))))))
+                    (while-loop))
+                   (#t #t)))))
+    //r))
+
+(define (@s_assert //i-par)
+  (let ((//i-save //i) (//r '()) (funct-result '()))
+    (set! //i //i-par)
+    (set! //r (@s_cond_test //i))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_cond_test //i)
+  (list (cons 0
+              (cons (@elts_used //i)
+                    (cons '() (cons '() (@s_assert_condition //i)))))))
+
+(define (@s_assert_condition //i)
+  (if (= (@st //i) //t_/equal)
+    (@s_check_pair
+      (list-ref //i (+ 1 1))
+      (list-ref //i (+ 1 2)))
+    (if (= (@st //i) //t_/and)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@s_assert_condition (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      (if (= (@st //i) //t_/not)
+        (@s_deny_condition (list-ref //i (+ 1 1)))
+        '()))))
+
+(define (@s_deny_condition //i)
+  (if (= (@st //i) //t_/not_/equal)
+    (@s_check_pair
+      (list-ref //i (+ 1 1))
+      (list-ref //i (+ 1 2)))
+    (if (= (@st //i) //t_/or)
+      (let ((l (let ((l (@cs //i)) (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@s_deny_condition (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+            (reduce-result '()))
+        (cond ((null? l) '())
+              (#t
+               (set! reduce-result (car l))
+               (set! l (cdr l))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! reduce-result
+                          (@set_union reduce-result (car l)))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               reduce-result)))
+      (if (= (@st //i) //t_/not)
+        (@s_assert_condition (list-ref //i (+ 1 1)))
+        '()))))
+
+(define (@s_check_pair /e1 /e2)
+  (if (not (@cp_variable? /e1))
+    (if (and (@cp_variable? /e2)
+             (or (= (@st /e1) //t_/number)
+                 (= (@st /e1) //t_/string)))
+      (list (list (@cp_var_name /e2) (@v /e1)))
+      '())
+    (if (@cp_variable? /e2)
+      (list (list (@cp_var_name /e1) (@cp_var_name /e2)))
+      (if (or (= (@st /e2) //t_/number)
+              (= (@st /e2) //t_/string))
+        (list (list (@cp_var_name /e1) (@v /e2)))
+        '()))))
+
+(define (@s_assigns /comps)
+  (let ((//r '())
+        (/e-save /e)
+        (/v-save /v)
+        (/i '())
+        (/assign '())
+        (funct-result '()))
+    (set! /e '())
+    (set! /v '())
+    (let ((var-save //i) (seq-save /comps))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //i (car for-tmp))
+               (cond ((@lr_equal?
+                        (list-ref //i (+ 1 1))
+                        (list-ref //i (+ 1 2)))
+                      #t)
+                     ((and (= (@st (list-ref //i (+ 1 2))) //t_/variable)
+                           (@starts_with?
+                             (@v (list-ref //i (+ 1 2)))
+                             "NOTUSED_"))
+                      #t)
+                     ((and (@cp_variable? (list-ref //i (+ 1 2)))
+                           (@cp_variable? (list-ref //i (+ 1 1))))
+                      (set! //r
+                        (cons (list (@cp_var_name (list-ref //i (+ 1 1)))
+                                    (@cp_var_name (list-ref //i (+ 1 2))))
+                              //r)))
+                     (#t
+                      (set! /e (@set_union (@elts_used //i) /e))
+                      (set! /v (@set_union (@elts_assigned //i) /v))
+                      (cond ((and (= (@st (list-ref //i (+ 1 1)))
+                                     //t_/var_/lvalue)
+                                  (equal?
+                                    (@v (list-ref //i (+ 1 1)))
+                                    /exit_flag)
+                                  (= (@st (list-ref //i (+ 1 2))) //t_/number)
+                                  (> (@v (list-ref //i (+ 1 2))) 1))
+                             (set! /v
+                               (@set_union
+                                 /v
+                                 (list (list //s_/tail_/recursive_/call))))))
+                      (cond ((and (@cp_variable? (list-ref //i (+ 1 1)))
+                                  (= (@st (list-ref //i (+ 1 2))) //t_/plus)
+                                  (= (@st (list-ref
+                                            (list-ref //i (+ 1 2))
+                                            (+ 1 2)))
+                                     //t_/number)
+                                  (or (= (@v (list-ref
+                                               (list-ref //i (+ 1 2))
+                                               (+ 1 2)))
+                                         12)
+                                      (= (@v (list-ref
+                                               (list-ref //i (+ 1 2))
+                                               (+ 1 2)))
+                                         8)
+                                      (= (@v (list-ref
+                                               (list-ref //i (+ 1 2))
+                                               (+ 1 2)))
+                                         4))
+                                  (@cp_variable?
+                                    (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                                  (equal?
+                                    (@cp_var_name (list-ref //i (+ 1 1)))
+                                    (@cp_var_name
+                                      (list-ref
+                                        (list-ref //i (+ 1 2))
+                                        (+ 1 1)))))
+                             (set! /i
+                               (@set_union
+                                 (list (@cp_var_name (list-ref //i (+ 1 1))))
+                                 /i)))
+                            ((and (@cp_variable? (list-ref //i (+ 1 1)))
+                                  (or (= (@st (list-ref //i (+ 1 2)))
+                                         //t_/number)
+                                      (= (@st (list-ref //i (+ 1 2)))
+                                         //t_/string)))
+                             (set! //r
+                               (cons (list (@cp_var_name (list-ref //i (+ 1 1)))
+                                           (@v (list-ref //i (+ 1 2))))
+                                     //r))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //i var-save))
+    (set! funct-result
+      (list (cons 0 (cons /e (cons /v (cons /i //r))))))
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@s_default //i-par)
+  (let ((//i-save //i)
+        (//l (list (@elts_used //i-par)
+                   (@elts_assigned //i-par)
+                   '()))
+        (//r '())
+        (funct-result '()))
+    (set! //i //i-par)
+    (let ((var-save /v)
+          (seq-save (reverse (@gen_tvs //i "Hyb"))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /v (car for-tmp))
+               (set! //r (cons (cons /v //l) //r))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /v var-save))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_remove //l /names)
+  (let ((//r '())
+        (/pair '())
+        (//l1 '())
+        (/keep_vals '())
+        (/keep_vars '()))
+    (cond ((or (null? //l)
+               (> (let ((name (let ((name //l))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))
+                  0))
+           (set! //r //l))
+          (#t
+           (set! //l1
+             (cdr (let ((name //l))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))))
+           (let ((var-save /pair) (seq-save (@final_seg //l1 4)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /pair (car for-tmp))
+                      (cond ((and (member
+                                    (let ((name /pair))
+                                      (if (vector? name)
+                                        (vector-ref name (- 1 1))
+                                        (list-ref name (- 1 1))))
+                                    /names)
+                                  (or (member
+                                        (let ((name /pair))
+                                          (if (vector? name)
+                                            (vector-ref name (- 2 1))
+                                            (list-ref name (- 2 1))))
+                                        /names)
+                                      (not (sequence?
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 2 1))
+                                                 (list-ref name (- 2 1)))))))))
+                            ((member
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))
+                               /names)
+                             (set! /keep_vals
+                               (cons (let ((name /pair))
+                                       (if (vector? name)
+                                         (vector-ref name (- 2 1))
+                                         (list-ref name (- 2 1))))
+                                     /keep_vals)))
+                            ((member
+                               (let ((name /pair))
+                                 (if (vector? name)
+                                   (vector-ref name (- 2 1))
+                                   (list-ref name (- 2 1))))
+                               /names)
+                             (set! /keep_vars
+                               (cons (let ((name /pair))
+                                       (if (vector? name)
+                                         (vector-ref name (- 1 1))
+                                         (list-ref name (- 1 1))))
+                                     /keep_vars)))
+                            (#t (set! //r (cons /pair //r))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /pair var-save))
+           (set! //r
+             (cons (cons 0
+                         (cons (@set_union
+                                 (@set_difference
+                                   (let ((name //l1))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1))))
+                                   /names)
+                                 (@make_set /keep_vals))
+                               (cons (@set_union
+                                       (@set_difference
+                                         (let ((name //l1))
+                                           (if (vector? name)
+                                             (vector-ref name (- 2 1))
+                                             (list-ref name (- 2 1))))
+                                         /names)
+                                       (@make_set /keep_vars))
+                                     (cons (@set_difference
+                                             (let ((name //l1))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 3 1))
+                                                 (list-ref name (- 3 1))))
+                                             /names)
+                                           //r))))
+                   (cdr //l)))))
+    //r))
+
+(define (@s_add //l /vars)
+  (let ((//r '()) (/pair '()) (//l1 '()))
+    (cond ((or (null? //l)
+               (> (let ((name (let ((name //l))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))
+                  0))
+           (set! //r //l))
+          (#t
+           (set! //l1
+             (cdr (let ((name //l))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))))
+           (set! //r
+             (cons (cons 0
+                         (cons (@set_union
+                                 (let ((name //l1))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))
+                                 /vars)
+                               (@final_seg //l1 2)))
+                   (cdr //l)))))
+    //r))
+
+(define (@s_rename //l /old /new)
+  (let ((//r '()) (//l1 '()))
+    (cond ((or (null? /old)
+               (null? //l)
+               (> (let ((name (let ((name //l))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))
+                  0))
+           (set! //r //l))
+          (#t
+           (set! //l1
+             (cdr (let ((name //l))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))))
+           (set! //r
+             (cons (cons 0
+                         (cons (@make_set
+                                 (@s_rename_sub
+                                   (let ((name //l1))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1))))
+                                   /old
+                                   /new))
+                               (cons (@make_set
+                                       (@s_rename_sub
+                                         (let ((name //l1))
+                                           (if (vector? name)
+                                             (vector-ref name (- 2 1))
+                                             (list-ref name (- 2 1))))
+                                         /old
+                                         /new))
+                                     (cons (@make_set
+                                             (@s_rename_sub
+                                               (let ((name //l1))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 3 1))
+                                                   (list-ref name (- 3 1))))
+                                               /old
+                                               /new))
+                                           (@s_rename_sub
+                                             (@final_seg //l1 4)
+                                             /old
+                                             /new)))))
+                   (cdr //l)))))
+    //r))
+
+(define (@s_rename_sub //l /old /new)
+  (let ((//r '()) (/elt-save /elt) (funct-result '()))
+    (set! /elt '())
+    (cond ((equal? //l /old) (set! //r /new))
+          ((sequence? //l)
+           (let ((var-save /elt) (seq-save //l))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /elt (car for-tmp))
+                      (set! //r
+                        (cons (@s_rename_sub /elt /old /new) //r))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /elt var-save))
+           (set! //r (reverse //r)))
+          (#t (set! //r //l)))
+    (set! funct-result //r)
+    (set! /elt /elt-save)
+    funct-result))
+
+(define (@s_var //i-par)
+  (let ((//i-save //i)
+        (//r (@s_sequence (@cs (list-ref //i-par (+ 1 2)))))
+        (/init '())
+        (/assign '())
+        (/var '())
+        (/vals '())
+        (/vars '())
+        (funct-result '()))
+    (set! //i //i-par)
+    (let ((var-save /assign)
+          (seq-save (@cs (list-ref //i (+ 1 1)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /assign (car for-tmp))
+               (begin
+                 (set! /var
+                   (@cp_var_name (list-ref /assign (+ 1 1))))
+                 (cond ((not (null? /var))
+                        (set! //s_/par_/count (- //s_/par_/count 1))
+                        (set! //r
+                          (@s_rename //r /var (list //s_/par_/count)))
+                        (set! /vars (cons (list //s_/par_/count) /vars))
+                        (cond ((or (= (@st (list-ref /assign (+ 1 2)))
+                                      //t_/number)
+                                   (= (@st (list-ref /assign (+ 1 2)))
+                                      //t_/string))
+                               (set! /init
+                                 (cons (list (list //s_/par_/count)
+                                             (@v (list-ref /assign (+ 1 2))))
+                                       /init)))
+                              ((@cp_variable? (list-ref /assign (+ 1 2)))
+                               (set! /init
+                                 (cons (list (list //s_/par_/count)
+                                             (@cp_var_name
+                                               (list-ref /assign (+ 1 2))))
+                                       /init))
+                               (set! /vals
+                                 (cons (@cp_var_name (list-ref /assign (+ 1 2)))
+                                       /vals)))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /assign var-save))
+    (set! /vals (@make_set /vals))
+    (set! /vars (@make_set /vars))
+    (set! /init
+      (list (cons 0
+                  (cons /vals (cons /vars (cons '() /init))))))
+    (set! //r (@s_remove (@s_seq /init //r) /vars))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_for //i)
+  (@s_add
+    (@s_remove
+      (@s_loop
+        (@s_sequence (@cs (list-ref //i (+ 1 5)))))
+      (list (list (@v (list-ref //i (+ 1 1))))))
+    (@set_union
+      (@elts_used (list-ref //i (+ 1 2)))
+      (@set_union
+        (@elts_used (list-ref //i (+ 1 3)))
+        (@elts_used (list-ref //i (+ 1 4)))))))
+
+(define (@s_proc_call //i-par)
+  (let ((//i-save //i)
+        (//r '())
+        (/summ (@s_get_proc_summary
+                 (@v (list-ref //i-par (+ 1 1)))
+                 //proc_/summaries))
+        (/actual_vals '())
+        (/formal_vals '())
+        (/formal_vars '())
+        (/actual '())
+        (/init '())
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((null? /summ) (set! //r (@s_default //i)))
+          (#t
+           (set! //r (list (cons 0 (@final_seg /summ 4))))
+           (cond ((or (not (= (if (vector?
+                                    (let ((name /summ))
+                                      (if (vector? name)
+                                        (vector-ref name (- 2 1))
+                                        (list-ref name (- 2 1)))))
+                                (vector-length
+                                  (let ((name /summ))
+                                    (if (vector? name)
+                                      (vector-ref name (- 2 1))
+                                      (list-ref name (- 2 1)))))
+                                (length
+                                  (let ((name /summ))
+                                    (if (vector? name)
+                                      (vector-ref name (- 2 1))
+                                      (list-ref name (- 2 1))))))
+                              (@size (list-ref //i (+ 1 2)))))
+                      (not (= (if (vector?
+                                    (let ((name /summ))
+                                      (if (vector? name)
+                                        (vector-ref name (- 3 1))
+                                        (list-ref name (- 3 1)))))
+                                (vector-length
+                                  (let ((name /summ))
+                                    (if (vector? name)
+                                      (vector-ref name (- 3 1))
+                                      (list-ref name (- 3 1)))))
+                                (length
+                                  (let ((name /summ))
+                                    (if (vector? name)
+                                      (vector-ref name (- 3 1))
+                                      (list-ref name (- 3 1))))))
+                              (@size (list-ref //i (+ 1 3))))))
+                  (begin
+                    (display
+                      "Formal/Actual parameter mismatch in proc call:")
+                    (newline)
+                    (force-output))
+                  (begin
+                    (display "summ[2] = ")
+                    (begin
+                      (display
+                        (let ((name /summ))
+                          (if (vector? name)
+                            (vector-ref name (- 2 1))
+                            (list-ref name (- 2 1)))))
+                      (newline)
+                      (force-output)))
+                  (begin
+                    (display "summ[3] = ")
+                    (begin
+                      (display
+                        (let ((name /summ))
+                          (if (vector? name)
+                            (vector-ref name (- 3 1))
+                            (list-ref name (- 3 1)))))
+                      (newline)
+                      (force-output)))
+                  (@print_wsl //i ""))
+                 ((and (null? (let ((name /summ))
+                                (if (vector? name)
+                                  (vector-ref name (- 2 1))
+                                  (list-ref name (- 2 1)))))
+                       (null? (let ((name /summ))
+                                (if (vector? name)
+                                  (vector-ref name (- 3 1))
+                                  (list-ref name (- 3 1)))))))
+                 (#t
+                  (set! /formal_vals
+                    (let ((name /summ))
+                      (if (vector? name)
+                        (vector-ref name (- 2 1))
+                        (list-ref name (- 2 1)))))
+                  (set! /formal_vars
+                    (let ((name /summ))
+                      (if (vector? name)
+                        (vector-ref name (- 3 1))
+                        (list-ref name (- 3 1)))))
+                  (let ((var-save /actual)
+                        (seq-save (@cs (list-ref //i (+ 1 2)))))
+                    (if (vector? seq-save)
+                      (set! seq-save (vector-elts seq-save)))
+                    (let for-in-loop ((for-tmp seq-save))
+                      (cond ((not (null? for-tmp))
+                             (set! /actual (car for-tmp))
+                             (begin
+                               (cond ((or (= (@st /actual) //t_/number)
+                                          (= (@st /actual) //t_/string))
+                                      (set! /init
+                                        (cons (list (car /formal_vals)
+                                                    (@v /actual))
+                                              /init)))
+                                     ((@cp_variable? /actual)
+                                      (set! /actual_vals
+                                        (cons (@cp_var_name /actual)
+                                              /actual_vals))
+                                      (set! /init
+                                        (cons (list (car /formal_vals)
+                                                    (car /actual_vals))
+                                              /init))))
+                               (set! /formal_vals (cdr /formal_vals)))
+                             (for-in-loop (cdr for-tmp)))
+                            (#t #t)))
+                    (set! /actual var-save))
+                  (set! /init
+                    (list (cons 0
+                                (cons (@make_set /actual_vals)
+                                      (cons (@make_set /formal_vals)
+                                            (cons '() /init))))))
+                  (let ((var-save /actual)
+                        (seq-save (@cs (list-ref //i (+ 1 3)))))
+                    (if (vector? seq-save)
+                      (set! seq-save (vector-elts seq-save)))
+                    (let for-in-loop ((for-tmp seq-save))
+                      (cond ((not (null? for-tmp))
+                             (set! /actual (car for-tmp))
+                             (begin
+                               (set! //r
+                                 (@s_rename
+                                   //r
+                                   (car /formal_vars)
+                                   (@cp_var_name /actual)))
+                               (set! /formal_vars (cdr /formal_vars)))
+                             (for-in-loop (cdr for-tmp)))
+                            (#t #t)))
+                    (set! /actual var-save))
+                  (set! //r (@s_seq /init //r))
+                  (set! //r
+                    (@s_remove
+                      //r
+                      (let ((name /summ))
+                        (if (vector? name)
+                          (vector-ref name (- 2 1))
+                          (list-ref name (- 2 1))))))))))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@s_get_proc_summary /name /bodies)
+  (let ((/tab '()) (//r '()))
+    (cond ((not (null? /bodies))
+           (set! /tab (car /bodies))
+           (set! //r (gethash /tab /name))
+           (cond ((null? //r)
+                  (set! //r
+                    (@s_get_proc_summary /name (cdr /bodies)))))))
+    //r))
+
+(define (@s_where //i-par)
+  (let ((//i-save //i) (//r '()) (funct-result '()))
+    (set! //i //i-par)
+    (set! //proc_/summaries
+      (cons (my-make-hash-table 16) //proc_/summaries))
+    (@summarise_where_defns
+      (@cs (list-ref //i (+ 1 2))))
+    (set! //r (@summarise (list-ref //i (+ 1 1))))
+    (set! //proc_/summaries (cdr //proc_/summaries))
+    (set! funct-result //r)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@summarise_where_defns //l)
+  (let ((/body '())
+        (/done-save /done)
+        (/bodies (my-make-hash-table 16)))
+    (set! /done (my-make-hash-table 16))
+    (let ((var-save /body) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /body (car for-tmp))
+               (puthash
+                 /bodies
+                 (@v (list-ref /body (+ 1 1)))
+                 /body)
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /body var-save))
+    (let ((var-save /body) (seq-save //l))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /body (car for-tmp))
+               (cond ((null? (gethash /done (@v (list-ref /body (+ 1 1)))))
+                      (set! /done
+                        (@s_summarise_body /bodies /body /done))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /body var-save))
+    (set! /done /done-save)))
+
+(define (@s_summarise_body /bodies /body /done-par)
+  (let ((/done-save /done) (funct-result '()))
+    (set! /done /done-par)
+    (let ((/calls '()) (/pair '()) (/name '()))
+      (puthash /done (@v (list-ref /body (+ 1 1))) 1)
+      (cond ((= (@st /body) //t_/proc)
+             (set! /calls
+               (@proc_calls (list-ref /body (+ 1 4))))
+             (let ((var-save /pair) (seq-save /calls))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /pair (car for-tmp))
+                        (begin
+                          (set! /name (car /pair))
+                          (cond ((and (null? (gethash /done /name))
+                                      (not (null? (gethash /bodies /name))))
+                                 (set! /done
+                                   (@s_summarise_body
+                                     /bodies
+                                     (gethash /bodies /name)
+                                     /done)))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /pair var-save))))
+      (@s_summarise_body_sub /body))
+    (set! funct-result /done)
+    (set! /done /done-save)
+    funct-result))
+
+(define (@s_summarise_body_sub /body)
+  (let ((/summ '()) (/vals '()) (/vars '()) (/par '()))
+    (set! /summ
+      (@summarise (list-ref /body (+ 1 4))))
+    (cond ((and (not (null? /summ))
+                (= (let ((name (let ((name /summ))
+                                 (if (vector? name)
+                                   (vector-ref name (- 1 1))
+                                   (list-ref name (- 1 1))))))
+                     (if (vector? name)
+                       (vector-ref name (- 1 1))
+                       (list-ref name (- 1 1))))
+                   0))
+           (let ((var-save /par)
+                 (seq-save (@cs (list-ref /body (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /par (car for-tmp))
+                      (begin
+                        (set! //s_/par_/count (- //s_/par_/count 1))
+                        (set! /summ
+                          (@s_rename
+                            /summ
+                            (@cp_var_name /par)
+                            (list //s_/par_/count)))
+                        (set! /vals (cons (list //s_/par_/count) /vals)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /par var-save))
+           (let ((var-save /par)
+                 (seq-save (@cs (list-ref /body (+ 1 3)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /par (car for-tmp))
+                      (begin
+                        (set! //s_/par_/count (- //s_/par_/count 1))
+                        (set! /summ
+                          (@s_rename
+                            /summ
+                            (@cp_var_name /par)
+                            (list //s_/par_/count)))
+                        (set! /vars (cons (list //s_/par_/count) /vars)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /par var-save))
+           (set! //proc_/summaries
+             (@s_put_proc_summary
+               (@v (list-ref /body (+ 1 1)))
+               (cons /body
+                     (cons (@make_set /vals)
+                           (cons (@make_set /vars)
+                                 (cdr (let ((name /summ))
+                                        (if (vector? name)
+                                          (vector-ref name (- 1 1))
+                                          (list-ref name (- 1 1))))))))
+               //proc_/summaries))))))
+
+(define (@s_put_proc_summary
+         /name
+         /value
+         //proc_/summaries)
+  (let ((/tab (if (null? //proc_/summaries)
+                (my-make-hash-table 16)
+                (car //proc_/summaries))))
+    (puthash /tab /name /value)
+    (cond ((null? //proc_/summaries)
+           (set! //proc_/summaries (list /tab)))
+          (#t
+           (if (vector? //proc_/summaries)
+             (vector-set! //proc_/summaries (- 1 1) /tab)
+             (set! //proc_/summaries
+               (replace-nth //proc_/summaries 1 /tab))))))
+  //proc_/summaries)
+
+(define (@summ_to_wsl //l)
+  (let ((//r '())
+        (/body '())
+        (/dummy_ref /%const__summ__1))
+    (cond ((null? //l) (set! //r /%const__summ__2))
+          ((= (if (vector? //l)
+                (vector-length //l)
+                (length //l))
+              1)
+           (set! //r
+             (@summ_to_wsl_sub
+               (cdr (let ((name //l))
+                      (if (vector? name)
+                        (vector-ref name (- 1 1))
+                        (list-ref name (- 1 1)))))))
+           (cond ((> (let ((name (let ((name //l))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1))))))
+                       (if (vector? name)
+                         (vector-ref name (- 1 1))
+                         (list-ref name (- 1 1))))
+                     0)
+                  (set! //r
+                    (@make //t_/statements
+                           '()
+                           (concat
+                             (@cs //r)
+                             (list (@make //t_/exit
+                                          (let ((name (let ((name //l))
+                                                        (if (vector? name)
+                                                          (vector-ref
+                                                            name
+                                                            (- 1 1))
+                                                          (list-ref
+                                                            name
+                                                            (- 1 1))))))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))
+                                          '()))))))
+                 ((= (@size //r) 0) (set! //r (@skips)))))
+          (#t
+           (let ((/expns
+                   (@make //t_/expressions
+                          '()
+                          (let ((l (let ((name (let ((name //l))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 1 1))
+                                                   (list-ref name (- 1 1))))))
+                                     (if (vector? name)
+                                       (vector-ref name (- 2 1))
+                                       (list-ref name (- 2 1)))))
+                                (map-result '()))
+                            (let while-loop ()
+                              (cond ((not (null? l))
+                                     (set! map-result
+                                       (cons (@name_to_wsl (car l)) map-result))
+                                     (set! l (cdr l))
+                                     (while-loop))
+                                    (#t #t)))
+                            (reverse map-result))))
+                 (/count 0)
+                 (/body '()))
+             (let while-loop ()
+               (cond ((not (null? //l))
+                      (begin
+                        (set! /count (+ /count 1))
+                        (set! /body
+                          (@summ_to_wsl_sub
+                            (cdr (let ((name //l))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1)))))))
+                        (cond ((> (let ((name (let ((name //l))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 1 1))
+                                                  (list-ref name (- 1 1))))))
+                                    (if (vector? name)
+                                      (vector-ref name (- 1 1))
+                                      (list-ref name (- 1 1))))
+                                  0)
+                               (set! /body
+                                 (@make //t_/statements
+                                        '()
+                                        (concat
+                                          (@cs /body)
+                                          (list (@make //t_/exit
+                                                       (let ((name (let ((name //l))
+                                                                     (if (vector?
+                                                                           name)
+                                                                       (vector-ref
+                                                                         name
+                                                                         (- 1
+                                                                            1))
+                                                                       (list-ref
+                                                                         name
+                                                                         (- 1
+                                                                            1))))))
+                                                         (if (vector? name)
+                                                           (vector-ref
+                                                             name
+                                                             (- 1 1))
+                                                           (list-ref
+                                                             name
+                                                             (- 1 1))))
+                                                       '()))))))
+                              ((= (@size /body) 0) (set! /body (@skips))))
+                        (set! //l (cdr //l))
+                        (cond ((null? //l)
+                               (set! /cond (@make //t_/true '() '())))
+                              (#t
+                               (set! /cond
+                                 (@make //t_/x_/b/funct_/call
+                                        '()
+                                        (list (@make //t_/name
+                                                     (@make_name
+                                                       (string-append
+                                                         "test"
+                                                         (@string /count)))
+                                                     '())
+                                              /expns)))))
+                        (set! //r
+                          (cons (@make //t_/guarded '() (list /cond /body))
+                                //r)))
+                      (while-loop))
+                     (#t #t))))
+           (set! //r
+             (@make //t_/statements
+                    '()
+                    (list (@make //t_/cond '() (reverse //r)))))))
+    (@edit)
+    (@new_program //r)
+    (@trans //t/r_/remove_/all_/redundant_/vars "")
+    (@down_last)
+    (@paste_after /dummy_ref)
+    (@up)
+    (@trans //t/r_/delete_/all_/redundant "")
+    (@down_last)
+    (cond ((@equal? (@i) /dummy_ref) (@clever_delete)))
+    (set! //r (@program))
+    (@undo_edit)
+    //r))
+
+(define (@summ_to_wsl_sub //l)
+  (let ((/e-save /e)
+        (/v-save /v)
+        (/inc (let ((name //l))
+                (if (vector? name)
+                  (vector-ref name (- 3 1))
+                  (list-ref name (- 3 1)))))
+        (/assigns (@final_seg //l 4))
+        (//r '())
+        (/inits '())
+        (/updates '())
+        (/pair '())
+        (/e1 '())
+        (/e2 '())
+        (/v1 '())
+        (/v2 '())
+        (/var '())
+        (funct-result '()))
+    (set! /e
+      (let ((name //l))
+        (if (vector? name)
+          (vector-ref name (- 1 1))
+          (list-ref name (- 1 1)))))
+    (set! /v
+      (@set_difference
+        (let ((name //l))
+          (if (vector? name)
+            (vector-ref name (- 2 1))
+            (list-ref name (- 2 1))))
+        (let ((name //l))
+          (if (vector? name)
+            (vector-ref name (- 3 1))
+            (list-ref name (- 3 1))))))
+    (let ((var-save /pair) (seq-save /assigns))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (begin
+                 (set! /v
+                   (@elt_remove
+                     /v
+                     (list (let ((name /pair))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))))
+                 (cond ((sequence?
+                          (let ((name /pair))
+                            (if (vector? name)
+                              (vector-ref name (- 2 1))
+                              (list-ref name (- 2 1)))))
+                        (set! /v1
+                          (@make_name
+                            (string-append
+                              "save__"
+                              (@join "_"
+                                     (let ((l (let ((name /pair))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 2 1))
+                                                  (list-ref name (- 2 1)))))
+                                           (map-result '()))
+                                       (let while-loop ()
+                                         (cond ((not (null? l))
+                                                (set! map-result
+                                                  (cons (@n_string (car l))
+                                                        map-result))
+                                                (set! l (cdr l))
+                                                (while-loop))
+                                               (#t #t)))
+                                       (reverse map-result))))))
+                        (set! /e1
+                          (@name_to_wsl
+                            (let ((name /pair))
+                              (if (vector? name)
+                                (vector-ref name (- 2 1))
+                                (list-ref name (- 2 1))))))
+                        (set! /e2 (@make //t_/variable /v1 '()))
+                        (set! /inits
+                          (cons (@make //t_/assign
+                                       '()
+                                       (list (@make //t_/var_/lvalue /v1 '())
+                                             /e1))
+                                /inits)))
+                       (#t
+                        (set! /e2
+                          (@name_to_wsl
+                            (let ((name /pair))
+                              (if (vector? name)
+                                (vector-ref name (- 2 1))
+                                (list-ref name (- 2 1))))))))
+                 (set! /v2
+                   (@expn_to_lvalue
+                     (@name_to_wsl
+                       (let ((name /pair))
+                         (if (vector? name)
+                           (vector-ref name (- 1 1))
+                           (list-ref name (- 1 1)))))))
+                 (set! /updates
+                   (cons (@make //t_/assign '() (list /v2 /e2))
+                         /updates)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    (cond ((not (null? /v))
+           (set! //r
+             (list (@make //t_/a_/proc_/call
+                          '()
+                          (list (@make //t_/name (@make_name "update") '())
+                                (@make //t_/expressions
+                                       '()
+                                       (let ((l /e) (map-result '()))
+                                         (let while-loop ()
+                                           (cond ((not (null? l))
+                                                  (set! map-result
+                                                    (cons (@name_to_wsl (car l))
+                                                          map-result))
+                                                  (set! l (cdr l))
+                                                  (while-loop))
+                                                 (#t #t)))
+                                         (reverse map-result)))
+                                (@make //t_/lvalues
+                                       '()
+                                       (let ((l (let ((l /v) (map-result '()))
+                                                  (let while-loop ()
+                                                    (cond ((not (null? l))
+                                                           (set! map-result
+                                                             (cons (@name_to_wsl
+                                                                     (car l))
+                                                                   map-result))
+                                                           (set! l (cdr l))
+                                                           (while-loop))
+                                                          (#t #t)))
+                                                  (reverse map-result)))
+                                             (map-result '()))
+                                         (let while-loop ()
+                                           (cond ((not (null? l))
+                                                  (set! map-result
+                                                    (cons (@expn_to_lvalue
+                                                            (car l))
+                                                          map-result))
+                                                  (set! l (cdr l))
+                                                  (while-loop))
+                                                 (#t #t)))
+                                         (reverse map-result)))))))))
+    (let while-loop ()
+      (cond ((not (null? /updates))
+             (begin
+               (set! //r
+                 (cons (@make //t_/assignment '() (list (car /updates)))
+                       //r))
+               (set! /updates (cdr /updates)))
+             (while-loop))
+            (#t #t)))
+    (let while-loop ()
+      (cond ((not (null? /inc))
+             (begin
+               (set! /var (@name_to_wsl (car /inc)))
+               (set! /inc (cdr /inc))
+               (set! //r
+                 (cons (@make 141
+                              '()
+                              (list (@make 301
+                                           '()
+                                           (list (@make 9
+                                                        (@make_name "incr")
+                                                        '())
+                                                 (@make 10
+                                                        '()
+                                                        (list (@var_to_expn
+                                                                /var)))))
+                                    (@make 17
+                                           '()
+                                           (list (@make 110
+                                                        '()
+                                                        (list (@make 6
+                                                                     '()
+                                                                     (list (@expn_to_var
+                                                                             /var)
+                                                                           (@make 220
+                                                                                  '()
+                                                                                  (list (@var_to_expn
+                                                                                          /var)
+                                                                                        (@make 205
+                                                                                               4
+                                                                                               '())))))))))))
+                       //r)))
+             (while-loop))
+            (#t #t)))
+    (set! //r
+      (@make //t_/statements '() (reverse //r)))
+    (cond ((not (null? /inits))
+           (set! //r
+             (@make //t_/var
+                    '()
+                    (list (@make //t_/assigns '() /inits) //r)))
+           (set! //r (@make //t_/statements '() (list //r)))))
+    (set! funct-result //r)
+    (set! /e /e-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@name_to_wsl /name)
+  (let ((//r '()))
+    (cond ((string? /name)
+           (set! //r (@make //t_/string /name '())))
+          ((number? /name)
+           (set! //r (@make //t_/number /name '())))
+          ((= (if (vector? /name)
+                (vector-length /name)
+                (length /name))
+              1)
+           (set! //r (@make //t_/variable (car /name) '())))
+          ((and (number? (last-1 /name))
+                (< (last-1 /name) 0))
+           (set! //r
+             (@make //t_/aref
+                    '()
+                    (list (@name_to_wsl (butlast-1 /name))
+                          (@make //t_/expressions
+                                 '()
+                                 (list (@make //t_/number
+                                              (- (last-1 /name))
+                                              '())))))))
+          (#t
+           (cond ((equal? (car /name) /a_name)
+                  (set! //r
+                    (@make //t_/aref
+                           '()
+                           (list (@make //t_/variable /a_name '())
+                                 (@make //t_/expressions
+                                        '()
+                                        (list (@make //t_/variable
+                                                     (let ((name /name))
+                                                       (if (vector? name)
+                                                         (vector-ref
+                                                           name
+                                                           (- 2 1))
+                                                         (list-ref
+                                                           name
+                                                           (- 2 1))))
+                                                     '()))))))
+                  (set! /name (cdr /name)))
+                 (#t
+                  (set! //r (@make //t_/variable (car /name) '()))))
+           (set! /name (cdr /name))
+           (let while-loop ()
+             (cond ((not (null? /name))
+                    (begin
+                      (set! //r
+                        (@make //t_/struct
+                               '()
+                               (list (@make //t_/name (car /name) '()) //r)))
+                      (set! /name (cdr /name)))
+                    (while-loop))
+                   (#t #t)))))
+    //r))
+
+(define (@print_summ //l)
+  (cond ((null? //l)
+         (begin
+           (display "  exit_flag := 1;")
+           (newline)
+           (force-output)))
+        (#t
+         (let while-loop ()
+           (cond ((not (null? //l))
+                  (begin
+                    (begin
+                      (display
+                        (let ((name (let ((name //l))
+                                      (if (vector? name)
+                                        (vector-ref name (- 1 1))
+                                        (list-ref name (- 1 1))))))
+                          (if (vector? name)
+                            (vector-ref name (- 1 1))
+                            (list-ref name (- 1 1)))))
+                      (begin (display ": < ") (force-output)))
+                    (let ((var-save /elt)
+                          (seq-save
+                            (let ((name (let ((name //l))
+                                          (if (vector? name)
+                                            (vector-ref name (- 1 1))
+                                            (list-ref name (- 1 1))))))
+                              (if (vector? name)
+                                (vector-ref name (- 2 1))
+                                (list-ref name (- 2 1))))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /elt (car for-tmp))
+                               (begin
+                                 (@print_name /elt)
+                                 (begin (display " ") (force-output)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /elt var-save))
+                    (begin (display ">< ") (force-output))
+                    (let ((var-save /elt)
+                          (seq-save
+                            (let ((name (let ((name //l))
+                                          (if (vector? name)
+                                            (vector-ref name (- 1 1))
+                                            (list-ref name (- 1 1))))))
+                              (if (vector? name)
+                                (vector-ref name (- 3 1))
+                                (list-ref name (- 3 1))))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /elt (car for-tmp))
+                               (begin
+                                 (@print_name /elt)
+                                 (begin (display " ") (force-output)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /elt var-save))
+                    (begin (display ">< ") (force-output))
+                    (let ((var-save /elt)
+                          (seq-save
+                            (let ((name (let ((name //l))
+                                          (if (vector? name)
+                                            (vector-ref name (- 1 1))
+                                            (list-ref name (- 1 1))))))
+                              (if (vector? name)
+                                (vector-ref name (- 4 1))
+                                (list-ref name (- 4 1))))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /elt (car for-tmp))
+                               (begin
+                                 (@print_name /elt)
+                                 (begin (display " ") (force-output)))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /elt var-save))
+                    (begin (display ">") (newline) (force-output))
+                    (cond ((> (let ((name (let ((name //l))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))
+                              0)
+                           (begin
+                             (display "  EXIT(")
+                             (begin
+                               (display
+                                 (let ((name (let ((name //l))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1)))))
+                               (begin (display ");") (force-output))))))
+                    (@print_assigns_sub
+                      (let ((name //l))
+                        (if (vector? name)
+                          (vector-ref name (- 1 1))
+                          (list-ref name (- 1 1)))))
+                    (set! //l (cdr //l))
+                    (begin (display "") (newline) (force-output)))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (@print_assigns_sub //l)
+  (let ((/pair '()) (/val '()))
+    (let ((var-save /pair) (seq-save (@final_seg //l 5)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (begin
+                 (begin (display "  ") (force-output))
+                 (@print_name
+                   (let ((name /pair))
+                     (if (vector? name)
+                       (vector-ref name (- 1 1))
+                       (list-ref name (- 1 1)))))
+                 (begin (display " := ") (force-output))
+                 (set! /val
+                   (let ((name /pair))
+                     (if (vector? name)
+                       (vector-ref name (- 2 1))
+                       (list-ref name (- 2 1)))))
+                 (cond ((string? /val)
+                        (begin
+                          (display (concat (concat //quote /val) //quote))
+                          (force-output)))
+                       ((number? /val)
+                        (begin (display /val) (force-output)))
+                       (#t (@print_name /val))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))))
+
+(define (@print_name /name)
+  (cond ((and (> (if (vector? /name)
+                   (vector-length /name)
+                   (length /name))
+                 1)
+              (equal? (car /name) /a_name))
+         (begin
+           (display "@[")
+           (begin
+             (display
+               (@n_string
+                 (let ((name /name))
+                   (if (vector? name)
+                     (vector-ref name (- 2 1))
+                     (list-ref name (- 2 1))))))
+             (begin (display "]") (force-output))))
+         (set! /name (cdr /name)))
+        ((and (number? (car /name)) (< (car /name) 0))
+         (begin
+           (display "[")
+           (begin
+             (display (- (car /name)))
+             (begin (display "]") (force-output)))))
+        (#t
+         (begin
+           (display (@n_string (car /name)))
+           (force-output))))
+  (set! /name (cdr /name))
+  (cond ((not (null? /name))
+         (begin (display ".") (force-output))
+         (@print_name /name))))
+
+#t
+

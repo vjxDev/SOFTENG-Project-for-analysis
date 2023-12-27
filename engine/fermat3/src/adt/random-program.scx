@@ -1,0 +1,431 @@
+(define (@crp_item //type //dep //in_/a_/s)
+  (let ((//result '())
+        (//s 0)
+        (//seq '())
+        (//syn '())
+        (//val '()))
+    (cond ((= //type //t_/statement)
+           (set! //result (@crp_stat //dep //in_/a_/s)))
+          ((= //type //t_/lvalue)
+           (set! //result (@crp_lvalue //dep)))
+          ((= //type //t_/expression)
+           (set! //result (@crp_expn 3)))
+          ((= //type //t_/condition)
+           (set! //result (@crp_cond 3)))
+          (#t
+           (set! //syn (@syntax //type))
+           (cond ((@list_type? //type)
+                  (set! //s (+ (@random 5) 1))
+                  (let ((var-save //i) (for-step 1) (for-end //s))
+                    (set! //i 1)
+                    (let for-loop ()
+                      (cond ((or (and (> 1 0) (<= //i for-end))
+                                 (and (< 1 0) (>= //i for-end)))
+                             (set! //seq
+                               (cons (@crp_item
+                                       (car //syn)
+                                       (- //dep 1)
+                                       //in_/a_/s)
+                                     //seq))
+                             (set! //i (+ //i for-step))
+                             (for-loop))
+                            (#t #t)))
+                    (set! //i var-save)))
+                 (#t
+                  (let while-loop ()
+                    (cond ((not (null? //syn))
+                           (begin
+                             (set! //seq
+                               (concat
+                                 //seq
+                                 (list (@crp_item
+                                         (car //syn)
+                                         (- //dep 1)
+                                         //in_/a_/s))))
+                             (set! //syn (cdr //syn)))
+                           (while-loop))
+                          (#t #t)))))
+           (set! //result (@make //type '() //seq))))
+    //result))
+
+(define (@crp_stat //dep //in_/a_/s)
+  (let ((//result '())
+        (//r (@random (if (> //dep 0) 20 8)))
+        (//s 0)
+        (//seq '())
+        (//temp '()))
+    (cond ((= //r 1)
+           (set! //result (@make //t_/skip '() '())))
+          ((= //r 2)
+           (set! //result (@make //t_/exit (@random 4) '())))
+          ((= //r 3)
+           (cond ((= //in_/a_/s 1)
+                  (set! //result
+                    (@make //t_/call
+                           (@make //t_/name (@crp_name //dep) '())
+                           '())))
+                 (#t (set! //result (@make //t_/skip '() '())))))
+          ((<= //r 8)
+           (set! //result
+             (@crp_item
+               (@pick (list //t_/abort
+                            //t_/assert
+                            //t_/assignment
+                            //t_/pop
+                            //t_/push))
+               (- //dep 1)
+               //in_/a_/s)))
+          ((<= //r 14)
+           (set! //result
+             (@crp_item
+               (@pick (list //t_/cond
+                            //t_/cond
+                            //t_/floop
+                            //t_/var
+                            //t_/while))
+               (- //dep 1)
+               //in_/a_/s)))
+          ((= //r 15)
+           (set! //result
+             (@make //t_/comment "comment..." '())))
+          ((= //r 16)
+           (set! //result
+             (@make //t_/for
+                    '()
+                    (list (@make //t_/var_/lvalue (@crp_name //dep) '())
+                          (@crp_expn //dep)
+                          (@crp_expn //dep)
+                          (@crp_expn //dep)
+                          (@crp_item
+                            //t_/statements
+                            (- //dep 1)
+                            //in_/a_/s)))))
+          ((= //r 17)
+           (set! //result
+             (@make (@pick (list //t_/proc_/call //t_/a_/proc_/call))
+                    '()
+                    (list (@make //t_/name (@crp_name //dep) '())
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 0 4))
+                          (@make //t_/lvalues
+                                 '()
+                                 (@crp_lvalues (- //dep 1) 0 4))))))
+          ((= //r 18)
+           (set! //result
+             (@make //t_/x_/proc_/call
+                    '()
+                    (list (@make //t_/name (@crp_name //dep) '())
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 0 4))))))
+          ((= //r 19)
+           (let ((/names (list "A1" "B2" "C3" "D4" "E5" "F6"))
+                 (/body '())
+                 (//s (@random 6)))
+             (let ((var-save //i) (for-step 1) (for-end //s))
+               (set! //i 1)
+               (let for-loop ()
+                 (cond ((or (and (> 1 0) (<= //i for-end))
+                            (and (< 1 0) (>= //i for-end)))
+                        (begin
+                          (set! /body
+                            (cons (@make //t_/action
+                                         '()
+                                         (list (@make //t_/name
+                                                      (@make_name (car /names))
+                                                      '())
+                                               (@crp_item
+                                                 //t_/statements
+                                                 (- //dep 1)
+                                                 1)))
+                                  /body))
+                          (set! /names (cdr /names)))
+                        (set! //i (+ //i for-step))
+                        (for-loop))
+                       (#t #t)))
+               (set! //i var-save))
+             (set! //result
+               (@make //t_/a_/s
+                      '()
+                      (list (@make //t_/name (@make_name "A1") '())
+                            (@make //t_/actions '() /body))))))
+          ((= //r 20)
+           (let ((/names (list "A1" "B2" "C3" "D4" "E5" "F6"))
+                 (/body '())
+                 (//s (@random 6)))
+             (let ((var-save //i) (for-step 1) (for-end //s))
+               (set! //i 1)
+               (let for-loop ()
+                 (cond ((or (and (> 1 0) (<= //i for-end))
+                            (and (< 1 0) (>= //i for-end)))
+                        (begin
+                          (set! /body
+                            (cons (@make //t_/proc
+                                         '()
+                                         (list (@make //t_/name
+                                                      (@make_name (car /names))
+                                                      '())
+                                               (@make //t_/lvalues
+                                                      '()
+                                                      (@crp_lvalues
+                                                        (- //dep 1)
+                                                        0
+                                                        4))
+                                               (@make //t_/lvalues
+                                                      '()
+                                                      (@crp_lvalues
+                                                        (- //dep 1)
+                                                        0
+                                                        4))
+                                               (@crp_item
+                                                 //t_/statements
+                                                 (- //dep 1)
+                                                 //in_/a_/s)))
+                                  /body))
+                          (set! /names (cdr /names)))
+                        (set! //i (+ //i for-step))
+                        (for-loop))
+                       (#t #t)))
+               (set! //i var-save))
+             (set! //result
+               (@make //t_/where
+                      '()
+                      (list (@crp_item
+                              //t_/statements
+                              (- //dep 1)
+                              //in_/a_/s)
+                            (@make //t_/definitions '() /body)))))))
+    //result))
+
+(define (@crp_name //dep)
+  (@make_name
+    (@pick (list "A1" "B2" "C3" "D4" "E5" "F6"))))
+
+(define (@crp_lvalue //dep)
+  (let ((//result '())
+        (//r (@random (if (< //dep 0) 5 10))))
+    (cond ((<= //r 5)
+           (set! //result (@crp_var //t_/var_/lvalue)))
+          ((<= //r 7)
+           (set! //result
+             (@make //t_/aref_/lvalue
+                    '()
+                    (list (@crp_var //t_/var_/lvalue)
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 1 3))))))
+          ((= //r 8)
+           (set! //result
+             (@make //t_/struct_/lvalue
+                    (@crp_name (- //dep 1))
+                    (list (@crp_var //t_/var_/lvalue)))))
+          ((= //r 9)
+           (set! //result
+             (@make //t_/sub_/seg_/lvalue
+                    '()
+                    (list (@crp_var //t_/var_/lvalue)
+                          (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1))))))
+          (#t
+           (set! //result
+             (@make //t_/rel_/seg_/lvalue
+                    '()
+                    (list (@crp_var //t_/var_/lvalue)
+                          (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1)))))))
+    //result))
+
+(define (@crp_array //dep)
+  (let ((//result '()) (//r (@random 7)))
+    (cond ((<= //r 2)
+           (set! //result
+             (@make //t_/aref
+                    '()
+                    (list (@crp_var //t_/variable)
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 1 3))))))
+          ((<= //r 4)
+           (set! //result
+             (@make //t_/struct
+                    '()
+                    (list (@make //t_/name (@crp_name (- //dep 1)) '())
+                          (@crp_var //t_/variable)))))
+          ((= //r 5)
+           (set! //result
+             (@make //t_/sub_/seg
+                    '()
+                    (list (@crp_var //t_/variable)
+                          (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1))))))
+          ((= //r 6)
+           (set! //result
+             (@make //t_/mod
+                    '()
+                    (list (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1))))))
+          (#t
+           (set! //result
+             (@make //t_/rel_/seg
+                    '()
+                    (list (@crp_var //t_/variable)
+                          (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1)))))))
+    //result))
+
+(define (@crp_expns //dep /from /to)
+  (let ((//r (- (+ /from (@random (+ (- /to /from) 1))) 1))
+        (//result '()))
+    (let while-loop ()
+      (cond ((> //r 0)
+             (begin
+               (set! //result (cons (@crp_expn //dep) //result))
+               (set! //r (- //r 1)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@crp_lvalues //dep /from /to)
+  (let ((//r (- (+ /from (@random (+ (- /to /from) 1))) 1))
+        (//result '()))
+    (let while-loop ()
+      (cond ((> //r 0)
+             (begin
+               (set! //result
+                 (cons (@crp_lvalue //dep) //result))
+               (set! //r (- //r 1)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@crp_conds //dep /from /to)
+  (let ((//r (- (+ /from (@random (+ (- /to /from) 1))) 1))
+        (//result '()))
+    (let while-loop ()
+      (cond ((> //r 0)
+             (begin
+               (set! //result (cons (@crp_cond //dep) //result))
+               (set! //r (- //r 1)))
+             (while-loop))
+            (#t #t)))
+    //result))
+
+(define (@crp_var /type)
+  (@make /type
+         (@make_name
+           (@pick (list "A" "B" "C" "I" "J" "X" "Y")))
+         '()))
+
+(define (@crp_expn //dep)
+  (let ((//result '())
+        (//r (@random (if (> //dep 0) 8 3)))
+        (//temp '()))
+    (cond ((= //r 1)
+           (set! //result (@crp_var //t_/variable)))
+          ((= //r 2)
+           (set! //result
+             (@make //t_/number
+                    (@pick (list 0 1 2 3 4 5 10 20 50 100))
+                    '())))
+          ((= //r 3)
+           (set! //result
+             (@make //t_/string
+                    (@pick (list "foo" "bar" "baz"))
+                    '())))
+          ((= //r 4)
+           (set! //result
+             (@make (@pick (list //t_/plus
+                                 //t_/minus
+                                 //t_/times
+                                 //t_/divide
+                                 //t_/max
+                                 //t_/min
+                                 //t_/exponent))
+                    '()
+                    (@crp_expns //dep 2 5))))
+          ((= //r 5)
+           (set! //result
+             (@make (@pick (list //t_/abs
+                                 //t_/sgn
+                                 //t_/int
+                                 //t_/frac
+                                 //t_/negate
+                                 //t_/invert))
+                    '()
+                    (list (@crp_expn (- //dep 1))))))
+          ((= //r 6)
+           (set! //result
+             (@make (@pick (list //t_/x_/funct_/call //t_/funct_/call))
+                    '()
+                    (list (@make //t_/name (@crp_name //dep) '())
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 0 4))))))
+          ((= //r 7)
+           (set! //result
+             (@make //t_/sequence
+                    '()
+                    (list (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 0 4))))))
+          (#t (set! //result (@crp_array //dep))))
+    //result))
+
+(define (@crp_cond //dep)
+  (let ((//result '())
+        (//r (@random (if (> //dep 0) 12 6))))
+    (cond ((<= //r 6)
+           (set! //result
+             (@make (@pick (list //t_/equal
+                                 //t_/not_/equal
+                                 //t_/less
+                                 //t_/greater
+                                 //t_/less_/eq
+                                 //t_/greater_/eq))
+                    '()
+                    (list (@crp_expn (- //dep 1))
+                          (@crp_expn (- //dep 1))))))
+          ((<= //r 7)
+           (set! //result
+             (@make //t_/not
+                    '()
+                    (list (@crp_cond (- //dep 1))))))
+          ((<= //r 9)
+           (set! //result
+             (@make (@pick (list //t_/and //t_/or))
+                    '()
+                    (@crp_conds (- //dep 1) 2 5))))
+          ((<= //r 11)
+           (set! //result
+             (@make (@pick (list //t_/x_/b/funct_/call //t_/b/funct_/call))
+                    '()
+                    (list (@make //t_/name (@crp_name //dep) '())
+                          (@make //t_/expressions
+                                 '()
+                                 (@crp_expns (- //dep 1) 0 4))))))
+          (#t
+           (set! //result
+             (@make (@pick (list //t_/true //t_/false))
+                    '()
+                    '()))))
+    //result))
+
+(define (@pick /seq)
+  (let ((name /seq))
+    (if (vector? name)
+      (vector-ref
+        name
+        (- (@random
+             (if (vector? /seq)
+               (vector-length /seq)
+               (length /seq)))
+           1))
+      (list-ref
+        name
+        (- (@random
+             (if (vector? /seq)
+               (vector-length /seq)
+               (length /seq)))
+           1)))))
+

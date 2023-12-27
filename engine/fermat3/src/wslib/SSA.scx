@@ -1,0 +1,1523 @@
+(define (/foreach-/s/s/a-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_last)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((= (@st (@i)) //t_/proc)
+                           (@down_to 4)
+                           (@down_last)
+                           (cond ((not (= (@st (@i)) //t_/skip))
+                                  (@paste_after (@skip))))
+                           (@up)
+                           (@up)))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-/s/s/a-2 //depth //a/s_/type)
+  (cond ((or (= (@st (@i)) //t_/variable)
+             (= (@st (@i)) //t_/struct)
+             (= (@st (@i)) //t_/aref))
+         (set! /old (@struct_elts (@i)))
+         (cond ((or (null? /only) (member /old /only))
+                (set! /new (gethash /rename_exp /old))
+                (cond ((not (null? /new)) (@paste_over /new))))))))
+
+(define (/foreach-/s/s/a-3 //depth //a/s_/type)
+  (cond ((or (= (@st (@i)) //t_/var_/lvalue)
+             (= (@st (@i)) //t_/struct_/lvalue)
+             (= (@st (@i)) //t_/aref_/lvalue))
+         (set! /old (@struct_elts (@i)))
+         (cond ((or (null? /only) (member /old /only))
+                (set! /new (gethash /rename_lvalue /old))
+                (cond ((not (null? /new))
+                       (cond ((= (@gt /new) //t_/lvalue) (@paste_over /new))
+                             (#t (@paste_over (@expn_to_lvalue /new)))))))))))
+
+(set! //alpha_/num
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.[]")
+
+(define (@parse_basic_blocks /file)
+  (let ((//r '())
+        (/port (@open_input_file /file))
+        (/entry 0)
+        (/tmp-save /tmp)
+        (/word-save /word)
+        (/line-save /line)
+        (/node 0)
+        (/posn '())
+        (/len 0)
+        (/succs '())
+        (/type "")
+        (/control '())
+        (/phi '())
+        (/assigns '())
+        (/list-save /list)
+        (/p-save /p)
+        (/n-save /n)
+        (/v "")
+        (/e "")
+        (funct-result '()))
+    (set! /tmp '())
+    (set! /word '())
+    (set! /line "")
+    (set! /list '())
+    (set! /p 0)
+    (set! /n 0)
+    (begin
+      (display "Reading basic blocks file: ")
+      (begin (display /file) (newline) (force-output)))
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (set! /fl_flag1 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag1 0)
+                        (begin
+                          (set! /line (@read_line /port))
+                          (cond ((@eof? /line) (set! /fl_flag1 2))
+                                (#t
+                                 (cond ((@starts_with? /line "Entry node is: ")
+                                        (set! /entry
+                                          (@string_to_num
+                                            (let ((s /line))
+                                              (substring
+                                                s
+                                                15
+                                                (string-length s)))))))
+                                 (cond ((@starts_with? /line "Node:")
+                                        (set! /fl_flag1 1))
+                                       (#t (set! /fl_flag1 0))))))
+                        (while-loop))
+                       (#t #t)))
+               (cond ((= /fl_flag1 2) (set! /fl_flag2 1))
+                     (#t
+                      (set! /p 5)
+                      (let ((/-result- (@parse_num /line /p /node)))
+                        (set! /p (car /-result-))
+                        (set! /-result- (cdr /-result-))
+                        (set! /node (car /-result-))
+                        (set! /-result- (cdr /-result-)))
+                      (set! /p (@skip_spaces /line /p))
+                      (cond ((not (@str_match? /line /p "posn:("))
+                             (begin
+                               (display "ERROR: no posn keyword:")
+                               (newline)
+                               (force-output))
+                             (begin (display /line) (newline) (force-output))
+                             (set! /fl_flag2 1))
+                            (#t
+                             (set! /p (+ /p 6))
+                             (set! /posn '())
+                             (let ((/-result- (@parse_nums /line /p /posn)))
+                               (set! /p (car /-result-))
+                               (set! /-result- (cdr /-result-))
+                               (set! /posn (car /-result-))
+                               (set! /-result- (cdr /-result-)))
+                             (cond ((not (@str_match? /line /p ") len: "))
+                                    (begin
+                                      (display
+                                        "ERROR: no len keyword in bb file:")
+                                      (newline)
+                                      (force-output))
+                                    (begin
+                                      (display /line)
+                                      (newline)
+                                      (force-output))
+                                    (set! /fl_flag2 1))
+                                   (#t
+                                    (set! /p (+ /p 7))
+                                    (let ((/-result-
+                                            (@parse_num /line /p /len)))
+                                      (set! /p (car /-result-))
+                                      (set! /-result- (cdr /-result-))
+                                      (set! /len (car /-result-))
+                                      (set! /-result- (cdr /-result-)))
+                                    (cond ((not (@str_match? /line /p " --> ("))
+                                           (begin
+                                             (display
+                                               "ERROR: no --> in bb file:")
+                                             (newline)
+                                             (force-output))
+                                           (begin
+                                             (display /line)
+                                             (newline)
+                                             (force-output))
+                                           (set! /fl_flag2 1))
+                                          (#t
+                                           (set! /p (+ /p 6))
+                                           (set! /succs '())
+                                           (let ((/-result-
+                                                   (@parse_nums
+                                                     /line
+                                                     /p
+                                                     /succs)))
+                                             (set! /p (car /-result-))
+                                             (set! /-result- (cdr /-result-))
+                                             (set! /succs (car /-result-))
+                                             (set! /-result- (cdr /-result-)))
+                                           (set! /line (@read_line /port))
+                                           (cond ((@eof? /line)
+                                                  (begin
+                                                    (display
+                                                      "ERROR: EOF reading type or control in bb file.")
+                                                    (newline)
+                                                    (force-output))
+                                                  (set! /fl_flag2 1))
+                                                 (#t
+                                                  (set! /type "")
+                                                  (cond ((and (> (string-length
+                                                                   /line)
+                                                                 0)
+                                                              (not (@digit?
+                                                                     (let ((f 0))
+                                                                       (substring
+                                                                         /line
+                                                                         f
+                                                                         (+ f
+                                                                            1))))))
+                                                         (set! /type /line)
+                                                         (set! /line
+                                                           (@read_line /port))))
+                                                  (cond ((@eof? /line)
+                                                         (begin
+                                                           (display
+                                                             "ERROR: EOF reading control or links in bb file.")
+                                                           (newline)
+                                                           (force-output))
+                                                         (set! /fl_flag2 1))
+                                                        (#t
+                                                         (set! /links '())
+                                                         (let while-loop ()
+                                                           (cond ((and (not (@eof? /line))
+                                                                       (> (string-length
+                                                                            /line)
+                                                                          8)
+                                                                       (@digits?
+                                                                         (let ((f 0))
+                                                                           (substring
+                                                                             /line
+                                                                             f
+                                                                             (+ f
+                                                                                8)))))
+                                                                  (begin
+                                                                    (set! /links
+                                                                      (cons /line
+                                                                            /links))
+                                                                    (set! /line
+                                                                      (@read_line
+                                                                        /port)))
+                                                                  (while-loop))
+                                                                 (#t #t)))
+                                                         (set! /links
+                                                           (reverse /links))
+                                                         (cond ((@eof? /line)
+                                                                (begin
+                                                                  (display
+                                                                    "ERROR: EOF reading control in bb file.")
+                                                                  (newline)
+                                                                  (force-output))
+                                                                (set! /fl_flag2
+                                                                  1))
+                                                               (#t
+                                                                (set! /p 0)
+                                                                (cond ((or (@eof? /line)
+                                                                           (and (not (@str_match?
+                                                                                       /line
+                                                                                       /p
+                                                                                       "0: <"))
+                                                                                (not (@str_match?
+                                                                                       /line
+                                                                                       /p
+                                                                                       "1: <"))))
+                                                                       (begin
+                                                                         (display
+                                                                           "ERROR1: badly formatted control line in bb file:")
+                                                                         (newline)
+                                                                         (force-output))
+                                                                       (cond ((not (@eof? /line))
+                                                                              (begin
+                                                                                (display
+                                                                                  /line)
+                                                                                (newline)
+                                                                                (force-output))))
+                                                                       (set! /fl_flag2
+                                                                         1))
+                                                                      (#t
+                                                                       (set! /p
+                                                                         4)
+                                                                       (set! /control
+                                                                         '())
+                                                                       (let ((/-result-
+                                                                               (@parse_words
+                                                                                 /line
+                                                                                 /p
+                                                                                 /control)))
+                                                                         (set! /p
+                                                                           (car /-result-))
+                                                                         (set! /-result-
+                                                                           (cdr /-result-))
+                                                                         (set! /control
+                                                                           (car /-result-))
+                                                                         (set! /-result-
+                                                                           (cdr /-result-)))
+                                                                       (set! /phi
+                                                                         '())
+                                                                       (set! /assigns
+                                                                         '())
+                                                                       (set! /fl_flag1
+                                                                         0)
+                                                                       (let while-loop ()
+                                                                         (cond ((= /fl_flag1
+                                                                                   0)
+                                                                                (begin
+                                                                                  (set! /line
+                                                                                    (@read_line
+                                                                                      /port))
+                                                                                  (cond ((@eof? /line)
+                                                                                         (set! /fl_flag1
+                                                                                           1))
+                                                                                        ((equal?
+                                                                                           /line
+                                                                                           "")
+                                                                                         (set! /fl_flag1
+                                                                                           1))
+                                                                                        ((not (@starts_with?
+                                                                                                /line
+                                                                                                "   "))
+                                                                                         (begin
+                                                                                           (display
+                                                                                             "ERROR2: badly formatted assign/phi line in bb file:")
+                                                                                           (newline)
+                                                                                           (force-output))
+                                                                                         (begin
+                                                                                           (display
+                                                                                             /line)
+                                                                                           (newline)
+                                                                                           (force-output))
+                                                                                         (set! /fl_flag1
+                                                                                           1))
+                                                                                        (#t
+                                                                                         (set! /p
+                                                                                           3)
+                                                                                         (let ((/-result-
+                                                                                                 (@parse_word
+                                                                                                   /line
+                                                                                                   /p
+                                                                                                   /v)))
+                                                                                           (set! /p
+                                                                                             (car /-result-))
+                                                                                           (set! /-result-
+                                                                                             (cdr /-result-))
+                                                                                           (set! /v
+                                                                                             (car /-result-))
+                                                                                           (set! /-result-
+                                                                                             (cdr /-result-)))
+                                                                                         (set! /list
+                                                                                           (list (@split_on
+                                                                                                   /v
+                                                                                                   ".")))
+                                                                                         (cond ((@str_match?
+                                                                                                  /line
+                                                                                                  /p
+                                                                                                  " := phi(")
+                                                                                                (set! /p
+                                                                                                  (+ /p
+                                                                                                     8))
+                                                                                                (let ((/-result-
+                                                                                                        (@parse_words
+                                                                                                          /line
+                                                                                                          /p
+                                                                                                          /list)))
+                                                                                                  (set! /p
+                                                                                                    (car /-result-))
+                                                                                                  (set! /-result-
+                                                                                                    (cdr /-result-))
+                                                                                                  (set! /list
+                                                                                                    (car /-result-))
+                                                                                                  (set! /-result-
+                                                                                                    (cdr /-result-)))
+                                                                                                (set! /phi
+                                                                                                  (cons /list
+                                                                                                        /phi))
+                                                                                                (set! /fl_flag1
+                                                                                                  0))
+                                                                                               ((@str_match?
+                                                                                                  /line
+                                                                                                  /p
+                                                                                                  " := <")
+                                                                                                (set! /p
+                                                                                                  (+ /p
+                                                                                                     5))
+                                                                                                (let ((/-result-
+                                                                                                        (@parse_words
+                                                                                                          /line
+                                                                                                          /p
+                                                                                                          /list)))
+                                                                                                  (set! /p
+                                                                                                    (car /-result-))
+                                                                                                  (set! /-result-
+                                                                                                    (cdr /-result-))
+                                                                                                  (set! /list
+                                                                                                    (car /-result-))
+                                                                                                  (set! /-result-
+                                                                                                    (cdr /-result-)))
+                                                                                                (set! /assigns
+                                                                                                  (cons /list
+                                                                                                        /assigns))
+                                                                                                (set! /fl_flag1
+                                                                                                  0))
+                                                                                               (#t
+                                                                                                (begin
+                                                                                                  (display
+                                                                                                    "ERROR3: badly formatted assign/phi line in bb file:")
+                                                                                                  (newline)
+                                                                                                  (force-output))
+                                                                                                (begin
+                                                                                                  (display
+                                                                                                    (let ((s /line))
+                                                                                                      (substring
+                                                                                                        s
+                                                                                                        /p
+                                                                                                        (string-length
+                                                                                                          s))))
+                                                                                                  (newline)
+                                                                                                  (force-output))
+                                                                                                (begin
+                                                                                                  (display
+                                                                                                    /line)
+                                                                                                  (newline)
+                                                                                                  (force-output))
+                                                                                                (set! /fl_flag1
+                                                                                                  1))))))
+                                                                                (while-loop))
+                                                                               (#t
+                                                                                #t)))
+                                                                       (set! /phi
+                                                                         (reverse
+                                                                           /phi))
+                                                                       (set! /assigns
+                                                                         (reverse
+                                                                           /assigns))
+                                                                       (set! //r
+                                                                         (cons (list /node
+                                                                                     /posn
+                                                                                     /len
+                                                                                     /succs
+                                                                                     /type
+                                                                                     /links
+                                                                                     /control
+                                                                                     /phi
+                                                                                     /assigns)
+                                                                               //r))
+                                                                       (cond ((@eof? /line)
+                                                                              (set! /fl_flag2
+                                                                                1))
+                                                                             (#t
+                                                                              (set! /fl_flag2
+                                                                                0))))))))))))))))))))
+             (while-loop))
+            (#t #t)))
+    (@close_input_port /port)
+    (set! funct-result (cons /entry (reverse //r)))
+    (set! /tmp /tmp-save)
+    (set! /word /word-save)
+    (set! /line /line-save)
+    (set! /list /list-save)
+    (set! /p /p-save)
+    (set! /n /n-save)
+    funct-result))
+
+(define (@parse_word /str /p1-par /word-par)
+  (let ((/word-save /word)
+        (/p1-save /p1)
+        (funct-result '()))
+    (set! /word /word-par)
+    (set! /p1 /p1-par)
+    (let ((/p2 0))
+      (set! /p1 (@skip_spaces /str /p1))
+      (set! /p2 /p1)
+      (let while-loop ()
+        (cond ((@char_in_str? /str /p2 //alpha_/num)
+               (set! /p2 (+ /p2 1))
+               (while-loop))
+              (#t #t)))
+      (set! /word
+        (let ((f /p1))
+          (substring /str f (+ f (- /p2 /p1)))))
+      (set! /p1 /p2))
+    (set! funct-result (list /p1 /word))
+    (set! /word /word-save)
+    (set! /p1 /p1-save)
+    funct-result))
+
+(define (@parse_num /str /p1-par /n-par)
+  (let ((/n-save /n) (/p1-save /p1) (funct-result '()))
+    (set! /n /n-par)
+    (set! /p1 /p1-par)
+    (let ((/p2 0))
+      (set! /p1 (@skip_spaces /str /p1))
+      (set! /p2 /p1)
+      (let while-loop ()
+        (cond ((@char_in_str? /str /p2 "0123456789")
+               (set! /p2 (+ /p2 1))
+               (while-loop))
+              (#t #t)))
+      (cond ((equal? /p2 /p1)
+             (error (string-append
+                      "Number not found where expected: "
+                      /str))))
+      (set! /n
+        (@string_to_num
+          (let ((f /p1))
+            (substring /str f (+ f (- /p2 /p1))))))
+      (set! /p1 /p2))
+    (set! funct-result (list /p1 /n))
+    (set! /n /n-save)
+    (set! /p1 /p1-save)
+    funct-result))
+
+(define (@parse_nums /str /p-par /list-par)
+  (let ((/list-save /list)
+        (/p-save /p)
+        (funct-result '()))
+    (set! /list /list-par)
+    (set! /p /p-par)
+    (let ((/n-save /n) (//l '()))
+      (set! /n 0)
+      (let while-loop ()
+        (cond ((and (> (string-length /str) /p)
+                    (not (@char_in_str? /str /p ")>")))
+               (begin
+                 (let ((/-result- (@parse_num /str /p /n)))
+                   (set! /p (car /-result-))
+                   (set! /-result- (cdr /-result-))
+                   (set! /n (car /-result-))
+                   (set! /-result- (cdr /-result-)))
+                 (set! //l (cons /n //l))
+                 (set! /p (@skip_spaces /str /p)))
+               (while-loop))
+              (#t #t)))
+      (set! /list (concat /list (reverse //l)))
+      (set! /n /n-save))
+    (set! funct-result (list /p /list))
+    (set! /list /list-save)
+    (set! /p /p-save)
+    funct-result))
+
+(define (@skip_spaces /str /p)
+  (let ((/l (string-length /str)))
+    (let while-loop ()
+      (cond ((and (< /p /l)
+                  (or (equal?
+                        (let ((f /p)) (substring /str f (+ f 1)))
+                        " ")
+                      (equal?
+                        (let ((f /p)) (substring /str f (+ f 1)))
+                        ",")))
+             (set! /p (+ /p 1))
+             (while-loop))
+            (#t #t))))
+  /p)
+
+(define (@str_match? /line /p /str)
+  (and (>= (string-length /line)
+           (+ /p (string-length /str)))
+       (equal?
+         (let ((f /p))
+           (substring /line f (+ f (string-length /str))))
+         /str)))
+
+(define (@split_on /str /sep)
+  (let ((//r '())
+        (/p-save /p)
+        (/q (let* ((s /str)
+                   (start 0)
+                   (index-result
+                     (substring?
+                       /sep
+                       (substring s start (string-length s)))))
+              (if index-result (+ start index-result) -1)))
+        (funct-result '()))
+    (set! /p 0)
+    (let while-loop ()
+      (cond ((>= /q 0)
+             (begin
+               (set! //r
+                 (cons (let ((f /p)) (substring /str f (+ f (- /q /p))))
+                       //r))
+               (set! /p (+ /q 1))
+               (set! /q
+                 (let* ((s /str)
+                        (start (+ /q 1))
+                        (index-result
+                          (substring?
+                            /sep
+                            (substring s start (string-length s)))))
+                   (if index-result (+ start index-result) -1))))
+             (while-loop))
+            (#t #t)))
+    (cond ((<= /p (string-length /str))
+           (set! //r
+             (cons (let ((s /str))
+                     (substring s /p (string-length s)))
+                   //r))))
+    (set! funct-result (reverse //r))
+    (set! /p /p-save)
+    funct-result))
+
+(define (@parse_words /line-par /p-par /list-par)
+  (let ((/list-save /list)
+        (/p-save /p)
+        (/line-save /line)
+        (funct-result '()))
+    (set! /list /list-par)
+    (set! /p /p-par)
+    (set! /line /line-par)
+    (let ((/word-save /word) (//l '()))
+      (set! /word "")
+      (let while-loop ()
+        (cond ((and (> (string-length /line) /p)
+                    (not (@char_in_str? /line /p ")>")))
+               (begin
+                 (let ((/-result- (@parse_word /line /p /word)))
+                   (set! /p (car /-result-))
+                   (set! /-result- (cdr /-result-))
+                   (set! /word (car /-result-))
+                   (set! /-result- (cdr /-result-)))
+                 (cond ((equal? /word "")
+                        (begin
+                          (display
+                            "ERROR: badly formatted word list in bb file:")
+                          (newline)
+                          (force-output))
+                        (begin (display /line) (newline) (force-output))
+                        (set! /p (string-length /line)))
+                       (#t
+                        (set! //l (cons (@split_on /word ".") //l))
+                        (set! /p (@skip_spaces /line /p)))))
+               (while-loop))
+              (#t #t)))
+      (set! /list (concat /list (reverse //l)))
+      (set! /word /word-save))
+    (set! funct-result (list /p /list))
+    (set! /list /list-save)
+    (set! /p /p-save)
+    (set! /line /line-save)
+    funct-result))
+
+(define (@print_elt_list /list-par)
+  (let ((/list-save /list))
+    (set! /list /list-par)
+    (let while-loop ()
+      (cond ((not (null? /list))
+             (begin
+               (@print_elt (car /list))
+               (set! /list (cdr /list))
+               (cond ((not (null? /list))
+                      (begin (display ", ") (force-output)))))
+             (while-loop))
+            (#t #t)))
+    (set! /list /list-save)))
+
+(define (@print_elt /elt)
+  (let while-loop ()
+    (cond ((not (null? /elt))
+           (begin
+             (begin
+               (display (@string (car /elt)))
+               (force-output))
+             (set! /elt (cdr /elt))
+             (cond ((not (null? /elt))
+                    (begin (display ".") (force-output)))))
+           (while-loop))
+          (#t #t))))
+
+(define (@print_basic_blocks /blocks)
+  (let ((/entry (car /blocks))
+        (/block '())
+        (/node 0)
+        (/posn '())
+        (/len 0)
+        (/succs '())
+        (/type "")
+        (/links-save /links)
+        (/control '())
+        (/phi '())
+        (/assigns '()))
+    (set! /links '())
+    (set! /blocks (cdr /blocks))
+    (let ((var-save /block) (seq-save /blocks))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /block (car for-tmp))
+               (begin
+                 (set! /node
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 1 1))
+                       (list-ref name (- 1 1)))))
+                 (set! /posn
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 2 1))
+                       (list-ref name (- 2 1)))))
+                 (set! /len
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 3 1))
+                       (list-ref name (- 3 1)))))
+                 (set! /succs
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 4 1))
+                       (list-ref name (- 4 1)))))
+                 (set! /type
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 5 1))
+                       (list-ref name (- 5 1)))))
+                 (set! /links
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 6 1))
+                       (list-ref name (- 6 1)))))
+                 (set! /control
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 7 1))
+                       (list-ref name (- 7 1)))))
+                 (set! /phi
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 8 1))
+                       (list-ref name (- 8 1)))))
+                 (set! /assigns
+                   (let ((name /block))
+                     (if (vector? name)
+                       (vector-ref name (- 9 1))
+                       (list-ref name (- 9 1)))))
+                 (begin
+                   (display "Node: ")
+                   (begin
+                     (display /node)
+                     (begin
+                       (display " posn:")
+                       (begin
+                         (display /posn)
+                         (begin
+                           (display " len: ")
+                           (begin
+                             (display /len)
+                             (begin (display " --> (") (force-output))))))))
+                 (set! /tmp /succs)
+                 (let while-loop ()
+                   (cond ((not (null? /tmp))
+                          (begin
+                            (begin (display (car /tmp)) (force-output))
+                            (set! /tmp (cdr /tmp))
+                            (cond ((not (null? /tmp))
+                                   (begin (display " ") (force-output)))))
+                          (while-loop))
+                         (#t #t)))
+                 (begin (display ")") (newline) (force-output))
+                 (cond ((not (equal? /type ""))
+                        (begin (display /type) (newline) (force-output))))
+                 (let ((var-save /line) (seq-save /links))
+                   (if (vector? seq-save)
+                     (set! seq-save (vector-elts seq-save)))
+                   (let for-in-loop ((for-tmp seq-save))
+                     (cond ((not (null? for-tmp))
+                            (set! /line (car for-tmp))
+                            (begin (display /line) (newline) (force-output))
+                            (for-in-loop (cdr for-tmp)))
+                           (#t #t)))
+                   (set! /line var-save))
+                 (begin (display "0: <") (force-output))
+                 (@print_elt_list /control)
+                 (begin (display ">") (newline) (force-output))
+                 (let ((var-save /list) (seq-save /phi))
+                   (if (vector? seq-save)
+                     (set! seq-save (vector-elts seq-save)))
+                   (let for-in-loop ((for-tmp seq-save))
+                     (cond ((not (null? for-tmp))
+                            (set! /list (car for-tmp))
+                            (begin
+                              (begin (display "   ") (force-output))
+                              (@print_elt (car /list))
+                              (begin (display " := phi(") (force-output))
+                              (@print_elt_list (cdr /list))
+                              (begin (display ")") (newline) (force-output)))
+                            (for-in-loop (cdr for-tmp)))
+                           (#t #t)))
+                   (set! /list var-save))
+                 (let ((var-save /list) (seq-save /assigns))
+                   (if (vector? seq-save)
+                     (set! seq-save (vector-elts seq-save)))
+                   (let for-in-loop ((for-tmp seq-save))
+                     (cond ((not (null? for-tmp))
+                            (set! /list (car for-tmp))
+                            (begin
+                              (begin (display "   ") (force-output))
+                              (@print_elt (car /list))
+                              (begin (display " := <") (force-output))
+                              (@print_elt_list (cdr /list))
+                              (begin (display ">") (newline) (force-output)))
+                            (for-in-loop (cdr for-tmp)))
+                           (#t #t)))
+                   (set! /list var-save))
+                 (begin (display "") (newline) (force-output)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /block var-save))
+    (begin
+      (display "Entry node is: ")
+      (begin (display /entry) (newline) (force-output)))
+    (set! /links /links-save)))
+
+(define (@wsl_to_ssa //i /blocks /only-par)
+  (let ((/only-save /only)
+        (//r '())
+        (/entry (car /blocks))
+        (/block '())
+        (/a_name (@make_name "a"))
+        (/rename_exp-save /rename_exp)
+        (/rename_lvalue-save /rename_lvalue)
+        (/assign-save /assign)
+        (/elt '())
+        (/len 0)
+        (/elts '())
+        (/v '())
+        (/phi_tab (my-make-hash-table 16))
+        (/count-save /count)
+        (funct-result '()))
+    (set! /only /only-par)
+    (set! /rename_exp (my-make-hash-table 16))
+    (set! /rename_lvalue (my-make-hash-table 16))
+    (set! /assign '())
+    (set! /count 0)
+    (@edit)
+    (@new_program //i)
+    (set! /blocks (cdr /blocks))
+    (let ((var-save /block) (seq-save /blocks))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /block (car for-tmp))
+               (cond ((equal?
+                        (let ((name /block))
+                          (if (vector? name)
+                            (vector-ref name (- 5 1))
+                            (list-ref name (- 5 1))))
+                        "FLOOP Header"))
+                     (#t
+                      (set! /rename_exp (my-make-hash-table 16))
+                      (set! /rename_lvalue (my-make-hash-table 16))
+                      (let ((var-save /elt)
+                            (seq-save
+                              (let ((name /block))
+                                (if (vector? name)
+                                  (vector-ref name (- 7 1))
+                                  (list-ref name (- 7 1))))))
+                        (if (vector? seq-save)
+                          (set! seq-save (vector-elts seq-save)))
+                        (let for-in-loop ((for-tmp seq-save))
+                          (cond ((not (null? for-tmp))
+                                 (set! /elt (car for-tmp))
+                                 (puthash
+                                   /rename_exp
+                                   (@ssa_orig_elt /elt)
+                                   (@ssa_convert_elt /elt //t_/expression))
+                                 (for-in-loop (cdr for-tmp)))
+                                (#t #t)))
+                        (set! /elt var-save))
+                      (let ((var-save /assign)
+                            (seq-save
+                              (let ((name /block))
+                                (if (vector? name)
+                                  (vector-ref name (- 9 1))
+                                  (list-ref name (- 9 1))))))
+                        (if (vector? seq-save)
+                          (set! seq-save (vector-elts seq-save)))
+                        (let for-in-loop ((for-tmp seq-save))
+                          (cond ((not (null? for-tmp))
+                                 (set! /assign (car for-tmp))
+                                 (begin
+                                   (set! /elt (car /assign))
+                                   (puthash
+                                     /rename_lvalue
+                                     (@ssa_orig_elt /elt)
+                                     (@ssa_convert_elt /elt //t_/lvalue))
+                                   (let ((var-save /elt)
+                                         (seq-save (cdr /assign)))
+                                     (if (vector? seq-save)
+                                       (set! seq-save (vector-elts seq-save)))
+                                     (let for-in-loop ((for-tmp seq-save))
+                                       (cond ((not (null? for-tmp))
+                                              (set! /elt (car for-tmp))
+                                              (puthash
+                                                /rename_exp
+                                                (@ssa_orig_elt /elt)
+                                                (@ssa_convert_elt
+                                                  /elt
+                                                  //t_/expression))
+                                              (for-in-loop (cdr for-tmp)))
+                                             (#t #t)))
+                                     (set! /elt var-save)))
+                                 (for-in-loop (cdr for-tmp)))
+                                (#t #t)))
+                        (set! /assign var-save))
+                      (cond ((not (@valid_posn?
+                                    (@program)
+                                    (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 2 1))
+                                        (list-ref name (- 2 1))))))
+                             (begin
+                               (display
+                                 (let ((name /block))
+                                   (if (vector? name)
+                                     (vector-ref name (- 2 1))
+                                     (list-ref name (- 2 1)))))
+                               (newline)
+                               (force-output))
+                             (@checkpoint "SSA_ERROR.wsl")
+                             (error "@WSL_To_SSA: not a valid position!")))
+                      (@goto (let ((name /block))
+                               (if (vector? name)
+                                 (vector-ref name (- 2 1))
+                                 (list-ref name (- 2 1)))))
+                      (set! /elts '())
+                      (set! /len
+                        (let ((name /block))
+                          (if (vector? name)
+                            (vector-ref name (- 3 1))
+                            (list-ref name (- 3 1)))))
+                      (cond ((and (= /len 1)
+                                  (equal?
+                                    (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 5 1))
+                                        (list-ref name (- 5 1))))
+                                    "IF"))
+                             (@down)
+                             (@down)
+                             (@ssa_rename /rename_exp /rename_lvalue /only)
+                             (@up)
+                             (let while-loop ()
+                               (cond ((@right?)
+                                      (begin
+                                        (@right)
+                                        (@down)
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only)
+                                        (@up))
+                                      (while-loop))
+                                     (#t #t)))
+                             (@up))
+                            ((and (= /len 1)
+                                  (equal?
+                                    (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 5 1))
+                                        (list-ref name (- 5 1))))
+                                    "WHILE Header"))
+                             (@down)
+                             (@ssa_rename /rename_exp /rename_lvalue /only)
+                             (@up))
+                            ((and (= /len 1)
+                                  (@starts_with?
+                                    (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 5 1))
+                                        (list-ref name (- 5 1))))
+                                    "ACTION ")))
+                            ((and (= /len 1)
+                                  (@starts_with?
+                                    (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 5 1))
+                                        (list-ref name (- 5 1))))
+                                    "PROC Return "))
+                             (@ssa_rename /rename_exp /rename_exp /only))
+                            ((@starts_with?
+                               (let ((name /block))
+                                 (if (vector? name)
+                                   (vector-ref name (- 5 1))
+                                   (list-ref name (- 5 1))))
+                               "PROC Header")
+                             (@down_to 2)
+                             (@ssa_rename /rename_exp /rename_lvalue /only)
+                             (@right)
+                             (@ssa_rename /rename_exp /rename_lvalue /only)
+                             (@up))
+                            ((equal?
+                               (let ((name /block))
+                                 (if (vector? name)
+                                   (vector-ref name (- 5 1))
+                                   (list-ref name (- 5 1))))
+                               "WHERE Header"))
+                            (#t
+                             (set! /elts (@elts_assigned (@i)))
+                             (@ssa_rename /rename_exp /rename_lvalue /only)))
+                      (let while-loop ()
+                        (cond ((not (= /len 1))
+                               (begin
+                                 (let ((var-save /v) (seq-save /elts))
+                                   (if (vector? seq-save)
+                                     (set! seq-save (vector-elts seq-save)))
+                                   (let for-in-loop ((for-tmp seq-save))
+                                     (cond ((not (null? for-tmp))
+                                            (set! /v (car for-tmp))
+                                            (cond ((not (null? (gethash
+                                                                 /rename_lvalue
+                                                                 /v)))
+                                                   (puthash
+                                                     /rename_exp
+                                                     /v
+                                                     (@lvalue_to_expn
+                                                       (gethash
+                                                         /rename_lvalue
+                                                         /v)))))
+                                            (for-in-loop (cdr for-tmp)))
+                                           (#t #t)))
+                                   (set! /v var-save))
+                                 (@right)
+                                 (set! /len (- /len 1))
+                                 (cond ((and (= /len 1)
+                                             (equal?
+                                               (let ((name /block))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 5 1))
+                                                   (list-ref name (- 5 1))))
+                                               "IF"))
+                                        (@down)
+                                        (@down)
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only)
+                                        (@up)
+                                        (let while-loop ()
+                                          (cond ((@right?)
+                                                 (begin
+                                                   (@right)
+                                                   (@down)
+                                                   (@ssa_rename
+                                                     /rename_exp
+                                                     /rename_lvalue
+                                                     /only)
+                                                   (@up))
+                                                 (while-loop))
+                                                (#t #t)))
+                                        (@up))
+                                       ((and (= /len 1)
+                                             (equal?
+                                               (let ((name /block))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 5 1))
+                                                   (list-ref name (- 5 1))))
+                                               "WHILE Header"))
+                                        (@down)
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only)
+                                        (@up))
+                                       ((and (= /len 1)
+                                             (@starts_with?
+                                               (let ((name /block))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 5 1))
+                                                   (list-ref name (- 5 1))))
+                                               "ACTION ")))
+                                       ((and (= /len 1)
+                                             (@starts_with?
+                                               (let ((name /block))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 5 1))
+                                                   (list-ref name (- 5 1))))
+                                               "PROC Return "))
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_exp
+                                          /only))
+                                       ((@starts_with?
+                                          (let ((name /block))
+                                            (if (vector? name)
+                                              (vector-ref name (- 5 1))
+                                              (list-ref name (- 5 1))))
+                                          "PROC Header")
+                                        (@down_to 2)
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only)
+                                        (@right)
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only)
+                                        (@up))
+                                       ((equal?
+                                          (let ((name /block))
+                                            (if (vector? name)
+                                              (vector-ref name (- 5 1))
+                                              (list-ref name (- 5 1))))
+                                          "WHERE Header"))
+                                       (#t
+                                        (set! /elts (@elts_assigned (@i)))
+                                        (@ssa_rename
+                                          /rename_exp
+                                          /rename_lvalue
+                                          /only))))
+                               (while-loop))
+                              (#t #t)))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /block var-save))
+    (@goto '())
+    (@foreach_statement
+      /foreach-/s/s/a-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let ((var-save /block) (seq-save /blocks))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /block (car for-tmp))
+               (begin
+                 (@goto (let ((name /block))
+                          (if (vector? name)
+                            (vector-ref name (- 2 1))
+                            (list-ref name (- 2 1)))))
+                 (cond ((not (null? (let ((name /block))
+                                      (if (vector? name)
+                                        (vector-ref name (- 8 1))
+                                        (list-ref name (- 8 1))))))
+                        (set! /count
+                          (+ /count
+                             (if (vector?
+                                   (let ((name /block))
+                                     (if (vector? name)
+                                       (vector-ref name (- 8 1))
+                                       (list-ref name (- 8 1)))))
+                               (vector-length
+                                 (let ((name /block))
+                                   (if (vector? name)
+                                     (vector-ref name (- 8 1))
+                                     (list-ref name (- 8 1)))))
+                               (length
+                                 (let ((name /block))
+                                   (if (vector? name)
+                                     (vector-ref name (- 8 1))
+                                     (list-ref name (- 8 1))))))))
+                        (cond ((@starts_with?
+                                 (let ((name /block))
+                                   (if (vector? name)
+                                     (vector-ref name (- 5 1))
+                                     (list-ref name (- 5 1))))
+                                 "ACTION ")
+                               (@down_last)
+                               (@down)))
+                        (cond ((@starts_with?
+                                 (let ((name /block))
+                                   (if (vector? name)
+                                     (vector-ref name (- 5 1))
+                                     (list-ref name (- 5 1))))
+                                 "PROC Return ")
+                               (@to 4)
+                               (@down_last)
+                               (cond ((not (= (@st (@i)) //t_/skip))
+                                      (error "No SKIP at end of proc!!!")))))
+                        (cond ((not (= (@gt (@i)) //t_/statement))
+                               (@print_wsl (@i) "")
+                               (begin
+                                 (display "posn = ")
+                                 (begin
+                                   (display (@posn))
+                                   (newline)
+                                   (force-output)))
+                               (error "Trying to insert phi functions on a non-statement!!!")))
+                        (puthash
+                          /phi_tab
+                          (reverse (@posn))
+                          (concat
+                            (gethash /phi_tab (reverse (@posn)))
+                            (let ((name /block))
+                              (if (vector? name)
+                                (vector-ref name (- 8 1))
+                                (list-ref name (- 8 1)))))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /block var-save))
+    (@goto '())
+    (set! /count
+      (@ssa_phi_insert '() /phi_tab /only /count))
+    (cond ((not (= /count 0))
+           (error (string-append
+                    (@string /count)
+                    " phi function(s) inserted but not processed!"))))
+    (@trans //t/r_/delete_/all_/skips "")
+    (set! //r (@program))
+    (@undo_edit)
+    (set! funct-result //r)
+    (set! /only /only-save)
+    (set! /rename_exp /rename_exp-save)
+    (set! /rename_lvalue /rename_lvalue-save)
+    (set! /assign /assign-save)
+    (set! /count /count-save)
+    funct-result))
+
+(define (@ssa_phi_insert
+         /rposn
+         /phi_tab
+         /only-par
+         /count-par)
+  (let ((/count-save /count)
+        (/only-save /only)
+        (funct-result '()))
+    (set! /count /count-par)
+    (set! /only /only-par)
+    (cond ((not (@has_statements_type? (@gt (@i)))) #t)
+          ((@cs? (@i))
+           (let ((/phi '()) (/n-save /n) (/up 0))
+             (set! /n 1)
+             (@down)
+             (set! /fl_flag1 0)
+             (let while-loop ()
+               (cond ((= /fl_flag1 0)
+                      (begin
+                        (set! /count
+                          (@ssa_phi_insert
+                            (cons /n /rposn)
+                            /phi_tab
+                            /only
+                            /count))
+                        (set! /phi (gethash /phi_tab (cons /n /rposn)))
+                        (cond ((not (null? /phi))
+                               (cond ((= (@st (@i)) //t_/floop)
+                                      (@down)
+                                      (@down)
+                                      (set! /up 2))
+                                     ((= (@st (@i)) //t_/while)
+                                      (@trans //t/r_/while_/to_/floop "")
+                                      (@down)
+                                      (@down)
+                                      (set! /up 2))
+                                     ((= (@st (@i)) //t_/d_/do)
+                                      (@trans //t/r_/d_/do_/to_/floop "")
+                                      (@down)
+                                      (@down)
+                                      (set! /up 2))
+                                     (#t (set! /up 0)))
+                               (let ((var-save /assign)
+                                     (seq-save (reverse /phi)))
+                                 (if (vector? seq-save)
+                                   (set! seq-save (vector-elts seq-save)))
+                                 (let for-in-loop ((for-tmp seq-save))
+                                   (cond ((not (null? for-tmp))
+                                          (set! /assign (car for-tmp))
+                                          (begin
+                                            (set! /count (- /count 1))
+                                            (cond ((or (null? /only)
+                                                       (member
+                                                         (@ssa_orig_elt
+                                                           (car /assign))
+                                                         /only))
+                                                   (@paste_before
+                                                     (@ssa_make_phi /assign)))
+                                                  (#t (@paste_before (@skip)))))
+                                          (for-in-loop (cdr for-tmp)))
+                                         (#t #t)))
+                                 (set! /assign var-save))
+                               (let ((var-save /i)
+                                     (for-step 1)
+                                     (for-end
+                                       (if (vector? /phi)
+                                         (vector-length /phi)
+                                         (length /phi))))
+                                 (set! /i 1)
+                                 (let for-loop ()
+                                   (cond ((or (and (> 1 0) (<= /i for-end))
+                                              (and (< 1 0) (>= /i for-end)))
+                                          (@right)
+                                          (set! /i (+ /i for-step))
+                                          (for-loop))
+                                         (#t #t)))
+                                 (set! /i var-save))
+                               (let while-loop ()
+                                 (cond ((> /up 0)
+                                        (begin (set! /up (- /up 1)) (@up))
+                                        (while-loop))
+                                       (#t #t)))))
+                        (cond ((not (@right?)) (set! /fl_flag1 1))
+                              (#t
+                               (set! /n (+ /n 1))
+                               (@right)
+                               (set! /fl_flag1 0))))
+                      (while-loop))
+                     (#t #t)))
+             (@up)
+             (set! /n /n-save))))
+    (set! funct-result /count)
+    (set! /count /count-save)
+    (set! /only /only-save)
+    funct-result))
+
+(define (@ssa_convert_elt /elt /type)
+  (if (= /type //t_/expression)
+    (@elt_to_expn
+      (let ((l /elt) (map-result '()))
+        (let while-loop ()
+          (cond ((not (null? l))
+                 (set! map-result
+                   (cons (@ssa_make_name (car l)) map-result))
+                 (set! l (cdr l))
+                 (while-loop))
+                (#t #t)))
+        (reverse map-result)))
+    (@elt_to_lvalue
+      (let ((l /elt) (map-result '()))
+        (let while-loop ()
+          (cond ((not (null? l))
+                 (set! map-result
+                   (cons (@ssa_make_name (car l)) map-result))
+                 (set! l (cdr l))
+                 (while-loop))
+                (#t #t)))
+        (reverse map-result)))))
+
+(define (@ssa_make_name /x)
+  (if (number? /x) (- /x) (@make_name /x)))
+
+(define (@ssa_orig_elt /elt)
+  (let ((/str (last-1 /elt))
+        (/p-save /p)
+        (funct-result '()))
+    (set! /p (- 1))
+    (let while-loop ()
+      (cond ((>= (let* ((s /str)
+                        (start (+ /p 1))
+                        (index-result
+                          (substring?
+                            "__"
+                            (substring s start (string-length s)))))
+                   (if index-result (+ start index-result) -1))
+                 0)
+             (set! /p
+               (let* ((s /str)
+                      (start (+ /p 1))
+                      (index-result
+                        (substring?
+                          "__"
+                          (substring s start (string-length s)))))
+                 (if index-result (+ start index-result) -1)))
+             (while-loop))
+            (#t #t)))
+    (cond ((< /p 0)
+           (error (string-append
+                    "@SSA_Orig_Elt: no __ found in "
+                    /str))))
+    (cond ((>= (let* ((s /str)
+                      (start 0)
+                      (index-result
+                        (substring?
+                          "["
+                          (substring s start (string-length s)))))
+                 (if index-result (+ start index-result) -1))
+               0)
+           (set! /p
+             (let* ((s /str)
+                    (start 0)
+                    (index-result
+                      (substring?
+                        "["
+                        (substring s start (string-length s)))))
+               (if index-result (+ start index-result) -1)))))
+    (set! funct-result
+      (let ((l (concat
+                 (butlast-1 /elt)
+                 (list (let ((f 0)) (substring /str f (+ f /p))))))
+            (map-result '()))
+        (let while-loop ()
+          (cond ((not (null? l))
+                 (set! map-result
+                   (cons (@ssa_make_name (car l)) map-result))
+                 (set! l (cdr l))
+                 (while-loop))
+                (#t #t)))
+        (reverse map-result)))
+    (set! /p /p-save)
+    funct-result))
+
+(define (@ssa_orig_var //i)
+  (let ((//r '()))
+    (cond ((= (@st //i) //t_/struct)
+           (set! //r
+             (@make //t_/struct
+                    '()
+                    (list (@ssa_orig_name (list-ref //i (+ 1 1)))
+                          (list-ref //i (+ 1 2))))))
+          ((= (@st //i) //t_/struct_/lvalue)
+           (set! //r
+             (@make //t_/struct_/lvalue
+                    '()
+                    (list (@ssa_orig_name (list-ref //i (+ 1 1)))
+                          (list-ref //i (+ 1 2))))))
+          ((or (= (@st //i) //t_/variable)
+               (= (@st //i) //t_/var_/lvalue))
+           (set! //r (@ssa_orig_name //i)))
+          ((or (and (= (@st //i) //t_/aref)
+                    (= (@st (list-ref //i (+ 1 1))) //t_/variable))
+               (and (= (@st //i) //t_/aref_/lvalue)
+                    (= (@st (list-ref //i (+ 1 1))) //t_/var_/lvalue)))
+           (set! //r
+             (@make (@st //i)
+                    '()
+                    (list (list-ref //i (+ 1 1))
+                          (@make //t_/expressions
+                                 '()
+                                 (cons (@ssa_orig_var
+                                         (list-ref
+                                           (list-ref //i (+ 1 2))
+                                           (+ 1 1)))
+                                       (cdr (@cs (list-ref //i (+ 1 2))))))))))
+          (#t
+           (@print_wsl //i "")
+           (error "@SSA_Orig_Var: unexpected type!")))
+    //r))
+
+(define (@ssa_orig_name //i)
+  (let ((/str (@n_string (@v //i)))
+        (/p-save /p)
+        (funct-result '()))
+    (set! /p (- 1))
+    (let while-loop ()
+      (cond ((>= (let* ((s /str)
+                        (start (+ /p 1))
+                        (index-result
+                          (substring?
+                            "__"
+                            (substring s start (string-length s)))))
+                   (if index-result (+ start index-result) -1))
+                 0)
+             (set! /p
+               (let* ((s /str)
+                      (start (+ /p 1))
+                      (index-result
+                        (substring?
+                          "__"
+                          (substring s start (string-length s)))))
+                 (if index-result (+ start index-result) -1)))
+             (while-loop))
+            (#t #t)))
+    (set! funct-result
+      (@make (@st //i)
+             (@make_name
+               (let ((f 0)) (substring /str f (+ f /p))))
+             '()))
+    (set! /p /p-save)
+    funct-result))
+
+(define (@ssa_make_phi /assign-par)
+  (let ((/assign-save /assign)
+        (/v (@ssa_convert_elt (car /assign-par) //t_/lvalue))
+        (/e '())
+        (/elt '())
+        (funct-result '()))
+    (set! /assign /assign-par)
+    (let ((var-save /elt) (seq-save (cdr /assign)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /elt (car for-tmp))
+               (set! /e
+                 (cons (@ssa_convert_elt /elt //t_/expression) /e))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /elt var-save))
+    (set! /e (reverse /e))
+    (set! funct-result
+      (@make 110
+             '()
+             (list (@make 6
+                          '()
+                          (list (@expn_to_var /v)
+                                (@make 214
+                                       '()
+                                       (list (@make 9 (@make_name "phi") '())
+                                             (@make 10
+                                                    '()
+                                                    (@var_to_expn_list
+                                                      /e)))))))))
+    (set! /assign /assign-save)
+    funct-result))
+
+(define (@ssa_rename
+         /rename_exp-par
+         /rename_lvalue-par
+         /only-par)
+  (let ((/only-save /only)
+        (/rename_lvalue-save /rename_lvalue)
+        (/rename_exp-save /rename_exp))
+    (set! /only /only-par)
+    (set! /rename_lvalue /rename_lvalue-par)
+    (set! /rename_exp /rename_exp-par)
+    (cond ((= (@st (@i)) //t_/a_/proc_/call)
+           (@ssa_fix_a_proc_call)))
+    (let ((/old-save /old) (/new-save /new))
+      (set! /old '())
+      (set! /new '())
+      (@foreach_expn /foreach-/s/s/a-2 0 (@as_type) 0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_lvalue
+        /foreach-/s/s/a-3
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! /old /old-save)
+      (set! /new /new-save))
+    (set! /only /only-save)
+    (set! /rename_lvalue /rename_lvalue-save)
+    (set! /rename_exp /rename_exp-save)))
+
+(define (@ssa_fix_a_proc_call)
+  (let ((/val (@elements (list-ref (@i) (+ 1 2))))
+        (/var (@elements (list-ref (@i) (+ 1 3))))
+        (/extra '()))
+    (set! /extra
+      (@mth_sort
+        (let ((l (@set_difference /var /val))
+              (map-result '()))
+          (let while-loop ()
+            (cond ((not (null? l))
+                   (set! map-result
+                     (cons (@elt_to_expn (car l)) map-result))
+                   (set! l (cdr l))
+                   (while-loop))
+                  (#t #t)))
+          (reverse map-result))))
+    (cond ((not (null? /extra))
+           (@down_to 2)
+           (@paste_over
+             (@make //t_/expressions
+                    '()
+                    (concat (@cs (@i)) /extra)))
+           (@up)))))
+

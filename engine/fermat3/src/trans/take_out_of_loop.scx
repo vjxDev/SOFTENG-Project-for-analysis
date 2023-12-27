@@ -1,0 +1,495 @@
+(define (/foreach-take_out_of_loop-1 //depth //a/s_/type)
+  (cond ((not (null? (gethash /posns (@posn))))
+         (@delete_rest)
+         (@paste_over (@make //t_/exit //depth '())))))
+
+(define (/foreach-take_out_of_loop-2 //depth //a/s_/type)
+  (cond ((@failed?) #t)
+        ((and (= (@st (@i)) //t_/exit)
+              (> (- (@v (@i)) //depth) (- //max_/t/v /loops)))
+         #t)
+        (#t
+         (cond ((equal? //min_/t/v //omega)
+                (set! //s1 (car //incs)))
+               (#t
+                (set! /inc (+ //depth (- //min_/t/v /loops)))
+                (cond ((<= (if (vector? //incs)
+                             (vector-length //incs)
+                             (length //incs))
+                           (+ /inc 1))
+                       (set! //incs
+                         (@tol_add_incs //incs //s //a/s_/type /inc))))
+                (set! //s1
+                  (let ((name //incs))
+                    (if (vector? name)
+                      (vector-ref name (- (+ /inc 1) 1))
+                      (list-ref name (- (+ /inc 1) 1)))))))
+         (set! //l (reverse (@cs //s1)))
+         (cond ((@equal? (car //l) (@i))
+                (let ((/-result-
+                        (@tol_check_list
+                          //l
+                          //a/s_/type
+                          //depth
+                          //o/k
+                          /posns)))
+                  (set! //o/k (car /-result-))
+                  (set! /-result- (cdr /-result-))
+                  (set! /posns (car /-result-))
+                  (set! /-result- (cdr /-result-)))
+                (@to_last))
+               (#t (set! //o/k 0)))
+         (cond ((= //o/k 0)
+                (set! //o/k 1)
+                (set! /posn (@posn))
+                (let ((//depth-save //depth))
+                  (set! //depth //depth)
+                  (set! /fl_flag1 0)
+                  (let while-loop ()
+                    (cond ((= /fl_flag1 0)
+                           (begin
+                             (@up)
+                             (@up_to_statement)
+                             (cond ((not (@up?))
+                                    (set! //o/k 0)
+                                    (set! /fl_flag1 1))
+                                   (#t
+                                    (cond ((= (@st (@i)) //t_/floop)
+                                           (set! //depth (- //depth 1))
+                                           (cond ((not (equal?
+                                                         //min_/t/v
+                                                         //omega))
+                                                  (set! /inc (- /inc 1))
+                                                  (set! //l
+                                                    (reverse
+                                                      (@cs (let ((name //incs))
+                                                             (if (vector? name)
+                                                               (vector-ref
+                                                                 name
+                                                                 (- (+ /inc 1)
+                                                                    1))
+                                                               (list-ref
+                                                                 name
+                                                                 (- (+ /inc 1)
+                                                                    1)))))))))))
+                                    (cond ((@equal? (car //l) (@i))
+                                           (let ((/-result-
+                                                   (@tol_check_list
+                                                     //l
+                                                     //a/s_/type
+                                                     //depth
+                                                     //o/k
+                                                     /posns)))
+                                             (set! //o/k (car /-result-))
+                                             (set! /-result- (cdr /-result-))
+                                             (set! /posns (car /-result-))
+                                             (set! /-result- (cdr /-result-)))
+                                           (cond ((= //o/k 1)
+                                                  (set! /fl_flag1 1))
+                                                 (#t (set! /fl_flag1 0))))
+                                          (#t (set! /fl_flag1 0))))))
+                           (while-loop))
+                          (#t #t)))
+                  (set! //depth //depth-save))
+                (@goto /posn)))
+         (cond ((and (= //o/k 0)
+                     (equal?
+                       (@gen_tvs (@i) //a/s_/type)
+                       (list //omega)))
+                (set! //o/k 1)))
+         (cond ((= //o/k 0)
+                (@fail "Not all terminal statements match the selected statement"))))))
+
+(define (@take_out_of_loop_test)
+  (cond ((and (= (@gt (@i)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (cond ((not (@up?))
+         (@fail "It is not possible to take the whole program out of anything."))
+        ((not (= (@gt (@i)) //t_/statement))
+         (@fail "The selected item is not a statement."))
+        ((= (@st (@i)) //t_/exit)
+         (@fail "A single EXIT statement cannot be taken out"))
+        (#t (@take_out_of_loop_test2))))
+
+(define (@take_out_of_loop_test2)
+  (let ((//s-save //s)
+        (//a/s_/type-save //a/s_/type)
+        (/loops-save /loops)
+        (/posns-save /posns))
+    (set! //s '())
+    (set! //a/s_/type (@as_type))
+    (set! /loops 0)
+    (set! /posns (my-make-hash-table 16))
+    (set! //s (@cs (@parent)))
+    (set! //s
+      (@make //t_/statements
+             '()
+             (@final_seg //s (@posn_n))))
+    (cond ((member 0 (@gen_tvs //s //a/s_/type))
+           (@fail "The statement will not always lead to termination of the loop"))
+          (#t
+           (let ((/-result-
+                   (@tol_count_loops //s //a/s_/type /loops /posns)))
+             (set! /loops (car /-result-))
+             (set! /-result- (cdr /-result-))
+             (set! /posns (car /-result-))
+             (set! /-result- (cdr /-result-)))
+           (cond ((= /loops 0)
+                  (@fail "The statement is not in a suitable loop."))
+                 (#t (@pass)))))
+    (set! //s //s-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! /loops /loops-save)
+    (set! /posns /posns-save)))
+
+(define (@take_out_of_loop_code //data)
+  (cond ((and (= (@gt (@i)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (let ((//s-save //s)
+        (//a/s_/type-save //a/s_/type)
+        (/loops-save /loops)
+        (/posns-save /posns)
+        (//o/k-save //o/k)
+        (/inc-save /inc))
+    (set! //s '())
+    (set! //a/s_/type (@as_type))
+    (set! /loops 0)
+    (set! /posns (my-make-hash-table 16))
+    (set! //o/k 0)
+    (set! /inc 0)
+    (set! //s (@cs (@parent)))
+    (set! //s
+      (@make //t_/statements
+             '()
+             (@final_seg //s (@posn_n))))
+    (let ((/-result-
+            (@tol_count_loops //s //a/s_/type /loops /posns)))
+      (set! /loops (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /posns (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (@edit)
+    (@trans //t/r_/delete_/all_/skips "")
+    (@ateach_statement
+      /foreach-take_out_of_loop-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@end_edit)
+    (set! //s
+      (@cs (@increment //s //a/s_/type (- /loops) 0)))
+    (cond ((= (@st (last-1 //s)) //t_/skip)
+           (set! //s (butlast-1 //s))))
+    (@splice_after //s)
+    (set! //s //s-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! /loops /loops-save)
+    (set! /posns /posns-save)
+    (set! //o/k //o/k-save)
+    (set! /inc /inc-save)))
+
+(define (@tol_count_loops
+         //s-par
+         //a/s_/type-par
+         /loops-par
+         /posns-par)
+  (let ((/posns-save /posns)
+        (/loops-save /loops)
+        (//a/s_/type-save //a/s_/type)
+        (//s-save //s)
+        (funct-result '()))
+    (set! /posns /posns-par)
+    (set! /loops /loops-par)
+    (set! //a/s_/type //a/s_/type-par)
+    (set! //s //s-par)
+    (let ((//min_/t/v-save //min_/t/v)
+          (//max_/t/v-save //max_/t/v)
+          (//o/k-save //o/k))
+      (set! //min_/t/v
+        (@tol_min_tv (@gen_tvs //s //a/s_/type)))
+      (set! //max_/t/v
+        (@tol_max_tv (@gen_tvs //s //a/s_/type)))
+      (set! //o/k 0)
+      (set! //s
+        (@tol_normalise //s //a/s_/type //min_/t/v))
+      (set! /fl_flag2 0)
+      (let while-loop ()
+        (cond ((= /fl_flag2 0)
+               (begin
+                 (set! /fl_flag1 0)
+                 (let while-loop ()
+                   (cond ((= /fl_flag1 0)
+                          (cond ((or (not (@up?)) (@simple? (@parent)))
+                                 (set! /loops 0)
+                                 (set! /fl_flag1 2))
+                                (#t
+                                 (@up)
+                                 (cond ((= (@st (@i)) //t_/floop)
+                                        (set! /fl_flag1 1))
+                                       (#t (set! /fl_flag1 0)))))
+                          (while-loop))
+                         (#t #t)))
+                 (cond ((= /fl_flag1 2) (set! /fl_flag2 1))
+                       (#t
+                        (set! /loops (+ /loops 1))
+                        (begin
+                          (display "loops = ")
+                          (begin
+                            (display /loops)
+                            (begin
+                              (display " Min_TV = ")
+                              (begin
+                                (display //min_/t/v)
+                                (newline)
+                                (force-output)))))
+                        (cond ((and (not (equal? //min_/t/v //omega))
+                                    (> /loops //min_/t/v))
+                               (set! /loops 0)
+                               (set! /fl_flag2 1))
+                              (#t
+                               (set! /posns (my-make-hash-table 16))
+                               (let ((/-result-
+                                       (@tol_check_loop
+                                         //s
+                                         //a/s_/type
+                                         //min_/t/v
+                                         //max_/t/v
+                                         /loops
+                                         0
+                                         //o/k
+                                         /posns)))
+                                 (set! //o/k (car /-result-))
+                                 (set! /-result- (cdr /-result-))
+                                 (set! /posns (car /-result-))
+                                 (set! /-result- (cdr /-result-)))
+                               (begin
+                                 (display "after check, OK = ")
+                                 (begin
+                                   (display //o/k)
+                                   (newline)
+                                   (force-output)))
+                               (cond ((= //o/k 1) (set! /fl_flag2 1))
+                                     (#t (set! /fl_flag2 0))))))))
+               (while-loop))
+              (#t #t)))
+      (set! //min_/t/v //min_/t/v-save)
+      (set! //max_/t/v //max_/t/v-save)
+      (set! //o/k //o/k-save))
+    (set! funct-result (list /loops /posns))
+    (set! /posns /posns-save)
+    (set! /loops /loops-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! //s //s-save)
+    funct-result))
+
+(define (@tol_check_loop
+         //s-par
+         //a/s_/type-par
+         //min_/t/v-par
+         //max_/t/v-par
+         /loops-par
+         //update
+         //o/k-par
+         /posns-par)
+  (let ((/posns-save /posns)
+        (//o/k-save //o/k)
+        (/loops-save /loops)
+        (//max_/t/v-save //max_/t/v)
+        (//min_/t/v-save //min_/t/v)
+        (//a/s_/type-save //a/s_/type)
+        (//s-save //s)
+        (funct-result '()))
+    (set! /posns /posns-par)
+    (set! //o/k //o/k-par)
+    (set! /loops /loops-par)
+    (set! //max_/t/v //max_/t/v-par)
+    (set! //min_/t/v //min_/t/v-par)
+    (set! //a/s_/type //a/s_/type-par)
+    (set! //s //s-par)
+    (let ((/inc-save /inc)
+          (//incs-save //incs)
+          (//s1-save //s1)
+          (/posn-save /posn)
+          (//l-save //l))
+      (set! /inc 0)
+      (set! //incs (list //s))
+      (set! //s1 '())
+      (set! /posn '())
+      (set! //l '())
+      (@reset_pass_status)
+      (begin
+        (display "@TOL_Check_Loop ")
+        (begin (display /loops) (newline) (force-output)))
+      (set! //o/k 1)
+      (@edit)
+      (@trans //t/r_/delete_/all_/skips "")
+      (@ateach_terminal
+        /foreach-take_out_of_loop-2
+        0
+        (@as_type)
+        1)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (cond ((= //update 1) (@end_edit))
+            (#t (@undo_edit)))
+      (set! /inc /inc-save)
+      (set! //incs //incs-save)
+      (set! //s1 //s1-save)
+      (set! /posn /posn-save)
+      (set! //l //l-save))
+    (set! funct-result (list //o/k /posns))
+    (set! /posns /posns-save)
+    (set! //o/k //o/k-save)
+    (set! /loops /loops-save)
+    (set! //max_/t/v //max_/t/v-save)
+    (set! //min_/t/v //min_/t/v-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! //s //s-save)
+    funct-result))
+
+(define (@tol_check_list
+         //l-par
+         //a/s_/type-par
+         //depth-par
+         //o/k-par
+         /posns-par)
+  (let ((/posns-save /posns)
+        (//o/k-save //o/k)
+        (//depth-save //depth)
+        (//a/s_/type-save //a/s_/type)
+        (//l-save //l)
+        (funct-result '()))
+    (set! /posns /posns-par)
+    (set! //o/k //o/k-par)
+    (set! //depth //depth-par)
+    (set! //a/s_/type //a/s_/type-par)
+    (set! //l //l-par)
+    (cond ((< (@posn_n)
+              (if (vector? //l)
+                (vector-length //l)
+                (length //l)))
+           (set! //o/k 0))
+          (#t
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (set! //l (cdr //l))
+                      (cond ((null? //l) (set! //o/k 1) (set! /fl_flag1 1))
+                            (#t
+                             (@left)
+                             (cond ((not (@equal? (car //l) (@i)))
+                                    (set! //o/k 0)
+                                    (set! /fl_flag1 1))
+                                   (#t (set! /fl_flag1 0))))))
+                    (while-loop))
+                   (#t #t)))
+           (cond ((= //o/k 1) (puthash /posns (@posn) 1)))))
+    (set! funct-result (list //o/k /posns))
+    (set! /posns /posns-save)
+    (set! //o/k //o/k-save)
+    (set! //depth //depth-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! //l //l-save)
+    funct-result))
+
+(define (@tol_min_tv /list)
+  (let ((//min //omega))
+    (let ((var-save //t/v) (seq-save /list))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //t/v (car for-tmp))
+               (cond ((or (equal? //min //omega)
+                          (and (not (equal? //t/v //omega))
+                               (< //t/v //min)))
+                      (set! //min //t/v)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //t/v var-save))
+    //min))
+
+(define (@tol_max_tv /list)
+  (let ((//max //omega))
+    (let ((var-save //t/v) (seq-save /list))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //t/v (car for-tmp))
+               (cond ((or (equal? //max //omega)
+                          (and (not (equal? //t/v //omega))
+                               (< //t/v //max)))
+                      (set! //max //t/v)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //t/v var-save))
+    //max))
+
+(define (@tol_add_incs
+         //incs-par
+         //s-par
+         //a/s_/type-par
+         /inc-par)
+  (let ((/inc-save /inc)
+        (//a/s_/type-save //a/s_/type)
+        (//s-save //s)
+        (//incs-save //incs)
+        (/new (reverse //incs-par))
+        (/last_inc
+          (- (if (vector? //incs-par)
+               (vector-length //incs-par)
+               (length //incs-par))
+             1))
+        (funct-result '()))
+    (set! /inc /inc-par)
+    (set! //a/s_/type //a/s_/type-par)
+    (set! //s //s-par)
+    (set! //incs //incs-par)
+    (let while-loop ()
+      (cond ((< /last_inc /inc)
+             (begin
+               (set! /last_inc (+ /last_inc 1))
+               (set! /new
+                 (cons (@increment //s //a/s_/type /last_inc 0)
+                       /new)))
+             (while-loop))
+            (#t #t)))
+    (set! funct-result (reverse /new))
+    (set! /inc /inc-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! //s //s-save)
+    (set! //incs //incs-save)
+    funct-result))
+
+(define (@tol_normalise //s-par //a/s_/type-par /inc-par)
+  (let ((/inc-save /inc)
+        (//a/s_/type-save //a/s_/type)
+        (//s-save //s)
+        (funct-result '()))
+    (set! /inc /inc-par)
+    (set! //a/s_/type //a/s_/type-par)
+    (set! //s //s-par)
+    (cond ((and (not (equal? /inc //omega)) (> /inc 0))
+           (set! //s
+             (@increment //s //a/s_/type (- /inc) 0))))
+    (cond ((and (> (@size //s) 1)
+                (= (@st (list-ref //s (+ 1 (@size //s))))
+                   //t_/skip))
+           (set! //s
+             (@make //t_/statements '() (butlast-1 (@cs //s))))))
+    (set! funct-result //s)
+    (set! /inc /inc-save)
+    (set! //a/s_/type //a/s_/type-save)
+    (set! //s //s-save)
+    funct-result))
+
+#t
+

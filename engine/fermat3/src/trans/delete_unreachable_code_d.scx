@@ -1,0 +1,43 @@
+(set! //t/r_/delete_/unreachable_/code
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/unreachable_/code 1)
+  "Delete Unreachable Code")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/unreachable_/code 1)
+  "Delete_Unreachable_Code")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/unreachable_/code 1)
+  @delete_unreachable_code_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/unreachable_/code 1)
+  @delete_unreachable_code_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/unreachable_/code 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/unreachable_/code 1)
+  "Delete Unreachable Code will remove unreachable statements in the selected object. It will also remove unreachable cases in an IF statement, e.g those which follow a TRUE guard.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/unreachable_/code 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/unreachable_/code 1)
+  "")
+

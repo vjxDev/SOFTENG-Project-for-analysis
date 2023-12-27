@@ -1,0 +1,1096 @@
+(set! //has_/statements (make-vector 1999 0))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/statement
+              //t_/definition
+              //t_/guarded
+              //t_/action
+              //t_/statements
+              //t_/definitions
+              //t_/actions
+              //t_/guarded)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set! //has_/statements (- /type 1) 1)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(define (@has_statements_type? /type)
+  (= (vector-ref //has_/statements (- /type 1)) 1))
+
+(define (@foreach_statement /body //depth //a/s /simple)
+  (@foreach_gen_s
+    /body
+    //depth
+    //a/s
+    /simple
+    //t_/statement
+    0
+    0))
+
+(define (@foreach_non_action_statement
+         /body
+         //depth
+         //a/s
+         /simple)
+  (@foreach_gen_s
+    /body
+    //depth
+    //a/s
+    /simple
+    //t_/statement
+    0
+    1))
+
+(define (@foreach_stats /body //depth //a/s /simple)
+  (@foreach_gen_s
+    /body
+    //depth
+    //a/s
+    /simple
+    //t_/statements
+    0
+    0))
+
+(define (@foreach_terminal /body //depth //a/s /simple)
+  (@foreach_gen_s
+    /body
+    //depth
+    //a/s
+    /simple
+    //t_/statement
+    1
+    0))
+
+(define (@foreach_terminal_stats
+         /body
+         //depth
+         //a/s
+         /simple)
+  (@foreach_gen_s
+    /body
+    //depth
+    //a/s
+    /simple
+    //t_/statements
+    1
+    0))
+
+(define (@foreach_gen_s
+         /body
+         //depth
+         //a/s
+         /simple
+         /req_/g/t
+         /term
+         //n_/a/s)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_s
+        (@i)
+        0
+        /body
+        //depth
+        //a/s
+        /simple
+        /req_/g/t
+        /term
+        //n_/a/s))
+    (@undo_edit)
+    (cond ((null? /new) (@clever_delete))
+          ((and (= (@gt /orig) //t_/statement)
+                (= (@gt /new) //t_/statements))
+           (cond ((> (@size /new) 1)
+                  (cond ((@up?) (@splice_over (@cs /new)))
+                        (#t (@paste_over /new))))
+                 ((not (eq? /orig (list-ref /new (+ 1 1))))
+                  (@paste_over (list-ref /new (+ 1 1))))))
+          ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_s
+         //i
+         /req_tv
+         /body
+         //depth
+         //a/s
+         /simple
+         /req_/g/t
+         /term
+         //n_/a/s)
+  (let ((//r //i) (//s/t (@st //i)) (//g/t (@gt //i)))
+    (cond ((@has_statements_type? //g/t)
+           (let ((//comps-save //comps)
+                 (/old '())
+                 (/new/l '())
+                 (/new '())
+                 (/changed 0)
+                 (/sub_/a/s //a/s))
+             (set! //comps (@components //i))
+             (cond ((= //s/t //t_/floop)
+                    (set! //depth (+ //depth 1))
+                    (set! /req_tv (+ /req_tv 1))))
+             (cond ((= //s/t //t_/a_/s)
+                    (set! /sub_/a/s (@system_type //i))))
+             (cond ((and (= /simple 1) (@simple? //i))
+                    (set! //comps '()))
+                   ((or (@ifmatch_type? //s/t) (@fill_type? //s/t))
+                    (set! /new/l (list (car //comps)))
+                    (set! //comps (cdr //comps))))
+             (let while-loop ()
+               (cond ((not (null? //comps))
+                      (begin
+                        (set! /old (car //comps))
+                        (set! //comps (cdr //comps))
+                        (cond ((and (= //n_/a/s 1) (= (@st /old) //t_/a_/s))
+                               (set! /new/l (cons /old /new/l)))
+                              ((and (= /term 1)
+                                    (not (@may_term?
+                                           /old
+                                           /req_tv
+                                           /sub_/a/s
+                                           (if (null? //comps) 1 0))))
+                               (set! /new/l (cons /old /new/l)))
+                              (#t
+                               (cond ((and (= /req_tv 0)
+                                           (= //g/t //t_/statements)
+                                           (not (null? //comps)))
+                                      (set! /new
+                                        (@foreach_s
+                                          /old
+                                          1
+                                          /body
+                                          //depth
+                                          /sub_/a/s
+                                          /simple
+                                          /req_/g/t
+                                          /term
+                                          //n_/a/s)))
+                                     (#t
+                                      (set! /new
+                                        (@foreach_s
+                                          /old
+                                          /req_tv
+                                          /body
+                                          //depth
+                                          /sub_/a/s
+                                          /simple
+                                          /req_/g/t
+                                          /term
+                                          //n_/a/s))))
+                               (cond ((null? /new) (set! /changed 1))
+                                     ((and (= //g/t //t_/statements)
+                                           (= (@gt /new) //t_/statements))
+                                      (cond ((or (> (@size /new) 1)
+                                                 (not (eq? /old
+                                                           (list-ref
+                                                             /new
+                                                             (+ 1 1)))))
+                                             (set! /changed 1)
+                                             (set! /new/l
+                                               (concat
+                                                 (reverse (@cs /new))
+                                                 /new/l)))
+                                            (#t
+                                             (set! /new/l (cons /old /new/l)))))
+                                     ((not (eq? /old /new))
+                                      (set! /changed 1)
+                                      (set! /new/l (cons /new /new/l)))
+                                     (#t (set! /new/l (cons /old /new/l)))))))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((= //s/t //t_/floop)
+                    (set! //depth (- //depth 1))
+                    (set! /req_tv (+ /req_tv 1))))
+             (cond ((= /changed 1)
+                    (set! //i
+                      (@fix_item (@make //s/t '() (reverse /new/l))))))
+             (cond ((null? //i) (set! //r '()))
+                   ((or (not (= (@gt //i) /req_/g/t))
+                        (and (= /simple 1) (not (@simple? //i))))
+                    (set! //r //i))
+                   ((and (= /term 1)
+                         (not (@will_term? //i /req_tv //a/s)))
+                    (set! //r //i))
+                   (#t
+                    (cond ((= (@gt //i) //t_/statement)
+                           (@new_program
+                             (@make //t_/statements '() (list //i)))
+                           (@down))
+                          (#t (@new_program //i)))
+                    (apply /body (list //depth //a/s))
+                    (set! //r (@fix_item (@program)))))
+             (set! //comps //comps-save))))
+    //r))
+
+(define (@foreach_cond /body //depth //a/s /simple)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_gen
+        (@i)
+        /body
+        //depth
+        //a/s
+        //t_/condition))
+    (@undo_edit)
+    (cond ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_expn /body //depth //a/s /simple)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_gen
+        (@i)
+        /body
+        //depth
+        //a/s
+        //t_/expression))
+    (@undo_edit)
+    (cond ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_lvalue /body //depth //a/s /simple)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_gen
+        (@i)
+        /body
+        //depth
+        //a/s
+        //t_/lvalue))
+    (@undo_edit)
+    (cond ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_gen //i /body //depth //a/s /req_/g/t)
+  (let ((//r //i) (//s/t (@st //i)) (//g/t (@gt //i)))
+    (cond ((and (= /req_/g/t //t_/condition)
+                (= //g/t //t_/expression)))
+          (#t
+           (let ((//comps-save //comps)
+                 (/old '())
+                 (/new/l '())
+                 (/new '())
+                 (/changed 0))
+             (set! //comps (@components //i))
+             (cond ((or (@ifmatch_type? //s/t) (@fill_type? //s/t))
+                    (set! /new/l (list (car //comps)))
+                    (set! //comps (cdr //comps))))
+             (let while-loop ()
+               (cond ((not (null? //comps))
+                      (begin
+                        (set! /old (car //comps))
+                        (set! //comps (cdr //comps))
+                        (set! /new
+                          (@foreach_gen /old /body //depth //a/s /req_/g/t))
+                        (cond ((null? /new) (set! /changed 1))
+                              ((not (eq? /old /new))
+                               (set! /changed 1)
+                               (set! /new/l (cons /new /new/l)))
+                              (#t (set! /new/l (cons /old /new/l)))))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((= /changed 1)
+                    (set! //i (@make //s/t '() (reverse /new/l)))))
+             (cond ((not (= (@gt //i) /req_/g/t)) (set! //r //i))
+                   (#t
+                    (@new_program //i)
+                    (apply /body (list //depth //a/s))
+                    (set! //r (@program))))
+             (set! //comps //comps-save))))
+    //r))
+
+(define (@foreach_variable /body //depth //a/s /simple)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_vars (@i) /body //depth //a/s 0 0 '()))
+    (@undo_edit)
+    (cond ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_global_var /body //depth //a/s /simple)
+  (let ((/orig (@i)) (/new '()))
+    (@edit)
+    (set! /new
+      (@foreach_vars (@i) /body //depth //a/s 0 1 '()))
+    (@undo_edit)
+    (cond ((not (eq? /orig /new)) (@paste_over /new)))))
+
+(define (@foreach_vars
+         //i
+         /body
+         //depth
+         //a/s
+         /parent
+         /global
+         /vars)
+  (let ((//r //i) (//s/t (@st //i)) (//g/t (@gt //i)))
+    (let ((//comps-save //comps)
+          (/old '())
+          (/new/l '())
+          (/new '())
+          (/changed 0))
+      (set! //comps (@components //i))
+      (cond ((or (@ifmatch_type? //s/t) (@fill_type? //s/t))
+             (set! /new/l (list (car //comps)))
+             (set! //comps (cdr //comps))))
+      (let while-loop ()
+        (cond ((not (null? //comps))
+               (begin
+                 (set! /old (car //comps))
+                 (set! //comps (cdr //comps))
+                 (cond ((= /global 1)
+                        (cond ((and (or (= //s/t //t_/for)
+                                        (= //s/t //t_/for_/in))
+                                    (null? //comps))
+                               (set! /vars
+                                 (@set_union
+                                   /vars
+                                   (list (@v (list-ref //i (+ 1 1)))))))
+                              ((or (= //s/t //t_/proc)
+                                   (= //s/t //t_/funct)
+                                   (= //s/t //t_/b/funct))
+                               (set! /vars
+                                 (@set_union
+                                   /vars
+                                   (@set_union
+                                     (@assigned (list-ref //i (+ 1 2)))
+                                     (@assigned (list-ref //i (+ 1 3)))))))
+                              ((and (= //s/t //t_/var) (null? //comps))
+                               (set! /vars
+                                 (@set_union
+                                   /vars
+                                   (@assigned (list-ref //i (+ 1 1)))))))))
+                 (cond ((and (= /global 1)
+                             (= /parent //t_/var)
+                             (= //g/t //t_/assigns))
+                        (set! /new
+                          (@foreach_vars
+                            (list-ref /old (+ 1 2))
+                            /body
+                            //depth
+                            //a/s
+                            //s/t
+                            /global
+                            /vars))
+                        (cond ((eq? (list-ref /old (+ 1 2)) /new)
+                               (set! /new /old))
+                              (#t
+                               (set! /new
+                                 (@make //t_/assign
+                                        '()
+                                        (list (list-ref /old (+ 1 1)) /new))))))
+                       ((and (= /global 1)
+                             (or (= //s/t //t_/for) (= //s/t //t_/for_/in))
+                             (= (@gt /old) //t_/lvalue))
+                        (set! /new /old))
+                       (#t
+                        (set! /new
+                          (@foreach_vars
+                            /old
+                            /body
+                            //depth
+                            //a/s
+                            //s/t
+                            /global
+                            /vars))))
+                 (cond ((null? /new) (set! /changed 1))
+                       ((not (eq? /old /new))
+                        (set! /changed 1)
+                        (set! /new/l (cons /new /new/l)))
+                       (#t (set! /new/l (cons /old /new/l)))))
+               (while-loop))
+              (#t #t)))
+      (cond ((= /changed 1)
+             (set! //i (@make //s/t '() (reverse /new/l)))))
+      (cond ((and (not (= //s/t //t_/variable))
+                  (not (= //s/t //t_/var_/lvalue)))
+             (set! //r //i))
+            ((and (= /global 1) (member (@v //i) /vars))
+             (set! //r //i))
+            (#t
+             (@new_program //i)
+             (apply /body (list //depth //a/s))
+             (set! //r (@program))
+             (cond ((or (and (= (@st //i) //t_/variable)
+                             (= (@st //r) //t_/var_/lvalue))
+                        (and (= (@st //i) //t_/var_/lvalue)
+                             (= (@st //r) //t_/variable)))
+                    (set! //r (@make (@st //i) (@v //r) '()))))))
+      (set! //comps //comps-save))
+    //r))
+
+(define (@fix_item //i)
+  (let ((//r //i)
+        (//s/t (if (null? //i) '() (@st //i))))
+    (cond ((null? //i) #t)
+          ((= //s/t //t_/statements)
+           (let ((/new '())
+                 (/new/l '())
+                 (/comp '())
+                 (/changed 0))
+             (let ((var-save /comp) (seq-save (@cs //i)))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /comp (car for-tmp))
+                        (begin
+                          (set! /new (@fix_item /comp))
+                          (cond ((null? /new) (set! /changed 1))
+                                (#t
+                                 (cond ((not (eq? /new /comp))
+                                        (set! /changed 1)))
+                                 (cond ((= (@gt /new) //t_/statements)
+                                        (set! /new/l
+                                          (concat (reverse (@cs /new)) /new/l)))
+                                       (#t (set! /new/l (cons /new /new/l)))))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /comp var-save))
+             (cond ((null? /new/l) (set! //r '()))
+                   ((= /changed 1)
+                    (set! //r
+                      (@make //t_/statements '() (reverse /new/l)))))))
+          ((= //s/t //t_/cond)
+           (set! //r (@fix_cond_item //i)))
+          ((or (= //s/t //t_/d_/if) (= //s/t //t_/d_/do))
+           (set! //r (@fix_dijkstra_item //i)))
+          ((= //s/t //t_/guarded))
+          ((or (and (not (@list_type? //s/t))
+                    (not (= (@size //i)
+                            (if (vector? (@syntax //s/t))
+                              (vector-length (@syntax //s/t))
+                              (length (@syntax //s/t))))))
+               (and (@list_type? //s/t) (not (@cs? //i))))
+           (cond ((= //s/t //t_/where)
+                  (cond ((not (@cs? //i)) (set! //r '()))
+                        ((= (@gt (list-ref //i (+ 1 1))) //t_/statements)
+                         (set! //r (list-ref //i (+ 1 1))))
+                        (#t (set! //r '()))))
+                 ((= //s/t //t_/while)
+                  (set! //r
+                    (@make //t_/assert
+                           '()
+                           (list (@not (list-ref //i (+ 1 1)))))))
+                 ((or (= //s/t //t_/d_/if) (= //s/t //t_/floop))
+                  (set! //r (@make //t_/abort '() '())))
+                 ((= //s/t //t_/join)
+                  (set! //r (list-ref //i (+ 1 1))))
+                 ((= (if (vector? (@syntax //s/t))
+                       (vector-length (@syntax //s/t))
+                       (length (@syntax //s/t)))
+                     (+ (@size //i) 1))
+                  (cond ((or (= //s/t //t_/for)
+                             (= //s/t //t_/for_/in)
+                             (= //s/t //t_/var))
+                         (set! //r (@skip)))
+                        ((= (last-1 (@syntax //s/t)) //t_/statements)
+                         (set! //r
+                           (@make //s/t
+                                  '()
+                                  (concat (@cs //i) (list (@skips))))))
+                        ((or (= //s/t //t_/m/w_/funct)
+                             (= //s/t //t_/m/w_/b/funct)
+                             (= //s/t //t_/funct)
+                             (= //s/t //t_/b/funct))
+                         (set! //r
+                           (@make //s/t
+                                  '()
+                                  (concat
+                                    (butlast-1 (@cs //i))
+                                    (list (@skips) (last-1 (@cs //i)))))))
+                        (#t (set! //r '()))))
+                 (#t (set! //r '())))))
+    //r))
+
+(set! /adt_/dummy_/guarded
+  (@make //t_/guarded
+         '()
+         (list (@make //t_/true '() '())
+               (@make //t_/statements
+                      '()
+                      (list (@make //t_/skip '() '()))))))
+
+(define (@fix_cond_item //i)
+  (let ((//r //i))
+    (cond ((not (@cs? //i)) (set! //r '()))
+          (#t
+           (let ((/guard '()) (/found 0) (/last '()))
+             (let ((var-save /guard) (seq-save (@cs //i)))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /guard (car for-tmp))
+                        (begin
+                          (set! /last /guard)
+                          (cond ((not (@cs? /guard)) (set! /found 1))
+                                ((@any_pattern_type? (@st /guard)) #t)
+                                ((= (@size /guard) 1) (set! /found 1))
+                                ((not (@cs? (list-ref /guard (+ 1 2))))
+                                 (set! /found 1))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /guard var-save))
+             (cond ((= /found 1)
+                    (set! //r (@fix_cond_guards (@cs //i))))
+                   (#t
+                    (cond ((and (not (@any_pattern_type? (@st /last)))
+                                (not (= (@st (list-ref /last (+ 1 1)))
+                                        //t_/true)))
+                           (set! //r
+                             (@make //t_/cond
+                                    '()
+                                    (concat
+                                      (@cs //i)
+                                      (list /adt_/dummy_/guarded)))))
+                          ((and (= (@size //i) 1)
+                                (not (@any_pattern_type?
+                                       (@st (list-ref //i (+ 1 1))))))
+                           (set! //r
+                             (list-ref (list-ref //i (+ 1 1)) (+ 1 2)))
+                           (cond ((and (= (@size //r) 1)
+                                       (= (@st (list-ref //r (+ 1 1)))
+                                          //t_/skip))
+                                  (set! //r '()))))))))))
+    //r))
+
+(define (@fix_cond_guards /guards)
+  (let ((/new/l '())
+        (//b '())
+        (/guard '())
+        (//r '())
+        (/size (if (vector? /guards)
+                 (vector-length /guards)
+                 (length /guards))))
+    (let ((var-save /guard) (seq-save /guards))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /guard (car for-tmp))
+               (cond ((not (@cs? /guard)) #t)
+                     ((@any_pattern_type? (@st /guard))
+                      (set! /new/l (cons /guard /new/l)))
+                     ((or (= (@size /guard) 1)
+                          (not (@cs? (list-ref /guard (+ 1 2)))))
+                      (cond ((>= /size 100)
+                             (set! /newl
+                               (cons (@make //t_/guarded
+                                            '()
+                                            (list (list-ref /guard (+ 1 1))
+                                                  (@skips)))
+                                     /new/l)))
+                            ((null? //b)
+                             (set! //b (@not (list-ref /guard (+ 1 1)))))
+                            (#t
+                             (set! //b
+                               (@and (@not (list-ref /guard (+ 1 1))) //b)))))
+                     ((not (null? //b))
+                      (set! /new/l
+                        (cons (@make //t_/guarded
+                                     '()
+                                     (list (@and //b (list-ref /guard (+ 1 1)))
+                                           (list-ref /guard (+ 1 2))))
+                              /new/l)))
+                     (#t (set! /new/l (cons /guard /new/l))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /guard var-save))
+    (cond ((null? /new/l) (set! //r '()))
+          ((and (= (if (vector? /new/l)
+                     (vector-length /new/l)
+                     (length /new/l))
+                   1)
+                (not (@any_pattern_type? (@st (car /new/l))))
+                (= (@st (list-ref (car /new/l) (+ 1 1)))
+                   //t_/true))
+           (set! //r (list-ref (car /new/l) (+ 1 2))))
+          ((and (not (@any_pattern_type? (@st (car /new/l))))
+                (not (= (@st (list-ref (car /new/l) (+ 1 1)))
+                        //t_/true)))
+           (set! //r
+             (@make //t_/cond
+                    '()
+                    (reverse (cons /adt_/dummy_/guarded /new/l)))))
+          (#t
+           (set! //r (@make //t_/cond '() (reverse /new/l)))))
+    //r))
+
+(define (@fix_dijkstra_item //i)
+  (let ((//r //i))
+    (cond ((not (@cs? //i)) (set! //r '()))
+          (#t
+           (let ((/guard '()) (/found 0) (/new '()))
+             (let ((var-save /guard) (seq-save (@cs //i)))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /guard (car for-tmp))
+                        (cond ((not (@cs? /guard)) (set! /found 1))
+                              ((@any_pattern_type? (@st /guard)) #t)
+                              ((or (= (@size /guard) 1)
+                                   (not (@cs? (list-ref /guard (+ 1 2)))))
+                               (set! /found 1)))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /guard var-save))
+             (cond ((= /found 1)
+                    (let ((var-save /guard) (seq-save (@cs //i)))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /guard (car for-tmp))
+                               (cond ((not (@cs? /guard)) #t)
+                                     ((@any_pattern_type? (@st /guard))
+                                      (set! /new (cons /guard /new)))
+                                     ((or (= (@size /guard) 1)
+                                          (not (@cs? (list-ref
+                                                       /guard
+                                                       (+ 1 2)))))
+                                      (set! /new
+                                        (cons (@make //t_/guarded
+                                                     '()
+                                                     (list (list-ref
+                                                             /guard
+                                                             (+ 1 1))
+                                                           (@skips)))
+                                              /new)))
+                                     (#t (set! /new (cons /guard /new))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /guard var-save))
+                    (cond ((null? /new) (set! //r '()))
+                          (#t
+                           (set! //r
+                             (@make (@st //i) '() (reverse /new))))))))))
+    //r))
+
+(define (@may_term? //i /req_tv //a/s /last)
+  (let ((/tvs (@gen_tvs //i //a/s)) (//o/k 0))
+    (cond ((and (= /req_tv 0)
+                (= (@gt //i) //t_/statement)
+                (= /last 0))
+           (set! /req_tv 1)))
+    (let while-loop ()
+      (cond ((and (not (null? /tvs)) (= //o/k 0))
+             (cond ((>= (car /tvs) /req_tv) (set! //o/k 1))
+                   (#t (set! /tvs (cdr /tvs))))
+             (while-loop))
+            (#t #t)))
+    (= //o/k 1)))
+
+(define (@will_term? //i /req_tv //a/s)
+  (let ((/tvs (@gen_tvs //i //a/s)) (//o/k 1))
+    (cond ((and (= /req_tv 0)
+                (= (@gt //i) //t_/statement)
+                (not (null? //comps)))
+           (set! /req_tv 1)))
+    (let while-loop ()
+      (cond ((and (not (null? /tvs)) (= //o/k 1))
+             (cond ((not (>= (car /tvs) /req_tv)) (set! //o/k 0))
+                   (#t (set! /tvs (cdr /tvs))))
+             (while-loop))
+            (#t #t)))
+    (= //o/k 1)))
+
+(set! /adt_/skip_/statement
+  (@make //t_/skip '() '()))
+
+(set! /adt_/skip_/statements
+  (@make //t_/statements
+         '()
+         (list /adt_/skip_/statement)))
+
+(define (@skip) /adt_/skip_/statement)
+
+(define (@skips) /adt_/skip_/statements)
+
+(define (@skip? //item)
+  (or (= (@st //item) //t_/skip)
+      (and (= (@st //item) //t_/exit)
+           (= (@v //item) 0))))
+
+(define (@ateach_statement /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_s
+      /body
+      0
+      //depth
+      //a/s
+      /simple
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/statement
+      0
+      0)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_non_action_statement
+         /body
+         //depth
+         //a/s
+         /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_s
+      /body
+      0
+      //depth
+      //a/s
+      /simple
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/statement
+      0
+      1)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_stats /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_s
+      /body
+      0
+      //depth
+      //a/s
+      /simple
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/statements
+      0
+      0)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_terminal /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_s
+      /body
+      0
+      //depth
+      //a/s
+      /simple
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/statement
+      1
+      0)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_terminal_stats
+         /body
+         //depth
+         //a/s
+         /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_s
+      /body
+      0
+      //depth
+      //a/s
+      /simple
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/statements
+      1
+      0)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_s
+         /body
+         /req_tv
+         //depth
+         //a/s
+         /simple
+         //top
+         /req_/g/t
+         /term
+         //n_/a/s)
+  (cond ((not (= (@gt (@i)) /req_/g/t)) #t)
+        ((and (= /simple 1) (not (@simple? (@i)))) #t)
+        ((and (= /term 1)
+              (not (@will_term? (@i) /req_tv //a/s)))
+         #t)
+        (#t (apply /body (list //depth //a/s))))
+  (cond ((or (@passed?) (@failed?) (null? (@i))) #t)
+        ((< (if (vector? /adt_/path_/items)
+              (vector-length /adt_/path_/items)
+              (length /adt_/path_/items))
+            //top))
+        ((or (not (@has_statements_type? (@gt (@i))))
+             (not (@cs? (@i))))
+         #t)
+        (#t
+         (cond ((= (@st (@i)) //t_/floop)
+                (set! //depth (+ //depth 1))
+                (set! /req_tv (+ /req_tv 1))))
+         (cond ((= (@st (@i)) //t_/a_/s)
+                (set! //a/s (@system_type (@i)))))
+         (cond ((@ifmatch_type? (@st (@i))) (@down_to 2))
+               ((@fill_type? (@st (@i))) #t)
+               (#t (@down)))
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((and (= //n_/a/s 1) (= (@st (@i)) //t_/a_/s))
+                           (set! /fl_flag1 0))
+                          ((and (= /term 1)
+                                (not (@may_term?
+                                       (@i)
+                                       /req_tv
+                                       //a/s
+                                       (if (@right?) 0 1))))
+                           (set! /fl_flag1 0))
+                          (#t
+                           (cond ((and (= /req_tv 0)
+                                       (= (@gt (@i)) //t_/statement)
+                                       (@right?))
+                                  (@ateach_s
+                                    /body
+                                    1
+                                    //depth
+                                    //a/s
+                                    /simple
+                                    //top
+                                    /req_/g/t
+                                    /term
+                                    //n_/a/s))
+                                 (#t
+                                  (@ateach_s
+                                    /body
+                                    /req_tv
+                                    //depth
+                                    //a/s
+                                    /simple
+                                    //top
+                                    /req_/g/t
+                                    /term
+                                    //n_/a/s)))
+                           (cond ((<= (if (vector? /adt_/path_/items)
+                                        (vector-length /adt_/path_/items)
+                                        (length /adt_/path_/items))
+                                      //top)
+                                  (set! /fl_flag1 1))
+                                 (#t (set! /fl_flag1 0)))))
+                    (cond ((= /fl_flag1 0)
+                           (cond ((not (@right?)) (@up) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (@ateach_expn /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_gen
+      /body
+      //depth
+      //a/s
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/expression)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_cond /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_gen
+      /body
+      //depth
+      //a/s
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/condition)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_lvalue /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_gen
+      /body
+      //depth
+      //a/s
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      //t_/lvalue)
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_gen /body //depth //a/s //top /req_/g/t)
+  (cond ((not (= (@gt (@i)) /req_/g/t)) #t)
+        (#t (apply /body (list //depth //a/s))))
+  (cond ((or (@passed?) (@failed?) (null? (@i))) #t)
+        ((and (= /req_/g/t //t_/condition)
+              (= (@gt (@i)) //t_/expression))
+         #t)
+        ((< (if (vector? /adt_/path_/items)
+              (vector-length /adt_/path_/items)
+              (length /adt_/path_/items))
+            //top))
+        ((not (@cs? (@i))) #t)
+        (#t
+         (cond ((= (@st (@i)) //t_/floop)
+                (set! //depth (+ //depth 1))))
+         (cond ((= (@st (@i)) //t_/a_/s)
+                (set! //a/s (@system_type (@i)))))
+         (cond ((@ifmatch_type? (@st (@i))) (@down_to 2))
+               ((@fill_type? (@st (@i))) #t)
+               (#t (@down)))
+         (@ateach_gen /body //depth //a/s //top /req_/g/t)
+         (let while-loop ()
+           (cond ((and (< //top
+                          (if (vector? /adt_/path_/items)
+                            (vector-length /adt_/path_/items)
+                            (length /adt_/path_/items)))
+                       (@right?))
+                  (begin
+                    (@right)
+                    (@ateach_gen /body //depth //a/s //top /req_/g/t))
+                  (while-loop))
+                 (#t #t)))
+         (cond ((<= (if (vector? /adt_/path_/items)
+                      (vector-length /adt_/path_/items)
+                      (length /adt_/path_/items))
+                    //top))
+               ((not (@right?)) (@up))))))
+
+(define (@ateach_variable /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_var
+      /body
+      //depth
+      //a/s
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      0
+      0
+      '())
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_global_var /body //depth //a/s /simple)
+  (let ((//orig_/p (@posn)))
+    (@reset_pass_status)
+    (@ateach_var
+      /body
+      //depth
+      //a/s
+      (if (vector? //orig_/p)
+        (vector-length //orig_/p)
+        (length //orig_/p))
+      0
+      1
+      '())
+    (cond ((@valid_posn? (@program) //orig_/p)
+           (@goto //orig_/p)))))
+
+(define (@ateach_var
+         /body
+         //depth
+         //a/s
+         //top
+         /parent
+         /global
+         /vars)
+  (cond ((and (not (= (@st (@i)) //t_/variable))
+              (= (@st (@i)) //t_/var_/lvalue))
+         #t)
+        ((and (= /global 1) (member (@v (@i)) /vars)) #t)
+        (#t (apply /body (list //depth //a/s))))
+  (cond ((or (@passed?) (@failed?) (null? (@i))) #t)
+        ((< (if (vector? /adt_/path_/items)
+              (vector-length /adt_/path_/items)
+              (length /adt_/path_/items))
+            //top))
+        ((not (@cs? (@i))) #t)
+        (#t
+         (let ((//s/t (@st (@i))) (//g/t (@gt (@i))))
+           (cond ((= //s/t //t_/floop)
+                  (set! //depth (+ //depth 1))))
+           (cond ((= //s/t //t_/a_/s)
+                  (set! //a/s (@system_type (@i)))))
+           (cond ((@ifmatch_type? (@st (@i))) (@down_to 2))
+                 ((@fill_type? (@st (@i))) #t)
+                 (#t (@down)))
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (cond ((= /global 1)
+                             (cond ((and (= //s/t //t_/for) (not (@right?)))
+                                    (set! /vars
+                                      (@set_union
+                                        /vars
+                                        (list (@v (list-ref (@i) (+ 1 1)))))))
+                                   ((and (= //s/t //t_/var) (not (@right?)))
+                                    (set! /vars
+                                      (@set_union
+                                        /vars
+                                        (@assigned
+                                          (list-ref (@i) (+ 1 1)))))))))
+                      (cond ((and (= /global 1)
+                                  (= /parent //t_/var)
+                                  (= //g/t //t_/assigns))
+                             (@down_to 2)
+                             (@ateach_var
+                               /body
+                               //depth
+                               //a/s
+                               //top
+                               //s/t
+                               /global
+                               /vars)
+                             (cond ((> (if (vector? /adt_/path_/items)
+                                         (vector-length /adt_/path_/items)
+                                         (length /adt_/path_/items))
+                                       //top)
+                                    (@up))))
+                            ((or (not (= //t_/lvalue (@gt (@i))))
+                                 (not (= //s/t //t_/for))
+                                 (not (= /global 1)))
+                             (@ateach_var
+                               /body
+                               //depth
+                               //a/s
+                               //top
+                               //s/t
+                               /global
+                               /vars)))
+                      (cond ((<= (if (vector? /adt_/path_/items)
+                                   (vector-length /adt_/path_/items)
+                                   (length /adt_/path_/items))
+                                 //top)
+                             (set! /fl_flag1 1))
+                            ((not (@right?)) (@up) (set! /fl_flag1 1))
+                            (#t (@right) (set! /fl_flag1 0))))
+                    (while-loop))
+                   (#t #t)))))))
+

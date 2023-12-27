@@ -1,0 +1,44 @@
+(define (@substitute_and_delete_list_test)
+  (cond ((= (@spec_type (@item)) //t_/action) (@pass))
+        (#t (@fail "Selected item is not an Action."))))
+
+(define (@substitute_and_delete_list_code //data)
+  (let ((//orig_/pos (@posn))
+        (/as '())
+        (/span (@span))
+        (/n (last-1 (@posn))))
+    (@up)
+    (@up)
+    (set! /as (@posn))
+    (let ((var-save /i) (for-step (- 1)) (for-end 0))
+      (set! /i /span)
+      (let for-loop ()
+        (cond ((or (and (> (- 1) 0) (<= /i for-end))
+                   (and (< (- 1) 0) (>= /i for-end)))
+               (begin
+                 (@goto /as)
+                 (@down_last)
+                 (@down_to (+ /n /i))
+                 (begin
+                   (display "Testing action ")
+                   (begin
+                     (display (@v (list-ref (@item) (+ 1 1))))
+                     (newline)
+                     (force-output)))
+                 (cond ((and (@trans? //t/r_/substitute_/and_/delete)
+                             (= (@call_freq
+                                  (@v (list-ref (@item) (+ 1 1)))
+                                  (@get (@program) /as))
+                                1))
+                        (begin
+                          (display "Deleting ")
+                          (begin
+                            (display (@v (list-ref (@item) (+ 1 1))))
+                            (newline)
+                            (force-output)))
+                        (@trans //t/r_/substitute_/and_/delete ""))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save))))
+

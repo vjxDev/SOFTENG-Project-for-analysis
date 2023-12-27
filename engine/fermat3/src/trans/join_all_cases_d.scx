@@ -1,0 +1,42 @@
+(set! //t/r_/join_/all_/cases (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/join_/all_/cases 1)
+  "Join All Cases")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/join_/all_/cases 1)
+  "Join_All_Cases")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/join_/all_/cases 1)
+  @join_all_cases_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/join_/all_/cases 1)
+  @join_all_cases_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/join_/all_/cases 1)
+  (list "Rewrite" "Join"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/join_/all_/cases 1)
+  "This transformation will join any guards in an `If' statement which contain the same sequence of statements (thus reducing their number) by changing the conditions of all the guards as appropriate.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/join_/all_/cases 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/join_/all_/cases 1)
+  "")
+

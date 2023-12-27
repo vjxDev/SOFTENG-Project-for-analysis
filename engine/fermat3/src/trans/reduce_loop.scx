@@ -1,0 +1,44 @@
+(define (@reduce_loop_test)
+  (cond ((not (= (@st (@i)) //t_/floop))
+         (@fail "Selected item is not a DO...OD loop."))
+        ((@gen_reducible?
+           (list-ref (@i) (+ 1 1))
+           (@as_type))
+         (@fail "Loop body is already reducible."))
+        (#t (@pass))))
+
+(define (@reduce_loop_code //data)
+  (let ((/as (@as_type))
+        (/posn (@posn))
+        (/calls (@mp_proc_calls))
+        (/call_n 1)
+        (/orig (@program)))
+    (@down)
+    (let ((/-result- (@mr_process /as /calls /call_n)))
+      (set! /calls (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /call_n (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (@up)
+    (cond ((@gen_reducible? (list-ref (@i) (+ 1 1)) /as)
+           (cond ((@gen_improper? (list-ref (@i) (+ 1 1)) /as)
+                  (@trans //t/r_/remove_/dummy_/loop ""))
+                 ((@set_subset? (@gen_tvs (@i) /as) (list 0)))
+                 (#t
+                  (begin
+                    (display
+                      "The loop is neither proper nor improper.")
+                    (newline)
+                    (force-output))))
+           (cond ((@trans? //t/r_/delete_/all_/skips)
+                  (@trans //t/r_/delete_/all_/skips ""))))
+          (#t
+           (begin
+             (display "Unable to reduce the loop, sorry.")
+             (newline)
+             (force-output))
+           (@new_program /orig)
+           (@goto /posn)))))
+
+#t
+

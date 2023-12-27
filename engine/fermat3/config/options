@@ -1,0 +1,29 @@
+
+# This file is called `options'
+# Options File for FermaT
+# 1 = Yes, 0 = No
+
+#============ FLOWCHART ===================
+
+# Use many triangle nodes for dispatch?
+Dispatch_Nodes  = 1
+
+# Connect BAL nodes and show dispatch nodes:
+Runtime_Flow    = 0
+
+# Make backedge edges thinner:
+Thin_Back_Edges = 1
+
+# Max number of lines in a label
+# A label longer than (Max_Box_Lines1 + Max_Box_Lines2 + 1) lines
+# will show tha first Max_Box_Lines1 lines then "..."
+# then the last Max_Box_Lines2 lines:
+Max_Box_Lines1  = 8
+Max_Box_Lines2  = 2
+
+# Max number of chars/line in a box label:
+Max_Box_Chars   = 35
+
+# Max number of chars/line in a rhomb (ie diamond) label:
+Max_Rhomb_Chars = 20
+

@@ -1,0 +1,43 @@
+(set! //t/r_/delete_/all_/assertions
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/all_/assertions 1)
+  "Delete All Assertions")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/all_/assertions 1)
+  "Delete_All_Assertions")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/all_/assertions 1)
+  @delete_all_assertions_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/all_/assertions 1)
+  @delete_all_assertions_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/all_/assertions 1)
+  (list "Simplify" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/all_/assertions 1)
+  "This transformation will delete all the `ASSERT' statements within the selected code.  If the resulting code is not syntactically correct, the program will be `tidied up' which may well result in the re-instatement of `ASSERT' or `SKIP' statements.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/all_/assertions 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/all_/assertions 1)
+  "")
+

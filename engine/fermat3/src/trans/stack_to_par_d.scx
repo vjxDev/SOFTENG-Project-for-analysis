@@ -1,0 +1,42 @@
+(set! //t/r_/stack_/to_/par (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/stack_/to_/par 1)
+  "Stack_To_Par")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/stack_/to_/par 1)
+  "Stack_To_Par")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/stack_/to_/par 1)
+  @stack_to_par_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/stack_/to_/par 1)
+  @stack_to_par_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/stack_/to_/par 1)
+  (list "Simplify" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/stack_/to_/par 1)
+  "Convert stack references to a procedure parameter.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/stack_/to_/par 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/stack_/to_/par 1)
+  "")
+

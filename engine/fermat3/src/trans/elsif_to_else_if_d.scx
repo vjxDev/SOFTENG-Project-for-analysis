@@ -1,0 +1,45 @@
+(set! //t/r_/elsif_/to_/else_/if
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/elsif_/to_/else_/if 1)
+  "`Elsif' To `Else If'")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/elsif_/to_/else_/if 1)
+  "Elsif_To_Else_If")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/elsif_/to_/else_/if 1)
+  @elsif_to_else_if_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/elsif_/to_/else_/if 1)
+  @elsif_to_else_if_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/elsif_/to_/else_/if 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/elsif_/to_/else_/if 1)
+  "This transformation will replace an `Elsif' clause in an `If' statement with an `Else' clause which itself contains an `If' statement.  
+
+The transformation can be selected with either the `If' statement, or the `Elsif' clause selected.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/elsif_/to_/else_/if 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/elsif_/to_/else_/if 1)
+  "")
+

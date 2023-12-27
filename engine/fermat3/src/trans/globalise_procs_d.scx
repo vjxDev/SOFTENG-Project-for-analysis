@@ -1,0 +1,42 @@
+(set! //t/r_/globalise_/procs (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/globalise_/procs 1)
+  "Globalise_Procs")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/globalise_/procs 1)
+  "Globalise_Procs")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/globalise_/procs 1)
+  @globalise_procs_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/globalise_/procs 1)
+  @globalise_procs_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/globalise_/procs 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/globalise_/procs 1)
+  "Move procs to an enclosing WHERE (opposite of Globalise_Procs).")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/globalise_/procs 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/globalise_/procs 1)
+  "")
+

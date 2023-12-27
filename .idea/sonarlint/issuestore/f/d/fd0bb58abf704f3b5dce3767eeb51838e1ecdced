@@ -1,0 +1,40 @@
+
+t
+java:S2293("YReplace the type specification in this constructor call with the diamond operator ("<>").(åˆ°ùÿÿÿÿ
+o
+java:S2293)"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÒÊ‚Ÿ
+n
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(îıÌ|
+t
+java:S2293+"YReplace the type specification in this constructor call with the diamond operator ("<>").(ó¡æûúÿÿÿÿ
+r
+java:S2629:"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(Ó‹ê
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(çÔÖéüÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(çÔÖéüÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÑÑààøÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÑÑààøÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÑÑààøÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ååÒÉúÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ååÒÉúÿÿÿÿ
+a
+java:S1659"FDeclare "PROCEDURE" and all following declarations on a separate line.(‚ùêıÿÿÿÿ
+{
+java:S1149"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ÙÙœ£
+{
+java:S1149"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(‘™¶²
+€
+java:S1149"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(ä¦­¥ÿÿÿÿÿ
+{
+java:S1149"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(‹æÈã
+{
+java:S1149/"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(›ó‹¢
+€
+java:S11493"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¢¬ïÿÿÿÿÿ
+€
+java:S1149P"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(•š±ˆùÿÿÿÿ
+{
+java:S1149a"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(™Âµß
+f
+java:S34578"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+<
+java:S2129<"!Remove this "Integer" constructor(¼Ñ“ıÿÿÿÿ

@@ -1,0 +1,44 @@
+(set! //t/r_/remove_/all_/redundant_/vars
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  "Remove All Redundant Vars")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  "Remove_All_Redundant_Vars")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  @remove_all_redundant_vars_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  @remove_all_redundant_vars_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  (list "Delete"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  "Remove All Redundant Vars applys Remove Redundant Vars
+to every VAR structure in the statement or sequence ")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/remove_/all_/redundant_/vars 1)
+  "")
+

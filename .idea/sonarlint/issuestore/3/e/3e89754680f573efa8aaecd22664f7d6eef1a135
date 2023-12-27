@@ -1,0 +1,59 @@
+
+Q
+java:S1141Ï"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+D
+java:S1604ı"(Make this anonymous inner class a lambda(°¥Ííúÿÿÿÿ
+N
+java:S2629‚"7Use the built-in formatting to construct this argument.(÷Û¯—
+S
+java:S2629è"7Use the built-in formatting to construct this argument.(üÊ¿şüÿÿÿÿ
+t	java:S115*"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¦®‡íøÿÿÿÿ
+<
+java:S1659E"!Declare "err" on a separate line.(Û®ˆ¹üÿÿÿÿ
+@
+java:S1659O"%Declare "lineErr" on a separate line.(† Ãşÿÿÿÿ
+p
+java:S14504"ZRemove the "consoleProc" field and declare it as a local variable in the relevant methods.(×’öÃ
+m
+java:S1450E"RRemove the "err" field and declare it as a local variable in the relevant methods.(Û®ˆ¹üÿÿÿÿ
+l
+java:S1450E"QRemove the "in" field and declare it as a local variable in the relevant methods.(Û®ˆ¹üÿÿÿÿ
+q
+java:S1450O"VRemove the "lineErr" field and declare it as a local variable in the relevant methods.(† Ãşÿÿÿÿ
+p
+java:S1450O"URemove the "lineIn" field and declare it as a local variable in the relevant methods.(† Ãşÿÿÿÿ
+h
+java:S1450J"RRemove the "out" field and declare it as a local variable in the relevant methods.(­®¨
+C
+java:S19484"-Make "consoleProc" transient or serializable.(×’öÃ
+?
+java:S1948E"$Make "in" transient or serializable.(Û®ˆ¹üÿÿÿÿ
+@
+java:S1948E"%Make "err" transient or serializable.(Û®ˆ¹üÿÿÿÿ
+;
+java:S1948J"%Make "out" transient or serializable.(­®¨
+C
+java:S1948O"(Make "lineIn" transient or serializable.(† Ãşÿÿÿÿ
+D
+java:S1948O")Make "lineErr" transient or serializable.(† Ãşÿÿÿÿ
+D
+java:S1948T")Make "lineOut" transient or serializable.(ğÈ©ñÿÿÿÿÿ
+z
+java:S1149_"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(Œœ¨úÿÿÿÿ
+h
+java:S3776x"RRefactor this method to reduce its Cognitive Complexity from 52 to the 15 allowed.(“–ış
+Q
+java:S1854"5Remove this useless assignment to local variable "d".(Ì‡®Ãÿÿÿÿÿ
+:
+java:S1659{"$Declare "update" on a separate line.(›€Õ”
+g
+java:S3457"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ
+i
+java:S1871¤"MThis branch's code block is the same as the block for the branch on line 162.(±‰›øúÿÿÿÿ
+u
+java:S2142Ñ"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+?	java:S108Ñ")Either remove or fill this block of code.(ä ¹€
+b
+java:S3457ç"KFormat specifiers or lambda should be used instead of string concatenation.(šÌŠæ
+g
+java:S3457ì"KFormat specifiers or lambda should be used instead of string concatenation.(Ù¸­–ÿÿÿÿÿ

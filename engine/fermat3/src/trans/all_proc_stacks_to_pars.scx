@@ -1,0 +1,60 @@
+(define (/foreach-all_proc_stacks_to_pars-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@down)
+         (cond ((= //t_/proc (@st (@i)))
+                (cond ((@trans? //t/r_/stack_/to_/par) (@pass)))))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((= //t_/proc (@st (@i)))
+                           (cond ((@trans? //t/r_/stack_/to_/par) (@pass))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@up))))
+
+(define (/foreach-all_proc_stacks_to_pars-2
+         //depth
+         //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@down)
+         (cond ((= //t_/proc (@st (@i)))
+                (cond ((@trans? //t/r_/stack_/to_/par)
+                       (@trans //t/r_/stack_/to_/par "")))))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((= //t_/proc (@st (@i)))
+                           (cond ((@trans? //t/r_/stack_/to_/par)
+                                  (@trans //t/r_/stack_/to_/par ""))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@up))))
+
+(define (@all_proc_stacks_to_pars_test)
+  (@foreach_statement
+    /foreach-all_proc_stacks_to_pars-1
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips))))
+  (cond ((not (@passed?))
+         (@fail "No suitable procedure definitions found"))))
+
+(define (@all_proc_stacks_to_pars_code //data)
+  (@foreach_statement
+    /foreach-all_proc_stacks_to_pars-2
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips)))))
+
+#t
+

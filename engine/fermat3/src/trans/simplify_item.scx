@@ -1,0 +1,585 @@
+(define (/foreach-simplify_item-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/assignment)
+              (or (> (@size (@i)) 1)
+                  (not (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue))
+                  (not (equal?
+                         (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                         /v))))
+         (@fail "Bad statement in the FUNCT definition"))))
+
+(define (/foreach-simplify_item-2 //depth //a/s_/type)
+  (cond ((> (@size (@i)) 1)
+         (@fail "Bad statements in the FUNCT definition"))))
+
+(define (/foreach-simplify_item-3 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/call)
+         (cond ((equal? (@value (@i)) (@make_name "Z"))
+                (@paste_over (@make //t_/exit (+ //depth 2) '())))
+               (#t
+                (@paste_over (@make //t_/exit (+ //depth 1) '())))))))
+
+(define (/foreach-simplify_item-4 //depth //a/s_/type)
+  (cond ((= (@st (@i)) (@st /v)) (@paste_over /expn))))
+
+(define (@simplify_item_test)
+  (cond ((= (@st (@i)) //t_/cond)
+         (@down)
+         (let while-loop ()
+           (cond ((and (@right?)
+                       (not (member
+                              (@st (list-ref (@i) (+ 1 1)))
+                              (list //t_/true //t_/false))))
+                  (@right)
+                  (while-loop))
+                 (#t #t)))
+         (cond ((not (@right?))
+                (@fail "The `If' statement should have a TRUE or FALSE condition"))
+               ((member
+                  (@st (list-ref (@i) (+ 1 1)))
+                  (list //t_/true //t_/false))
+                (@pass))))
+        ((= (@st (@i)) //t_/d_/if)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((= (@st (list-ref (@i) (+ 1 1))) //t_/false)
+                         (@pass)
+                         (set! /fl_flag1 1))
+                        ((@right?) (@right) (set! /fl_flag1 0))
+                        (#t
+                         (@fail "The `D_If' statement should have a FALSE condition")
+                         (set! /fl_flag1 1)))
+                  (while-loop))
+                 (#t #t))))
+        ((= (@st (@i)) //t_/floop)
+         (cond ((null? (@tvs)) (@pass))
+               ((@trans? //t/r_/remove_/dummy_/loop) (@pass))
+               ((even? (@size (list-ref (@i) (+ 1 1))))
+                (let ((//s (@cs (list-ref (@i) (+ 1 1))))
+                      (/mid (quotient (@size (list-ref (@i) (+ 1 1))) 2)))
+                  (cond ((@seq_equal?
+                           (@sub_seg //s 1 /mid)
+                           (@final_seg //s (+ /mid 1)))
+                         (@pass))
+                        (#t
+                         (@fail "The `Do-Od' loop is as simple as possible.")))))
+               (#t
+                (@fail "The `Do-Od' loop is as simple as possible."))))
+        ((= (@st (@i)) //t_/a_/s)
+         (cond ((= (@size (list-ref (@i) (+ 1 2))) 1) (@pass))
+               (#t
+                (@fail "The action system must have just a single action."))))
+        ((and (= (@st (@i)) //t_/var)
+              (null? (@set_intersect
+                       (@assigned (list-ref (@i) (+ 1 1)))
+                       (@variables (list-ref (@i) (+ 1 2))))))
+         (@pass))
+        ((= (@st (@i)) //t_/var)
+         (let ((/vars '()))
+           (let ((var-save /assign)
+                 (seq-save (@cs (list-ref (@i) (+ 1 1)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /assign (car for-tmp))
+                      (cond ((= (@st (list-ref /assign (+ 1 1)))
+                                //t_/var_/lvalue)
+                             (set! /vars
+                               (cons (@v (list-ref /assign (+ 1 1))) /vars))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /assign var-save))
+           (@down_to 2)
+           (@down)
+           (cond ((and (= (@st (@i)) //t_/assignment)
+                       (= (@size (@i)) 1)
+                       (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                          //t_/var_/lvalue)
+                       (member
+                         (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                         /vars)
+                       (not (member
+                              (@v (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                              (@used (list-ref (@i) (+ 1 1)))))
+                       (null? (@set_intersect
+                                (@used (list-ref
+                                         (list-ref (@i) (+ 1 1))
+                                         (+ 1 2)))
+                                (@assigned (list-ref (@gparent) (+ 1 1))))))
+                  (@pass))
+                 (#t (@fail "This VAR cannot be simplified")))))
+        ((= (@st (@i)) //t_/where)
+         (let ((//o/k 1)
+               (//names
+                 (let ((l (@cs (list-ref (@i) (+ 1 2))))
+                       (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result (cons (@v1 (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result))))
+           (let while-loop ()
+             (cond ((and (= //o/k 1) (not (null? //names)))
+                    (begin
+                      (cond ((or (@proc_called?
+                                   (car //names)
+                                   (list-ref (@i) (+ 1 1)))
+                                 (@funct_called?
+                                   (car //names)
+                                   (list-ref (@i) (+ 1 1))))
+                             (set! //o/k 0)))
+                      (set! //names (cdr //names)))
+                    (while-loop))
+                   (#t #t)))
+           (cond ((= //o/k 1) (@pass))
+                 (#t
+                  (@fail "One of the procedures of functions is called.")))))
+        ((and (= (@st (@i)) //t_/while)
+              (= (@st (list-ref (@i) (+ 1 1))) //t_/true))
+         (@pass))
+        ((and (= (@st (@i)) //t_/while)
+              (= (@st (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+                 //t_/assert)
+              (@implies?
+                (list-ref
+                  (last-1 (@cs (list-ref (@i) (+ 1 2))))
+                  (+ 1 1))
+                (list-ref (@i) (+ 1 1))))
+         (@pass))
+        ((and (= (@st (@i)) //t_/assign)
+              (@up?)
+              (= (@st (@parent)) //t_/assignment)
+              (@lr_equal?
+                (list-ref (@i) (+ 1 1))
+                (list-ref (@i) (+ 1 2))))
+         (@pass))
+        ((= (@st (@i)) //t_/assignment)
+         (let ((var-save /assign) (seq-save (@cs (@i))))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /assign (car for-tmp))
+                    (cond ((@lr_equal?
+                             (list-ref /assign (+ 1 1))
+                             (list-ref /assign (+ 1 2)))
+                           (@pass)))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /assign var-save))
+         (cond ((not (@passed?))
+                (@fail "Cannot simplify this assignment"))))
+        ((and (= (@st (@i)) //t_/funct)
+              (= (@size (list-ref (@i) (+ 1 3))) 1)
+              (= (@st (list-ref
+                        (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                        (+ 1 1)))
+                 //t_/var_/lvalue)
+              (member
+                (@v (list-ref
+                      (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                      (+ 1 1)))
+                (@used (list-ref (@i) (+ 1 5))))
+              (@set_subset?
+                (@stat_types (list-ref (@i) (+ 1 4)))
+                (@make_set
+                  (list //t_/cond //t_/skip //t_/assignment))))
+         (let ((/v-save /v))
+           (set! /v
+             (@v (list-ref
+                   (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                   (+ 1 1))))
+           (@down_to 4)
+           (@foreach_statement
+             /foreach-simplify_item-1
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (@foreach_stats
+             /foreach-simplify_item-2
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           (cond ((not (@failed?)) (@pass)))
+           (set! /v /v-save)))
+        ((and (= (@gt (@i)) //t_/guarded)
+              (= (@size (list-ref (@i) (+ 1 2))) 1)
+              (= (@st (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))
+                 //t_/cond))
+         (@pass))
+        ((or (= (@gt (@i)) //t_/expression)
+             (= (@gt (@i)) //t_/condition))
+         (@pass))
+        (#t
+         (@fail "The selected item is not of an appropriate type."))))
+
+(define (@simplify_item_code //data)
+  (cond ((= (@st (@i)) //t_/cond)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((= (@st (list-ref (@i) (+ 1 1))) //t_/false)
+                         (@delete)
+                         (set! /fl_flag1 0))
+                        ((@right?)
+                         (cond ((= (@st (list-ref (@i) (+ 1 1))) //t_/true)
+                                (@delete_rest)
+                                (set! /fl_flag1 1))
+                               (#t (@right) (set! /fl_flag1 0))))
+                        (#t (set! /fl_flag1 1)))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (@fix_cond))
+        ((= (@st (@i)) //t_/d_/if)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((null? (@i)) (set! /fl_flag1 1))
+                        ((= (@st (list-ref (@i) (+ 1 1))) //t_/false)
+                         (@delete)
+                         (set! /fl_flag1 0))
+                        ((@right?) (@right) (set! /fl_flag1 0))
+                        (#t (set! /fl_flag1 1)))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (cond ((= (@size (@i)) 0)
+                (@paste_over (@make //t_/abort '() '())))
+               ((= (@size (@i)) 1)
+                (cond ((= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                          //t_/true)
+                       (@splice_over
+                         (@cs (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2)))))
+                      (#t
+                       (@splice_over
+                         (cons (@make //t_/assert
+                                      '()
+                                      (list (list-ref
+                                              (list-ref (@i) (+ 1 1))
+                                              (+ 1 1))))
+                               (@cs (list-ref
+                                      (list-ref (@i) (+ 1 1))
+                                      (+ 1 2))))))))))
+        ((= (@st (@i)) //t_/floop)
+         (cond ((null? (@tvs))
+                (@paste_over (@make //t_/abort '() '())))
+               ((@trans? //t/r_/remove_/dummy_/loop)
+                (@trans //t/r_/remove_/dummy_/loop ""))
+               (#t
+                (let ((//s (@cs (list-ref (@i) (+ 1 1))))
+                      (/mid (quotient (@size (list-ref (@i) (+ 1 1))) 2)))
+                  (set! //s (@sub_seg //s 1 /mid))
+                  (@paste_over
+                    (@make 133 '() (list (@make 17 '() //s))))))))
+        ((= (@st (@i)) //t_/a_/s)
+         (cond ((not (@regular?
+                       (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))))
+                (@down_to 2)
+                (@down)
+                (@down_last)
+                (@down_last)
+                (@paste_after
+                  (@make //t_/call (@make_name "Z") '()))
+                (@up)
+                (@up)
+                (@up)
+                (@up)))
+         (@foreach_non_action_statement
+           /foreach-simplify_item-3
+           0
+           (@as_type)
+           0)
+         (cond ((null? (@program)) (@new_program (@skips))))
+         (@put_as_in_double_loop))
+        ((and (= (@st (@i)) //t_/var)
+              (null? (@set_intersect
+                       (@assigned (list-ref (@i) (+ 1 1)))
+                       (@variables (list-ref (@i) (+ 1 2))))))
+         (@splice_over (@cs (list-ref (@i) (+ 1 2)))))
+        ((= (@st (@i)) //t_/var)
+         (let ((/vars '())
+               (/var (list-ref
+                       (list-ref
+                         (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))
+                         (+ 1 1))
+                       (+ 1 1)))
+               (/val (list-ref
+                       (list-ref
+                         (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))
+                         (+ 1 1))
+                       (+ 1 2))))
+           (@down)
+           (@down)
+           (let while-loop ()
+             (cond ((and (or (not (= //t_/var_/lvalue
+                                     (@st (list-ref (@i) (+ 1 1)))))
+                             (not (equal?
+                                    (@v (list-ref (@i) (+ 1 1)))
+                                    (@v /var))))
+                         (@right?))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))
+           (cond ((and (= //t_/var_/lvalue
+                          (@st (list-ref (@i) (+ 1 1))))
+                       (equal? (@v (list-ref (@i) (+ 1 1))) (@v /var)))
+                  (@paste_over
+                    (@make 6
+                           '()
+                           (list (@expn_to_var /var) (@var_to_expn /val))))))
+           (@up)
+           (@right)
+           (@down)
+           (@clever_delete)))
+        ((= (@st (@i)) //t_/where)
+         (@splice_over (@cs (list-ref (@i) (+ 1 1)))))
+        ((and (= (@st (@i)) //t_/while)
+              (= (@st (list-ref (@i) (+ 1 1))) //t_/true))
+         (@paste_over (@make //t_/abort '() '())))
+        ((and (= (@st (@i)) //t_/while)
+              (= (@st (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+                 //t_/assert)
+              (@equal?
+                (list-ref (@i) (+ 1 1))
+                (last-1 (@cs (list-ref (@i) (+ 1 2))))))
+         (let ((//b (list-ref (@i) (+ 1 1))))
+           (@paste_over
+             (@make 114
+                    '()
+                    (list (@make 7
+                                 '()
+                                 (list //b
+                                       (@make 17
+                                              '()
+                                              (list (@make 108 '() '())))))
+                          (@make 7
+                                 '()
+                                 (list (@make 308 '() '())
+                                       (@make 17
+                                              '()
+                                              (list (@make 145 '() '()))))))))))
+        ((and (= (@st (@i)) //t_/while)
+              (= (@st (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+                 //t_/assert)
+              (@implies?
+                (list-ref
+                  (last-1 (@cs (list-ref (@i) (+ 1 2))))
+                  (+ 1 1))
+                (list-ref (@i) (+ 1 1))))
+         (let ((//b (list-ref (@i) (+ 1 1))))
+           (@paste_over
+             (@make 114
+                    '()
+                    (list (@make 7
+                                 '()
+                                 (list //b
+                                       (@make 17
+                                              '()
+                                              (list (@make 108 '() '())))))
+                          (@make 7
+                                 '()
+                                 (list (@make 308 '() '())
+                                       (@make 17
+                                              '()
+                                              (list (@make 145 '() '()))))))))))
+        ((and (= (@st (@i)) //t_/assign)
+              (@lr_equal?
+                (list-ref (@i) (+ 1 1))
+                (list-ref (@i) (+ 1 2))))
+         (@clever_delete))
+        ((= (@st (@i)) //t_/assignment)
+         (let ((/new '()))
+           (let ((var-save /assign) (seq-save (@cs (@i))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /assign (car for-tmp))
+                      (cond ((not (@lr_equal?
+                                    (list-ref /assign (+ 1 1))
+                                    (list-ref /assign (+ 1 2))))
+                             (set! /new (cons /assign /new))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /assign var-save))
+           (cond ((null? /new) (@clever_delete))
+                 (#t
+                  (@paste_over
+                    (@make //t_/assignment '() (reverse /new)))))))
+        ((and (= (@st (@i)) //t_/funct)
+              (= (@size (list-ref (@i) (+ 1 3))) 1)
+              (= (@st (list-ref
+                        (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                        (+ 1 1)))
+                 //t_/var_/lvalue)
+              (member
+                (@v (list-ref
+                      (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                      (+ 1 1)))
+                (@used (list-ref (@i) (+ 1 5))))
+              (@set_subset?
+                (@stat_types (list-ref (@i) (+ 1 4)))
+                (@make_set
+                  (list //t_/cond //t_/skip //t_/assignment))))
+         (let ((//s (list-ref (@i) (+ 1 4)))
+               (/expn-save /expn)
+               (/v-save /v))
+           (set! /expn '())
+           (set! /v
+             (@lvalue_to_expn
+               (list-ref
+                 (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1))
+                 (+ 1 1))))
+           (@down_to 3)
+           (@paste_over (@make //t_/assigns '() '()))
+           (@right)
+           (@paste_over (@skips))
+           (@right)
+           (set! /expn (@si_stats_to_expn //s /v))
+           (@foreach_global_var
+             /foreach-simplify_item-4
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))
+           #t
+           (set! /expn /expn-save)
+           (set! /v /v-save)))
+        ((= (@gt (@i)) //t_/guarded)
+         (let while-loop ()
+           (cond ((@trans? //t/r_/move_/to_/right)
+                  (@trans //t/r_/move_/to_/right "")
+                  (while-loop))
+                 (#t #t)))
+         (@trans //t/r_/align_/nested_/statements "")
+         (@up)
+         (@trans //t/r_/delete_/all_/skips "")
+         (@down_last)
+         (@left))
+        ((= (@gt (@i)) //t_/expression)
+         (@paste_over (@simplify_expn (@i))))
+        (#t (@paste_over (@simplify_cond (@i))))))
+
+(define (@put_as_in_double_loop)
+  (let ((//s (@i)))
+    (@edit)
+    (@new_program
+      (list-ref
+        (list-ref (list-ref //s (+ 1 2)) (+ 1 1))
+        (+ 1 2)))
+    (cond ((and (= (@st (list-ref (@i) (+ 1 1))) //t_/d_/if)
+                (member
+                  (@make_name "entry_point")
+                  (@variables
+                    (list-ref
+                      (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+                      (+ 1 1)))))
+           (@down)
+           (cond ((@trans? //t/r_/fully_/absorb_/right)
+                  (@trans //t/r_/fully_/absorb_/right "")))
+           (@down)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (@down_to 2)
+                      (set! //s (@cs (@i)))
+                      (@paste_over
+                        (@make 17
+                               '()
+                               (list (@make 133
+                                            '()
+                                            (list (@make 17
+                                                         '()
+                                                         (list (@make 133
+                                                                      '()
+                                                                      (list (@make 17
+                                                                                   '()
+                                                                                   //s))))))))))
+                      (@down)
+                      (cond ((@trans? //t/r_/double_/to_/single_/loop)
+                             (@trans //t/r_/double_/to_/single_/loop "")))
+                      (cond ((@trans? //t/r_/remove_/dummy_/loop)
+                             (@trans //t/r_/remove_/dummy_/loop "")))
+                      (@up)
+                      (@up)
+                      (cond ((not (@right?)) (set! /fl_flag1 1))
+                            (#t (@right) (set! /fl_flag1 0))))
+                    (while-loop))
+                   (#t #t))))
+          (#t
+           (set! //s (@cs (@i)))
+           (@paste_over
+             (@make 17
+                    '()
+                    (list (@make 133
+                                 '()
+                                 (list (@make 17
+                                              '()
+                                              (list (@make 133
+                                                           '()
+                                                           (list (@make 17
+                                                                        '()
+                                                                        //s))))))))))
+           (@down)
+           (cond ((@trans? //t/r_/double_/to_/single_/loop)
+                  (@trans //t/r_/double_/to_/single_/loop "")))
+           (cond ((@trans? //t/r_/remove_/dummy_/loop)
+                  (@trans //t/r_/remove_/dummy_/loop "")))))
+    (@goto '())
+    (@trans //t/r_/delete_/all_/skips "")
+    (set! //s (@cs (@program)))
+    (@undo_edit)
+    (@splice_over //s)))
+
+(define (@si_stats_to_expn //s /v-par)
+  (let ((/v-save /v) (//i /v-par) (funct-result '()))
+    (set! /v /v-par)
+    (cond ((= (@gt //s) //t_/statements)
+           (set! //i
+             (@si_stats_to_expn (list-ref //s (+ 1 1)) /v)))
+          ((and (= (@st //s) //t_/cond) (= (@size //s) 2))
+           (set! //i
+             (@make //t_/if
+                    '()
+                    (list (list-ref (list-ref //s (+ 1 1)) (+ 1 1))
+                          (@si_stats_to_expn
+                            (list-ref (list-ref //s (+ 1 1)) (+ 1 2))
+                            /v)
+                          (@si_stats_to_expn
+                            (list-ref (list-ref //s (+ 1 2)) (+ 1 2))
+                            /v)))))
+          ((= (@st //s) //t_/cond)
+           (set! //i
+             (@make //t_/if
+                    '()
+                    (list (list-ref (list-ref //s (+ 1 1)) (+ 1 1))
+                          (@si_stats_to_expn
+                            (list-ref (list-ref //s (+ 1 1)) (+ 1 2))
+                            /v)
+                          (@si_stats_to_expn
+                            (@make //t_/cond '() (cdr (@cs //s)))
+                            /v)))))
+          ((= (@st //s) //t_/assignment)
+           (set! //i
+             (list-ref (list-ref //s (+ 1 1)) (+ 1 2))))
+          ((= (@st //s) //t_/skip) (set! //i /v))
+          (#t
+           (@print_wsl //i "")
+           (error "@SI_Stats_To_Expn: Unexpected statement!")))
+    (set! funct-result //i)
+    (set! /v /v-save)
+    funct-result))
+
+#t
+

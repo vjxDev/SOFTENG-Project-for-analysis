@@ -1,0 +1,43 @@
+(set! //t/r_/substitute_/and_/delete
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/substitute_/and_/delete 1)
+  "Substitute_And_Delete")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/substitute_/and_/delete 1)
+  @substitute_and_delete_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/substitute_/and_/delete 1)
+  @substitute_and_delete_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/substitute_/and_/delete 1)
+  "Substitute and Delete")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/substitute_/and_/delete 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/substitute_/and_/delete 1)
+  "Substitute and Delete will replace all calls to an action, procedure or function with the corresponding definition, and delete the definition.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/substitute_/and_/delete 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/substitute_/and_/delete 1)
+  "")
+

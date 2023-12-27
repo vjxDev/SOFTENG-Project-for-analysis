@@ -1,0 +1,20 @@
+
+Z	java:S112o"FDefine and throw a dedicated exception instead of using a generic one.(‰Æáe
+I
+java:S11417"5Extract this nested try block into a separate method.(Ğ
+I
+java:S1141G"5Extract this nested try block into a separate method.(Ğ
+I
+java:S1141Q"5Extract this nested try block into a separate method.(Ğ
+h
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(Çµí‘
+V	java:S125>"<This block of commented-out lines of code should be removed.(†‰ñüûÿÿÿÿ
+>	java:S108D")Either remove or fill this block of code.(”ı¾
+>	java:S108V")Either remove or fill this block of code.(”ı¾
+7
+java:S3457s"!Single quote "'" must be escaped.(ï÷¸¿
+f
+java:S3457v"KFormat specifiers or lambda should be used instead of string concatenation.(’¬²¤ÿÿÿÿÿ
+z
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ
+D	java:S108")Either remove or fill this block of code.(è®ã¶øÿÿÿÿ

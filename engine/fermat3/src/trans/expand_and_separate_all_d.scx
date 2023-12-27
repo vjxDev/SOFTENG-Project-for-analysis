@@ -1,0 +1,43 @@
+(set! //t/r_/expand_/and_/separate_/all
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/expand_/and_/separate_/all 1)
+  "Expand And Separate All")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/expand_/and_/separate_/all 1)
+  "Expand_And_Separate_All")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/expand_/and_/separate_/all 1)
+  @expand_and_separate_all_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/expand_/and_/separate_/all 1)
+  @expand_and_separate_all_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/expand_/and_/separate_/all 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/expand_/and_/separate_/all 1)
+  "Expand And Separate All will attempt to apply the transformation Expand and Separate to the first statement in each action in an action system. This will be useful for dealing with the skip_flag in WSL derived from Herma assembly.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/expand_/and_/separate_/all 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/expand_/and_/separate_/all 1)
+  "")
+

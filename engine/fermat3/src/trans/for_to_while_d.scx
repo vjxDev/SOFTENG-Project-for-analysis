@@ -1,0 +1,42 @@
+(set! //t/r_/for_/to_/while (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/for_/to_/while 1)
+  "For_To_While")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/for_/to_/while 1)
+  "For_To_While")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/for_/to_/while 1)
+  @for_to_while_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/for_/to_/while 1)
+  @for_to_while_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/for_/to_/while 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/for_/to_/while 1)
+  "Convert any FOR loop to a VAR plus WHILE loop")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/for_/to_/while 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/for_/to_/while 1)
+  "")
+

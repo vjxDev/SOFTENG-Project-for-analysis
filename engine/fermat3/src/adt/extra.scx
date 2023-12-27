@@ -1,0 +1,42 @@
+(define (@wc_length //i)
+  (@make //t_/number 0 '()))
+
+(define (@load_file
+         /filename
+         //data_/names
+         //data_/lengths
+         //data_/origlen
+         //data_/repeats
+         //data_/fields
+         //data_/types
+         //data_/values
+         //init_/types
+         //init_/values
+         //init_/string
+         //equ_/symbol
+         //d/s/e/c/t_/tag
+         //comment
+         //orig_/name
+         //c/i/c/s_/maps)
+  #t
+  #t
+  (list //data_/names
+        //data_/lengths
+        //data_/origlen
+        //data_/repeats
+        //data_/fields
+        //data_/types
+        //data_/values
+        //init_/types
+        //init_/values
+        //init_/string
+        //equ_/symbol
+        //d/s/e/c/t_/tag
+        //comment
+        //orig_/name
+        //c/i/c/s_/maps))
+
+(set! /struct_p (@make_name "struct_p"))
+
+#t
+

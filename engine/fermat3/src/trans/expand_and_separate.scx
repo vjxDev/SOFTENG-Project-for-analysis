@@ -1,0 +1,15 @@
+(define (@expand_and_separate_test)
+  (cond ((@trans? //t/r_/expand_/forward) (@pass))
+        (#t (@fail "No statements after this one"))))
+
+(define (@expand_and_separate_code //data)
+  (let while-loop ()
+    (cond ((@trans? //t/r_/expand_/forward)
+           (@trans //t/r_/expand_/forward "")
+           (while-loop))
+          (#t #t)))
+  (cond ((@trans? //t/r_/separate_/right)
+         (@trans //t/r_/separate_/right "")))
+  (cond ((@trans? //t/r_/separate_/left)
+         (@trans //t/r_/separate_/left ""))))
+

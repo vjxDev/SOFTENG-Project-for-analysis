@@ -1,0 +1,42 @@
+(set! //t/r_/abort_/processing (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/abort_/processing 1)
+  "Abort_Processing")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/abort_/processing 1)
+  "Abort_Processing")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/abort_/processing 1)
+  @abort_processing_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/abort_/processing 1)
+  @abort_processing_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/abort_/processing 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/abort_/processing 1)
+  "Simplify statement sequences containing an ABORT.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/abort_/processing 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/abort_/processing 1)
+  "")
+

@@ -1,0 +1,2785 @@
+(define (/foreach-flowchart-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/comment)
+              (@h_fermat? (@i)))
+         (@paste_over
+           (@make //t_/comment
+                  (let ((f 0)) (substring (@v (@i)) f (+ f 17)))
+                  '())))))
+
+(define (/foreach-flowchart-2 //depth //a/s_/type)
+  (@down)
+  (let while-loop ()
+    (cond ((and (or (not (= //t_/a_/proc_/call (@st (@i))))
+                    (not (member (@v (list-ref (@i) (+ 1 1))) /terminal)))
+                (@right?))
+           (@right)
+           (while-loop))
+          (#t #t)))
+  (cond ((and (= //t_/a_/proc_/call (@st (@i)))
+              (member (@v (list-ref (@i) (+ 1 1))) /terminal))
+         (@delete_rest))))
+
+(define (/foreach-flowchart-3 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/comment)
+         (set! //r (cons (@v (@i)) //r)))))
+
+(define (/foreach-flowchart-4 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/struct)
+         (cond ((not (null? (gethash
+                              //orig_/name
+                              (@v (list-ref (@i) (+ 1 1))))))
+                (@down)
+                (@paste_over
+                  (@name (gethash //orig_/name (@v (@i))))))))
+        ((= (@st (@i)) //t_/variable)
+         (cond ((not (null? (gethash //orig_/name (@v (@i)))))
+                (@paste_over
+                  (@make //t_/variable
+                         (gethash //orig_/name (@v (@i)))
+                         '())))))))
+
+(define (/foreach-flowchart-5 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/struct_/lvalue)
+         (cond ((not (null? (gethash
+                              //orig_/name
+                              (@v (list-ref (@i) (+ 1 1))))))
+                (@down)
+                (@paste_over
+                  (@name (gethash //orig_/name (@v (@i))))))))
+        ((= (@st (@i)) //t_/var_/lvalue)
+         (cond ((not (null? (gethash //orig_/name (@v (@i)))))
+                (@paste_over
+                  (@make //t_/var_/lvalue
+                         (gethash //orig_/name (@v (@i)))
+                         '())))))))
+
+(define (/foreach-flowchart-6 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/proc_/call)
+         (cond ((not (null? (gethash
+                              //orig_/name
+                              (@v (list-ref (@i) (+ 1 1))))))
+                (@down)
+                (@paste_over
+                  (@name (gethash //orig_/name (@v (@i)))))))))
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((= (@st (@i)) //t_/proc)
+                           (cond ((not (null? (gethash
+                                                //orig_/name
+                                                (@v (list-ref (@i) (+ 1 1))))))
+                                  (@down)
+                                  (@paste_over
+                                    (@name (gethash //orig_/name (@v (@i)))))
+                                  (@up)))))
+                    (cond ((not (@right?)) (set! /fl_flag1 1))
+                          (#t (@right) (set! /fl_flag1 0))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-flowchart-7 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/struct)
+         (@paste_over
+           (@make //t_/variable
+                  (@v (list-ref (@i) (+ 1 1)))
+                  '())))))
+
+(define (/foreach-flowchart-8 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/struct_/lvalue)
+         (@paste_over
+           (@make //t_/var_/lvalue
+                  (@v (list-ref (@i) (+ 1 1)))
+                  '())))))
+
+(define (/foreach-flowchart-9 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__1 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__e_save /e) (/__v_save /v))
+             (set! /e (vector-ref /__/match_array 1))
+             (set! /v (vector-ref /__/match_array 0))
+             (cond ((and (= (@st /v) //t_/var_/lvalue)
+                         (= (@st /e) //t_/variable)
+                         (not (null? (gethash //data_/types (list (@v /v)))))
+                         (equal?
+                           (gethash //data_/types (list (@v /v)))
+                           /struct_p)
+                         (member (@v /e) /registers))
+                    (set! /str
+                      (string-append
+                        (concat
+                          (string-append
+                            (string-append "{" (@h_rename (@v /v)))
+                            " is addressed by ")
+                          (@n_string (@v /e)))
+                        "}"))
+                    (@paste_over (@make //t_/stat_/pseudo /str '()))))
+             (set! /e /__e_save)
+             (set! /v /__v_save))))))
+
+(define (/foreach-flowchart-10 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__2 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__flag_save /flag) (/__var_save /var))
+             (set! /flag (vector-ref /__/match_array 1))
+             (set! /var (vector-ref /__/match_array 0))
+             (@down_to 2)
+             (@down_to 2)
+             (@fc_replace_flag /var /flag /sym_val_flag)
+             (set! /flag /__flag_save)
+             (set! /var /__var_save))))))
+
+(define (/foreach-flowchart-11 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__3 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__var_save /var) (/__flag_save /flag))
+             (set! /var (vector-ref /__/match_array 1))
+             (set! /flag (vector-ref /__/match_array 0))
+             (@down_to 2)
+             (@down)
+             (@fc_replace_flag /var /flag /sym_val_flag)
+             (set! /var /__var_save)
+             (set! /flag /__flag_save))))))
+
+(define (/foreach-flowchart-12 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__4 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__var_save /var) (/__e_save /e))
+             (set! /var (vector-ref /__/match_array 1))
+             (set! /e (vector-ref /__/match_array 0))
+             (cond ((and (= (@st /e) //t_/string)
+                         (@starts_with? (@v /e) "hex 0x"))
+                    (let ((/hex (@num_to_hex
+                                  (- 255
+                                     (@hex_to_num
+                                       (let ((s (@v /e)))
+                                         (substring s 6 (string-length s))))))))
+                      (set! /e
+                        (@make //t_/string
+                               (string-append "hex 0x" /hex)
+                               '()))
+                      (@down_to 2)
+                      (@down)
+                      (@paste_over
+                        (@make 221
+                               '()
+                               (list (@make 206 "hex 0xFF" '())
+                                     (@var_to_expn /e)))))))
+             (set! /var /__var_save)
+             (set! /e /__e_save))))))
+
+(define (/foreach-flowchart-13 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__5 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__var_save /var)
+                 (/__flag_save /flag)
+                 (/__e_save /e))
+             (set! /var (vector-ref /__/match_array 2))
+             (set! /flag (vector-ref /__/match_array 1))
+             (set! /e (vector-ref /__/match_array 0))
+             (@down_to 2)
+             (@down)
+             (@down_to 2)
+             (@fc_replace_flag /var /flag /sym_val_flag)
+             (set! /var /__var_save)
+             (set! /flag /__flag_save)
+             (set! /e /__e_save))))))
+
+(define (/foreach-flowchart-14 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__2 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__flag_save /flag) (/__var_save /var))
+             (set! /flag (vector-ref /__/match_array 1))
+             (set! /var (vector-ref /__/match_array 0))
+             (cond ((or (= (@st /var) //t_/variable)
+                        (= (@st /var) //t_/struct))
+                    (@fc_bit_test /var /flag)))
+             (set! /flag /__flag_save)
+             (set! /var /__var_save)))))
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__6 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__flag_save /flag) (/__var_save /var))
+             (set! /flag (vector-ref /__/match_array 1))
+             (set! /var (vector-ref /__/match_array 0))
+             (cond ((or (= (@st /var) //t_/variable)
+                        (= (@st /var) //t_/struct))
+                    (@fc_bit_test /var /flag)))
+             (set! /flag /__flag_save)
+             (set! /var /__var_save))))))
+
+(define (/foreach-flowchart-15 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__3 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__var_save /var) (/__flag_save /flag))
+             (set! /var (vector-ref /__/match_array 1))
+             (set! /flag (vector-ref /__/match_array 0))
+             (@fc_bit_set //f/c_/turn_/on /flag /var)
+             (set! /var /__var_save)
+             (set! /flag /__flag_save)))))
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__flowchart__5 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__var_save /var)
+                 (/__flag_save /flag)
+                 (/__e_save /e))
+             (set! /var (vector-ref /__/match_array 2))
+             (set! /flag (vector-ref /__/match_array 1))
+             (set! /e (vector-ref /__/match_array 0))
+             (@fc_bit_set //f/c_/turn_/off /flag /var)
+             (set! /var /__var_save)
+             (set! /flag /__flag_save)
+             (set! /e /__e_save))))))
+
+(define (/foreach-flowchart-16 //depth //a/s_/type)
+  (cond ((not (= (@st (@i)) //t_/variable)) #t)
+        ((and (= (@posn_n) 1)
+              (or (= (@st (@parent)) //t_/aref)
+                  (= (@st (@parent)) //t_/sub_/seg)
+                  (= (@st (@parent)) //t_/rel_/seg)))
+         #t)
+        ((and (> (if (vector? (gethash //data_/names (@v (@i))))
+                   (vector-length (gethash //data_/names (@v (@i))))
+                   (length (gethash //data_/names (@v (@i)))))
+                 1)
+              (not (null? (gethash //comment (@v (@i))))))
+         (@paste_over
+           (@make //t_/expn_/pseudo
+                  (concat
+                    (string-append
+                      (concat
+                        (string-append
+                          (concat (@n_string (@v (@i))) //f/c_/business)
+                          "{")
+                        (gethash //comment (@v (@i))))
+                      "}")
+                    //f/c_/business_/end)
+                  '())))))
+
+(define (/foreach-flowchart-17 //depth //a/s_/type)
+  (cond ((not (= (@st (@i)) //t_/var_/lvalue)) #t)
+        ((and (= (@posn_n) 1)
+              (or (= (@st (@parent)) //t_/aref_/lvalue)
+                  (= (@st (@parent)) //t_/sub_/seg_/lvalue)
+                  (= (@st (@parent)) //t_/rel_/seg_/lvalue)))
+         #t)
+        ((and (> (if (vector? (gethash //data_/names (@v (@i))))
+                   (vector-length (gethash //data_/names (@v (@i))))
+                   (length (gethash //data_/names (@v (@i)))))
+                 1)
+              (not (null? (gethash //comment (@v (@i))))))
+         (@paste_over
+           (@make //t_/lvalue_/pseudo
+                  (concat
+                    (string-append
+                      (concat
+                        (string-append
+                          (concat (@n_string (@v (@i))) //f/c_/business)
+                          "{")
+                        (gethash //comment (@v (@i))))
+                      "}")
+                    //f/c_/business_/end)
+                  '())))))
+
+(define (/foreach-flowchart-18 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (@down_to 2)
+         (@down)
+         (cond ((= //t_/proc (@st (@i)))
+                (@down)
+                (@paste_over
+                  (@name (@make_name
+                           (string-append "PROC " (@n_string (@v (@i)))))))
+                (@up)))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((= //t_/proc (@st (@i)))
+                           (@down)
+                           (@paste_over
+                             (@name (@make_name
+                                      (string-append
+                                        "PROC "
+                                        (@n_string (@v (@i)))))))
+                           (@up))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-flowchart-19 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/string)
+              (@starts_with? (@v (@i)) "hex 0x"))
+         (@paste_over
+           (@make //t_/expn_/pseudo
+                  (let ((s (@v (@i))))
+                    (substring s 4 (string-length s)))
+                  '())))))
+
+(define /%const__flowchart__1
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 506 -1 '()) (@make 217 -2 '()))))))
+
+(define /%const__flowchart__2
+  (@make 301
+         '()
+         (list (@make 9 (@make_name "bit_test?") '())
+               (@make 10
+                      '()
+                      (list (@make 217 -1 '()) (@make 217 -2 '()))))))
+
+(define /%const__flowchart__3
+  (@make 101
+         '()
+         (list (@make 9 (@make_name "bit_or_1") '())
+               (@make 10
+                      '()
+                      (list (@make 217 -1 '()) (@make 205 1 '())))
+               (@make 12 '() (list (@make 506 -2 '()))))))
+
+(define /%const__flowchart__4
+  (@make 101
+         '()
+         (list (@make 9 (@make_name "bit_and_1") '())
+               (@make 10
+                      '()
+                      (list (@make 217 -1 '()) (@make 205 1 '())))
+               (@make 12 '() (list (@make 506 -2 '()))))))
+
+(define /%const__flowchart__5
+  (@make 101
+         '()
+         (list (@make 9 (@make_name "bit_and_1") '())
+               (@make 10
+                      '()
+                      (list (@make 221
+                                   '()
+                                   (list (@make 217 -1 '()) (@make 217 -2 '())))
+                            (@make 205 1 '())))
+               (@make 12 '() (list (@make 506 -3 '()))))))
+
+(define /%const__flowchart__6
+  (@make 301
+         '()
+         (list (@make 9 (@make_name "bit_tests?") '())
+               (@make 10
+                      '()
+                      (list (@make 217 -1 '()) (@make 217 -2 '()))))))
+
+(set! //t/p/f_name (@make_name "_TPF_"))
+
+(define (@flowchart //i-par //filename /data_file)
+  (let ((//i-save //i))
+    (set! //i //i-par)
+    (let ((//name2/num-save //name2/num)
+          (//z (@make_name "Z"))
+          (/entry_point-save /entry_point)
+          (/dispatch-save /dispatch)
+          (//n/o/t_/u/s/e/d (@make_name "NOT_USED"))
+          (//g/o/b/a/c/k-save //g/o/b/a/c/k)
+          (/dispatch_n-save /dispatch_n)
+          (/dispatch_node-save /dispatch_node)
+          (/exit_flag-save /exit_flag)
+          (/terminal-save /terminal)
+          (/external-save /external)
+          (/new_block-save /new_block)
+          (//next_/node-save //next_/node)
+          (//end_/node-save //end_/node)
+          (//return_/node-save //return_/node)
+          (/entry 0)
+          (//subgraph-save //subgraph)
+          (//subgraph_/n-save //subgraph_/n)
+          (//loop_/exits-save //loop_/exits)
+          (//current_/action-save //current_/action)
+          (//options (my-make-hash-table 16))
+          (/skipped_vars-save /skipped_vars)
+          (//dispatch_/nodes-save //dispatch_/nodes)
+          (//runtime_/flow-save //runtime_/flow)
+          (//thin_/back_/edges-save //thin_/back_/edges)
+          (//max_/box_/lines1-save //max_/box_/lines1)
+          (//max_/box_/lines2-save //max_/box_/lines2)
+          (//max_/box_/chars-save //max_/box_/chars)
+          (//max_/rhomb_/chars-save //max_/rhomb_/chars)
+          (//max_/split_/line-save //max_/split_/line)
+          (//left_/justify-save //left_/justify)
+          (//f/c_/business-save //f/c_/business)
+          (//f/c_/business_/end-save //f/c_/business_/end)
+          (//f/c_/tech-save //f/c_/tech)
+          (//f/c_/tech_/end-save //f/c_/tech_/end)
+          (//f/c_/newline-save //f/c_/newline)
+          (//f/c_/turn_/on-save //f/c_/turn_/on)
+          (//f/c_/turn_/off-save //f/c_/turn_/off)
+          (//f/c_/dot-save //f/c_/dot)
+          (//data_/names-save //data_/names)
+          (//data_/lengths (my-make-hash-table 16))
+          (//data_/origlen (my-make-hash-table 16))
+          (//data_/repeats (my-make-hash-table 16))
+          (//data_/fields (my-make-hash-table 16))
+          (//data_/types-save //data_/types)
+          (//data_/values (my-make-hash-table 16))
+          (//init_/types (my-make-hash-table 16))
+          (//init_/values (my-make-hash-table 16))
+          (//init_/string-save //init_/string)
+          (//equ_/symbol-save //equ_/symbol)
+          (//d/s/e/c/t_/tag-save //d/s/e/c/t_/tag)
+          (//comment-save //comment)
+          (//orig_/name-save //orig_/name)
+          (//c/i/c/s_/maps (my-make-hash-table 16))
+          (//symbol_/equ-save //symbol_/equ))
+      (set! //name2/num (my-make-hash-table 16))
+      (set! /entry_point (@make_name "entry_point"))
+      (set! /dispatch (@make_name "dispatch"))
+      (set! //g/o/b/a/c/k (@make_name "GOBACK"))
+      (set! /dispatch_n (- 1))
+      (set! /dispatch_node 0)
+      (set! /exit_flag (@make_name "exit_flag"))
+      (set! /terminal
+        (@make_set
+          (let ((l (list "ENTNC" "ENTDC" "BACKC" "GOBACK"))
+                (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@make_name (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result))))
+      (set! /external
+        (@make_set
+          (let ((l (list "ENTNC" "ENTDC" "ENTRC"))
+                (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@make_name (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result))))
+      (set! /new_block
+        (@make_set
+          (list //t_/cond
+                //t_/d_/if
+                //t_/while
+                //t_/for
+                //t_/floop
+                //t_/d_/do
+                //t_/call
+                //t_/a_/s
+                //t_/exit
+                //t_/var
+                //t_/where
+                //t_/proc_/call)))
+      (set! //next_/node 2)
+      (set! //end_/node 2)
+      (set! //return_/node (my-make-hash-table 16))
+      (set! //subgraph 0)
+      (set! //subgraph_/n 0)
+      (set! //loop_/exits '())
+      (set! //current_/action 0)
+      (set! /skipped_vars (my-make-hash-table 16))
+      (set! //dispatch_/nodes 1)
+      (set! //runtime_/flow 0)
+      (set! //thin_/back_/edges 1)
+      (set! //max_/box_/lines1 8)
+      (set! //max_/box_/lines2 2)
+      (set! //max_/box_/chars 25)
+      (set! //max_/rhomb_/chars 20)
+      (set! //max_/split_/line 65)
+      (set! //left_/justify 1)
+      (set! //f/c_/business "<Business>")
+      (set! //f/c_/business_/end "</Business>")
+      (set! //f/c_/tech "<Tech>")
+      (set! //f/c_/tech_/end "</Tech>")
+      (set! //f/c_/newline //newline)
+      (set! //f/c_/turn_/on "TURN ON")
+      (set! //f/c_/turn_/off "TURN OFF")
+      (set! //f/c_/dot 0)
+      (set! //data_/names (my-make-hash-table 16))
+      (set! //data_/types (my-make-hash-table 16))
+      (set! //init_/string (my-make-hash-table 16))
+      (set! //equ_/symbol (my-make-hash-table 16))
+      (set! //d/s/e/c/t_/tag (my-make-hash-table 16))
+      (set! //comment (my-make-hash-table 16))
+      (set! //orig_/name (my-make-hash-table 16))
+      (set! //symbol_/equ (my-make-hash-table 16))
+      (cond ((equal? /data_file "")
+             (begin
+               (display "Warning: no data file supplied")
+               (newline)
+               (force-output)))
+            ((@file_exists? /data_file)
+             (begin
+               (display "Loading data file: ")
+               (begin
+                 (display /data_file)
+                 (newline)
+                 (force-output)))
+             (let ((/-result-
+                     (@load_file
+                       /data_file
+                       //data_/names
+                       //data_/lengths
+                       //data_/origlen
+                       //data_/repeats
+                       //data_/fields
+                       //data_/types
+                       //data_/values
+                       //init_/types
+                       //init_/values
+                       //init_/string
+                       //equ_/symbol
+                       //d/s/e/c/t_/tag
+                       //comment
+                       //orig_/name
+                       //c/i/c/s_/maps)))
+               (set! //data_/names (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/lengths (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/origlen (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/repeats (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/fields (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/types (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //data_/values (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //init_/types (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //init_/values (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //init_/string (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //equ_/symbol (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //d/s/e/c/t_/tag (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //comment (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //orig_/name (car /-result-))
+               (set! /-result- (cdr /-result-))
+               (set! //c/i/c/s_/maps (car /-result-))
+               (set! /-result- (cdr /-result-))))
+            (#t
+             (begin
+               (display "Warning: data file `")
+               (begin
+                 (display /data_file)
+                 (begin
+                   (display "' not found!")
+                   (newline)
+                   (force-output))))))
+      (let ((/elt '()))
+        (let ((var-save /name)
+              (seq-save (@hash_keys //data_/names)))
+          (if (vector? seq-save)
+            (set! seq-save (vector-elts seq-save)))
+          (let for-in-loop ((for-tmp seq-save))
+            (cond ((not (null? for-tmp))
+                   (set! /name (car for-tmp))
+                   (begin
+                     (set! /elt (gethash //data_/names /name))
+                     (cond ((and (> (if (vector? /elt)
+                                      (vector-length /elt)
+                                      (length /elt))
+                                    1)
+                                 (not (null? (gethash
+                                               //d/s/e/c/t_/tag
+                                               (car /elt)))))
+                            (puthash
+                              //d/s/e/c/t_/tag
+                              (last-1 /elt)
+                              (gethash //d/s/e/c/t_/tag (car /elt))))
+                           ((> (if (vector? /elt)
+                                 (vector-length /elt)
+                                 (length /elt))
+                               1)
+                            (puthash
+                              //d/s/e/c/t_/tag
+                              (last-1 /elt)
+                              (@n_string (car /elt))))))
+                   (for-in-loop (cdr for-tmp)))
+                  (#t #t)))
+          (set! /name var-save)))
+      (let ((var-save /equ)
+            (seq-save (@hash_keys //equ_/symbol)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /equ (car for-tmp))
+                 (puthash
+                   //symbol_/equ
+                   (gethash //equ_/symbol /equ)
+                   (@set_union
+                     (gethash
+                       //symbol_/equ
+                       (gethash //equ_/symbol /equ))
+                     (list /equ)))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /equ var-save))
+      (let ((var-save /name)
+            (seq-save (@hash_keys //equ_/symbol)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /name (car for-tmp))
+                 (cond ((and (not (null? (gethash //init_/string (list /name))))
+                             (@digits? (gethash //init_/string (list /name))))
+                        (puthash
+                          //init_/string
+                          (list /name)
+                          (string-append
+                            "hex 0x"
+                            (@num_to_hex
+                              (@string_to_num
+                                (gethash //init_/string (list /name))))))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /name var-save))
+      (@write_to //filename)
+      (cond ((@ends_with? //filename ".dot")
+             (set! //f/c_/dot 1)))
+      (set! //options
+        (@read_options_file //options_/file))
+      (cond ((not (null? (gethash //options "Dispatch_Nodes")))
+             (set! //dispatch_/nodes
+               (gethash //options "Dispatch_Nodes"))))
+      (cond ((not (null? (gethash //options "Runtime_Flow")))
+             (set! //runtime_/flow
+               (gethash //options "Runtime_Flow"))))
+      (cond ((not (null? (gethash //options "Thin_Back_Edges")))
+             (set! //thin_/back_/edges
+               (gethash //options "Thin_Back_Edges"))))
+      (cond ((not (null? (gethash //options "Max_Box_Lines1")))
+             (set! //max_/box_/lines1
+               (gethash //options "Max_Box_Lines1"))))
+      (cond ((not (null? (gethash //options "Max_Box_Lines2")))
+             (set! //max_/box_/lines2
+               (gethash //options "Max_Box_Lines2"))))
+      (cond ((not (null? (gethash //options "Max_Box_Chars")))
+             (set! //max_/box_/chars
+               (gethash //options "Max_Box_Chars"))))
+      (cond ((not (null? (gethash //options "Max_Rhomb_Chars")))
+             (set! //max_/rhomb_/chars
+               (gethash //options "Max_Rhomb_Chars"))))
+      (cond ((not (null? (gethash //options "Max_Split_Line")))
+             (set! //max_/split_/line
+               (gethash //options "Max_Split_Line"))))
+      (cond ((not (null? (gethash //options "Left_Justify")))
+             (set! //left_/justify
+               (gethash //options "Left_Justify"))))
+      (@edit)
+      (@new_program //i)
+      (puthash /skipped_vars //n/o/t_/u/s/e/d 1)
+      (let ((/v-save /v))
+        (set! /v '())
+        (let ((var-save /v)
+              (seq-save (@variables (@program))))
+          (if (vector? seq-save)
+            (set! seq-save (vector-elts seq-save)))
+          (let for-in-loop ((for-tmp seq-save))
+            (cond ((not (null? for-tmp))
+                   (set! /v (car for-tmp))
+                   (cond ((@starts_with? /v "NOTUSED_")
+                          (puthash /skipped_vars /v 1)))
+                   (for-in-loop (cdr for-tmp)))
+                  (#t #t)))
+          (set! /v var-save))
+        (set! /v /v-save))
+      (@foreach_statement
+        /foreach-flowchart-1
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_stats
+        /foreach-flowchart-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@fc_business_tech_process //orig_/name 1)
+      (begin
+        (display "Writing flowchart...")
+        (newline)
+        (force-output))
+      (cond ((= //f/c_/dot 0) (@fc_initialise))
+            (#t (@fc_dot_initialise)))
+      (@fc_start_subgraph "start" 0)
+      (@fc_node "ellipse" 0 "start" "" "" "")
+      (set! /entry (@fc_generic (@program) 1))
+      (@fc_edge "edge" "" 0 (abs /entry))
+      (cond ((= //subgraph 1) (@fc_end_subgraph)))
+      (@fc_finalise)
+      (begin
+        (display "Done.")
+        (newline)
+        (force-output))
+      (@end_write)
+      (@undo_edit)
+      (set! //name2/num //name2/num-save)
+      (set! /entry_point /entry_point-save)
+      (set! /dispatch /dispatch-save)
+      (set! //g/o/b/a/c/k //g/o/b/a/c/k-save)
+      (set! /dispatch_n /dispatch_n-save)
+      (set! /dispatch_node /dispatch_node-save)
+      (set! /exit_flag /exit_flag-save)
+      (set! /terminal /terminal-save)
+      (set! /external /external-save)
+      (set! /new_block /new_block-save)
+      (set! //next_/node //next_/node-save)
+      (set! //end_/node //end_/node-save)
+      (set! //return_/node //return_/node-save)
+      (set! //subgraph //subgraph-save)
+      (set! //subgraph_/n //subgraph_/n-save)
+      (set! //loop_/exits //loop_/exits-save)
+      (set! //current_/action //current_/action-save)
+      (set! /skipped_vars /skipped_vars-save)
+      (set! //dispatch_/nodes //dispatch_/nodes-save)
+      (set! //runtime_/flow //runtime_/flow-save)
+      (set! //thin_/back_/edges
+        //thin_/back_/edges-save)
+      (set! //max_/box_/lines1 //max_/box_/lines1-save)
+      (set! //max_/box_/lines2 //max_/box_/lines2-save)
+      (set! //max_/box_/chars //max_/box_/chars-save)
+      (set! //max_/rhomb_/chars
+        //max_/rhomb_/chars-save)
+      (set! //max_/split_/line //max_/split_/line-save)
+      (set! //left_/justify //left_/justify-save)
+      (set! //f/c_/business //f/c_/business-save)
+      (set! //f/c_/business_/end
+        //f/c_/business_/end-save)
+      (set! //f/c_/tech //f/c_/tech-save)
+      (set! //f/c_/tech_/end //f/c_/tech_/end-save)
+      (set! //f/c_/newline //f/c_/newline-save)
+      (set! //f/c_/turn_/on //f/c_/turn_/on-save)
+      (set! //f/c_/turn_/off //f/c_/turn_/off-save)
+      (set! //f/c_/dot //f/c_/dot-save)
+      (set! //data_/names //data_/names-save)
+      (set! //data_/types //data_/types-save)
+      (set! //init_/string //init_/string-save)
+      (set! //equ_/symbol //equ_/symbol-save)
+      (set! //d/s/e/c/t_/tag //d/s/e/c/t_/tag-save)
+      (set! //comment //comment-save)
+      (set! //orig_/name //orig_/name-save)
+      (set! //symbol_/equ //symbol_/equ-save))
+    (set! //i //i-save)))
+
+(define (@fc_generic //i-par /to)
+  (let ((//i-save //i)
+        (//g/t (@gt //i-par))
+        (/node /to)
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((= //g/t //t_/statement)
+           (set! /node (@fc_statement //i /to)))
+          ((= //g/t //t_/assigns)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/expression)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/condition)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/definition)
+           (set! /node (@fc_definition //i /to)))
+          ((= //g/t //t_/lvalue)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/guarded)
+           (set! /node (@fc_guarded //i /to)))
+          ((= //g/t //t_/action)
+           (set! /node (@fc_action //i /to)))
+          ((= //g/t //t_/statements)
+           (set! /node (@fc_statements //i /to)))
+          ((= //g/t //t_/expressions)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/lvalues)
+           (set! /node (@fc_block //i /to)))
+          ((= //g/t //t_/definitions)
+           (set! /node (@fc_definitions //i /to)))
+          ((= //g/t //t_/actions)
+           (set! /node (@fc_actions //i /to)))
+          ((= //g/t //t_/guardeds)
+           (set! /node (@fc_guardeds //i /to)))
+          (#t
+           (begin
+             (display
+               (string-append
+                 (concat
+                   (string-append
+                     (string-append
+                       "UNRECOGNISED TYPE "
+                       (@type_name (@gt //i)))
+                     "(")
+                   (@string (@gt //i)))
+                 ")"))
+             (newline)
+             (force-output))))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_statement //i-par /to)
+  (let ((//i-save //i)
+        (//s/t (@st //i-par))
+        (/node /to)
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((= //s/t //t_/a_/proc_/call)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/x_/proc_/call)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/m/w_/proc)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/assignment)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/a_/s)
+           (set! /node (@fc_a_s //i /to)))
+          ((= //s/t //t_/call)
+           (set! /node (@fc_call //i /to)))
+          ((= //s/t //t_/comment)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/cond)
+           (set! /node (@fc_cond //i /to)))
+          ((= //s/t //t_/exit)
+           (set! /node (@fc_exit //i /to)))
+          ((= //s/t //t_/for)
+           (set! /node (@fc_for //i /to)))
+          ((= //s/t //t_/floop)
+           (set! /node (@fc_floop //i /to)))
+          ((= //s/t //t_/proc_/call)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/skip)
+           (set! /node (@fc_block //i /to)))
+          ((= //s/t //t_/abort)
+           (set! /node (@fc_abort //i /to)))
+          ((= //s/t //t_/var)
+           (set! /node (@fc_var //i /to)))
+          ((= //s/t //t_/where)
+           (set! /node (@fc_where //i /to)))
+          ((= //s/t //t_/while)
+           (set! /node (@fc_while //i /to)))
+          ((= //s/t //t_/d_/if)
+           (set! /node (@fc_d_if //i /to)))
+          ((= //s/t //t_/print)
+           (set! /node (@fc_block //i /to)))
+          (#t
+           (begin
+             (display
+               (string-append
+                 (concat
+                   (string-append
+                     (string-append
+                       "UNRECOGNISED STATEMENT: "
+                       (@type_name (@st //i)))
+                     "(")
+                   (@string (@st //i)))
+                 ") */"))
+             (newline)
+             (force-output))))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_statements //i /to)
+  (@fc_statement_list (reverse (@cs //i)) /to))
+
+(define (@fc_statement_list /list /to)
+  (let ((/block '()) (/node /to) (/stat '()))
+    (let ((var-save /stat) (seq-save /list))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /stat (car for-tmp))
+               (cond ((@fc_terminating_stat? /stat) (set! /to 0)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /stat var-save))
+    (let while-loop ()
+      (cond ((and (not (null? /list))
+                  (@fc_block_ok? (car /list)))
+             (begin
+               (set! /stat (car /list))
+               (cond ((and (= (@st /stat) //t_/assignment)
+                           (= (@size /stat) 1)
+                           (= (@st (list-ref (list-ref /stat (+ 1 1)) (+ 1 2)))
+                              //t_/variable)
+                           (not (null? (gethash
+                                         /skipped_vars
+                                         (@v (list-ref
+                                               (list-ref /stat (+ 1 1))
+                                               (+ 1 2)))))))
+                      #t)
+                     ((and (= (@st /stat) //t_/assignment)
+                           (= (@st (list-ref (list-ref /stat (+ 1 1)) (+ 1 1)))
+                              //t_/var_/lvalue)
+                           (equal?
+                             (@v (list-ref (list-ref /stat (+ 1 1)) (+ 1 1)))
+                             /exit_flag)
+                           (= (@st (list-ref (list-ref /stat (+ 1 1)) (+ 1 2)))
+                              //t_/number)
+                           (<= (@v (list-ref (list-ref /stat (+ 1 1)) (+ 1 2)))
+                               1))
+                      #t)
+                     ((and (= (@st /stat) //t_/a_/proc_/call)
+                           (equal?
+                             (@v (list-ref /stat (+ 1 1)))
+                             //g/o/b/a/c/k))
+                      #t)
+                     (#t (set! /block (cons /stat /block))))
+               (set! /list (cdr /list)))
+             (while-loop))
+            (#t #t)))
+    (cond ((not (null? /block))
+           (set! /node (@fc_multi_block /block /to))))
+    (cond ((not (null? /list))
+           (set! /node (@fc_statement (car /list) /node))
+           (set! /node
+             (@fc_statement_list (cdr /list) /node))))
+    /node))
+
+(define (@fc_block //i-par /to)
+  (let ((//i-save //i)
+        (/code (@fc_code //i-par))
+        (/comments (@fc_comments //i-par))
+        (/label "")
+        (/node /to)
+        (/colour "")
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((@fc_terminating_stat? //i) (set! /to 0)))
+    (cond ((not (equal? /code "")) (set! /label /code))
+          (#t (set! /label /comments)))
+    (cond ((> (string-length /label) //max_/box_/chars)
+           (set! /label
+             (string-append
+               (let ((f 0))
+                 (substring
+                   /label
+                   f
+                   (+ f (- //max_/box_/chars 1))))
+               "|"))))
+    (cond ((not (equal? /label ""))
+           (cond ((member //t/p/f_name (@assigned //i))
+                  (set! /colour "#FFCCCB")))
+           (set! /node //next_/node)
+           (set! //next_/node (+ //next_/node 1))
+           (@fc_node
+             "box"
+             /node
+             /label
+             /code
+             /comments
+             /colour)
+           (@fc_edge "edge" "" /node /to)))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_terminating_stat? //i-par)
+  (let ((//i-save //i)
+        (//r-save //r)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //r 0)
+    (cond ((and (= (@st //i) //t_/assignment)
+                (= (@st (list-ref (list-ref //i (+ 1 1)) (+ 1 1)))
+                   //t_/var_/lvalue)
+                (equal?
+                  (@v (list-ref (list-ref //i (+ 1 1)) (+ 1 1)))
+                  /exit_flag)
+                (= (@st (list-ref (list-ref //i (+ 1 1)) (+ 1 2)))
+                   //t_/number)
+                (= (@v (list-ref (list-ref //i (+ 1 1)) (+ 1 2)))
+                   1))
+           (set! //r 1))
+          ((and (= (@st //i) //t_/a_/proc_/call)
+                (member (@v (list-ref //i (+ 1 1))) /terminal))
+           (set! //r 1)))
+    (set! funct-result (= //r 1))
+    (set! //i //i-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_multi_block /list /to)
+  (let ((/code "")
+        (/comments "")
+        (/label "")
+        (/node /to)
+        (/colour ""))
+    (cond ((> (if (vector? /list)
+                (vector-length /list)
+                (length /list))
+              (+ //max_/box_/lines1 //max_/box_/lines2))
+           (set! /list
+             (concat
+               (concat
+                 (@sub_seg /list 1 //max_/box_/lines1)
+                 (list (@make //t_/comment "..." '())))
+               (@final_seg
+                 /list
+                 (+ (- (if (vector? /list)
+                         (vector-length /list)
+                         (length /list))
+                       //max_/box_/lines2)
+                    1))))))
+    (let ((var-save //i) (seq-save /list))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //i (car for-tmp))
+               (cond ((= (@st //i) //t_/skip))
+                     ((= (@st //i) //t_/comment)
+                      (set! /comments
+                        (@fc_append /comments (@v //i) 0))
+                      (set! /label
+                        (@fc_append /label (@v //i) //max_/box_/chars)))
+                     (#t
+                      (set! /code (@fc_append /code (@fc_code //i) 0))
+                      (set! /comments
+                        (@fc_append /comments (@fc_comments //i) 0))
+                      (set! /label
+                        (@fc_append
+                          /label
+                          (@fc_code //i)
+                          //max_/box_/chars))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //i var-save))
+    (cond ((not (equal? /label ""))
+           (cond ((member
+                    //t/p/f_name
+                    (@assigned (@make //t_/statements '() /list)))
+                  (set! /colour "#FFCCCB")))
+           (set! /node //next_/node)
+           (set! //next_/node (+ //next_/node 1))
+           (@fc_node
+             "box"
+             /node
+             /label
+             /code
+             /comments
+             /colour)
+           (@fc_edge "edge" "" /node /to)))
+    /node))
+
+(define (@fc_append /str-par /new /max)
+  (let ((/str-save /str)
+        (//r-save //r)
+        (funct-result '()))
+    (set! /str /str-par)
+    (set! //r "")
+    (cond ((> /max 0)
+           (cond ((> (string-length /new) /max)
+                  (set! /new
+                    (string-append
+                      (let ((f 0)) (substring /new f (+ f (- /max 1))))
+                      "|"))))))
+    (cond ((and (not (equal? /str ""))
+                (not (equal? /new "")))
+           (set! //r (concat (concat /str //newline) /new)))
+          (#t (set! //r (concat /str /new))))
+    (set! funct-result //r)
+    (set! /str /str-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_node
+         /shape
+         /title
+         /label
+         /code
+         /comments
+         /colour)
+  (set! /title (@fc_protect /title))
+  (set! /label (@fc_protect /label))
+  (set! /code (@fc_protect /code))
+  (set! /comments (@fc_protect /comments))
+  (cond ((= //f/c_/dot 0)
+         (@wl (concat
+                (string-append
+                  (concat
+                    (string-append
+                      (string-append "node: { shape: " /shape)
+                      " title: ")
+                    /title)
+                  " label: ")
+                /label))
+         (@wl (string-append
+                (concat
+                  (string-append
+                    (string-append "        info1: " /code)
+                    " info2: ")
+                  /comments)
+                " }")))
+        ((and (equal? /shape "box") (= //left_/justify 1))
+         (set! /label
+           (@ws_replace
+             //newline
+             (string-append //backslash "l")
+             /label))
+         (set! /label
+           (concat
+             (string-append
+               (concat
+                 (let ((f 0))
+                   (substring
+                     /label
+                     f
+                     (+ f (- (string-length /label) 1))))
+                 //backslash)
+               "l")
+             //quote))
+         (@wl (string-append
+                (concat
+                  /title
+                  (@fc_shape_style /shape /label /comments /colour))
+                ";")))
+        (#t
+         (@wl (string-append
+                (concat
+                  /title
+                  (@fc_shape_style /shape /label /comments /colour))
+                ";")))))
+
+(define (@quote /str)
+  (concat (concat //quote /str) //quote))
+
+(define (@fc_shape_style_nocomma
+         /shape
+         /label
+         /comments
+         /colour)
+  (let ((//r-save //r) (funct-result '()))
+    (set! //r "")
+    (cond ((equal? /shape "rhomb") (set! /shape "diamond")))
+    (set! /label
+      (@ws_replace
+        //newline
+        (string-append //backslash "n")
+        /label))
+    (cond ((not (equal? /colour ""))
+           (set! //r
+             (string-append
+               (concat
+                 (string-append
+                   (concat
+                     (string-append
+                       (string-append "[shape = " (@quote /shape))
+                       " style=filled,color=")
+                     (@quote /colour))
+                   " label=")
+                 /label)
+               "]")))
+          (#t
+           (set! //r
+             (string-append
+               (concat
+                 (string-append
+                   (string-append "[shape = " (@quote /shape))
+                   " label=")
+                 /label)
+               "]"))))
+    (set! funct-result //r)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_shape_style /shape /label /comments /colour)
+  (let ((//r-save //r) (funct-result '()))
+    (set! //r "")
+    (cond ((equal? /shape "rhomb") (set! /shape "diamond")))
+    (set! /label
+      (@ws_replace
+        //newline
+        (string-append //backslash "n")
+        /label))
+    (cond ((not (equal? /colour ""))
+           (set! //r
+             (string-append
+               (concat
+                 (string-append
+                   (concat
+                     (string-append
+                       (string-append "[shape = " (@quote /shape))
+                       ", style=filled,color=")
+                     (@quote /colour))
+                   ", label=")
+                 /label)
+               "]")))
+          (#t
+           (set! //r
+             (string-append
+               (concat
+                 (string-append
+                   (string-append "[shape = " (@quote /shape))
+                   ", label=")
+                 /label)
+               "]"))))
+    (set! funct-result //r)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_edge /type /label /source /target)
+  (cond ((= /target 0))
+        ((and (= //runtime_/flow 0)
+              (or (equal? /source /dispatch_n)
+                  (equal? /target /dispatch_n))))
+        ((and (equal? /source /dispatch_n)
+              (= (abs /target) 1)))
+        (#t (@fc_edge2 /type /label /source /target))))
+
+(define (@fc_edge2 /type /label /source /target)
+  (let ((/class "") (/style "") (/thick ""))
+    (cond ((< /target 0)
+           (cond ((or (equal? /type "edge")
+                      (equal? /type "bentnearedge"))
+                  (set! /type "backedge")))
+           (set! /target (abs /target))
+           (cond ((= //thin_/back_/edges 1)
+                  (set! /thick " thickness: 1")))))
+    (cond ((equal? /source /dispatch_n)
+           (cond ((equal? /type "edge") (set! /type "backedge")))
+           (set! /class " class: 2")
+           (set! /thick " thickness: 1")
+           (cond ((= //dispatch_/nodes 1)
+                  (set! /dispatch_node (+ /dispatch_node 1))
+                  (set! /source
+                    (string-append "d" (@string /dispatch_node)))
+                  (@fc_node "triangle" /source "?" "" "" "")
+                  (set! /type "nearedge")
+                  (set! /label ""))))
+          ((equal? /target /dispatch_n)
+           (set! /class " class: 3")
+           (set! /thick " thickness: 1")
+           (cond ((= //dispatch_/nodes 1)
+                  (set! /dispatch_node (+ /dispatch_node 1))
+                  (set! /target
+                    (string-append "d" (@string /dispatch_node)))
+                  (@fc_node "triangle" /target "?" "" "" "")
+                  (set! /type "nearedge")
+                  (set! /label ""))))
+          ((= /target 1)
+           (set! /target //next_/node)
+           (set! //next_/node (+ //next_/node 1))
+           (@fc_node "ellipse" /target "end" "" "" ""))
+          ((not (null? (gethash //return_/node /target)))
+           (set! /target //next_/node)
+           (set! //next_/node (+ //next_/node 1))
+           (@fc_node "ellipse" /target "return" "" "" "")))
+    (cond ((= //f/c_/dot 0)
+           (cond ((not (equal? /label ""))
+                  (set! /label
+                    (string-append " label: " (@fc_protect /label)))))
+           (@ws (concat
+                  (string-append /type ": { sourcename: ")
+                  (@fc_protect /source)))
+           (@ws (string-append
+                  " targetname: "
+                  (@fc_protect /target)))
+           (@ws (concat
+                  (concat (concat /label /class) /style)
+                  /thick))
+           (@wl " }"))
+          (#t (@fc_dot_edge /type /label /source /target)))))
+
+(define (@fc_dot_edge_nocomma
+         /type
+         /label
+         /source
+         /target)
+  (let ((/style
+          (if (equal? /label "")
+            ""
+            (string-append "label=" /label))))
+    (cond ((equal? /type "backedge")
+           (cond ((not (equal? /style ""))
+                  (set! /style (string-append /style " "))))
+           (set! /style
+             (string-append
+               /style
+               "weight=0 penwidth=0.5 color=red"))))
+    (@wl (string-append
+           (concat
+             (string-append
+               (concat
+                 (string-append (@quote /source) " -> ")
+                 (@quote /target))
+               "[")
+             /style)
+           "];"))))
+
+(define (@fc_dot_edge /type /label /source /target)
+  (let ((/style
+          (if (equal? /label "")
+            ""
+            (string-append "label=" /label)))
+        (/tmp ""))
+    (cond ((equal? /type "backedge")
+           (cond ((not (equal? /style ""))
+                  (set! /style (string-append /style ","))))
+           (set! /style
+             (string-append
+               /style
+               "weight=1, penwidth=0.5, color=red"))))
+    (@wl (string-append
+           (concat
+             (string-append
+               (concat
+                 (string-append (@quote /source) " -> ")
+                 (@quote /target))
+               "[")
+             /style)
+           "];"))))
+
+(define (@fc_protect /str)
+  (concat
+    (concat
+      //quote
+      (@ws_replace
+        //quote
+        (concat //backslash //quote)
+        (@ws_replace
+          //backslash
+          (concat //backslash //backslash)
+          (@string /str))))
+    //quote))
+
+(define (@fc_code //i-par)
+  (let ((//i-save //i) (funct-result '()))
+    (set! //i //i-par)
+    (@new_program //i)
+    (@trans //t/r_/delete_/all_/comments "")
+    (set! funct-result
+      (@pp_multi (@program) //max_/split_/line))
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_comments //i-par)
+  (let ((//i-save //i)
+        (//r-save //r)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //r '())
+    (@new_program //i)
+    (@foreach_statement
+      /foreach-flowchart-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! funct-result
+      (@join //newline (reverse //r)))
+    (set! //i //i-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_block_ok_orig? //i)
+  (null? (@set_intersect
+           (@stat_types //i)
+           (@make_set
+             (list //t_/cond
+                   //t_/d_/if
+                   //t_/while
+                   //t_/for
+                   //t_/floop
+                   //t_/d_/do
+                   //t_/call
+                   //t_/a_/s
+                   //t_/exit
+                   //t_/var
+                   //t_/where
+                   //t_/proc_/call)))))
+
+(define (@fc_block_ok? //i-par)
+  (let ((//i-save //i)
+        (//r-save //r)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //r 1)
+    (cond ((and (= (@st //i) //t_/a_/proc_/call)
+                (member (@v (list-ref //i (+ 1 1))) /external))
+           (set! //r 0))
+          ((not (null? (@set_intersect (@stat_types //i) /new_block)))
+           (set! //r 0)))
+    (set! funct-result (= //r 1))
+    (set! //i //i-save)
+    (set! //r //r-save)
+    funct-result))
+
+(define (@fc_a_s //i-par /to)
+  (let ((//i-save //i)
+        (//n (@size (list-ref //i-par (+ 1 2))))
+        (/node /to)
+        (funct-result '()))
+    (set! //i //i-par)
+    (let ((//a/s_/type (@system_type //i))
+          (//bodies (make-vector //n '()))
+          (//names (make-vector (+ //n 1) '()))
+          (//nodes-save //nodes)
+          (//name2/num-save //name2/num)
+          (/dispatch_n-save /dispatch_n))
+      (set! //nodes (make-vector (+ //n 1) '()))
+      (set! //name2/num (my-make-hash-table 16))
+      (set! /dispatch_n (- 1))
+      (@new_program //i)
+      (let ((/-result-
+              (@fd_init //n //bodies //names //name2/num)))
+        (set! //bodies (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //names (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //name2/num (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (let ((var-save /i) (for-step 1) (for-end //n))
+        (set! /i 1)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= /i for-end))
+                     (and (< 1 0) (>= /i for-end)))
+                 (begin
+                   (if (vector? //nodes)
+                     (vector-set! //nodes (- /i 1) //next_/node)
+                     (set! //nodes
+                       (replace-nth //nodes /i //next_/node)))
+                   (set! //next_/node (+ //next_/node 1))
+                   (cond ((and (equal?
+                                 (let ((name //names))
+                                   (if (vector? name)
+                                     (vector-ref name (- /i 1))
+                                     (list-ref name (- /i 1))))
+                                 /dispatch)
+                               (= //dispatch_/nodes 1))
+                          #t)
+                         (#t
+                          (@fc_node
+                            "box"
+                            (let ((name //nodes))
+                              (if (vector? name)
+                                (vector-ref name (- /i 1))
+                                (list-ref name (- /i 1))))
+                            (@n_string
+                              (let ((name //names))
+                                (if (vector? name)
+                                  (vector-ref name (- /i 1))
+                                  (list-ref name (- /i 1)))))
+                            ""
+                            ""
+                            ""))))
+                 (set! /i (+ /i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! /i var-save))
+      (if (vector? //nodes)
+        (vector-set! //nodes (- (+ //n 1) 1) /to)
+        (set! //nodes
+          (replace-nth //nodes (+ //n 1) /to)))
+      (cond ((not (null? (gethash //name2/num /dispatch)))
+             (set! /dispatch_n
+               (let ((name //nodes))
+                 (if (vector? name)
+                   (vector-ref
+                     name
+                     (- (gethash //name2/num /dispatch) 1))
+                   (list-ref
+                     name
+                     (- (gethash //name2/num /dispatch) 1))))))
+            (#t (set! /dispatch_n (- 1))))
+      (let ((var-save /i) (for-step 1) (for-end //n))
+        (set! /i 1)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= /i for-end))
+                     (and (< 1 0) (>= /i for-end)))
+                 (begin
+                   (set! //current_/action /i)
+                   (cond ((equal?
+                            (let ((name //names))
+                              (if (vector? name)
+                                (vector-ref name (- /i 1))
+                                (list-ref name (- /i 1))))
+                            /dispatch)
+                          (@fc_dispatch
+                            (let ((name //nodes))
+                              (if (vector? name)
+                                (vector-ref name (- /i 1))
+                                (list-ref name (- /i 1))))
+                            (let ((name //bodies))
+                              (if (vector? name)
+                                (vector-ref name (- /i 1))
+                                (list-ref name (- /i 1))))))
+                         (#t
+                          (set! /node
+                            (@fc_statements
+                              (let ((name //bodies))
+                                (if (vector? name)
+                                  (vector-ref name (- /i 1))
+                                  (list-ref name (- /i 1))))
+                              /to))
+                          (@fc_edge
+                            "edge"
+                            ""
+                            (let ((name //nodes))
+                              (if (vector? name)
+                                (vector-ref name (- /i 1))
+                                (list-ref name (- /i 1))))
+                            /node))))
+                 (set! /i (+ /i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! /i var-save))
+      (set! /node
+        (let ((name //nodes))
+          (if (vector? name)
+            (vector-ref
+              name
+              (- (gethash //name2/num (@v (list-ref //i (+ 1 1))))
+                 1))
+            (list-ref
+              name
+              (- (gethash //name2/num (@v (list-ref //i (+ 1 1))))
+                 1)))))
+      (set! //nodes //nodes-save)
+      (set! //name2/num //name2/num-save)
+      (set! /dispatch_n /dispatch_n-save))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_dispatch /node /body)
+  (let ((var-save /call) (seq-save (@calls /body)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /call (car for-tmp))
+             (@fc_edge
+               "edge"
+               ""
+               /node
+               (let ((name //nodes))
+                 (if (vector? name)
+                   (vector-ref
+                     name
+                     (- (- (let ((name /call))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))
+                        1))
+                   (list-ref
+                     name
+                     (- (- (let ((name /call))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))
+                        1)))))
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /call var-save)))
+
+(define (@fc_call //i-par /to)
+  (let ((//i-save //i)
+        (/node (let ((name //nodes))
+                 (if (vector? name)
+                   (vector-ref name (- (- (@v //i-par)) 1))
+                   (list-ref name (- (- (@v //i-par)) 1)))))
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((and (not (null? (gethash //name2/num (@v //i))))
+                (<= (gethash //name2/num (@v //i))
+                    //current_/action))
+           (set! /node (- /node))))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_cond //i /to)
+  (@fc_guarded_list (@cs //i) /to))
+
+(define (@fc_guarded_list /list /to)
+  (let ((/node /to))
+    (cond ((null? /list) (set! /node /to))
+          ((null? (cdr /list))
+           (set! /node
+             (@fc_statements
+               (list-ref (car /list) (+ 1 2))
+               /to)))
+          (#t
+           (let ((/true_node
+                   (@fc_statements
+                     (list-ref (car /list) (+ 1 2))
+                     /to))
+                 (/false_node (@fc_guarded_list (cdr /list) /to))
+                 (/test (@fc_code (list-ref (car /list) (+ 1 1)))))
+             (cond ((equal? /test "exit_flag = 1")
+                    (set! /node /false_node))
+                   ((equal? /test "exit_flag <> 1")
+                    (set! /node /true_node))
+                   (#t
+                    (set! /node //next_/node)
+                    (set! //next_/node (+ //next_/node 1))
+                    (@fc_test
+                      (list-ref (car /list) (+ 1 1))
+                      /node
+                      /true_node
+                      /false_node
+                      0))))))
+    /node))
+
+(define (@fc_test
+         /cond
+         /node
+         /true_node
+         /false_node
+         /type)
+  (let ((/code (@fc_code /cond)) (/label ""))
+    (cond ((@ends_with? /code " DO SKIP OD")
+           (set! /code
+             (let ((f 0))
+               (substring
+                 /code
+                 f
+                 (+ f (- (string-length /code) 11)))))))
+    (cond ((> (string-length /code) //max_/rhomb_/chars)
+           (set! /label
+             (string-append
+               (let ((f 0))
+                 (substring
+                   /code
+                   f
+                   (+ f (- //max_/rhomb_/chars 1))))
+               "|")))
+          (#t (set! /label /code)))
+    (@fc_node "rhomb" /node /label /code "" "")
+    (cond ((= /type 0)
+           (@fc_edge "bentnearedge" "Y" /node /true_node)
+           (@fc_edge "bentnearedge" "N" /node /false_node))
+          ((= /type 1)
+           (@fc_edge "edge" "Y" /node /true_node)
+           (@fc_edge "bentnearedge" "N" /node /false_node))
+          (#t
+           (@fc_edge "edge" "" /node /true_node)
+           (@fc_edge
+             "bentnearedge"
+             "done"
+             /node
+             /false_node)))))
+
+(define (@fc_floop //i-par /to)
+  (let ((//i-save //i)
+        (/node //next_/node)
+        (/top 0)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //next_/node (+ //next_/node 1))
+    (@fc_node
+      "box"
+      /node
+      (string-append
+        "FLOOP "
+        (@string
+          (+ (if (vector? //loop_/exits)
+               (vector-length //loop_/exits)
+               (length //loop_/exits))
+             1)))
+      ""
+      ""
+      "")
+    (set! //loop_/exits (cons /to //loop_/exits))
+    (set! /top
+      (@fc_statements (list-ref //i (+ 1 1)) (- /node)))
+    (set! //loop_/exits (cdr //loop_/exits))
+    (@fc_edge "edge" "" /node /top)
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_exit //i-par /to)
+  (let ((//i-save //i) (/exit 0) (funct-result '()))
+    (set! //i //i-par)
+    (cond ((null? //loop_/exits) (set! /exit 0))
+          ((> (@v //i)
+              (if (vector? //loop_/exits)
+                (vector-length //loop_/exits)
+                (length //loop_/exits)))
+           (set! /exit (last-1 //loop_/exits)))
+          (#t
+           (set! /exit
+             (let ((name //loop_/exits))
+               (if (vector? name)
+                 (vector-ref name (- (@v //i) 1))
+                 (list-ref name (- (@v //i) 1)))))))
+    (set! funct-result /exit)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_d_if //i-par /to)
+  (let ((//i-save //i)
+        (/node /to)
+        (/guards (@cs //i-par))
+        (/start 0)
+        (/end 0)
+        (funct-result '()))
+    (set! //i //i-par)
+    (cond ((and (not (null? /guards))
+                (@fc_entry_point?
+                  (list-ref (list-ref //i (+ 1 1)) (+ 1 1))))
+           (set! /node
+             (@fc_statements
+               (list-ref (car /guards) (+ 1 2))
+               /to))
+           (let ((var-save /guard) (seq-save (cdr /guards)))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /guard (car for-tmp))
+                      (cond ((@fc_entry_point? (list-ref /guard (+ 1 1)))
+                             (set! /start //next_/node)
+                             (set! //next_/node (+ //next_/node 1))
+                             (@fc_force_to_end /start)
+                             (set! /end //next_/node)
+                             (set! //next_/node (+ //next_/node 1))
+                             (@fc_start_subgraph
+                               (@v (list-ref (list-ref /guard (+ 1 1)) (+ 1 2)))
+                               1)
+                             (@fc_node
+                               "ellipse"
+                               /start
+                               (@v (list-ref (list-ref /guard (+ 1 1)) (+ 1 2)))
+                               ""
+                               ""
+                               "")
+                             (puthash //return_/node /end 1)
+                             (set! /end
+                               (@fc_statements (list-ref /guard (+ 1 2)) /end))
+                             (@fc_edge "edge" "" /start /end)))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /guard var-save)))
+          (#t (set! /node (@fc_cond //i /to))))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_entry_point? /cond)
+  (and (= (@st /cond) //t_/equal)
+       (= (@st (list-ref /cond (+ 1 1))) //t_/variable)
+       (equal?
+         (@v (list-ref /cond (+ 1 1)))
+         /entry_point)))
+
+(define (@fc_guardeds //i /to)
+  (@fc_cond //i /to))
+
+(define (@fc_abort //i-par /to)
+  (let ((//i-save //i)
+        (/node //next_/node)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //next_/node (+ //next_/node 1))
+    (@fc_node
+      "ellipse"
+      /node
+      "ABORT"
+      "ABORT"
+      "ABORT causes an error"
+      "")
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_while //i-par /to)
+  (let ((//i-save //i)
+        (/test //next_/node)
+        (/top 0)
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //next_/node (+ //next_/node 1))
+    (set! /top
+      (@fc_statements (list-ref //i (+ 1 2)) (- /test)))
+    (@fc_test
+      (list-ref //i (+ 1 1))
+      /test
+      /top
+      /to
+      1)
+    (set! funct-result /test)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_for //i-par /to)
+  (let ((//i-save //i)
+        (/test //next_/node)
+        (/top 0)
+        (/for (@make //t_/for
+                     '()
+                     (list (list-ref //i-par (+ 1 1))
+                           (list-ref //i-par (+ 1 2))
+                           (list-ref //i-par (+ 1 3))
+                           (list-ref //i-par (+ 1 4))
+                           (@skips))))
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! //next_/node (+ //next_/node 1))
+    (set! /top
+      (@fc_statements (list-ref //i (+ 1 5)) (- /test)))
+    (@fc_test /for /test /top /to 2)
+    (set! funct-result /test)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_var //i-par /to)
+  (let ((//i-save //i) (/node 0) (funct-result '()))
+    (set! //i //i-par)
+    (set! /node
+      (@fc_statements (list-ref //i (+ 1 2)) /to))
+    (cond ((not (member
+                  /dispatch
+                  (@assigned (list-ref //i (+ 1 1)))))
+           (set! /node
+             (@fc_block (list-ref //i (+ 1 1)) /node))))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_where //i-par /to)
+  (let ((//i-save //i) (/node /to) (funct-result '()))
+    (set! //i //i-par)
+    (set! /node
+      (@fc_statements (list-ref //i (+ 1 1)) /node))
+    (set! /node
+      (@fc_definitions (list-ref //i (+ 1 2)) /node))
+    (set! funct-result /node)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_definition //i-par /to)
+  (let ((//i-save //i)
+        (/start //next_/node)
+        (/end (+ //next_/node 1))
+        (/comments "")
+        (funct-result '()))
+    (set! //i //i-par)
+    (@fc_force_to_end /start)
+    (set! //next_/node (+ //next_/node 2))
+    (cond ((= (@st //i) //t_/proc)
+           (set! /comments "Procedure definition"))
+          (#t (set! /comments "Function definition")))
+    (@fc_start_subgraph
+      (@v (list-ref //i (+ 1 1)))
+      1)
+    (@fc_node
+      "ellipse"
+      /start
+      (@n_string (@v (list-ref //i (+ 1 1))))
+      ""
+      /comments
+      "")
+    (puthash //return_/node /end 1)
+    (let ((var-save /comp)
+          (seq-save (reverse (cdr (@cs //i)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (set! /end (@fc_generic /comp /end))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (@fc_edge "edge" "" /start /end)
+    (set! funct-result /to)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_definitions //i-par /to)
+  (let ((//i-save //i) (/dummy 0) (funct-result '()))
+    (set! //i //i-par)
+    (let ((var-save /comp) (seq-save (@cs //i)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (set! /dummy (@fc_definition /comp /to))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (set! funct-result /to)
+    (set! //i //i-save)
+    funct-result))
+
+(define (@fc_guarded //i /to)
+  (begin
+    (display "ERROR: bare Guarded item encountered!")
+    (newline)
+    (force-output))
+  /to)
+
+(define (@fc_action //i /to)
+  (begin
+    (display "ERROR: bare Action encountered!")
+    (newline)
+    (force-output))
+  /to)
+
+(define (@fc_actions //i /to)
+  (begin
+    (display "ERROR: bare Actions encountered!")
+    (newline)
+    (force-output))
+  /to)
+
+(define (@fc_force_to_end_ /node)
+  (let ((/target
+          (string-append
+            " targetname: "
+            (@fc_protect (abs /node)))))
+    (set! /target
+      (string-append
+        /target
+        " linestyle: invisible priority: 0 }"))
+    (let ((var-save /i)
+          (for-step 1)
+          (for-end (- /node 1)))
+      (set! /i //end_/node)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= /i for-end))
+                   (and (< 1 0) (>= /i for-end)))
+               (cond ((null? (gethash //return_/node /i))
+                      (@wl (concat
+                             (string-append
+                               "edge: { sourcename: "
+                               (@fc_protect /i))
+                             /target))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save))
+    (set! //end_/node /node)))
+
+(define (@fc_force_to_end /node) #t #t)
+
+(define (@fc_dot_initialise)
+  (@wl "digraph {")
+  (@wl ""))
+
+(define (@fc_initialise)
+  (@wl (concat
+         (string-append
+           (string-append "graph: { title: " //quote)
+           "Flowchart")
+         //quote))
+  (@wl "
+
+  width: 1142
+  height: 930
+  x: 0 
+  y: 0
+
+  manhatten_edges: yes
+  smanhatten_edges: no
+  layoutalgorithm: minbackward
+  // layoutalgorithm: dfs
+  port_sharing: yes
+  edge.thickness: 4
+  foldnode.textcolor: red
+
+  color: white
+  xmax: 1200
+  ymax: 1024
+  xbase: 5
+  ybase: 5
+  xspace: 20
+  xlspace: 12
+  yspace: 50
+  xraster: 1
+  xlraster: 1
+  yraster: 1
+  shrink:  1
+  stretch: 1
+  layout_downfactor: 100
+  layout_upfactor: 1
+  layout_nearfactor: 0
+  layout_splinefactor: 70
+  spreadlevel: 1
+  treefactor: 0.500000
+  bmax: 50
+  cmin: 0
+  cmax: 10
+  pmin: 0
+  pmax: 20
+  rmin: 0
+  rmax: 30
+  smax: 50
+  node_alignment: center
+  orientation: top_to_bottom
+  late_edge_labels: no
+  display_edge_labels: yes
+  dirty_edge_labels: yes
+  finetuning: yes
+  nearedges: yes
+  splines: no
+  ignoresingles: no
+  straight_phase: yes
+  priority_phase: yes
+  crossingphase2: yes
+  crossingoptimization: yes
+  crossingweight: barymedian
+  arrow_mode: free
+  colorentry 7 :  85 85 85
+  colorentry 8 :  0 0 128
+  colorentry 9 :  128 0 0
+  colorentry 10 :  0 128 0
+  colorentry 11 :  128 128 0
+  colorentry 12 :  128 0 128
+  colorentry 13 :  0 128 128
+  colorentry 14 :  255 215 0
+  colorentry 15 :  170 170 170
+  colorentry 16 :  128 128 255
+  colorentry 17 :  255 128 128
+  colorentry 18 :  128 255 128
+  colorentry 19 :  255 255 128
+  colorentry 20 :  255 128 255
+  colorentry 21 :  128 255 255
+  colorentry 22 :  238 130 238
+  colorentry 23 :  64 224 208
+  colorentry 24 :  127 255 212
+  colorentry 25 :  240 230 140
+  colorentry 26 :  160 32 240
+  colorentry 27 :  154 205 50
+  colorentry 28 :  255 192 203
+  colorentry 29 :  255 165 0
+  colorentry 30 :  218 112 214
+
+")
+  (let ((/classes
+          (list "normal" "from dispatch" "to dispatch")))
+    (let ((var-save /i) (for-step 1) (for-end 3))
+      (set! /i 1)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= /i for-end))
+                   (and (< 1 0) (>= /i for-end)))
+               (@wl (concat
+                      (string-append
+                        (string-append "  classname " (@string /i))
+                        " : ")
+                      (@fc_protect
+                        (let ((name /classes))
+                          (if (vector? name)
+                            (vector-ref name (- /i 1))
+                            (list-ref name (- /i 1)))))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save)))
+  (@wl "")
+  (let ((/names (list "WSL" "comments" "assembler")))
+    (let ((var-save /i) (for-step 1) (for-end 3))
+      (set! /i 1)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= /i for-end))
+                   (and (< 1 0) (>= /i for-end)))
+               (@wl (concat
+                      (string-append
+                        (string-append "  infoname " (@string /i))
+                        " : ")
+                      (@fc_protect
+                        (let ((name /names))
+                          (if (vector? name)
+                            (vector-ref name (- /i 1))
+                            (list-ref name (- /i 1)))))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save)))
+  (@wl ""))
+
+(define (@fc_finalise) (@wl "") (@wl "}"))
+
+(define (@fc_start_subgraph_ /title /fold)
+  (cond ((= //subgraph 1) (@fc_end_subgraph)))
+  (set! //subgraph 1)
+  (set! //subgraph_/n (+ //subgraph_/n 1))
+  (@wl "")
+  (@wl (concat
+         (string-append
+           (string-append
+             "graph: { title: "
+             (@fc_protect /title))
+           " folding: ")
+         (@string /fold)))
+  (@wl (string-append
+         "  horizontal_order: "
+         (@string //subgraph_/n)))
+  (@wl ""))
+
+(define (@fc_end_subgraph_) (@wl "}") (@wl ""))
+
+(define (@fc_start_subgraph /title /fold)
+  (@wl ""))
+
+(define (@fc_end_subgraph) (@wl ""))
+
+(define (@read_options_file /file)
+  (let ((//options (my-make-hash-table 16))
+        (/port (@open_input_file /file))
+        (/line '())
+        (/var-save /var)
+        (/n 0)
+        (/m 0)
+        (/space (string-append " =" //tab))
+        (/alphanum
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_")
+        (/num "0123456789")
+        (funct-result '()))
+    (set! /var "")
+    (begin
+      (display "Reading options file: ")
+      (begin (display /file) (newline) (force-output)))
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (set! /line (@read_line /port))
+               (cond ((@eof? /line) (set! /fl_flag1 1))
+                     ((and (not (equal? /line ""))
+                           (not (equal?
+                                  (let ((f 0)) (substring /line f (+ f 1)))
+                                  "#")))
+                      (set! /n 0)
+                      (let while-loop ()
+                        (cond ((and (not (@char_in_str? /line /n /space))
+                                    (@char_in_str? /line /n /alphanum)
+                                    (not (= /n (string-length /line))))
+                               (set! /n (+ /n 1))
+                               (while-loop))
+                              (#t #t)))
+                      (cond ((and (not (@char_in_str? /line /n /alphanum))
+                                  (not (@char_in_str? /line /n /space)))
+                             (begin
+                               (display "ERROR 1 in options file, n = ")
+                               (begin (display /n) (newline) (force-output)))
+                             (begin (display /line) (newline) (force-output))
+                             (error "@Read_Options_File:")
+                             (set! /fl_flag1 1))
+                            (#t
+                             (set! /var
+                               (let ((f 0)) (substring /line f (+ f /n))))
+                             (let while-loop ()
+                               (cond ((@char_in_str? /line /n /space)
+                                      (set! /n (+ /n 1))
+                                      (while-loop))
+                                     (#t #t)))
+                             (cond ((>= /n (string-length /line))
+                                    (set! /fl_flag1 0))
+                                   ((equal?
+                                      (let ((f /n)) (substring /line f (+ f 1)))
+                                      //quote)
+                                    (set! /n (+ /n 1))
+                                    (set! /m /n)
+                                    (let while-loop ()
+                                      (cond ((equal?
+                                               (let ((f (- (string-length /line)
+                                                           1)))
+                                                 (substring /line f (+ f 1)))
+                                               //backslash)
+                                             (begin
+                                               (set! /line
+                                                 (let ((f 0))
+                                                   (substring
+                                                     /line
+                                                     f
+                                                     (+ f
+                                                        (- (string-length /line)
+                                                           1)))))
+                                               (set! /line
+                                                 (concat
+                                                   /line
+                                                   (@read_line /port))))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (let while-loop ()
+                                      (cond ((and (< /m
+                                                     (- (string-length /line)
+                                                        1))
+                                                  (not (equal?
+                                                         (let ((f /m))
+                                                           (substring
+                                                             /line
+                                                             f
+                                                             (+ f 1)))
+                                                         //quote)))
+                                             (set! /m (+ /m 1))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (cond ((not (equal?
+                                                  (let ((f /m))
+                                                    (substring /line f (+ f 1)))
+                                                  //quote))
+                                           (begin
+                                             (display
+                                               "ERROR 3 in options file:")
+                                             (newline)
+                                             (force-output))
+                                           (begin
+                                             (display /line)
+                                             (newline)
+                                             (force-output))
+                                           (error "@Read_Options_File:")
+                                           (set! /fl_flag1 1))
+                                          (#t
+                                           (cond ((null? (gethash
+                                                           //options
+                                                           /var))
+                                                  (puthash
+                                                    //options
+                                                    /var
+                                                    (let ((f /n))
+                                                      (substring
+                                                        /line
+                                                        f
+                                                        (+ f (- /m /n))))))
+                                                 (#t
+                                                  (puthash
+                                                    //options
+                                                    /var
+                                                    (concat
+                                                      (string-append
+                                                        (gethash //options /var)
+                                                        " ")
+                                                      (let ((f /n))
+                                                        (substring
+                                                          /line
+                                                          f
+                                                          (+ f (- /m /n))))))))
+                                           (cond (#f
+                                                  (begin
+                                                    (display "Options.(")
+                                                    (begin
+                                                      (display /var)
+                                                      (begin
+                                                        (display ") = ")
+                                                        (begin
+                                                          (display //quote)
+                                                          (begin
+                                                            (display
+                                                              (gethash
+                                                                //options
+                                                                /var))
+                                                            (begin
+                                                              (display //quote)
+                                                              (newline)
+                                                              (force-output)))))))
+                                                  (set! /fl_flag1 0))
+                                                 (#t (set! /fl_flag1 0))))))
+                                   ((@char_in_str? /line /n /num)
+                                    (set! /m /n)
+                                    (let while-loop ()
+                                      (cond ((@char_in_str? /line /m /num)
+                                             (set! /m (+ /m 1))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (puthash
+                                      //options
+                                      /var
+                                      (@string_to_num
+                                        (let ((f /n))
+                                          (substring /line f (+ f (- /m /n))))))
+                                    (cond (#f
+                                           (begin
+                                             (display "Options.(")
+                                             (begin
+                                               (display /var)
+                                               (begin
+                                                 (display ") = ")
+                                                 (begin
+                                                   (display
+                                                     (gethash //options /var))
+                                                   (newline)
+                                                   (force-output)))))
+                                           (set! /fl_flag1 0))
+                                          (#t (set! /fl_flag1 0))))
+                                   (#t
+                                    (begin
+                                      (display "ERROR 4 in options file:")
+                                      (newline)
+                                      (force-output))
+                                    (begin
+                                      (display /line)
+                                      (newline)
+                                      (force-output))
+                                    (error "@Read_Options_File:")
+                                    (set! /fl_flag1 1))))))
+                     (#t (set! /fl_flag1 0))))
+             (while-loop))
+            (#t #t)))
+    (set! funct-result //options)
+    (set! /var /var-save)
+    funct-result))
+
+(define (@fc_bit_sub /var-par /flag-par /comment-par)
+  (let ((/comment-save /comment)
+        (/flag-save /flag)
+        (/var-save /var)
+        (funct-result '()))
+    (set! /comment /comment-par)
+    (set! /flag /flag-par)
+    (set! /var /var-par)
+    (set! /var (last-1 (@struct_elts /var)))
+    (cond ((and (= (@st /flag) //t_/string)
+                (not (null? (gethash //symbol_/equ /var))))
+           (let ((/str (@v /flag)))
+             (let ((var-save /equ)
+                   (seq-save (gethash //symbol_/equ /var)))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /equ (car for-tmp))
+                        (cond ((and (not (null? (gethash //init_/string /equ)))
+                                    (equal? (gethash //init_/string /equ) /str))
+                               (set! /flag /equ)))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /equ var-save)))))
+    (cond ((= (@st /flag) //t_/variable)
+           (set! /flag (@v /flag))
+           (cond ((and (not (null? (gethash //equ_/symbol /flag)))
+                       (equal? (gethash //equ_/symbol /flag) /var)
+                       (not (null? (gethash //comment /flag))))
+                  (set! /comment (gethash //comment /flag))))))
+    (set! funct-result (list /var /flag /comment))
+    (set! /comment /comment-save)
+    (set! /flag /flag-save)
+    (set! /var /var-save)
+    funct-result))
+
+(define (@fc_bit_test /var-par /flag-par)
+  (let ((/flag-save /flag) (/var-save /var))
+    (set! /flag /flag-par)
+    (set! /var /var-par)
+    (let ((/comment-save /comment)
+          (/tag (gethash
+                  //d/s/e/c/t_/tag
+                  (last-1 (@wc_struct_elts /var)))))
+      (set! /comment "")
+      (cond ((null? /tag) (set! /tag "")))
+      (let ((/-result- (@fc_bit_sub /var /flag /comment)))
+        (set! /var (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! /flag (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! /comment (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (cond ((not (equal? /comment ""))
+             (@fc_hex)
+             (let ((/business
+                     (string-append
+                       (concat
+                         (string-append
+                           (concat
+                             (string-append /tag "(")
+                             (@n_string /flag))
+                           " ")
+                         (gethash //comment /flag))
+                       ")?"))
+                   (/tech (@pp_multi (@i) //max_/split_/line)))
+               (@paste_over
+                 (@make //t_/cond_/pseudo
+                        (concat
+                          (concat
+                            (concat
+                              (concat
+                                (concat
+                                  (concat //f/c_/business /business)
+                                  //f/c_/business_/end)
+                                //f/c_/newline)
+                              //f/c_/tech)
+                            /tech)
+                          //f/c_/tech_/end)
+                        '())))))
+      (set! /comment /comment-save))
+    (set! /flag /flag-save)
+    (set! /var /var-save)))
+
+(define (@fc_bit_set /text /flag-par /var-par)
+  (let ((/var-save /var) (/flag-save /flag))
+    (set! /var /var-par)
+    (set! /flag /flag-par)
+    (let ((/comment-save /comment)
+          (/tag (gethash //d/s/e/c/t_/tag /var)))
+      (set! /comment "")
+      (cond ((null? /tag) (set! /tag "")))
+      (let ((/-result- (@fc_bit_sub /var /flag /comment)))
+        (set! /var (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! /flag (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! /comment (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (cond ((not (equal? /comment ""))
+             (@fc_hex)
+             (let ((/business
+                     (string-append
+                       (concat
+                         (string-append
+                           (concat
+                             (string-append
+                               (concat (string-append /text " ") /tag)
+                               "(")
+                             (@n_string /flag))
+                           " ")
+                         (gethash //comment /flag))
+                       ")"))
+                   (/tech (@pp_multi (@i) //max_/split_/line)))
+               (@paste_over
+                 (@make //t_/stat_/pseudo
+                        (concat
+                          (concat
+                            (concat
+                              (concat
+                                (concat
+                                  (concat //f/c_/business /business)
+                                  //f/c_/business_/end)
+                                //f/c_/newline)
+                              //f/c_/tech)
+                            /tech)
+                          //f/c_/tech_/end)
+                        '())))))
+      (set! /comment /comment-save))
+    (set! /var /var-save)
+    (set! /flag /flag-save)))
+
+(define (@pp_multi //i-par /len)
+  (let ((//i-save //i)
+        (/str-save /str)
+        (//l '())
+        (/bus "")
+        (funct-result '()))
+    (set! //i //i-par)
+    (set! /str (@pp_1 //i-par 0))
+    (cond ((and (= (@st //i) //t_/a_/proc_/call)
+                (member //t/p/f_name (@assigned //i)))
+           (set! /str
+             (@n_string (@v (list-ref //i (+ 1 1)))))
+           (cond ((and (equal?
+                         (@v (list-ref //i (+ 1 1)))
+                         (@make_name "SENDA"))
+                       (> (@size (list-ref //i (+ 1 2))) 0)
+                       (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                          //t_/string)
+                       (@starts_with?
+                         (@v (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                         "MSG='"))
+                  (set! /str
+                    (concat
+                      (string-append /str " ")
+                      (let ((s (@v (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))))
+                        (substring s 4 (string-length s))))))
+                 ((>= (@size (list-ref //i (+ 1 2))) 1)
+                  (set! /str
+                    (concat
+                      (string-append /str " ")
+                      (@pp_1 (list-ref (list-ref //i (+ 1 2)) (+ 1 1))
+                             0)))))
+           (let ((var-save /comp)
+                 (seq-save (@cs (list-ref //i (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (cond ((and (= (@st /comp) //t_/string)
+                                  (@starts_with? (@v /comp) "DESC={"))
+                             (set! /bus
+                               (concat
+                                 (concat
+                                   (concat /bus //f/c_/business)
+                                   (let ((s (@v /comp)))
+                                     (substring s 5 (string-length s))))
+                                 //f/c_/business_/end))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save))
+           (cond ((not (equal? /bus ""))
+                  (set! /str
+                    (concat
+                      (concat (concat /bus //f/c_/tech) /str)
+                      //f/c_/tech_/end))))
+           (let ((var-save /comp)
+                 (seq-save (@cs (list-ref //i (+ 1 2)))))
+             (if (vector? seq-save)
+               (set! seq-save (vector-elts seq-save)))
+             (let for-in-loop ((for-tmp seq-save))
+               (cond ((not (null? for-tmp))
+                      (set! /comp (car for-tmp))
+                      (cond ((and (= (@st /comp) //t_/string)
+                                  (@starts_with? (@v /comp) "CALL={"))
+                             (set! /str
+                               (concat
+                                 (concat /str //newline)
+                                 (let ((s (@v /comp)))
+                                   (substring s 5 (string-length s)))))))
+                      (for-in-loop (cdr for-tmp)))
+                     (#t #t)))
+             (set! /comp var-save)))
+          ((> (string-length /str) /len)
+           (cond ((= (@st //i) //t_/or)
+                  (set! /str "")
+                  (set! //l (@cs //i))
+                  (let while-loop ()
+                    (cond ((not (null? //l))
+                           (begin
+                             (set! /str
+                               (concat /str (@pp_multi (car //l) (- /len 4))))
+                             (set! //l (cdr //l))
+                             (cond ((not (null? //l))
+                                    (set! /str
+                                      (string-append
+                                        (concat /str //newline)
+                                        " OR ")))))
+                           (while-loop))
+                          (#t #t))))
+                 ((= (@st //i) //t_/and)
+                  (set! /str "")
+                  (set! //l (@cs //i))
+                  (let while-loop ()
+                    (cond ((not (null? //l))
+                           (begin
+                             (set! /str
+                               (concat /str (@pp_multi (car //l) (- /len 5))))
+                             (set! //l (cdr //l))
+                             (cond ((not (null? //l))
+                                    (set! /str
+                                      (string-append
+                                        (concat /str //newline)
+                                        " AND ")))))
+                           (while-loop))
+                          (#t #t)))))))
+    (set! funct-result /str)
+    (set! //i //i-save)
+    (set! /str /str-save)
+    funct-result))
+
+(define (@fc_rename //orig_/name-par)
+  (let ((//orig_/name-save //orig_/name))
+    (set! //orig_/name //orig_/name-par)
+    (let ((/assem ""))
+      (@foreach_expn
+        /foreach-flowchart-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_lvalue
+        /foreach-flowchart-5
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-6
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (let ((var-save /name)
+            (seq-save (@hash_keys //orig_/name)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /name (car for-tmp))
+                 (begin
+                   (set! /assem (gethash //orig_/name /name))
+                   (cond ((not (null? (gethash //init_/string (list /name))))
+                          (puthash
+                            //init_/string
+                            (list /assem)
+                            (gethash //init_/string (list /name)))))
+                   (cond ((not (null? (gethash //equ_/symbol /name)))
+                          (puthash
+                            //equ_/symbol
+                            /assem
+                            (gethash //equ_/symbol /name))))
+                   (cond ((not (null? (gethash //d/s/e/c/t_/tag /name)))
+                          (puthash
+                            //d/s/e/c/t_/tag
+                            /assem
+                            (gethash //d/s/e/c/t_/tag /name))))
+                   (cond ((not (null? (gethash //comment /name)))
+                          (puthash
+                            //comment
+                            /assem
+                            (gethash //comment /name)))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /name var-save))
+      #t)
+    (set! //orig_/name //orig_/name-save)))
+
+(define (@fc_business_tech_process
+         //orig_/name-par
+         /flowchart)
+  (let ((//orig_/name-save //orig_/name))
+    (set! //orig_/name //orig_/name-par)
+    (let ((/sym_val_flag-save /sym_val_flag))
+      (set! /sym_val_flag (my-make-hash-table 16))
+      (@foreach_expn
+        /foreach-flowchart-7
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_lvalue
+        /foreach-flowchart-8
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-9
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (let ((var-save /flag)
+            (seq-save (@hash_keys //equ_/symbol)))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /flag (car for-tmp))
+                 (cond ((not (null? (gethash //init_/string (list /flag))))
+                        (puthash
+                          /sym_val_flag
+                          (list (gethash //equ_/symbol /flag)
+                                (gethash //init_/string (list /flag)))
+                          /flag)))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /flag var-save))
+      (@foreach_cond
+        /foreach-flowchart-10
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-11
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-12
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-13
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@fc_rename //orig_/name)
+      (@foreach_cond
+        /foreach-flowchart-14
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-flowchart-15
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@ateach_expn
+        /foreach-flowchart-16
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@ateach_lvalue
+        /foreach-flowchart-17
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@fc_hex)
+      (cond ((= /flowchart 1)
+             (@foreach_statement
+               /foreach-flowchart-18
+               0
+               (@as_type)
+               0)
+             (cond ((null? (@program)) (@new_program (@skips))))))
+      (set! /sym_val_flag /sym_val_flag-save))
+    (set! //orig_/name //orig_/name-save)))
+
+(define (@fc_hex)
+  (@foreach_expn
+    /foreach-flowchart-19
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips)))))
+
+(define (@fc_replace_flag
+         /var-par
+         /flag-par
+         /sym_val_flag-par)
+  (let ((/sym_val_flag-save /sym_val_flag)
+        (/flag-save /flag)
+        (/var-save /var))
+    (set! /sym_val_flag /sym_val_flag-par)
+    (set! /flag /flag-par)
+    (set! /var /var-par)
+    (let ((/name-save /name))
+      (set! /name '())
+      (cond ((and (= (@st /flag) //t_/string)
+                  (or (= (@st /var) //t_/variable)
+                      (= (@st /var) //t_/struct)
+                      (= (@st /var) //t_/var_/lvalue)
+                      (= (@st /var) //t_/struct_/lvalue)))
+             (set! /name
+               (gethash
+                 /sym_val_flag
+                 (list (last-1 (@struct_elts /var)) (@v /flag))))
+             (cond ((not (null? /name))
+                    (@paste_over (@make //t_/variable /name '()))))
+             #t))
+      (set! /name /name-save))
+    (set! /sym_val_flag /sym_val_flag-save)
+    (set! /flag /flag-save)
+    (set! /var /var-save)))
+

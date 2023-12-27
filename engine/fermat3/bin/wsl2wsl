@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+#############################################################################
+## FermaT Transformation System
+## Copyright (C) 2001 Software Migrations Limited.
+## Email: martin@gkc.org.uk
+##
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#############################################################################
+#
+##########
+##########   wsl2wsl file.wsl [file.out]
+##########
+#
+
+BEGIN {
+  $FermaT = $ENV{'FermaT'} || "/usr/local/fermat2";
+  $FermaT =~ s/"//g; #"
+  $ds = "/"; $ds = "\\" if ($^O eq "MSWin32");
+  unshift(@INC, "$FermaT${ds}config");
+}
+
+use fermat;
+
+($myname = $0) =~ s|(.*/)*||;   # strip path component from name
+$Usage = "Usage: $myname file.wsl [file.out]\n";
+
+my $width = 0;
+if (@ARGV && ($ARGV[0] =~ /^-?\d+$/)) {
+  $width = shift(@ARGV);
+}
+
+# Check one to three arguments:
+die $Usage if (($#ARGV < 0) || ($#ARGV > 2));
+
+&parse_args();
+if ($width == 0) {
+  $options = &find_file("options");
+  $options = "$FermaT${ds}config${ds}options"
+    if (!$options && -f "$FermaT${ds}config${ds}options");
+
+  $::S_WSL_linelen = 80; # Default line length
+  read_options();
+} else {
+  $::S_WSL_linelen = $width;
+}
+
+if ($data eq "") {
+  (my $base = $input) =~ s/\.\w+$//;
+  if (-f "$base.ll") {
+    $data = "$base.ll";
+  } else {
+    ($base = $output) =~ s/\.\w+$//;
+    if (-f "$base.ll") {
+      $data = "$base.ll";
+    }
+  }
+}
+
+#print "==============data = $data\n";
+
+$cmds = <<END_OF_INPUT;
+  (if (file-exists? "patch.scm")
+      (load "patch.scm"))
+  (set! //Data_/File "$data")
+  (\@New_Program (\@Parse_File "$input" //T_/Statements))
+  (define tr-runtime (get-internal-run-time))
+  (\@PP_Item (\@Program) $::S_WSL_linelen "$output")
+  (display-list "Translation time: " (- (get-internal-run-time) tr-runtime))
+  (display-list "Result is in: $output")
+END_OF_INPUT
+
+&fermat($cmds);
+
+exit(0);

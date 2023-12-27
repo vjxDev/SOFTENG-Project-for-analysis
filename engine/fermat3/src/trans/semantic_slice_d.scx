@@ -1,0 +1,42 @@
+(set! //t/r_/semantic_/slice (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/semantic_/slice 1)
+  "Semantic_Slice")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/semantic_/slice 1)
+  "Semantic_Slice")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/semantic_/slice 1)
+  @semantic_slice_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/semantic_/slice 1)
+  @semantic_slice_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/semantic_/slice 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/semantic_/slice 1)
+  "Perform Semantic Slicing on a subset of WSL. Enter the list of variables to slice on as the data parameter.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/semantic_/slice 1)
+  "Enter a list of variables to slice on:")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/semantic_/slice 1)
+  "")
+

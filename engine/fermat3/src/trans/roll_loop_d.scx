@@ -1,0 +1,42 @@
+(set! //t/r_/roll_/loop (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/roll_/loop 1)
+  "Roll_Loop")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/roll_/loop 1)
+  "Roll_Loop")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/roll_/loop 1)
+  @roll_loop_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/roll_/loop 1)
+  @roll_loop_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/roll_/loop 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/roll_/loop 1)
+  "Roll the first step of a WHILE loop.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/roll_/loop 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/roll_/loop 1)
+  "")
+

@@ -1,0 +1,24 @@
+(define (/foreach-simplify-1 //depth //a/s_/type)
+  (cond ((@cs? (@i))
+         (cond ((@trans? //t/r_/simplify_/item)
+                (@trans //t/r_/simplify_/item "")))))
+  (cond ((and (not (= (@st (@i)) //t_/comment))
+              (not (= (@st (@i)) //t_/assert))
+              (@trans? //t/r_/delete_/item))
+         (@trans //t/r_/delete_/item ""))))
+
+(define (@simplify_test) (@pass))
+
+(define (@simplify_code //data)
+  (@paste_over (@simplify (@i) (@budget)))
+  (@foreach_statement
+    /foreach-simplify-1
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips))))
+  (cond ((@trans? //t/r_/delete_/all_/skips)
+         (@trans //t/r_/delete_/all_/skips ""))))
+
+#t
+

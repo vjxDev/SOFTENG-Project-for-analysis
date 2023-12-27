@@ -1,0 +1,100 @@
+(define (@join_cases_right_test)
+  (let ((/bad_types
+          (@make_set
+            (list //t_/x_/proc_/call
+                  //t_/proc_/call
+                  //t_/m/w_/proc_/call)))
+        (/funct_types
+          (@make_set
+            (list //t_/funct_/call
+                  //t_/x_/funct_/call
+                  //t_/m/w_/funct_/call))))
+    (cond ((not (= (@st (@i)) //t_/guarded))
+           (@fail "Current item is not a Guarded"))
+          ((not (@right?))
+           (@fail "There is no Guarded to the right of this one"))
+          ((not (@equal?
+                  (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))
+                  (list-ref
+                    (list-ref
+                      (list-ref (@parent) (+ 1 (+ (@posn_n) 1)))
+                      (+ 1 2))
+                    (+ 1 1))))
+           (@fail "Initial statements in the two clauses do not match"))
+          ((not (null? (@set_intersect
+                         (@spec_types (list-ref (@i) (+ 1 1)))
+                         /funct_types)))
+           (@fail "Function calls in first condition"))
+          ((not (null? (@set_intersect
+                         (@spec_types
+                           (list-ref
+                             (list-ref (@parent) (+ 1 (+ (@posn_n) 1)))
+                             (+ 1 1)))
+                         /funct_types)))
+           (@fail "Function calls in second condition"))
+          ((not (null? (@set_intersect
+                         (@assigned (list-ref (@i) (+ 1 2)))
+                         (@used (list-ref (@i) (+ 1 1))))))
+           (@fail "Assigned variable is referenced in first condition"))
+          ((not (null? (@set_intersect
+                         (@assigned (list-ref (@i) (+ 1 2)))
+                         (@used (list-ref
+                                  (list-ref (@parent) (+ 1 (+ (@posn_n) 1)))
+                                  (+ 1 1))))))
+           (@fail "Assigned variable is referenced in second condition"))
+          ((or (= (@st (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))
+                  //t_/skip)
+               (not (null? (@set_intersect
+                             /bad_types
+                             (@stat_types (list-ref (@i) (+ 1 2)))))))
+           (@fail "Won't take out skips, can't take out proc calls"))
+          (#t (@pass)))))
+
+(define (@join_cases_right_code //data)
+  (let ((//b1 (list-ref (@i) (+ 1 1)))
+        (//s1 (@cs (list-ref (@i) (+ 1 2))))
+        (//b2 '())
+        (//s2 '())
+        (//b '())
+        (//s '()))
+    (@right)
+    (set! //b2 (list-ref (@i) (+ 1 1)))
+    (set! //s2 (@cs (list-ref (@i) (+ 1 2))))
+    (@delete)
+    (@left)
+    (set! //b (@or //b1 //b2))
+    (@paste_over
+      (@make 7
+             '()
+             (list //b
+                   (@make 17
+                          '()
+                          (list (@make 114
+                                       '()
+                                       (list (@make 7
+                                                    '()
+                                                    (list //b1
+                                                          (@make 17 '() //s1)))
+                                             (@make 7
+                                                    '()
+                                                    (list (@make 308 '() '())
+                                                          (@make 17
+                                                                 '()
+                                                                 //s2))))))))))
+    (@down_to 2)
+    (@down)
+    (cond ((not (@trans? //t/r_/separate_/left))
+           (@checkpoint "zzz-join_cases_right_error.wsl")
+           (begin
+             (display "Posn = ")
+             (begin
+               (display (@posn))
+               (newline)
+               (force-output)))
+           (error "Separate_Left failed in @Join_Cases_Right_Code"))
+          (#t (@trans //t/r_/separate_/left "")))
+    (@up)
+    (@up)))
+
+#t
+

@@ -1,0 +1,42 @@
+(set! //t/r_/separate_/both (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/separate_/both 1)
+  "Separate_Both")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/separate_/both 1)
+  "Separate_Both")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/separate_/both 1)
+  @separate_both_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/separate_/both 1)
+  @separate_both_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/separate_/both 1)
+  (list "Reorder"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/separate_/both 1)
+  "Separate Both will take code out to the right and the left of the selected structure.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/separate_/both 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/separate_/both 1)
+  "")
+

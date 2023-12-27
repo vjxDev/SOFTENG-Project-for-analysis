@@ -1,0 +1,42 @@
+(set! //t/r_/simplify_/item (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/simplify_/item 1)
+  "Simplify Item")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/simplify_/item 1)
+  "Simplify_Item")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/simplify_/item 1)
+  @simplify_item_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/simplify_/item 1)
+  @simplify_item_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/simplify_/item 1)
+  (list "Simplify" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/simplify_/item 1)
+  "This transformation will simplify an item, but not recursively simplify the components inside it.  In particular, the transformation will simplify expressions, conditions and degenerate conditional, local variable and loop statements.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/simplify_/item 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/simplify_/item 1)
+  "")
+

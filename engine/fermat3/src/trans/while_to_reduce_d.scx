@@ -1,0 +1,42 @@
+(set! //t/r_/while_/to_/reduce (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/while_/to_/reduce 1)
+  "While_To_Reduce")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/while_/to_/reduce 1)
+  "While_To_Reduce")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/while_/to_/reduce 1)
+  @while_to_reduce_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/while_/to_/reduce 1)
+  @while_to_reduce_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/while_/to_/reduce 1)
+  (list "Simplify" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/while_/to_/reduce 1)
+  "Replace a WHILE loop with an equivalent REDUCE or MAP.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/while_/to_/reduce 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/while_/to_/reduce 1)
+  "")
+

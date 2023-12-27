@@ -1,0 +1,1242 @@
+(define (/foreach-collapse_action_system-1
+         //depth
+         //a/s_/type)
+  (cond ((and (null? (@calls (@i)))
+              (<= (if (vector? (@gen_tvs (@i) /as))
+                    (vector-length (@gen_tvs (@i) /as))
+                    (length (@gen_tvs (@i) /as)))
+                  1))
+         (set! /body (list (@i)))
+         (set! /stats (@stat_count (@i)))
+         (@paste_over (@skip))
+         (set! /span 1)
+         (set! /posn (@posn))
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (cond ((not (@right?)) (set! /fl_flag1 1))
+                        (#t
+                         (@right)
+                         (cond ((not (null? (@calls (@i)))) (set! /fl_flag1 1))
+                               ((> (if (vector? (@gen_tvs (@i) /as))
+                                     (vector-length (@gen_tvs (@i) /as))
+                                     (length (@gen_tvs (@i) /as)))
+                                   1)
+                                (set! /fl_flag1 1))
+                               (#t
+                                (set! /tvs (@gen_tvs (@i) /as))
+                                (set! /span (+ /span 1))
+                                (set! /body (cons (@i) /body))
+                                (set! /stats (+ /stats (@stat_count (@i))))
+                                (@paste_over (@skip))
+                                (set! /fl_flag1 0)))))
+                  (while-loop))
+                 (#t #t)))
+         (cond ((> /stats 5)
+                (cond ((null? /tvs) (set! /tv 0))
+                      (#t (set! /tv (car /tvs))))
+                (set! /procs
+                  (cons (list /posn /span /tv (reverse /body))
+                        /procs)))))))
+
+(define (/foreach-collapse_action_system-2
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- (+ //n 1))))
+         (@paste_over /%const__collapse_action_system__1))
+        ((= (@st (@i)) //t_/call)
+         (set! /next
+           (@make //t_/number (- (@v (@i))) '()))
+         (@paste_over (@make //t_/call /sub '()))
+         (@paste_before
+           (@make //t_/comment
+                  (string-append
+                    "First action is "
+                    (@n_string
+                      (let ((name //names))
+                        (if (vector? name)
+                          (vector-ref name (- (@v /next) 1))
+                          (list-ref name (- (@v /next) 1))))))
+                  '()))
+         (@paste_before
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@make 501 (@make_name "action") '())
+                                     (@var_to_expn /next)))))))))
+
+(define (/foreach-collapse_action_system-3
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- (+ //n 1))))
+         (@paste_over (@make //t_/exit (+ 1 //depth) '()))
+         (@paste_before
+           (@make //t_/comment
+                  "Terminate action system"
+                  '()))
+         (@paste_before
+           /%const__collapse_action_system__2))
+        ((= (@st (@i)) //t_/call)
+         (set! /next
+           (@make //t_/number (- (@v (@i))) '()))
+         (@paste_over (@make //t_/exit (+ 1 //depth) '()))
+         (@paste_before
+           (@make //t_/comment
+                  (string-append
+                    "Next action is "
+                    (@n_string
+                      (let ((name //names))
+                        (if (vector? name)
+                          (vector-ref name (- (@v /next) 1))
+                          (list-ref name (- (@v /next) 1))))))
+                  '()))
+         (@paste_before
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@make 501 (@make_name "action") '())
+                                     (@var_to_expn /next)))))))))
+
+(define (/foreach-collapse_action_system-4
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- (+ //n 1))))
+         (@paste_over /%const__collapse_action_system__1))
+        ((= (@st (@i)) //t_/call)
+         (set! /next
+           (@make //t_/number (- (@v (@i))) '()))
+         (@paste_over (@make //t_/call /sub '()))
+         (@paste_before
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@make 501 (@make_name "action") '())
+                                     (@var_to_expn /next)))))))))
+
+(define (/foreach-collapse_action_system-5
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- (+ //n 1))))
+         (@paste_over /%const__collapse_action_system__1))
+        ((= (@st (@i)) //t_/call)
+         (set! /next
+           (@make //t_/number (- (@v (@i))) '()))
+         (@paste_over (@make //t_/exit (+ 1 //depth) '()))
+         (@paste_before
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@make 501 (@make_name "action") '())
+                                     (@var_to_expn /next)))))))))
+
+(define (/foreach-collapse_action_system-6
+         //depth
+         //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/call)
+              (equal? (@v (@i)) (- (+ //n 1))))
+         (@paste_over (@make //t_/exit (+ 2 //depth) '())))
+        ((= (@st (@i)) //t_/call)
+         (set! /next
+           (@make //t_/number (- (@v (@i))) '()))
+         (@paste_over (@make //t_/exit (+ 1 //depth) '()))
+         (@paste_before
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@expn_to_var /action)
+                                     (@var_to_expn /next)))))))))
+
+(define /%const__collapse_action_system__1
+  (@make 112 (@make_name "Z") '()))
+
+(define /%const__collapse_action_system__2
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 501 (@make_name "action") '())
+                            (@make 205 0 '()))))))
+
+(define /%const__collapse_action_system__3
+  (@make 7
+         '()
+         (list (@make 308 '() '())
+               (@make 17
+                      '()
+                      (list (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 501
+                                                             (@make_name
+                                                               "action")
+                                                             '())
+                                                      (@make 205 0 '()))))))))))
+
+(define /%const__collapse_action_system__4
+  (@make 7
+         '()
+         (list (@make 308 '() '())
+               (@make 17
+                      '()
+                      (list (@make 112 (@make_name "Z") '()))))))
+
+(define /%const__collapse_action_system__5
+  (@make 7
+         '()
+         (list (@make 308 '() '())
+               (@make 17 '() (list (@make 117 2 '()))))))
+
+(define (@collapse_action_system_test)
+  (cond ((not (= (@st (@i)) //t_/a_/s))
+         (@fail "Not an action system"))
+        ((not (equal? (@system_type (@i)) "Reg"))
+         (@fail "Not a regular action system"))
+        (#t (@pass))))
+
+(define (@collapse_action_system_code //data)
+  (let ((/old_size (@total_size (@parent)))
+        (/posn-save /posn)
+        (/orig (@program))
+        (/new_size 0)
+        (/posn_n (@posn_n)))
+    (set! /posn (@posn))
+    (@edit_parent)
+    (@collapse_action_system_simple //data)
+    (set! /new_size (@total_size (@program)))
+    (@undo_edit)
+    (@down_to /posn_n)
+    (begin
+      (display "Old size = ")
+      (begin
+        (display /old_size)
+        (newline)
+        (force-output)))
+    (begin
+      (display "New size = ")
+      (begin
+        (display /new_size)
+        (newline)
+        (force-output)))
+    (begin
+      (display "Old posn = ")
+      (begin (display /posn) (newline) (force-output)))
+    (begin
+      (display "New Posn = ")
+      (begin
+        (display (@posn))
+        (newline)
+        (force-output)))
+    (cond ((<= /new_size (* 3 /old_size))
+           (@collapse_action_system_simple //data))
+          (#t
+           (@new_program /orig)
+           (@goto /posn)
+           (begin
+             (display
+               "Result of Collapse_Action_System_Simple is too big!")
+             (newline)
+             (force-output))
+           (begin
+             (display "Converting to a double loop")
+             (newline)
+             (force-output))
+           (cond ((and (> (@size (list-ref (@i) (+ 1 2))) 2)
+                       (= (@st (list-ref
+                                 (list-ref
+                                   (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))
+                                   (+ 1 2))
+                                 (+ 1 1)))
+                          //t_/d_/if)
+                       (equal?
+                         (@v (list-ref
+                               (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1))
+                               (+ 1 1)))
+                         (@v (list-ref (@i) (+ 1 1))))
+                       (not (@called?
+                              (@v (list-ref (@i) (+ 1 1)))
+                              (list-ref (@i) (+ 1 2)))))
+                  (@collapse_action_system_new1 //data))
+                 (#t (@collapse_action_system_new2 //data)))
+           (@goto /posn)
+           (@trans //t/r_/delete_/all_/skips "")))
+    (set! /posn /posn-save)))
+
+(define (@collapse_action_system_simple //data)
+  (let ((/as-save /as)
+        (//entry_/point (@v (list-ref (@i) (+ 1 1))))
+        (/z_name (@make_name "Z"))
+        (/total (@total_size (@i)))
+        (/change 0))
+    (set! /as "")
+    (@down_last)
+    (set! /as (@as_type))
+    (@up)
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (cond ((@trans? //t/r_/simplify_/action_/system)
+                      (begin
+                        (display "Simplifying action system")
+                        (newline)
+                        (force-output))
+                      (@trans //t/r_/simplify_/action_/system "")))
+               (begin (display "") (newline) (force-output))
+               (begin
+                 (display (@size (list-ref (@i) (+ 1 2))))
+                 (begin
+                   (display " actions remaining")
+                   (newline)
+                   (force-output)))
+               (cond ((= (@size (list-ref (@i) (+ 1 2))) 1)
+                      (set! /fl_flag2 1))
+                     (#t
+                      (@down_last)
+                      (@down_last)
+                      (begin
+                        (display
+                          "CAS: Finding actions which only call Z...")
+                        (newline)
+                        (force-output))
+                      (set! /change 0)
+                      (set! /fl_flag1 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag1 0)
+                               (begin
+                                 (cond ((equal?
+                                          (@v (list-ref (@i) (+ 1 1)))
+                                          //entry_/point)
+                                        (cond ((not (@left?))
+                                               (set! /fl_flag1 1))
+                                              (#t (@left) (set! /fl_flag1 0))))
+                                       (#t (set! /fl_flag1 0)))
+                                 (cond ((= /fl_flag1 0)
+                                        (set! /calls (@calls (@i)))
+                                        (cond ((and (= (if (vector? /calls)
+                                                         (vector-length /calls)
+                                                         (length /calls))
+                                                       1)
+                                                    (equal?
+                                                      (let ((name (let ((name /calls))
+                                                                    (if (vector?
+                                                                          name)
+                                                                      (vector-ref
+                                                                        name
+                                                                        (- 1 1))
+                                                                      (list-ref
+                                                                        name
+                                                                        (- 1
+                                                                           1))))))
+                                                        (if (vector? name)
+                                                          (vector-ref
+                                                            name
+                                                            (- 1 1))
+                                                          (list-ref
+                                                            name
+                                                            (- 1 1))))
+                                                      /z_name)
+                                                    (@trans? //t/r_/make_/proc))
+                                               (@trans //t/r_/make_/proc "")
+                                               (set! /change (@atp_sad /change))
+                                               (@to_last)
+                                               (set! /fl_flag1 0))
+                                              ((not (@left?))
+                                               (set! /fl_flag1 1))
+                                              (#t
+                                               (@left)
+                                               (set! /fl_flag1 0))))))
+                               (while-loop))
+                              (#t #t)))
+                      (let while-loop ()
+                        (cond ((not (= /change 0))
+                               (begin
+                                 (set! /change 0)
+                                 (set! /fl_flag1 0)
+                                 (let while-loop ()
+                                   (cond ((= /fl_flag1 0)
+                                          (begin
+                                            (cond ((equal?
+                                                     (@v (list-ref
+                                                           (@i)
+                                                           (+ 1 1)))
+                                                     //entry_/point)
+                                                   (cond ((not (@left?))
+                                                          (set! /fl_flag1 1))
+                                                         (#t
+                                                          (@left)
+                                                          (set! /fl_flag1 0))))
+                                                  (#t (set! /fl_flag1 0)))
+                                            (cond ((= /fl_flag1 0)
+                                                   (set! /calls (@calls (@i)))
+                                                   (cond ((and (= (if (vector?
+                                                                        /calls)
+                                                                    (vector-length
+                                                                      /calls)
+                                                                    (length
+                                                                      /calls))
+                                                                  1)
+                                                               (equal?
+                                                                 (let ((name (let ((name /calls))
+                                                                               (if (vector?
+                                                                                     name)
+                                                                                 (vector-ref
+                                                                                   name
+                                                                                   (- 1
+                                                                                      1))
+                                                                                 (list-ref
+                                                                                   name
+                                                                                   (- 1
+                                                                                      1))))))
+                                                                   (if (vector?
+                                                                         name)
+                                                                     (vector-ref
+                                                                       name
+                                                                       (- 1 1))
+                                                                     (list-ref
+                                                                       name
+                                                                       (- 1
+                                                                          1))))
+                                                                 /z_name)
+                                                               (@trans?
+                                                                 //t/r_/make_/proc))
+                                                          (@trans
+                                                            //t/r_/make_/proc
+                                                            "")
+                                                          (set! /change
+                                                            (@atp_sad /change))
+                                                          (@to_last)
+                                                          (set! /fl_flag1 0))
+                                                         ((not (@left?))
+                                                          (set! /fl_flag1 1))
+                                                         (#t
+                                                          (@left)
+                                                          (set! /fl_flag1
+                                                            0))))))
+                                          (while-loop))
+                                         (#t #t))))
+                               (while-loop))
+                              (#t #t)))
+                      (@up)
+                      (@up)
+                      (cond ((= (@size (list-ref (@i) (+ 1 2))) 1)
+                             (set! /fl_flag2 1))
+                            (#t
+                             (@cas_unfold_least_called_action
+                               /as
+                               //entry_/point
+                               /z_name
+                               /total)
+                             (cond ((> (@total_size (@i)) (* 3 /total))
+                                    (set! /fl_flag2 1))
+                                   (#t (set! /fl_flag2 0))))))))
+             (while-loop))
+            (#t #t)))
+    (let while-loop ()
+      (cond ((not (= (@st (@i)) //t_/a_/s))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (cond ((not (@left?)) (set! /fl_flag1 1))
+                   (#t
+                    (@left)
+                    (cond ((not (= (@st (@i)) //t_/skip))
+                           (@right)
+                           (set! /fl_flag1 1))
+                          (#t (@delete) (set! /fl_flag1 0)))))
+             (while-loop))
+            (#t #t)))
+    (let ((/posn-save /posn))
+      (set! /posn (@posn))
+      (cond ((@trans? //t/r_/simplify_/item)
+             (@trans //t/r_/simplify_/item "")
+             (@trans //t/r_/delete_/all_/skips ""))
+            (#t
+             (begin
+               (display
+                 "Unable to remove action system completely.")
+               (newline)
+               (force-output))
+             (begin
+               (display
+                 "Some more restructuring will be necessary.")
+               (newline)
+               (force-output))))
+      (@goto /posn)
+      (set! /posn /posn-save))
+    (set! /as /as-save)))
+
+(define (@cas_unfold_least_called_action
+         /as-par
+         //entry_/point
+         /z_name
+         /total)
+  (let ((/as-save /as))
+    (set! /as /as-par)
+    (let ((/min_n 0)
+          (/min_size 0)
+          (/min_name 0)
+          (/size (my-make-hash-table 16))
+          (/posn-save /posn))
+      (set! /posn '())
+      (begin
+        (display "Searching for least-called action")
+        (newline)
+        (force-output))
+      (let ((var-save /action)
+            (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /action (car for-tmp))
+                 (puthash
+                   /size
+                   (@v (list-ref /action (+ 1 1)))
+                   (@stat_count (list-ref /action (+ 1 2))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /action var-save))
+      (set! /min_n 32000)
+      (let ((var-save /call) (seq-save (@calls (@i))))
+        (if (vector? seq-save)
+          (set! seq-save (vector-elts seq-save)))
+        (let for-in-loop ((for-tmp seq-save))
+          (cond ((not (null? for-tmp))
+                 (set! /call (car for-tmp))
+                 (cond ((and (not (equal?
+                                    (let ((name /call))
+                                      (if (vector? name)
+                                        (vector-ref name (- 1 1))
+                                        (list-ref name (- 1 1))))
+                                    /z_name))
+                             (not (equal?
+                                    (let ((name /call))
+                                      (if (vector? name)
+                                        (vector-ref name (- 1 1))
+                                        (list-ref name (- 1 1))))
+                                    //entry_/point)))
+                        (cond ((or (< (let ((name /call))
+                                        (if (vector? name)
+                                          (vector-ref name (- 2 1))
+                                          (list-ref name (- 2 1))))
+                                      /min_n)
+                                   (and (equal?
+                                          (let ((name /call))
+                                            (if (vector? name)
+                                              (vector-ref name (- 2 1))
+                                              (list-ref name (- 2 1))))
+                                          /min_n)
+                                        (< (gethash
+                                             /size
+                                             (let ((name /call))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1)))))
+                                           /min_size)))
+                               (set! /min_n
+                                 (let ((name /call))
+                                   (if (vector? name)
+                                     (vector-ref name (- 2 1))
+                                     (list-ref name (- 2 1)))))
+                               (set! /min_size
+                                 (gethash
+                                   /size
+                                   (let ((name /call))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1))))))
+                               (set! /min_name
+                                 (let ((name /call))
+                                   (if (vector? name)
+                                     (vector-ref name (- 1 1))
+                                     (list-ref name (- 1 1)))))))))
+                 (for-in-loop (cdr for-tmp)))
+                (#t #t)))
+        (set! /call var-save))
+      (begin
+        (display "Action ")
+        (begin
+          (display (@n_string /min_name))
+          (begin
+            (display " is called ")
+            (begin
+              (display /min_n)
+              (begin
+                (display " times")
+                (newline)
+                (force-output))))))
+      (@down_last)
+      (@down)
+      (let while-loop ()
+        (cond ((not (equal? (@v (list-ref (@i) (+ 1 1))) /min_name))
+               (@right)
+               (while-loop))
+              (#t #t)))
+      (let ((/body-save /body)
+            (/span-save /span)
+            (/stats-save /stats)
+            (/procs-save /procs)
+            (/tvs-save /tvs)
+            (/tv-save /tv)
+            (/orig (@program))
+            (/orig_posn (@posn)))
+        (set! /body '())
+        (set! /span 0)
+        (set! /stats 0)
+        (set! /procs '())
+        (set! /tvs '())
+        (set! /tv 0)
+        (@ateach_statement
+          /foreach-collapse_action_system-1
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (@new_program /orig)
+        (@goto /orig_posn)
+        (cond ((not (null? /procs))
+               (begin
+                 (display "Creating ")
+                 (begin
+                   (display
+                     (if (vector? /procs)
+                       (vector-length /procs)
+                       (length /procs)))
+                   (begin
+                     (display " proc(s).")
+                     (newline)
+                     (force-output))))))
+        (cond ((not (null? /procs))
+               (let ((/posn-save /posn)
+                     (/where '())
+                     (/n 0)
+                     (/p '())
+                     (/new '())
+                     (/calls-save /calls)
+                     (/tv-save /tv)
+                     (/span-save /span)
+                     (/body-save /body)
+                     (/name '())
+                     (/call_n 1)
+                     (/defns '())
+                     (/expns (@make //t_/expressions '() '()))
+                     (/lvalues (@make //t_/lvalues '() '())))
+                 (set! /posn (@posn))
+                 (set! /calls (@mp_proc_calls))
+                 (set! /tv 0)
+                 (set! /span 0)
+                 (set! /body '())
+                 (set! /n (@mp_ensure_where /n))
+                 (set! /where (@posn))
+                 (cond ((>= /n 0)
+                        (set! /posn
+                          (concat
+                            (concat (@sub_seg /posn 1 /n) (list 1 1))
+                            (@final_seg /posn (+ /n 1))))
+                        (let ((var-save /proc) (seq-save /procs))
+                          (if (vector? seq-save)
+                            (set! seq-save (vector-elts seq-save)))
+                          (let for-in-loop ((for-tmp seq-save))
+                            (cond ((not (null? for-tmp))
+                                   (set! /proc (car for-tmp))
+                                   (begin
+                                     (set! /p
+                                       (let ((name /proc))
+                                         (if (vector? name)
+                                           (vector-ref name (- 1 1))
+                                           (list-ref name (- 1 1)))))
+                                     (set! /p
+                                       (concat
+                                         (concat (@sub_seg /p 1 /n) (list 1 1))
+                                         (@final_seg /p (+ /n 1))))
+                                     (set! /new
+                                       (cons (list /p
+                                                   (let ((name /proc))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 2 1))
+                                                       (list-ref name (- 2 1))))
+                                                   (let ((name /proc))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 3 1))
+                                                       (list-ref name (- 3 1))))
+                                                   (let ((name /proc))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 4 1))
+                                                       (list-ref
+                                                         name
+                                                         (- 4 1)))))
+                                             /new)))
+                                   (for-in-loop (cdr for-tmp)))
+                                  (#t #t)))
+                          (set! /proc var-save))
+                        (set! /procs /new)))
+                 (let while-loop ()
+                   (cond ((not (null? /procs))
+                          (begin
+                            (@goto (let ((name (let ((name /procs))
+                                                 (if (vector? name)
+                                                   (vector-ref name (- 1 1))
+                                                   (list-ref name (- 1 1))))))
+                                     (if (vector? name)
+                                       (vector-ref name (- 1 1))
+                                       (list-ref name (- 1 1)))))
+                            (set! /span
+                              (let ((name (let ((name /procs))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                (if (vector? name)
+                                  (vector-ref name (- 2 1))
+                                  (list-ref name (- 2 1)))))
+                            (set! /tv
+                              (let ((name (let ((name /procs))
+                                            (if (vector? name)
+                                              (vector-ref name (- 1 1))
+                                              (list-ref name (- 1 1))))))
+                                (if (vector? name)
+                                  (vector-ref name (- 3 1))
+                                  (list-ref name (- 3 1)))))
+                            (set! /body
+                              (@make //t_/statements
+                                     '()
+                                     (let ((name (let ((name /procs))
+                                                   (if (vector? name)
+                                                     (vector-ref name (- 1 1))
+                                                     (list-ref name (- 1 1))))))
+                                       (if (vector? name)
+                                         (vector-ref name (- 4 1))
+                                         (list-ref name (- 4 1))))))
+                            (cond ((> /tv 0)
+                                   (set! /body
+                                     (@increment /body /as (- /tv) 0))))
+                            (set! /name
+                              (@make_name
+                                (string-append "p_" (@string /call_n))))
+                            (let while-loop ()
+                              (cond ((member /name /calls)
+                                     (begin
+                                       (set! /call_n (+ /call_n 1))
+                                       (set! /name
+                                         (@make_name
+                                           (string-append
+                                             "p_"
+                                             (@string /call_n)))))
+                                     (while-loop))
+                                    (#t #t)))
+                            (set! /calls (@set_union (list /name) /calls))
+                            (set! /defns
+                              (cons (@make //t_/proc
+                                           '()
+                                           (list (@name /name)
+                                                 /lvalues
+                                                 /lvalues
+                                                 /body))
+                                    /defns))
+                            (@paste_over
+                              (@make //t_/proc_/call
+                                     '()
+                                     (list (@name /name) /expns /lvalues)))
+                            (cond ((and (> /tv 0) (= /span 1))
+                                   (@paste_cond
+                                     (list (@i) (@make //t_/exit /tv '()))))
+                                  ((> /tv 0)
+                                   (@right)
+                                   (set! /span (- /span 1))
+                                   (@paste_over (@make //t_/exit /tv '()))))
+                            (let while-loop ()
+                              (cond ((and (> /span 1) (@right?))
+                                     (begin
+                                       (set! /span (- /span 1))
+                                       (@right)
+                                       (@paste_over (@skip)))
+                                     (while-loop))
+                                    (#t #t)))
+                            (set! /procs (cdr /procs)))
+                          (while-loop))
+                         (#t #t)))
+                 (@goto /where)
+                 (@down_last)
+                 (@down_last)
+                 (@splice_after (reverse /defns))
+                 (@goto /posn)
+                 (set! /posn /posn-save)
+                 (set! /calls /calls-save)
+                 (set! /tv /tv-save)
+                 (set! /span /span-save)
+                 (set! /body /body-save))))
+        (set! /body /body-save)
+        (set! /span /span-save)
+        (set! /stats /stats-save)
+        (set! /procs /procs-save)
+        (set! /tvs /tvs-save)
+        (set! /tv /tv-save))
+      (@trans //t/r_/delete_/all_/skips "")
+      (cond ((@trans? //t/r_/substitute_/and_/delete)
+             (begin
+               (display "Removing action ")
+               (begin
+                 (display (@n_string /min_name))
+                 (newline)
+                 (force-output)))
+             (@trans //t/r_/substitute_/and_/delete ""))
+            (#t
+             (error (string-append
+                      (string-append
+                        "Unable to remove action "
+                        (@n_string /min_name))
+                      "!!!"))))
+      (let while-loop ()
+        (cond ((not (= (@st (@i)) //t_/a_/s))
+               (@up)
+               (while-loop))
+              (#t #t)))
+      (set! /posn /posn-save))
+    (set! /as /as-save)))
+
+(define (@collapse_action_system_new1 //data)
+  (let ((//n-save //n))
+    (set! //n (@size (list-ref (@i) (+ 1 2))))
+    (let ((//a/s_/name (@v (list-ref (@i) (+ 1 1))))
+          (//starting_/action 0)
+          (//n_/actions 0)
+          (/n 0)
+          (//bodies (make-vector //n '()))
+          (//names-save //names)
+          (//name2/num (my-make-hash-table 16))
+          (/guards '())
+          (/i 0)
+          (/next-save /next)
+          (/body-save /body)
+          (//a1 '())
+          (/main (@make_name "MAIN_1"))
+          (/sub-save /sub)
+          (/name '())
+          (/procs-save /procs)
+          (/expns (@make //t_/expressions '() '()))
+          (/lvals (@make //t_/lvalues '() '()))
+          (/posn-save /posn))
+      (set! //names (make-vector (+ //n 1) '()))
+      (set! /next '())
+      (set! /body '())
+      (set! /sub (@make_name "SUB_1"))
+      (set! /procs '())
+      (set! /posn '())
+      (begin
+        (display
+          "Extracting D_IF statement to be outside the loop ")
+        (newline)
+        (force-output))
+      (@edit)
+      (let ((/-result-
+              (@fd_init //n //bodies //names //name2/num)))
+        (set! //bodies (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //names (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //name2/num (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (set! //starting_/action
+        (gethash //name2/num //a/s_/name))
+      (cond ((not (= //starting_/action 1))
+             (error "Starting_Action should be action 1!!!")))
+      (@new_program
+        (let ((name //bodies))
+          (if (vector? name)
+            (vector-ref name (- 1 1))
+            (list-ref name (- 1 1)))))
+      (@foreach_statement
+        /foreach-collapse_action_system-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! //a1 (@cs (@program)))
+      (let ((var-save /i) (for-step 1) (for-end //n))
+        (set! /i 2)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= /i for-end))
+                     (and (< 1 0) (>= /i for-end)))
+                 (begin
+                   (@new_program
+                     (let ((name //bodies))
+                       (if (vector? name)
+                         (vector-ref name (- /i 1))
+                         (list-ref name (- /i 1)))))
+                   (@foreach_statement
+                     /foreach-collapse_action_system-3
+                     0
+                     (@as_type)
+                     0)
+                   (cond ((null? (@program)) (@new_program (@skips))))
+                   (set! /body (@cs (@program)))
+                   (set! /body
+                     (list (@make //t_/comment
+                                  (string-append
+                                    "This action is "
+                                    (@n_string
+                                      (let ((name //names))
+                                        (if (vector? name)
+                                          (vector-ref name (- /i 1))
+                                          (list-ref name (- /i 1))))))
+                                  '())
+                           (@make 133 '() (list (@make 17 '() /body)))))
+                   (set! /name
+                     (@make //t_/name
+                            (@make_name
+                              (string-append
+                                (@n_string
+                                  (let ((name //names))
+                                    (if (vector? name)
+                                      (vector-ref name (- /i 1))
+                                      (list-ref name (- /i 1)))))
+                                "_ACTION"))
+                            '()))
+                   (set! /procs
+                     (cons (@make //t_/proc
+                                  '()
+                                  (list /name
+                                        /lvals
+                                        /lvals
+                                        (@make //t_/statements '() /body)))
+                           /procs))
+                   (set! /body
+                     (list (@make //t_/proc_/call
+                                  '()
+                                  (list /name /expns /lvals))))
+                   (set! /next (@make //t_/number /i '()))
+                   (set! /guards
+                     (cons (@make 7
+                                  '()
+                                  (list (@make 313
+                                               '()
+                                               (list (@make 207
+                                                            (@make_name
+                                                              "action")
+                                                            '())
+                                                     (@var_to_expn /next)))
+                                        (@make 17 '() /body)))
+                           /guards)))
+                 (set! /i (+ /i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! /i var-save))
+      (set! /guards
+        (cons /%const__collapse_action_system__3 /guards))
+      (set! /body
+        (@make //t_/cond '() (reverse /guards)))
+      (@undo_edit)
+      (@paste_over
+        (@make 111
+               '()
+               (list (@make 9 (@make_name "MAIN_1") '())
+                     (@make 15
+                            '()
+                            (list (@make 8
+                                         '()
+                                         (list (@make 9
+                                                      (@make_name "MAIN_1")
+                                                      '())
+                                               (@make 17 '() //a1)))
+                                  (@make 8
+                                         '()
+                                         (list (@make 9
+                                                      (@make_name "SUB_1")
+                                                      '())
+                                               (@make 17
+                                                      '()
+                                                      (list (@make 141
+                                                                   '()
+                                                                   (list (@make 318
+                                                                                '()
+                                                                                (list (@make 207
+                                                                                             (@make_name
+                                                                                               "action")
+                                                                                             '())
+                                                                                      (@make 205
+                                                                                             0
+                                                                                             '())))
+                                                                         (@make 17
+                                                                                '()
+                                                                                (list /body))))
+                                                            (@make 112
+                                                                   (@make_name
+                                                                     "Z")
+                                                                   '()))))))))))
+      (set! /posn (@posn))
+      (set! /n (@mp_ensure_where /n))
+      (cond ((>= /n 0)
+             (set! /posn
+               (concat
+                 (concat (@sub_seg /posn 1 /n) (list 1 1))
+                 (@final_seg /posn (+ /n 1))))))
+      (cond ((not (= (@st (@i)) //t_/where))
+             (error "@MP_Ensure_Where didn't work!!!")))
+      (@down_to 2)
+      (@down)
+      (@splice_before (reverse /procs))
+      (@goto /posn)
+      (cond ((@trans? //t/r_/collapse_/action_/system)
+             (@trans //t/r_/collapse_/action_/system "")
+             (@trans //t/r_/simplify_/item "")
+             (@trans //t/r_/delete_/all_/skips "")))
+      (set! //names //names-save)
+      (set! /next /next-save)
+      (set! /body /body-save)
+      (set! /sub /sub-save)
+      (set! /procs /procs-save)
+      (set! /posn /posn-save))
+    (set! //n //n-save)))
+
+(define (@collapse_action_system_new1_orig //data)
+  (let ((//n-save //n))
+    (set! //n (@size (list-ref (@i) (+ 1 2))))
+    (let ((//a/s_/name (@v (list-ref (@i) (+ 1 1))))
+          (//starting_/action 0)
+          (//n_/actions 0)
+          (/n 0)
+          (//bodies (make-vector //n '()))
+          (//names-save //names)
+          (//name2/num (my-make-hash-table 16))
+          (/guards '())
+          (/i 0)
+          (/next-save /next)
+          (/body-save /body)
+          (//a1 '())
+          (/main (@make_name "MAIN_1"))
+          (/sub-save /sub))
+      (set! //names (make-vector (+ //n 1) '()))
+      (set! /next '())
+      (set! /body '())
+      (set! /sub (@make_name "SUB_1"))
+      (begin
+        (display
+          "Extracting D_IF statement to be outside the loop ")
+        (newline)
+        (force-output))
+      (@edit)
+      (let ((/-result-
+              (@fd_init //n //bodies //names //name2/num)))
+        (set! //bodies (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //names (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //name2/num (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (set! //starting_/action
+        (gethash //name2/num //a/s_/name))
+      (cond ((not (= //starting_/action 1))
+             (error "Starting_Action should be action 1!!!")))
+      (@new_program
+        (let ((name //bodies))
+          (if (vector? name)
+            (vector-ref name (- 1 1))
+            (list-ref name (- 1 1)))))
+      (@foreach_statement
+        /foreach-collapse_action_system-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (set! //a1 (@cs (@program)))
+      (let ((var-save /i) (for-step 1) (for-end //n))
+        (set! /i 2)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= /i for-end))
+                     (and (< 1 0) (>= /i for-end)))
+                 (begin
+                   (@new_program
+                     (let ((name //bodies))
+                       (if (vector? name)
+                         (vector-ref name (- /i 1))
+                         (list-ref name (- /i 1)))))
+                   (@foreach_statement
+                     /foreach-collapse_action_system-5
+                     0
+                     (@as_type)
+                     0)
+                   (cond ((null? (@program)) (@new_program (@skips))))
+                   (set! /body (@cs (@program)))
+                   (set! /next (@make //t_/number /i '()))
+                   (set! /guards
+                     (cons (@make 7
+                                  '()
+                                  (list (@make 313
+                                               '()
+                                               (list (@make 207
+                                                            (@make_name
+                                                              "action")
+                                                            '())
+                                                     (@var_to_expn /next)))
+                                        (@make 17 '() /body)))
+                           /guards)))
+                 (set! /i (+ /i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! /i var-save))
+      (set! /guards
+        (cons /%const__collapse_action_system__4 /guards))
+      (set! /body
+        (@make //t_/cond '() (reverse /guards)))
+      (@undo_edit)
+      (@paste_over
+        (@make 111
+               '()
+               (list (@make 9 (@make_name "MAIN_1") '())
+                     (@make 15
+                            '()
+                            (list (@make 8
+                                         '()
+                                         (list (@make 9
+                                                      (@make_name "MAIN_1")
+                                                      '())
+                                               (@make 17 '() //a1)))
+                                  (@make 8
+                                         '()
+                                         (list (@make 9
+                                                      (@make_name "SUB_1")
+                                                      '())
+                                               (@make 17
+                                                      '()
+                                                      (list (@make 133
+                                                                   '()
+                                                                   (list (@make 17
+                                                                                '()
+                                                                                (list (@make 133
+                                                                                             '()
+                                                                                             (list (@make 17
+                                                                                                          '()
+                                                                                                          (list /body)))))))))))))))))
+      (cond ((@trans? //t/r_/simplify_/item)
+             (@trans //t/r_/simplify_/item "")
+             (@trans //t/r_/delete_/all_/skips "")))
+      (set! //names //names-save)
+      (set! /next /next-save)
+      (set! /body /body-save)
+      (set! /sub /sub-save))
+    (set! //n //n-save)))
+
+(define (@collapse_action_system_new2 //data)
+  (let ((//n-save //n))
+    (set! //n (@size (list-ref (@i) (+ 1 2))))
+    (let ((//a/s_/name (@v (list-ref (@i) (+ 1 1))))
+          (/action-save /action)
+          (//starting_/action 0)
+          (//n_/actions 0)
+          (/n 0)
+          (//bodies (make-vector //n '()))
+          (//names-save //names)
+          (//name2/num (my-make-hash-table 16))
+          (/guards '())
+          (/i 0)
+          (/next-save /next)
+          (/body-save /body))
+      (set! /action
+        (@make //t_/variable
+               (@make_name
+                 (string-append (@n_string //a/s_/name) "_ACTION"))
+               '()))
+      (set! //names (make-vector (+ //n 1) '()))
+      (set! /next '())
+      (set! /body '())
+      (cond ((@starts_with? //a/s_/name "_")
+             (set! /action
+               (@make //t_/variable (@make_name "action") '())))
+            (#t
+             (@paste_after
+               (@make //t_/comment
+                      (string-append
+                        (string-append
+                          "* #SMLDATA# "
+                          (@n_string (@v /action)))
+                        " N 4")
+                      '()))))
+      (@edit)
+      (let ((/-result-
+              (@fd_init //n //bodies //names //name2/num)))
+        (set! //bodies (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //names (car /-result-))
+        (set! /-result- (cdr /-result-))
+        (set! //name2/num (car /-result-))
+        (set! /-result- (cdr /-result-)))
+      (set! //starting_/action
+        (gethash //name2/num //a/s_/name))
+      (let ((var-save /i) (for-step 1) (for-end //n))
+        (set! /i 1)
+        (let for-loop ()
+          (cond ((or (and (> 1 0) (<= /i for-end))
+                     (and (< 1 0) (>= /i for-end)))
+                 (begin
+                   (@new_program
+                     (let ((name //bodies))
+                       (if (vector? name)
+                         (vector-ref name (- /i 1))
+                         (list-ref name (- /i 1)))))
+                   (@foreach_statement
+                     /foreach-collapse_action_system-6
+                     0
+                     (@as_type)
+                     0)
+                   (cond ((null? (@program)) (@new_program (@skips))))
+                   (set! /body (@cs (@program)))
+                   (set! /next (@make //t_/number /i '()))
+                   (set! /guards
+                     (cons (@make 7
+                                  '()
+                                  (list (@make 313
+                                               '()
+                                               (list (@var_to_expn /action)
+                                                     (@var_to_expn /next)))
+                                        (@make 17 '() /body)))
+                           /guards)))
+                 (set! /i (+ /i for-step))
+                 (for-loop))
+                (#t #t)))
+        (set! /i var-save))
+      (set! /guards
+        (cons /%const__collapse_action_system__5 /guards))
+      (set! /body
+        (@make //t_/cond '() (reverse /guards)))
+      (set! /next
+        (@make //t_/number //starting_/action '()))
+      (@undo_edit)
+      (@paste_over
+        (@make 110
+               '()
+               (list (@make 6
+                            '()
+                            (list (@expn_to_var /action)
+                                  (@var_to_expn /next))))))
+      (@paste_after
+        (@make 133
+               '()
+               (list (@make 17
+                            '()
+                            (list (@make 133
+                                         '()
+                                         (list (@make 17
+                                                      '()
+                                                      (list /body)))))))))
+      (@right)
+      (cond ((@trans? //t/r_/simplify_/item)
+             (@trans //t/r_/simplify_/item "")
+             (@trans //t/r_/delete_/all_/skips "")))
+      (set! /action /action-save)
+      (set! //names //names-save)
+      (set! /next /next-save)
+      (set! /body /body-save))
+    (set! //n //n-save)))
+

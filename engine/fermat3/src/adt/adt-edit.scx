@@ -1,0 +1,57 @@
+(define (@edit)
+  (set! /adt_/edit_/program_/stack
+    (cons /adt_/program /adt_/edit_/program_/stack))
+  (set! /adt_/edit_/posn_/stack
+    (if (> /adt_/posn_n 0)
+      (cons (cons /adt_/posn_n /adt_/posn)
+            /adt_/edit_/posn_/stack)
+      (cons '() /adt_/edit_/posn_/stack)))
+  (set! /adt_/edit_/to_/stack
+    (cons 0 /adt_/edit_/to_/stack))
+  (set! /adt_/program /adt_/item)
+  (@goto '()))
+
+(define (@edit_parent)
+  (set! /adt_/edit_/program_/stack
+    (cons /adt_/program /adt_/edit_/program_/stack))
+  (set! /adt_/edit_/posn_/stack
+    (cons /adt_/posn /adt_/edit_/posn_/stack))
+  (set! /adt_/edit_/to_/stack
+    (cons /adt_/posn_n /adt_/edit_/to_/stack))
+  (set! /adt_/program (car /adt_/path_/items))
+  (@goto (list /adt_/posn_n)))
+
+(define (@end_edit)
+  (let ((//new /adt_/program)
+        (//to (car /adt_/edit_/to_/stack)))
+    (set! /adt_/program
+      (car /adt_/edit_/program_/stack))
+    (@goto (reverse (car /adt_/edit_/posn_/stack)))
+    (set! /adt_/edit_/program_/stack
+      (cdr /adt_/edit_/program_/stack))
+    (set! /adt_/edit_/posn_/stack
+      (cdr /adt_/edit_/posn_/stack))
+    (set! /adt_/edit_/to_/stack
+      (cdr /adt_/edit_/to_/stack))
+    (cond ((null? //new) (@clever_delete))
+          (#t
+           (cond ((and (= (@gt (@i)) //t_/statement)
+                       (= (@gt //new) //t_/statements))
+                  (@splice_over (@cs //new)))
+                 ((not (eq? //new (@i))) (@paste_over //new)))
+           (cond ((and (> //to 0) (<= //to (@size (@i))))
+                  (@down_to //to)))))))
+
+(define (@undo_edit)
+  (set! /adt_/program
+    (car /adt_/edit_/program_/stack))
+  (@goto (reverse (car /adt_/edit_/posn_/stack)))
+  (set! /adt_/edit_/program_/stack
+    (cdr /adt_/edit_/program_/stack))
+  (set! /adt_/edit_/posn_/stack
+    (cdr /adt_/edit_/posn_/stack))
+  (set! /adt_/edit_/to_/stack
+    (cdr /adt_/edit_/to_/stack)))
+
+#t
+

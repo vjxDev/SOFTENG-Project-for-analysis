@@ -1,0 +1,34 @@
+(define (@move_comment_right_test)
+  (cond ((not (= (@spec_type (@item)) //t_/comment))
+         (@fail "Selected item is not a comment."))
+        (#t
+         (cond ((@right?) (@pass))
+               ((not (@up?))
+                (@fail "Can't move it any further right"))
+               (#t
+                (@up)
+                (let while-loop ()
+                  (cond ((and (not (= (@gen_type (@item)) //t_/statement))
+                              (@up?))
+                         (@up)
+                         (while-loop))
+                        (#t #t)))
+                (cond ((= (@gen_type (@item)) //t_/statement) (@pass))
+                      (#t (@fail "Can't move it any further right"))))))))
+
+(define (@move_comment_right_code //data)
+  (let ((/comment (@item)) (//p (@posn)))
+    (cond ((@right?) (@cut) (@paste_after (@buffer)))
+          (#t
+           (@up)
+           (let while-loop ()
+             (cond ((not (= (@gen_type (@item)) //t_/statement))
+                    (@up)
+                    (while-loop))
+                   (#t #t)))
+           (@paste_after /comment)
+           (@goto //p)
+           (@clever_delete)))))
+
+#t
+

@@ -1,0 +1,18 @@
+(define (@delete_what_follows_test)
+  (cond ((not (@right?)) (@fail "Nothing follows"))
+        ((= (@gen_type (@item)) //t_/statement)
+         (cond ((@gen_improper? (@item) (@as_type)) (@pass))
+               (#t (@fail "Nothing can be deleted"))))
+        ((and (= (@spec_type (@item)) //t_/guarded)
+              (= (@spec_type (@parent)) //t_/cond))
+         (@down)
+         (cond ((= (@spec_type (@simplify_cond (@item)))
+                   //t_/true)
+                (@pass))
+               (#t (@fail "Condition is not true"))))
+        (#t (@fail "Nothing can be deleted"))))
+
+(define (@delete_what_follows_code //data)
+  (@delete_rest)
+  (@fixup))
+

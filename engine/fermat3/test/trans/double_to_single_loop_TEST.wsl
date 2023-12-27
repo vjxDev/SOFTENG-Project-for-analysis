@@ -1,0 +1,305 @@
+C:"
+==========================================================================
+FermaT Transformation System
+Copyright (C) 2001 Software Migrations Limited.
+Email: martin@gkc.org.uk
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+==========================================================================";
+
+
+@Test_Trans(" 1st test of `Double_To_Single_Loop'",
+            (FILL Statements  DO DO  X:=B; EXIT(2) OD OD ENDFILL),
+            <1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements DO X:=B; EXIT(1) OD  ENDFILL));
+
+@Test_Trans(" 2nd test of `Double_To_Single_Loop'",
+            (FILL Statements  DO DO  X:=B; EXIT(1) OD OD ENDFILL),
+            <1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements DO X:=B; SKIP OD  ENDFILL));
+
+
+@Test_Trans(" 3rd test of `Double_To_Single_Loop'",
+            (FILL Statements DO DO IF B=10 THEN EXIT(2)
+                                ELSIF B=20 THEN 
+                                   X:=B;
+                                   DO X:=X-1; 
+                                      IF X<20 THEN EXIT(1)
+                                      ELSE B:=B-4 FI OD
+                                  ELSE B:=B+X FI;
+                                EXIT(2) OD OD ENDFILL),
+            <1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements DO IF B=10 THEN EXIT(1)
+                                ELSIF B=20 THEN 
+                                   X:=B;
+                                   DO X:=X-1; 
+                                      IF X<20 THEN EXIT(1)
+                                      ELSE B:=B-4 FI OD
+                                  ELSE B:=B+X FI; EXIT(1) OD ENDFILL));
+
+@Test_Trans(" 4th test of `Double_To_Single_Loop'",
+            (FILL Statements DO DO IF B=10 THEN EXIT(2)
+                                ELSIF B=20 THEN 
+                                   X:=B;
+                                   DO X:=X-1; 
+                                      IF X<20 THEN EXIT(1)
+                                      ELSE B:=B-4 FI OD
+                                  ELSE B:=B+X FI;
+                                EXIT(1) OD OD ENDFILL),
+            <1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements DO IF B=10 THEN EXIT(1)
+                                ELSIF B=20 THEN 
+                                   X:=B;
+                                   DO X:=X-1; 
+                                      IF X<20 THEN EXIT(1)
+                                      ELSE B:=B-4 FI OD
+                                  ELSE B:=B+X FI; SKIP  OD ENDFILL));
+
+
+@Test_Trans(" 5th test of `Double_To_Single_Loop'",
+            (FILL Statements DO IF B=10 THEN EXIT(1)
+                                ELSIF B=20 THEN 
+                                   X:=B;
+                                   DO X:=X-1; 
+                                      IF X<20 THEN EXIT(1)
+                                      ELSE B:=B-4 FI OD
+                                  ELSE B:=B+X FI OD ENDFILL),
+            <1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            "Fail");
+
+
+@Test_Trans(" 6th test of `Double_To_Single_Loop'",
+            (FILL Statements ACTIONS A:
+                                     A == DO DO IF X=1 THEN EXIT(1) 
+                                                ELSIF X=2 THEN X:=20
+                                                ELSIF X=3 THEN EXIT(2)
+                                                   ELSE CALL B FI OD OD;
+                                          CALL Z.
+                                     B == IF X > 10 THEN CALL Z 
+                                            ELSE X := X-1; CALL A FI.
+                             ENDACTIONS ENDFILL),
+            <1,2,1,2,1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements ACTIONS A:
+                                     A ==  DO IF X=1 THEN SKIP 
+                                                ELSIF X=2 THEN X:=20
+                                                ELSIF X=3 THEN EXIT(1)
+                                                   ELSE CALL B FI OD;
+                                          CALL Z.
+                                     B == IF X > 10 THEN CALL Z 
+                                            ELSE X := X-1; CALL A FI.
+                             ENDACTIONS ENDFILL));
+
+@Test_Trans(" 7th test of `Double_To_Single_Loop'",
+            (FILL Statements ACTIONS A:
+                                     A == DO DO IF X=1 THEN EXIT(1) 
+                                                ELSIF X=2 THEN X:=20
+                                                ELSIF X=3 THEN EXIT(2)
+                                                   ELSE CALL B FI; CALL Z OD OD;
+                                          CALL Z.
+                                     B == IF X < 10
+                                            THEN X := X-1; CALL A
+                                            ELSE CALL Z FI.
+                             ENDACTIONS ENDFILL),
+            <1,2,1,2,1>,
+            TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements ACTIONS A:
+                                     A ==  DO IF X=1 THEN SKIP 
+                                                ELSIF X=2 THEN X:=20; CALL Z
+                                                ELSIF X=3 THEN EXIT(1)
+                                                   ELSE CALL B FI OD;
+                                           CALL Z.
+                                     B == IF X < 10
+                                            THEN X := X-1; CALL A
+                                            ELSE CALL Z FI.
+                             ENDACTIONS ENDFILL));
+
+@Test_Trans(" 8th test of `Double_To_Single_Loop'",
+	    (FILL Statements 
+
+    DO DO C:"READ NEXT 2880 RECORD WHEN";
+          C:"<FermaT> 00000379 @ENDEXTL:ATENDEXTL r5 r12";
+          C:"R5 POINTER EQUALS R6 OR";
+          C:"<FermaT> 00000380 READREC";
+          IF ATENDEXTL <= r5
+            THEN C:"R5 POINTS TO ZEROES, OR";
+                 C:"<FermaT> 00000381 r5";
+                 C:"R5 + 4 = ZERO";
+                 C:"<FermaT> 00000382 READREC";
+                 CALL READREC
+          ELSIF a[r5] = "0"
+            THEN C:"RECORD TYPE 0 IS END OF";
+                 C:"<FermaT> 00000383 r5";
+                 C:"PHYSICAL 2880 RECORD.";
+                 C:"<FermaT> 00000384 READREC";
+                 CALL READREC
+          ELSIF a[r5 + 4] = "0"
+            THEN CALL READREC
+            ELSE C:"LOGICAL RECORD COUNT";
+                 C:"<FermaT> 00000385 TOTLOGIC r12";
+                 !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGIC);
+                 C:"RECORD TYPE 8 = HEADER";
+                 C:"<FermaT> 00000386 r5";
+                 C:"CONTAINS TAPE DATE.";
+                 C:"<FermaT> 00000387 MAINPRO2";
+                 IF a[r5 + 4] = "8"
+                   THEN C:"THIS RECORD IS NOT PRINTED";
+                        C:"<FermaT> 00000388 TOTLOGBP r12";
+                        !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGBP);
+                        C:"GET TAPE DATE";
+                        C:"<FermaT> 00000389 GETDATE r14";
+                        r14 := NOTUSED_1078;
+                        GETDATE();
+                        C:"POINT TO NEXT LOGICAL RECORD";
+                        C:"<FermaT> 00000390 r5";
+                        r5 := r5 + 472;
+                        C:"PROCESS NEXT LOGICAL RECORD";
+                        C:"<FermaT> 00000391 RECLOOP";
+                        EXIT(1) FI;
+                 C:"RECORD TYPE 5 IS PRICE CHANGE";
+                 C:"<FermaT> 00000392 MAINPRO2 r5";
+                 C:"AND IS IGNORED.";
+                 C:"<FermaT> 00000393 VALIDREC";
+                 IF a[r5 + 4] <> "5"
+                   THEN C:"THIS RECORD IS PRINTED";
+                        C:"<FermaT> 00000397 TOTLOGPR VALIDREC r12";
+                        !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGPR);
+                        C:"PRIME MSD SEARCH KEY WITH SEDOL";
+                        C:"<FermaT> 00000398 SRCHKEY r5 r12";
+                        !P u_unpk(a[r5, 4] VAR SRCHKEY[2..8]);
+                        C:"<FermaT> 00000399 SRCHKEY r12";
+                        C:"WIPE OUT PREVIOUS RETURN CODE";
+                        C:"<FermaT> 00000400 RETCODE r12";
+                        RETCODE := !XF mvi(" ");
+                        C:"GET MSD RECORD";
+                        C:"<FermaT> 00000401 PARMLIST r0 r1 r15";
+                        result_code := NOT_USED;
+                        !P GETMSDC(!XF address_of(PARMLIST)
+                          VAR call_macro, result_code, os);
+                        r0 := NOT_USED;
+                        r1 := NOT_USED;
+                        !P dummy( VAR PARMLIST, regs, r0, r1);
+                        !P copy_result_code(result_code VAR r15);
+                        C:"PRINT INFO FROM EXTEL TAPE";
+                        C:"<FermaT> 00000417 NORECRTN r14";
+                        r14 := 1150;
+                        CALL NORECRTN FI;
+                 C:"THIS RECORD IS NOT PRINTED";
+                 C:"<FermaT> 00000394 TOTLOGBP r12";
+                 !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGBP);
+                 C:"POINT TO NEXT LOGICAL REC";
+                 C:"<FermaT> 00000395 r5";
+                 r5 := r5 + 37;
+                 C:"PROCESS NEXT LOGICAL REC";
+                 C:"<FermaT> 00000396 RECLOOP" FI OD OD
+
+	    ENDFILL),
+            <1>,
+             TR_Double_To_Single_Loop,
+            < >,
+            (FILL Statements
+
+    DO C:"READ NEXT 2880 RECORD WHEN";
+       C:"<FermaT> 00000379 @ENDEXTL:ATENDEXTL r5 r12";
+       C:"R5 POINTER EQUALS R6 OR";
+       C:"<FermaT> 00000380 READREC";
+       IF ATENDEXTL <= r5
+         THEN C:"R5 POINTS TO ZEROES, OR";
+              C:"<FermaT> 00000381 r5";
+              C:"R5 + 4 = ZERO";
+              C:"<FermaT> 00000382 READREC";
+              CALL READREC
+       ELSIF a[r5] = "0"
+         THEN C:"RECORD TYPE 0 IS END OF";
+              C:"<FermaT> 00000383 r5";
+              C:"PHYSICAL 2880 RECORD.";
+              C:"<FermaT> 00000384 READREC";
+              CALL READREC
+       ELSIF a[r5 + 4] = "0"
+         THEN CALL READREC
+         ELSE C:"LOGICAL RECORD COUNT";
+              C:"<FermaT> 00000385 TOTLOGIC r12";
+              !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGIC);
+              C:"RECORD TYPE 8 = HEADER";
+              C:"<FermaT> 00000386 r5";
+              C:"CONTAINS TAPE DATE.";
+              C:"<FermaT> 00000387 MAINPRO2";
+              IF a[r5 + 4] = "8"
+                THEN C:"THIS RECORD IS NOT PRINTED";
+                     C:"<FermaT> 00000388 TOTLOGBP r12";
+                     !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGBP);
+                     C:"GET TAPE DATE";
+                     C:"<FermaT> 00000389 GETDATE r14";
+                     r14 := NOTUSED_1078;
+                     GETDATE();
+                     C:"POINT TO NEXT LOGICAL RECORD";
+                     C:"<FermaT> 00000390 r5";
+                     r5 := r5 + 472;
+                     C:"PROCESS NEXT LOGICAL RECORD";
+                     C:"<FermaT> 00000391 RECLOOP";
+                     SKIP
+                ELSE C:"RECORD TYPE 5 IS PRICE CHANGE";
+                     C:"<FermaT> 00000392 MAINPRO2 r5";
+                     C:"AND IS IGNORED.";
+                     C:"<FermaT> 00000393 VALIDREC";
+                     IF a[r5 + 4] <> "5"
+                       THEN C:"THIS RECORD IS PRINTED";
+                            C:"<FermaT> 00000397 TOTLOGPR VALIDREC r12";
+                            !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGPR);
+                            C:"PRIME MSD SEARCH KEY WITH SEDOL";
+                            C:"<FermaT> 00000398 SRCHKEY r5 r12";
+                            !P u_unpk(a[r5, 4] VAR SRCHKEY[2..8]);
+                            C:"<FermaT> 00000399 SRCHKEY r12";
+                            C:"WIPE OUT PREVIOUS RETURN CODE";
+                            C:"<FermaT> 00000400 RETCODE r12";
+                            RETCODE := !XF mvi(" ");
+                            C:"GET MSD RECORD";
+                            C:"<FermaT> 00000401 PARMLIST r0 r1 r15";
+                            result_code := NOT_USED;
+                            !P GETMSDC(!XF address_of(PARMLIST)
+                              VAR call_macro, result_code, os);
+                            r0 := NOT_USED;
+                            r1 := NOT_USED;
+                            !P dummy( VAR PARMLIST, regs, r0, r1);
+                            !P copy_result_code(result_code VAR r15);
+                            C:"PRINT INFO FROM EXTEL TAPE";
+                            C:"<FermaT> 00000417 NORECRTN r14";
+                            r14 := 1150;
+                            CALL NORECRTN FI;
+                     C:"THIS RECORD IS NOT PRINTED";
+                     C:"<FermaT> 00000394 TOTLOGBP r12";
+                     !P ap(!XF p_dec("hex 0x1C", "1") VAR TOTLOGBP);
+                     C:"POINT TO NEXT LOGICAL REC";
+                     C:"<FermaT> 00000395 r5";
+                     r5 := r5 + 37;
+                     C:"PROCESS NEXT LOGICAL REC";
+                     C:"<FermaT> 00000396 RECLOOP" FI FI OD
+
+            ENDFILL));
+
+
+SKIP
+

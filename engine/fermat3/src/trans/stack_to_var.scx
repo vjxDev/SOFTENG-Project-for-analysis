@@ -1,0 +1,71 @@
+(define (@stack_to_var_test)
+  (cond ((= (@gt (@i)) //t_/statements) (@down)))
+  (cond ((not (= (@st (@i)) //t_/push))
+         (@fail "Selected item is not a PUSH"))
+        ((not (= (@st (list-ref (@i) (+ 1 2))) //t_/variable))
+         (@fail "Saved value is not a variable"))
+        ((not (@right?))
+         (@fail "Nothing to the right of the PUSH"))
+        (#t
+         (let ((/var (list-ref (@i) (+ 1 1)))
+               (/val (list-ref (@i) (+ 1 2))))
+           (@right)
+           (let while-loop ()
+             (cond ((and (or (not (= //t_/pop (@st (@i))))
+                             (not (@lr_equal? (list-ref (@i) (+ 1 1)) /val))
+                             (not (@equal? (list-ref (@i) (+ 1 2)) /var)))
+                         (not (member (@v /var) (@assigned (@i))))
+                         (@right?))
+                    (@right)
+                    (while-loop))
+                   (#t #t)))
+           (cond ((and (= //t_/pop (@st (@i)))
+                       (@lr_equal? (list-ref (@i) (+ 1 1)) /val)
+                       (@equal? (list-ref (@i) (+ 1 2)) /var))
+                  (@pass))
+                 ((member (@v /var) (@assigned (@i)))
+                  (@fail "Stack is modified after the PUSH"))
+                 ((not (@right?))
+                  (@fail "No suitable POP for this PUSH")))))))
+
+(define (@stack_to_var_code //data)
+  (cond ((= (@gt (@i)) //t_/statements) (@down)))
+  (let ((/p1 (@posn_n))
+        (/p2 0)
+        (/var (list-ref (@i) (+ 1 1)))
+        (/val (list-ref (@i) (+ 1 2)))
+        (/body '()))
+    (let while-loop ()
+      (cond ((not (and (= (@st (@i)) //t_/pop)
+                       (@equal? (list-ref (@i) (+ 1 2)) /var)
+                       (@lr_equal? (list-ref (@i) (+ 1 1)) /val)))
+             (@right)
+             (while-loop))
+            (#t #t)))
+    (set! /p2 (@posn_n))
+    (set! /body
+      (@sub_seg (@cs (@parent)) (+ /p1 1) (- /p2 1)))
+    (cond ((null? /body) (set! /body (list (@skip)))))
+    (@up)
+    (@paste_over
+      (@make //t_/statements
+             '()
+             (concat
+               (concat
+                 (@sub_seg (@cs (@i)) 1 (- /p1 1))
+                 (list (@make 139
+                              '()
+                              (list (@make 13
+                                           '()
+                                           (list (@make 6
+                                                        '()
+                                                        (list (@expn_to_var
+                                                                /val)
+                                                              (@var_to_expn
+                                                                /val)))))
+                                    (@make 17 '() /body)))))
+               (@final_seg (@cs (@i)) (+ /p2 1)))))
+    (@down_to /p1)))
+
+#t
+

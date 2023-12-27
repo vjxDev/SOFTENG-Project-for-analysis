@@ -1,0 +1,127 @@
+(define (/foreach-sort_procs-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (null? (gethash /dfs (@v (list-ref (@i) (+ 1 1))))))
+         (puthash /dfs (@v (list-ref (@i) (+ 1 1))) /n)
+         (set! /n (+ /n 1))
+         (cond ((not (null? (gethash /bodies (@v (list-ref (@i) (+ 1 1))))))
+                (set! /dfs
+                  (@sp_dfs_calls
+                    (gethash /bodies (@v (list-ref (@i) (+ 1 1))))
+                    /bodies
+                    /n
+                    /dfs)))))))
+
+(define (@sort_procs_test)
+  (cond ((not (= (@st (@i)) //t_/where))
+         (@fail "Selected item is not a WHERE clause"))
+        (#t (@pass))))
+
+(define (@sort_procs_code //data)
+  (let ((/bodies-save /bodies)
+        (/nodes '())
+        (/succs (my-make-hash-table 16))
+        (/preds (my-make-hash-table 16))
+        (/dfs-save /dfs)
+        (/topsort '())
+        (/new '()))
+    (set! /bodies (my-make-hash-table 16))
+    (set! /dfs (my-make-hash-table 16))
+    (let ((var-save /defn)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /defn (car for-tmp))
+               (cond ((= (@st /defn) //t_/proc)
+                      (set! /nodes
+                        (cons (@v (list-ref /defn (+ 1 1))) /nodes))
+                      (puthash
+                        /bodies
+                        (@v (list-ref /defn (+ 1 1)))
+                        /defn)
+                      (let ((var-save /pair) (seq-save (@proc_calls /defn)))
+                        (if (vector? seq-save)
+                          (set! seq-save (vector-elts seq-save)))
+                        (let for-in-loop ((for-tmp seq-save))
+                          (cond ((not (null? for-tmp))
+                                 (set! /pair (car for-tmp))
+                                 (begin
+                                   (puthash
+                                     /succs
+                                     (@v (list-ref /defn (+ 1 1)))
+                                     (cons (let ((name /pair))
+                                             (if (vector? name)
+                                               (vector-ref name (- 1 1))
+                                               (list-ref name (- 1 1))))
+                                           (gethash
+                                             /succs
+                                             (@v (list-ref /defn (+ 1 1))))))
+                                   (puthash
+                                     /preds
+                                     (let ((name /pair))
+                                       (if (vector? name)
+                                         (vector-ref name (- 1 1))
+                                         (list-ref name (- 1 1))))
+                                     (cons (@v (list-ref /defn (+ 1 1)))
+                                           (gethash
+                                             /preds
+                                             (let ((name /pair))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))))))
+                                 (for-in-loop (cdr for-tmp)))
+                                (#t #t)))
+                        (set! /pair var-save)))
+                     (#t (set! /new (cons /defn /new))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /defn var-save))
+    (set! /dfs
+      (@sp_dfs_calls
+        (list-ref (@i) (+ 1 1))
+        /bodies
+        1
+        /dfs))
+    (set! /topsort
+      (@topological_sort /nodes /succs /preds /dfs))
+    (let ((var-save /name) (seq-save /topsort))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /name (car for-tmp))
+               (set! /new (cons (gethash /bodies /name) /new))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /name var-save))
+    (@down_to 2)
+    (@paste_over
+      (@make //t_/definitions '() (reverse /new)))
+    (@up)
+    (set! /bodies /bodies-save)
+    (set! /dfs /dfs-save)))
+
+(define (@sp_dfs_calls //i /bodies-par /n-par /dfs-par)
+  (let ((/dfs-save /dfs)
+        (/n-save /n)
+        (/bodies-save /bodies)
+        (funct-result '()))
+    (set! /dfs /dfs-par)
+    (set! /n /n-par)
+    (set! /bodies /bodies-par)
+    (@edit)
+    (@new_program //i)
+    (@foreach_statement
+      /foreach-sort_procs-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result /dfs)
+    (set! /dfs /dfs-save)
+    (set! /n /n-save)
+    (set! /bodies /bodies-save)
+    funct-result))
+

@@ -1,0 +1,128 @@
+(define (/foreach-rename_proc-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/where)
+         (set! /w_store (concat /w_store (list (@i))))
+         (@paste_over
+           (@make //t_/x_/proc_/call
+                  '()
+                  (list (@name (- (if (vector? /w_store)
+                                    (vector-length /w_store)
+                                    (length /w_store))))
+                        (@make //t_/expressions '() '())))))))
+
+(define (/foreach-rename_proc-2 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /old_name))
+         (@down)
+         (@paste_over (@name /new_name))
+         (@up))))
+
+(define (/foreach-rename_proc-3 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/x_/proc_/call)
+              (number? (@v (list-ref (@i) (+ 1 1))))
+              (< (@v (list-ref (@i) (+ 1 1))) 0))
+         (@paste_over
+           (let ((name /w_store))
+             (if (vector? name)
+               (vector-ref
+                 name
+                 (- (- (@v (list-ref (@i) (+ 1 1)))) 1))
+               (list-ref
+                 name
+                 (- (- (@v (list-ref (@i) (+ 1 1)))) 1)))))
+         (@rc_restore_wheres /w_store))))
+
+(define (@rename_proc_test)
+  (cond ((not (= (@st (@i)) //t_/proc))
+         (@fail "Not a procedure"))
+        (#t (@pass))))
+
+(define (@rename_proc_code //data)
+  (let ((/calls '())
+        (/orig_posn (@posn))
+        (/new_name-save /new_name)
+        (/old_name-save /old_name)
+        (/w_store-save /w_store))
+    (set! /new_name (@make_name //data))
+    (set! /old_name (@v (list-ref (@i) (+ 1 1))))
+    (set! /w_store '())
+    (let while-loop ()
+      (cond ((and (not (= (@st (@i)) //t_/where)) (@up?))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (@foreach_statement
+      /foreach-rename_proc-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@paste_over
+      (let ((name /w_store))
+        (if (vector? name)
+          (vector-ref
+            name
+            (- (- (@v (list-ref (@i) (+ 1 1)))) 1))
+          (list-ref
+            name
+            (- (- (@v (list-ref (@i) (+ 1 1)))) 1)))))
+    (set! /calls
+      (@make_set
+        (let ((l (@proc_calls (@item))) (map-result '()))
+          (let while-loop ()
+            (cond ((not (null? l))
+                   (set! map-result (cons (car (car l)) map-result))
+                   (set! l (cdr l))
+                   (while-loop))
+                  (#t #t)))
+          (reverse map-result))))
+    (cond ((= (@spec_type (@item)) //t_/where)
+           (set! /calls
+             (@set_union
+               /calls
+               (@make_set
+                 (let ((l (@cs (list-ref (@i) (+ 1 2))))
+                       (map-result '()))
+                   (let while-loop ()
+                     (cond ((not (null? l))
+                            (set! map-result (cons (@v1 (car l)) map-result))
+                            (set! l (cdr l))
+                            (while-loop))
+                           (#t #t)))
+                   (reverse map-result)))))))
+    (cond ((member /new_name /calls)
+           (@notice "The procedure name is already in use"))
+          (#t
+           (@goto /orig_posn)
+           (@down)
+           (@paste_over (@name /new_name))
+           (@up)
+           (let while-loop ()
+             (cond ((and (not (= (@st (@i)) //t_/where)) (@up?))
+                    (@up)
+                    (while-loop))
+                   (#t #t)))
+           (@foreach_statement
+             /foreach-rename_proc-2
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))))
+    (@rc_restore_wheres /w_store)
+    (@goto /orig_posn)
+    (set! /new_name /new_name-save)
+    (set! /old_name /old_name-save)
+    (set! /w_store /w_store-save)))
+
+(define (@rc_restore_wheres /w_store-par)
+  (let ((/w_store-save /w_store))
+    (set! /w_store /w_store-par)
+    (@foreach_statement
+      /foreach-rename_proc-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /w_store /w_store-save)))
+
+#t
+

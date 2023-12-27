@@ -1,0 +1,194 @@
+(define (/foreach-actions_to_where-1 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/call)
+         (@paste_over
+           (@make //t_/proc_/call
+                  '()
+                  (list (@name (@v (@i))) /empty/e /empty/l))))))
+
+(define (/foreach-actions_to_where-2 //depth //a/s_/type)
+  (cond ((and (= //depth 0)
+              (@right?)
+              (member //t_/call (@stat_types (@i))))
+         (cond ((<= (@zero_tv_count (@i) "Rec") 1)
+                (@trans //t/r_/fully_/absorb_/right ""))
+               (#t
+                (@right)
+                (cond ((and (= (@st (@i)) //t_/cond)
+                            (= (@st (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1)))
+                               //t_/equal)
+                            (= (@st (list-ref
+                                      (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+                                      (+ 1 1)))
+                               //t_/variable)
+                            (equal?
+                              (@v (list-ref
+                                    (list-ref (list-ref (@i) (+ 1 1)) (+ 1 1))
+                                    (+ 1 1)))
+                              /exit_flag)))
+                      (#t
+                       (@left)
+                       (@cut_rest)
+                       (@paste_after //s)
+                       (@right)
+                       (@down)
+                       (@down_to 2)
+                       (@down)
+                       (@splice_over (@buffer))
+                       (@up)
+                       (@up))))))))
+
+(define (/foreach-actions_to_where-3 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/call)
+         (cond ((equal? (@v (@i)) //z) (@paste_over /assign)))
+         (cond ((> //depth 0)
+                (@paste_after (@make //t_/exit //depth '())))))))
+
+(define (/foreach-actions_to_where-4 //depth //a/s_/type)
+  (cond ((member //depth (@gen_tvs (@i) //a/s/type))
+         (set! //n (+ //n 1)))))
+
+(define /%const__actions_to_where__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 313
+                                   '()
+                                   (list (@make 207
+                                                (@make_name "exit_flag")
+                                                '())
+                                         (@make 205 0 '())))
+                            (@make 17 '() (list (@make 145 '() '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define /%const__actions_to_where__2
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 501 (@make_name "exit_flag") '())
+                            (@make 205 1 '()))))))
+
+(define /%const__actions_to_where__3
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 501 (@make_name "exit_flag") '())
+                            (@make 205 0 '()))))))
+
+(define (@actions_to_where_test)
+  (cond ((not (= (@spec_type (@item)) //t_/a_/s))
+         (@fail "Not an action system."))
+        (#t (@pass))))
+
+(define (@actions_to_where_code //data)
+  (let ((//z-save //z)
+        (/start (@v (list-ref (@i) (+ 1 1))))
+        (/empty/e-save /empty/e)
+        (/empty/l-save /empty/l)
+        (/new '())
+        (/action '())
+        (/body '()))
+    (set! //z (@make_name "Z"))
+    (set! /empty/e (@make //t_/expressions '() '()))
+    (set! /empty/l (@make //t_/lvalues '() '()))
+    (cond ((not (@recursive_system? (@i)))
+           (@aw_make_recursive)))
+    (@foreach_non_action_statement
+      /foreach-actions_to_where-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let ((var-save /action)
+          (seq-save (@cs (list-ref (@i) (+ 1 2)))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /action (car for-tmp))
+               (set! /new
+                 (cons (@make //t_/proc
+                              '()
+                              (list (@name (@v (list-ref /action (+ 1 1))))
+                                    /empty/l
+                                    /empty/l
+                                    (list-ref /action (+ 1 2))))
+                       /new))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /action var-save))
+    (set! /body
+      (@make //t_/statements
+             '()
+             (list (@make //t_/proc_/call
+                          '()
+                          (list (@name (@v (list-ref (@i) (+ 1 1))))
+                                /empty/e
+                                /empty/l)))))
+    (@paste_over
+      (@make //t_/where
+             '()
+             (list /body
+                   (@make //t_/definitions '() (reverse /new)))))
+    #t
+    (set! //z //z-save)
+    (set! /empty/e /empty/e-save)
+    (set! /empty/l /empty/l-save)))
+
+(define (@aw_make_recursive)
+  (let ((/exit_flag-save /exit_flag)
+        (//z-save //z)
+        (//s-save //s)
+        (/assign-save /assign))
+    (set! /exit_flag (@make_name "exit_flag"))
+    (set! //z (@make_name "Z"))
+    (set! //s /%const__actions_to_where__1)
+    (set! /assign /%const__actions_to_where__2)
+    (@down_to 2)
+    (@ateach_non_action_statement
+      /foreach-actions_to_where-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_non_action_statement
+      /foreach-actions_to_where-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@up)
+    (@paste_before /%const__actions_to_where__3)
+    (@right)
+    (set! /exit_flag /exit_flag-save)
+    (set! //z //z-save)
+    (set! //s //s-save)
+    (set! /assign /assign-save)))
+
+(define (@zero_tv_count //i //a/s/type-par)
+  (let ((//a/s/type-save //a/s/type)
+        (//n-save //n)
+        (funct-result '()))
+    (set! //a/s/type //a/s/type-par)
+    (set! //n 0)
+    (@edit)
+    (@new_program //i)
+    (@ateach_terminal
+      /foreach-actions_to_where-4
+      0
+      (@as_type)
+      1)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@undo_edit)
+    (set! funct-result //n)
+    (set! //a/s/type //a/s/type-save)
+    (set! //n //n-save)
+    funct-result))
+
+#t
+

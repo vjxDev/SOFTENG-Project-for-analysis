@@ -1,0 +1,42 @@
+(set! //t/r_/delete_/all_/skips (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/all_/skips 1)
+  "Delete All Skips")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/all_/skips 1)
+  "Delete_All_Skips")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/all_/skips 1)
+  @delete_all_skips_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/all_/skips 1)
+  @delete_all_skips_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/all_/skips 1)
+  (list "Delete" "Simplify" "L_to_R" "R_to_L"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/all_/skips 1)
+  "This transformation will delete all the `SKIP' statements within the selected code.  If the resulting code is not syntactically correct, the program will be `tidied up' which may well result in the re-instatement of `SKIP' statements.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/all_/skips 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/all_/skips 1)
+  "")
+

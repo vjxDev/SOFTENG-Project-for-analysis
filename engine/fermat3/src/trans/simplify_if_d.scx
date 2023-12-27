@@ -1,0 +1,42 @@
+(set! //t/r_/simplify_/if (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/simplify_/if 1)
+  "Simplify_If")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/simplify_/if 1)
+  @simplify_if_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/simplify_/if 1)
+  @simplify_if_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/simplify_/if 1)
+  "Simplify If")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/simplify_/if 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/simplify_/if 1)
+  "Simplify If will remove false cases from an IF statement, and any cases whose conditions imply earlier conditions. Any repeated statements which can be taken outside the if will be, and the conditions will be simplified if possible.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/simplify_/if 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/simplify_/if 1)
+  "")
+

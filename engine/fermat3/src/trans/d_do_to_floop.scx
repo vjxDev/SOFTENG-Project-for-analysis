@@ -1,0 +1,35 @@
+(define (@d_do_to_floop_test)
+  (cond ((not (= (@st (@i)) //t_/d_/do))
+         (@fail "Selected item is not a D_Do loop."))
+        (#t (@pass))))
+
+(define (@d_do_to_floop_code //data)
+  (let ((//b (@make //t_/false '() '()))
+        (//s '())
+        (/guard '()))
+    (let ((var-save /guard) (seq-save (@cs (@i))))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /guard (car for-tmp))
+               (set! //b (@or //b (list-ref /guard (+ 1 1))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /guard var-save))
+    (set! //b (@not //b))
+    (set! /guard
+      (@make 7
+             '()
+             (list //b
+                   (@make 17 '() (list (@make 117 1 '()))))))
+    (@down_last)
+    (@paste_after /guard)
+    (@up)
+    (@paste_over (@make //t_/d_/if '() (@cs (@i))))
+    (set! //s (@i))
+    (@paste_over
+      (@make 133 '() (list (@make 17 '() (list //s)))))))
+
+#t
+

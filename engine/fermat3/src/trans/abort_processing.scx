@@ -1,0 +1,314 @@
+(define (/foreach-abort_processing-1 //depth //a/s_/type)
+  (cond ((member //t_/abort (@stat_types (@i)))
+         (@down)
+         (let while-loop ()
+           (cond ((and (not (= //t_/abort (@st (@i)))) (@right?))
+                  (@right)
+                  (while-loop))
+                 (#t #t)))
+         (cond ((= //t_/abort (@st (@i)))
+                (set! /done (@ap_abort /done)))))))
+
+(define (/foreach-abort_processing-2 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/a_/s)
+         (@down_last)
+         (@down)
+         (cond ((and (equal? (@stat_types (@i)) /types)
+                     (@trans? //t/r_/substitute_/and_/delete))
+                (@trans //t/r_/substitute_/and_/delete "")
+                (set! /done 1)))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((and (equal? (@stat_types (@i)) /types)
+                                (@trans? //t/r_/substitute_/and_/delete))
+                           (@trans //t/r_/substitute_/and_/delete "")
+                           (set! /done 1))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-abort_processing-3 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/where)
+              (@trans? //t/r_/unfold_/proc_/calls))
+         (@trans //t/r_/unfold_/proc_/calls ""))))
+
+(define (/foreach-abort_processing-4 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/cond)
+         (set! //b1 (@make //t_/true '() '()))
+         (set! //b2 '())
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((or (member
+                                 /destination
+                                 (@variables (list-ref (@i) (+ 1 1))))
+                               (member
+                                 /cc_name
+                                 (@variables (list-ref (@i) (+ 1 1)))))
+                           (set! /fl_flag1 1))
+                          ((and (= (@st (list-ref
+                                          (list-ref (@i) (+ 1 2))
+                                          (+ 1 1)))
+                                   //t_/abort)
+                                (not (member
+                                       //t_/call
+                                       (@stat_types (list-ref (@i) (+ 1 2))))))
+                           (set! //b2
+                             (@not (@and //b1 (list-ref (@i) (+ 1 1)))))
+                           (@delete)
+                           (set! /fl_flag1 1))
+                          (#t
+                           (set! //b1
+                             (@and //b1 (@not (list-ref (@i) (+ 1 1)))))
+                           (cond ((not (@right?)) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (cond ((not (null? //b2))
+                (set! /done 1)
+                (cond ((= (@size (@i)) 1)
+                       (@splice_over
+                         (@cs (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))))))
+                (cond ((@left?)
+                       (@left)
+                       (cond ((= (@st (@i)) //t_/assert)
+                              (@paste_over
+                                (@make //t_/assert
+                                       '()
+                                       (list (@and (list-ref (@i) (+ 1 1))
+                                                   //b2)))))
+                             (#t
+                              (@right)
+                              (@paste_before
+                                (@make //t_/assert '() (list //b2))))))
+                      (#t
+                       (@paste_before
+                         (@make //t_/assert '() (list //b2))))))))))
+
+(define (/foreach-abort_processing-5 //depth //a/s_/type)
+  (cond ((member //t_/abort (@stat_types (@i)))
+         (@down)
+         (let while-loop ()
+           (cond ((and (not (= //t_/abort (@st (@i)))) (@right?))
+                  (@right)
+                  (while-loop))
+                 (#t #t)))
+         (cond ((= //t_/abort (@st (@i)))
+                (set! /done (@ap_abort /done)))))))
+
+(define (/foreach-abort_processing-6 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/a_/s)
+         (@down_last)
+         (@down)
+         (cond ((and (equal? (@stat_types (@i)) /types)
+                     (@trans? //t/r_/substitute_/and_/delete))
+                (@trans //t/r_/substitute_/and_/delete "")
+                (set! /done 1)))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((and (equal? (@stat_types (@i)) /types)
+                                (@trans? //t/r_/substitute_/and_/delete))
+                           (@trans //t/r_/substitute_/and_/delete "")
+                           (set! /done 1))))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-abort_processing-7 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/where)
+              (@trans? //t/r_/unfold_/proc_/calls))
+         (@trans //t/r_/unfold_/proc_/calls ""))))
+
+(define (/foreach-abort_processing-8 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/cond)
+         (set! //b1 (@make //t_/true '() '()))
+         (set! //b2 '())
+         (@down)
+         (set! /fl_flag1 0)
+         (let while-loop ()
+           (cond ((= /fl_flag1 0)
+                  (begin
+                    (cond ((or (member
+                                 /destination
+                                 (@variables (list-ref (@i) (+ 1 1))))
+                               (member
+                                 /cc_name
+                                 (@variables (list-ref (@i) (+ 1 1)))))
+                           (set! /fl_flag1 1))
+                          ((and (= (@st (list-ref
+                                          (list-ref (@i) (+ 1 2))
+                                          (+ 1 1)))
+                                   //t_/abort)
+                                (not (member
+                                       //t_/call
+                                       (@stat_types (list-ref (@i) (+ 1 2))))))
+                           (set! //b2
+                             (@not (@and //b1 (list-ref (@i) (+ 1 1)))))
+                           (@delete)
+                           (set! /fl_flag1 1))
+                          (#t
+                           (set! //b1
+                             (@and //b1 (@not (list-ref (@i) (+ 1 1)))))
+                           (cond ((not (@right?)) (set! /fl_flag1 1))
+                                 (#t (@right) (set! /fl_flag1 0))))))
+                  (while-loop))
+                 (#t #t)))
+         (@up)
+         (cond ((not (null? //b2))
+                (set! /done 1)
+                (cond ((= (@size (@i)) 1)
+                       (@splice_over
+                         (@cs (list-ref (list-ref (@i) (+ 1 1)) (+ 1 2))))))
+                (cond ((@left?)
+                       (@left)
+                       (cond ((= (@st (@i)) //t_/assert)
+                              (@paste_over
+                                (@make //t_/assert
+                                       '()
+                                       (list (@and (list-ref (@i) (+ 1 1))
+                                                   //b2)))))
+                             (#t
+                              (@right)
+                              (@paste_before
+                                (@make //t_/assert '() (list //b2))))))
+                      (#t
+                       (@paste_before
+                         (@make //t_/assert '() (list //b2))))))))))
+
+(define /%const__abort_processing__1
+  (@make 112 (@make_name "Z") '()))
+
+(define (@abort_processing_test)
+  (cond ((member //t_/abort (@stat_types (@i))) (@pass))
+        (#t (@fail "No ABORTs in the code to process"))))
+
+(define (@abort_processing_code //data)
+  (let ((/types-save /types)
+        (/done-save /done)
+        (//b1-save //b1)
+        (//b2-save //b2)
+        (/cc_name-save /cc_name)
+        (/destination-save /destination))
+    (set! /types
+      (@make_set (list //t_/call //t_/abort)))
+    (set! /done 0)
+    (set! //b1 '())
+    (set! //b2 '())
+    (set! /cc_name (@make_name "cc"))
+    (set! /destination (@make_name "destination"))
+    (set! /done 0)
+    (@foreach_stats
+      /foreach-abort_processing-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_statement
+      /foreach-abort_processing-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_statement
+      /foreach-abort_processing-3
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (@foreach_statement
+      /foreach-abort_processing-4
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let while-loop ()
+      (cond ((not (= /done 0))
+             (begin
+               (set! /done 0)
+               (@foreach_stats
+                 /foreach-abort_processing-5
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@foreach_statement
+                 /foreach-abort_processing-6
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@foreach_statement
+                 /foreach-abort_processing-7
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips))))
+               (@foreach_statement
+                 /foreach-abort_processing-8
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips)))))
+             (while-loop))
+            (#t #t)))
+    (set! /types /types-save)
+    (set! /done /done-save)
+    (set! //b1 //b1-save)
+    (set! //b2 //b2-save)
+    (set! /cc_name /cc_name-save)
+    (set! /destination /destination-save)))
+
+(define (@ap_abort /done-par)
+  (let ((/done-save /done) (funct-result '()))
+    (set! /done /done-par)
+    (let ((/posn_n (@posn_n)) (/call 0))
+      (cond ((member //t_/call (@stat_types (@parent)))
+             (set! /call 1)))
+      (cond ((@right?)
+             (@right)
+             (let ((/__/o/k 1))
+               (set! /__/o/k
+                 (@new_match
+                   /%const__abort_processing__1
+                   (@i)
+                   /__/o/k))
+               (cond ((= /__/o/k 1)
+                      (cond ((@right?) (@delete_rest) (set! /done 1)))
+                      (@left))
+                     (#t (@left) (@delete_rest) (set! /done 1))))))
+      (cond ((and (= /call 1) (not (@right?)))
+             (@paste_after /%const__abort_processing__1)))
+      (cond ((not (= (@st (@i)) //t_/abort))
+             (error "Not on ABORT now!!!")))
+      (cond ((@left?)
+             (@left)
+             (set! /fl_flag1 0)
+             (let while-loop ()
+               (cond ((= /fl_flag1 0)
+                      (cond ((not (and (@is_proper?)
+                                       (not (member
+                                              //t_/call
+                                              (@stat_types (@i))))))
+                             (set! /fl_flag1 1))
+                            (#t
+                             (@delete)
+                             (set! /done 1)
+                             (cond ((not (@left?)) (set! /fl_flag1 1))
+                                   (#t (@left) (set! /fl_flag1 0)))))
+                      (while-loop))
+                     (#t #t)))
+             (cond ((and (= (@st (@i)) //t_/cond)
+                         (@trans? //t/r_/fully_/absorb_/right))
+                    (@trans //t/r_/fully_/absorb_/right "")
+                    (set! /done 1))))))
+    (set! funct-result /done)
+    (set! /done /done-save)
+    funct-result))
+
+#t
+

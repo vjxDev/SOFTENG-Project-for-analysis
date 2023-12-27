@@ -1,0 +1,3538 @@
+(define (/foreach-wsl2scheme-1 //depth //a/s_/type)
+  (cond ((@ifmatch_type? (@st (@i)))
+         (@trans //t/r_/ifmatch_/processing ""))))
+
+(define (/foreach-wsl2scheme-2 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__wsl2scheme__1 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__e_save /e))
+             (set! /e (vector-ref /__/match_array 0))
+             (@paste_over
+               (@make 216
+                      '()
+                      (list (@make 9 (@make_name "concat") '())
+                            (@var_to_expn /e))))
+             (set! /e /__e_save))))))
+
+(define (/foreach-wsl2scheme-3 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__wsl2scheme__2 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__stack_save /stack) (/__v_save /v))
+             (set! /stack (vector-ref /__/match_array 1))
+             (set! /v (vector-ref /__/match_array 0))
+             (@splice_over
+               (list (@make 110
+                            '()
+                            (list (@make 6
+                                         '()
+                                         (list (@expn_to_var /v)
+                                               (@make 240
+                                                      '()
+                                                      (list (@var_to_expn
+                                                              /stack)))))))
+                     (@make 110
+                            '()
+                            (list (@make 6
+                                         '()
+                                         (list (@expn_to_var /stack)
+                                               (@make 241
+                                                      '()
+                                                      (list (@var_to_expn
+                                                              /stack)))))))))
+             (set! /stack /__stack_save)
+             (set! /v /__v_save))))))
+
+(define (/foreach-wsl2scheme-4 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/minus)
+              (> (@size (@i)) 2))
+         (@paste_over
+           (@make //t_/minus
+                  '()
+                  (list (list-ref (@i) (+ 1 1))
+                        (@make //t_/plus '() (cdr (@cs (@i))))))))))
+
+(define (/foreach-wsl2scheme-5 //depth //a/s_/type)
+  (cond ((or (and (@fill_type? (@st (@i)))
+                  (@ws_constant_fill? (@i)))
+             (and #f
+                  (= (@st (@i)) //t_/m/w_/funct_/call)
+                  (equal? (@v (list-ref (@i) (+ 1 1))) /make_name)
+                  (= (@st (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))
+                     //t_/string)))
+         (set! /v '())
+         (let ((var-save /init) (seq-save /inits))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /init (car for-tmp))
+                    (cond ((@equal? (list-ref /init (+ 1 2)) (@i))
+                           (set! /v (list-ref /init (+ 1 1)))))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /init var-save))
+         (cond ((null? /v)
+                (set! /n (+ /n 1))
+                (set! /v
+                  (@make //t_/var_/lvalue
+                         (@make_name (concat /name (@string /n)))
+                         '()))
+                (set! /inits
+                  (cons (@make //t_/assign '() (list /v (@i)))
+                        /inits))))
+         (@paste_over (@lvalue_to_expn /v)))))
+
+(define (/foreach-wsl2scheme-6 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__wsl2scheme__3 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__e_save /e) (/__v_save /v))
+             (set! /e (vector-ref /__/match_array 1))
+             (set! /v (vector-ref /__/match_array 0))
+             (cond ((and (= (@st /v) //t_/variable)
+                         (member (@v /v) /arrays))
+                    (set! /e
+                      (@simplify_expn
+                        (@make 221
+                               '()
+                               (list (@var_to_expn /e) (@make 205 1 '())))))
+                    (@paste_over
+                      (@make //t_/x_/funct_/call
+                             '()
+                             (list /ref
+                                   (@make //t_/expressions
+                                          '()
+                                          (list /v /e)))))))
+             (set! /e /__e_save)
+             (set! /v /__v_save))))))
+
+(define (/foreach-wsl2scheme-7 //depth //a/s_/type)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match /%const__wsl2scheme__4 (@i) /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__e1_save /e1) (/__e_save /e) (/__v_save /v))
+             (set! /e1 (vector-ref /__/match_array 2))
+             (set! /e (vector-ref /__/match_array 1))
+             (set! /v (vector-ref /__/match_array 0))
+             (cond ((and (= (@st /v) //t_/var_/lvalue)
+                         (member (@v /v) /arrays))
+                    (set! /e
+                      (@simplify_expn
+                        (@make 221
+                               '()
+                               (list (@var_to_expn /e) (@make 205 1 '())))))
+                    (set! /v (@lvalue_to_expn /v))
+                    (@paste_over
+                      (@make //t_/x_/proc_/call
+                             '()
+                             (list /set
+                                   (@make //t_/expressions
+                                          '()
+                                          (list /v /e /e1)))))))
+             (set! /e1 /__e1_save)
+             (set! /e /__e_save)
+             (set! /v /__v_save))))))
+
+(define (/foreach-wsl2scheme-8 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/concat)
+              (= (@st (list-ref (@i) (+ 1 1))) //t_/sequence)
+              (> (@size (@i)) 1))
+         (set! /args '())
+         (set! /rest (@cs (@i)))
+         (let while-loop ()
+           (cond ((and (not (null? /rest))
+                       (= (@st (car /rest)) //t_/sequence))
+                  (begin
+                    (set! /args
+                      (concat
+                        (reverse (@cs (list-ref (car /rest) (+ 1 1))))
+                        /args))
+                    (set! /rest (cdr /rest)))
+                  (while-loop))
+                 (#t #t)))
+         (cond ((= (if (vector? /rest)
+                     (vector-length /rest)
+                     (length /rest))
+                   0)
+                (@paste_over
+                  (@make //t_/sequence
+                         '()
+                         (list (@make //t_/expressions '() (reverse /args))))))
+               (#t
+                (cond ((= (if (vector? /rest)
+                            (vector-length /rest)
+                            (length /rest))
+                          1)
+                       (set! /rest (car /rest)))
+                      (#t (set! /rest (@make //t_/concat '() /rest))))
+                (let ((var-save /arg) (seq-save /args))
+                  (if (vector? seq-save)
+                    (set! seq-save (vector-elts seq-save)))
+                  (let for-in-loop ((for-tmp seq-save))
+                    (cond ((not (null? for-tmp))
+                           (set! /arg (car for-tmp))
+                           (set! /rest
+                             (@make_funct /cons (list /arg /rest)))
+                           (for-in-loop (cdr for-tmp)))
+                          (#t #t)))
+                  (set! /arg var-save))
+                (@paste_over /rest))))
+        ((and (= (@st (@i)) //t_/concat)
+              (> (@size (@i)) 1)
+              (or (= (@st (list-ref (@i) (+ 1 1))) //t_/string)
+                  (= (@st (list-ref (@i) (+ 1 2))) //t_/string)))
+         (@paste_over
+           (@make_funct /string_append (@cs (@i)))))))
+
+(define (/foreach-wsl2scheme-9 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/concat)
+         (cond ((= (@size (@i)) 0)
+                (@paste_over (@make //t_/string "" '())))
+               ((= (@size (@i)) 1)
+                (@paste_over (list-ref (@i) (+ 1 1))))
+               (#t
+                (let while-loop ()
+                  (cond ((and (= (@st (@i)) //t_/concat)
+                              (> (@size (@i)) 2))
+                         (begin
+                           (set! /arg1
+                             (@make //t_/concat
+                                    '()
+                                    (list (list-ref (@i) (+ 1 1))
+                                          (list-ref (@i) (+ 1 2)))))
+                           (@down)
+                           (@delete)
+                           (@paste_over /arg1)
+                           (@up))
+                         (while-loop))
+                        (#t #t))))))))
+
+(define (/foreach-wsl2scheme-10 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/m/w_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) /yy_print))
+         (@delete))))
+
+(define (/foreach-wsl2scheme-11 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/floop)
+              (@trans? //t/r_/floop_/to_/while))
+         (set! /floop 1)
+         (@down)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match /%const__wsl2scheme__5 (@i) /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s2_save //s2)
+                        (/__/s_save //s)
+                        (/__/b_save //b)
+                        (/__/s1_save //s1))
+                    (set! //s2 (vector-ref /__/match_array 3))
+                    (set! //s (vector-ref /__/match_array 2))
+                    (set! //b (vector-ref /__/match_array 1))
+                    (set! //s1 (vector-ref /__/match_array 0))
+                    (@up)
+                    (cond ((@gen_proper?
+                             (@make //t_/statements
+                                    '()
+                                    (concat (concat //s1 //s) //s2))
+                             //a/s)
+                           (set! //b (@not //b))
+                           (@splice_over
+                             (@cs (@make 17
+                                         '()
+                                         (append
+                                           //s1
+                                           (list (@make 141
+                                                        '()
+                                                        (list //b
+                                                              (@make 17
+                                                                     '()
+                                                                     (append
+                                                                       //s2
+                                                                       //s1)))))
+                                           //s)))))
+                          (#t (@trans //t/r_/floop_/to_/while "")))
+                    (set! //s2 /__/s2_save)
+                    (set! //s /__/s_save)
+                    (set! //b /__/b_save)
+                    (set! //s1 /__/s1_save)))
+                 (#t (@up) (@trans //t/r_/floop_/to_/while "")))))))
+
+(define (/foreach-wsl2scheme-12 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/in)
+              (= (@st (list-ref (@i) (+ 1 2))) //t_/sequence))
+         (set! /comps '())
+         (let ((var-save /elt)
+               (seq-save
+                 (@cs (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /elt (car for-tmp))
+                    (set! /comps
+                      (cons (@make //t_/equal
+                                   '()
+                                   (list (list-ref (@i) (+ 1 1)) /elt))
+                            /comps))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /elt var-save))
+         (@paste_over
+           (@make //t_/or '() (reverse /comps))))
+        ((and (= (@st (@i)) //t_/not_/in)
+              (= (@st (list-ref (@i) (+ 1 2))) //t_/sequence))
+         (set! /comps '())
+         (let ((var-save /elt)
+               (seq-save
+                 (@cs (list-ref (list-ref (@i) (+ 1 2)) (+ 1 1)))))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /elt (car for-tmp))
+                    (set! /comps
+                      (cons (@make //t_/not_/equal
+                                   '()
+                                   (list (list-ref (@i) (+ 1 1)) /elt))
+                            /comps))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /elt var-save))
+         (@paste_over
+           (@make //t_/and '() (reverse /comps))))))
+
+(define (/foreach-wsl2scheme-13 //depth //a/s_/type)
+  (cond ((and (or (= (@st (@i)) //t_/and)
+                  (= (@st (@i)) //t_/or))
+              (or (and (member //t_/head (@spec_types (@i)))
+                       (member //t_/empty (@spec_types (@i))))
+                  (member //t_/get_n (@spec_types (@i))))
+              (> (@size (@i)) 1)
+              (@equal? (@i) (@simplify_cond (@i))))
+         (@paste_over
+           (@make (@st (@i)) '() (reverse (@cs (@i)))))
+         (cond ((and (not (member
+                            //t_/head
+                            (@spec_types (list-ref (@i) (+ 1 2)))))
+                     (member
+                       //t_/head
+                       (@spec_types (list-ref (@i) (+ 1 1)))))
+                (@paste_over
+                  (@make (@st (@i))
+                         '()
+                         (cons (list-ref (@i) (+ 1 2))
+                               (cons (list-ref (@i) (+ 1 1))
+                                     (cdr (cdr (@cs (@i)))))))))
+               ((and (not (member
+                            //t_/get_n
+                            (@spec_types (list-ref (@i) (+ 1 2)))))
+                     (member
+                       //t_/get_n
+                       (@spec_types (list-ref (@i) (+ 1 1)))))
+                (@paste_over
+                  (@make (@st (@i))
+                         '()
+                         (cons (list-ref (@i) (+ 1 2))
+                               (cons (list-ref (@i) (+ 1 1))
+                                     (cdr (cdr (@cs (@i)))))))))))))
+
+(define (/foreach-wsl2scheme-14 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/reduce)
+         (@down)
+         (cond ((or (equal? (@v (@i)) /union1)
+                    (equal? (@v (@i)) /union2))
+                (@paste_over (@make //t_/name /new_union '())))
+               ((or (equal? (@v (@i)) /intersect1)
+                    (equal? (@v (@i)) /intersect2))
+                (@paste_over
+                  (@make //t_/name /new_intersect '()))))
+         (@up))))
+
+(define (/foreach-wsl2scheme-15 //depth //a/s_/type)
+  (cond ((or (= (@st (@i)) //t_/and)
+             (= (@st (@i)) //t_/or))
+         (@down)
+         (set! /index_vars (@find_index_vars))
+         (let while-loop ()
+           (cond ((@right?)
+                  (begin
+                    (@right)
+                    (cond ((not (null? (@set_intersect
+                                         (@set_difference
+                                           (@used (@i))
+                                           (@find_index_vars))
+                                         /index_vars)))
+                           (@trans //t/r_/move_/to_/left "")
+                           (@right)))
+                    (set! /index_vars (@find_index_vars)))
+                  (while-loop))
+                 (#t #t))))))
+
+(define (/foreach-wsl2scheme-16 //depth //a/s_/type)
+  (cond ((member (@st (@i)) //foreach_/types)
+         (set! //globals
+           (@set_union
+             //globals
+             (@set_union
+               (@variables (list-ref (@i) (+ 1 1)))
+               (@match_vars (list-ref (@i) (+ 1 1))))))
+         (set! /foreach (+ /foreach 1))
+         (set! /name
+           (@make_name
+             (concat
+               (string-append
+                 (string-append "foreach-" //input)
+                 "-")
+               (@string /foreach))))
+         (set! /body_var (@make //t_/variable /name '()))
+         (@wssl (string-append
+                  (concat
+                    (string-append
+                      (concat
+                        (string-append
+                          (string-append "(define (" (@ws_name /name))
+                          " ")
+                        (@ws_name (@make_name "Depth")))
+                      " ")
+                    (@ws_name (@make_name "AS_Type")))
+                  ")"))
+         (@ws_items (@cs (list-ref (@i) (+ 1 1))))
+         (@wssl ")")
+         (@wssl "")
+         (set! //s/t (@st (@i)))
+         (cond ((member //s/t //only_/simple_/types)
+                (@paste_over
+                  (@make 102
+                         '()
+                         (list (@make 9 (@make_name "@Foreach") '())
+                               (@make 10
+                                      '()
+                                      (list (@var_to_expn /body_var)
+                                            (@make 205 0 '())
+                                            (@make 202
+                                                   '()
+                                                   (list (@make 9
+                                                                (@make_name
+                                                                  "@AS_Type")
+                                                                '())
+                                                         (@make 10 '() '())))
+                                            (@make 205 1 '())))
+                               (@make 12 '() '())))))
+               (#t
+                (@paste_over
+                  (@make 102
+                         '()
+                         (list (@make 9 (@make_name "@Foreach") '())
+                               (@make 10
+                                      '()
+                                      (list (@var_to_expn /body_var)
+                                            (@make 205 0 '())
+                                            (@make 202
+                                                   '()
+                                                   (list (@make 9
+                                                                (@make_name
+                                                                  "@AS_Type")
+                                                                '())
+                                                         (@make 10 '() '())))
+                                            (@make 205 0 '())))
+                               (@make 12 '() '()))))))
+         (@paste_over
+           (@make //t_/m/w_/proc_/call
+                  '()
+                  (cons (@name (@make_name
+                                 (vector-ref //w/s_/funct (- //s/t 1))))
+                        (cdr (@cs (@i))))))
+         (@paste_after /%const__wsl2scheme__6))))
+
+(define (/foreach-wsl2scheme-17 //depth //a/s_/type)
+  (cond ((= (@st (@i)) //t_/aref)
+         (set! /vars
+           (@set_union
+             /vars
+             (@used (list-ref (@i) (+ 1 2))))))
+        ((or (= (@st (@i)) //t_/sub_/seg)
+             (= (@st (@i)) //t_/rel_/seg))
+         (set! /vars
+           (@set_union
+             /vars
+             (@set_union
+               (@used (list-ref (@i) (+ 1 2)))
+               (@used (list-ref (@i) (+ 1 3)))))))))
+
+(define /%const__wsl2scheme__1
+  (@make 216
+         '()
+         (list (@make 9 (@make_name "++") '())
+               (@make 217 -1 '()))))
+
+(define /%const__wsl2scheme__2
+  (@make 135
+         '()
+         (list (@make 506 -1 '()) (@make 506 -2 '()))))
+
+(define /%const__wsl2scheme__3
+  (@make 210
+         '()
+         (list (@make 217 -1 '())
+               (@make 10 '() (list (@make 217 -2 '()))))))
+
+(define /%const__wsl2scheme__4
+  (@make 110
+         '()
+         (list (@make 6
+                      '()
+                      (list (@make 502
+                                   '()
+                                   (list (@make 506 -1 '())
+                                         (@make 10
+                                                '()
+                                                (list (@make 217 -2 '())))))
+                            (@make 217 -3 '()))))))
+
+(define /%const__wsl2scheme__5
+  (@make 17
+         '()
+         (list (@make 107 -1 '())
+               (@make 114
+                      '()
+                      (list (@make 7
+                                   '()
+                                   (list (@make 305 -2 '())
+                                         (@make 17
+                                                '()
+                                                (list (@make 107 -3 '())
+                                                      (@make 117 1 '())))))
+                            (@make 7
+                                   '()
+                                   (list (@make 308 '() '())
+                                         (@make 17
+                                                '()
+                                                (list (@make 145 '() '())))))))
+               (@make 107 -4 '()))))
+
+(define /%const__wsl2scheme__6
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 321
+                                   '()
+                                   (list (@make 202
+                                                '()
+                                                (list (@make 9
+                                                             (@make_name
+                                                               "@Program")
+                                                             '())
+                                                      (@make 10 '() '())))))
+                            (@make 17
+                                   '()
+                                   (list (@make 102
+                                                '()
+                                                (list (@make 9
+                                                             (@make_name
+                                                               "@New_Program")
+                                                             '())
+                                                      (@make 10
+                                                             '()
+                                                             (list (@make 202
+                                                                          '()
+                                                                          (list (@make 9
+                                                                                       (@make_name
+                                                                                         "@Skips")
+                                                                                       '())
+                                                                                (@make 10
+                                                                                       '()
+                                                                                       '())))))
+                                                      (@make 12 '() '())))))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(set! //w/s/l_/option_/quiet 0)
+
+(set! //w/s_/nesting 1)
+
+(set! //w/s_/indents (make-vector 1999 0))
+
+(set! //w/s_/x_/pos 0)
+
+(set! //w/s_/indent_/pending 0)
+
+(set! //spaces
+  "                                                             ")
+
+(set! /ws_macro_pars '())
+
+(define (@wss /str)
+  (let ((/i 0) (/closes 0) (/quote 0) (/comment 0))
+    (cond ((= //w/s_/indent_/pending 1)
+           (let while-loop ()
+             (cond ((and (< /i (string-length /str))
+                         (equal?
+                           (let ((f /i)) (substring /str f (+ f 1)))
+                           ")"))
+                    (begin
+                      (set! /closes (+ /closes 1))
+                      (set! /i (+ /i 1)))
+                    (while-loop))
+                   (#t #t)))
+           (cond ((< (- //w/s_/nesting /closes) 1)
+                  (error "@WSS" "Too many closing brackets" /str)))
+           (set! //w/s_/x_/pos
+             (modulo
+               (vector-ref
+                 //w/s_/indents
+                 (- //w/s_/nesting (+ 1 /closes)))
+               40))
+           (@write
+             (let ((f 0))
+               (substring //spaces f (+ f //w/s_/x_/pos)))
+             //output_/port)
+           (set! //w/s_/indent_/pending 0)))
+    (let ((var-save /i)
+          (for-step 1)
+          (for-end (- (string-length /str) 1)))
+      (set! /i 0)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= /i for-end))
+                   (and (< 1 0) (>= /i for-end)))
+               (begin
+                 (cond ((equal?
+                          (let ((f /i)) (substring /str f (+ f 1)))
+                          //quote)
+                        (set! /quote (- 1 /quote)))
+                       ((equal?
+                          (let ((f /i)) (substring /str f (+ f 1)))
+                          ";")
+                        (set! /comment 1)))
+                 (cond ((and (= /comment 0) (= /quote 0))
+                        (cond ((equal?
+                                 (let ((f /i)) (substring /str f (+ f 1)))
+                                 "(")
+                               (set! //w/s_/nesting (+ //w/s_/nesting 1))
+                               (vector-set!
+                                 //w/s_/indents
+                                 (- //w/s_/nesting 1)
+                                 (+ //w/s_/x_/pos /i 1)))
+                              ((equal?
+                                 (let ((f /i)) (substring /str f (+ f 1)))
+                                 ")")
+                               (cond ((<= //w/s_/nesting 1)
+                                      (error "@WSS"
+                                             "Too many closing brackets"
+                                             /str)))
+                               (set! //w/s_/nesting (- //w/s_/nesting 1)))))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save))
+    (@write /str //output_/port)
+    (set! //w/s_/x_/pos
+      (+ //w/s_/x_/pos (string-length /str)))))
+
+(define (@wssl /str)
+  (@wss /str)
+  (@write_line "" //output_/port)
+  (set! //w/s_/indent_/pending 1))
+
+(set! /fl_flag1 0)
+
+(set! /fl_flag2 0)
+
+(set! /fl_flag3 0)
+
+(set! /fl_flag4 0)
+
+(set! /fl_flag5 0)
+
+(set! /fl_flag6 0)
+
+(set! /fl_flag7 0)
+
+(set! /fl_flag8 0)
+
+(set! /fl_flag9 0)
+
+(set! /fl_flag/x 0)
+
+(let ((/type-save /type))
+  (set! /type 0)
+  (set! //scheme_/funct 1)
+  (set! //scheme_/literal 2)
+  (set! //scheme_/call 3)
+  (set! //scheme_/decl 4)
+  (set! //scheme_/ifmatch 5)
+  (set! //scheme_/fill 6)
+  (set! //scheme_/special 99)
+  (set! //w/s_/type
+    (make-vector 1999 //scheme_/funct))
+  (set! //w/s_/funct (make-vector 1999 ""))
+  (vector-set!
+    //w/s_/type
+    (- //t_/statements 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/funct
+    (- //t_/expressions 1)
+    "")
+  (vector-set! //w/s_/funct (- //t_/lvalues 1) "")
+  (vector-set! //w/s_/funct (- //t_/assigns 1) "")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/definitions 1)
+    "")
+  (vector-set! //w/s_/funct (- //t_/assign 1) "")
+  (vector-set! //w/s_/funct (- //t_/guarded 1) "")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/abort 1)
+    "abort")
+  (vector-set!
+    //w/s_/type
+    (- //t_/skip 1)
+    //scheme_/literal)
+  (vector-set!
+    //w/s_/type
+    (- //t_/true 1)
+    //scheme_/literal)
+  (vector-set!
+    //w/s_/type
+    (- //t_/false 1)
+    //scheme_/literal)
+  (vector-set! //w/s_/funct (- //t_/skip 1) "#t")
+  (vector-set! //w/s_/funct (- //t_/true 1) "#t")
+  (vector-set! //w/s_/funct (- //t_/false 1) "#f")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/hash_/table 1)
+    "make-hash-table")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/slength 1)
+    "string-length")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/substr 1)
+    "substr")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/index 1)
+    "my-index")
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/expn_/place
+                //t_/var_/place
+                //t_/cond_/place
+                //t_/stat_/place)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/literal)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (vector-set!
+    //w/s_/funct
+    (- //t_/expn_/place 1)
+    "$Expn$")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/var_/place 1)
+    "$Var$")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/cond_/place 1)
+    "$Condition$")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/stat_/place 1)
+    "$Statement$")
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/stat_/pat_/one
+                //t_/expn_/pat_/one
+                //t_/cond_/pat_/one
+                //t_/defn_/pat_/one
+                //t_/lvalue_/pat_/one
+                //t_/assign_/pat_/one
+                //t_/guarded_/pat_/one
+                //t_/action_/pat_/one
+                //t_/name_/pat_/one)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (begin
+               (vector-set!
+                 //w/s_/type
+                 (- /type 1)
+                 //scheme_/literal)
+               (vector-set! //w/s_/funct (- /type 1) "~?"))
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/stat_/pat_/many
+                //t_/expn_/pat_/many
+                //t_/cond_/pat_/many
+                //t_/defn_/pat_/many
+                //t_/lvalue_/pat_/many
+                //t_/assign_/pat_/many
+                //t_/guarded_/pat_/many
+                //t_/action_/pat_/many)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (begin
+               (vector-set!
+                 //w/s_/type
+                 (- /type 1)
+                 //scheme_/literal)
+               (vector-set! //w/s_/funct (- /type 1) "~+"))
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/stat_/pat_/any
+                //t_/expn_/pat_/any
+                //t_/cond_/pat_/any
+                //t_/defn_/pat_/any
+                //t_/lvalue_/pat_/any
+                //t_/assign_/pat_/any
+                //t_/guarded_/pat_/any
+                //t_/action_/pat_/any)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (begin
+               (vector-set!
+                 //w/s_/type
+                 (- /type 1)
+                 //scheme_/literal)
+               (vector-set! //w/s_/funct (- /type 1) "~*"))
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/proc_/call
+                //t_/a_/proc_/call
+                //t_/m/w_/proc_/call
+                //t_/x_/proc_/call
+                //t_/x_/funct_/call
+                //t_/m/w_/funct_/call
+                //t_/funct_/call
+                //t_/x_/b/funct_/call
+                //t_/m/w_/b/funct_/call
+                //t_/b/funct_/call)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/call)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (vector-set!
+    //w/s_/funct
+    (- //t_/print 1)
+    "display-list")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/prinflush 1)
+    "display-list-flush")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/maphash 1)
+    "maphash ")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/error 1)
+    "error")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/assert 1)
+    "assertion")
+  (vector-set!
+    //w/s_/type
+    (- //t_/assignment 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/a_/s 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/call 1)
+    //scheme_/special)
+  (vector-set! //w/s_/funct (- //t_/action 1) "")
+  (vector-set!
+    //w/s_/type
+    (- //t_/comment 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/cond 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/d_/if 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/d_/do 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/exit 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/for 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/for_/in 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/stat 1)
+    "@Foreach_Statement")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/n/a/s 1)
+    "@Foreach_Non_Action_Statement")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/stats 1)
+    "@Foreach_Stats")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/t/s 1)
+    "@Foreach_Terminal")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/t/ss 1)
+    "@Foreach_Terminal_Stats")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/s/t/s 1)
+    "@Foreach_Terminal")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/cond 1)
+    "@Foreach_Cond")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/expn 1)
+    "@Foreach_Expn")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/lvalue 1)
+    "@Foreach_Lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/variable 1)
+    "@Foreach_Variable")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/foreach_/global_/var 1)
+    "@Foreach_Global_Var")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/stat 1)
+    "@Ateach_Statement")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/n/a/s 1)
+    "@Ateach_Non_Action_Statement")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/stats 1)
+    "@Ateach_Stats")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/t/s 1)
+    "@Ateach_Terminal")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/t/ss 1)
+    "@Ateach_Terminal_Stats")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/s/t/s 1)
+    "@Ateach_Terminal")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/cond 1)
+    "@Ateach_Cond")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/expn 1)
+    "@Ateach_Expn")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/lvalue 1)
+    "@Ateach_Lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/variable 1)
+    "@Ateach_Variable")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/ateach_/global_/var 1)
+    "@Ateach_Global_Var")
+  (vector-set!
+    //w/s_/type
+    (- //t_/floop 1)
+    //scheme_/special)
+  (vector-set! //w/s_/funct (- //t_/join 1) "join")
+  (vector-set! //w/s_/funct (- //t_/pop 1) "pop")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/puthash 1)
+    "puthash")
+  (vector-set! //w/s_/funct (- //t_/push 1) "push")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/spec 1)
+    "spec-stat")
+  (vector-set!
+    //w/s_/type
+    (- //t_/var 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/where 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/funct
+    (- //t_/while 1)
+    "while")
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/proc
+                //t_/funct
+                //t_/b/funct
+                //t_/m/w_/proc
+                //t_/m/w_/funct
+                //t_/m/w_/b/funct)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/decl)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/ifmatch_/stat
+                //t_/ifmatch_/expn
+                //t_/ifmatch_/cond
+                //t_/ifmatch_/defn
+                //t_/ifmatch_/lvalue
+                //t_/ifmatch_/assign
+                //t_/ifmatch_/guarded
+                //t_/ifmatch_/action
+                //t_/ifmatch_/stats
+                //t_/ifmatch_/expns
+                //t_/ifmatch_/lvalues
+                //t_/ifmatch_/assigns
+                //t_/ifmatch_/defns)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/ifmatch)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (vector-set!
+    //w/s_/funct
+    (- //t_/get_n 1)
+    "@Get_n")
+  (vector-set! //w/s_/funct (- //t_/get 1) "@Get")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/gethash 1)
+    "gethash")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/hash_/table 1)
+    "hash-table")
+  (let ((var-save /type)
+        (seq-save (list //t_/number //t_/variable)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/literal)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (vector-set!
+    //w/s_/type
+    (- //t_/string 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/sequence 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/aref 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/funct
+    (- //t_/sub_/seg 1)
+    "@Sub_Seg")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/rel_/seg 1)
+    "@Rel_Seg")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/final_/seg 1)
+    "@Final_Seg")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/map 1)
+    "my-map ")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/reduce 1)
+    "my-reduce ")
+  (vector-set! //w/s_/funct (- //t_/plus 1) "+")
+  (vector-set! //w/s_/funct (- //t_/minus 1) "-")
+  (vector-set! //w/s_/funct (- //t_/times 1) "*")
+  (vector-set! //w/s_/funct (- //t_/divide 1) "/")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/exponent 1)
+    "integer-expt")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mod 1)
+    "modulo")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/div 1)
+    "quotient")
+  (vector-set! //w/s_/funct (- //t_/if 1) "if")
+  (vector-set! //w/s_/funct (- //t_/abs 1) "abs")
+  (vector-set! //w/s_/funct (- //t_/frac 1) "frac")
+  (vector-set! //w/s_/funct (- //t_/int 1) "int")
+  (vector-set! //w/s_/funct (- //t_/sgn 1) "sgn")
+  (vector-set! //w/s_/funct (- //t_/max 1) "max")
+  (vector-set! //w/s_/funct (- //t_/min 1) "min")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/intersection 1)
+    "intersection-n")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/union 1)
+    "union-n")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/set_/diff 1)
+    "@Set_Difference")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/powerset 1)
+    "@Powerset")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/set 1)
+    "set-construction")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/array 1)
+    "make-vector-eval")
+  (vector-set! //w/s_/funct (- //t_/head 1) "car")
+  (vector-set! //w/s_/funct (- //t_/tail 1) "cdr")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/last 1)
+    "last-1")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/butlast 1)
+    "butlast-1")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/length 1)
+    "gen-length")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/reverse 1)
+    "reverse")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/concat 1)
+    "concat")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/address_/of 1)
+    "address-of")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem 1)
+    "memory-access")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem_/lvalue 1)
+    "memory-access-lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem_/seg 1)
+    "memory-access-seg")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem_/seg_/lvalue 1)
+    "memory-access-seg-lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem_/rel 1)
+    "memory-access-rel")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/mem_/rel_/lvalue 1)
+    "memory-access-rel-lvalue")
+  (vector-set! //w/s_/funct (- //t_/negate 1) "-")
+  (vector-set! //w/s_/funct (- //t_/invert 1) "/")
+  (vector-set!
+    //w/s_/type
+    (- //t_/struct 1)
+    //scheme_/special)
+  (let ((var-save /type)
+        (seq-save
+          (list //t_/fill_/stat
+                //t_/fill_/expn
+                //t_/fill_/cond
+                //t_/fill_/defn
+                //t_/fill_/stats
+                //t_/fill_/expns
+                //t_/fill_/defns
+                //t_/fill_/lvalue
+                //t_/fill_/lvalues
+                //t_/fill_/assign
+                //t_/fill_/guarded
+                //t_/fill_/action
+                //t_/fill_/assigns
+                //t_/fill_/defns)))
+    (if (vector? seq-save)
+      (set! seq-save (vector-elts seq-save)))
+    (let for-in-loop ((for-tmp seq-save))
+      (cond ((not (null? for-tmp))
+             (set! /type (car for-tmp))
+             (vector-set!
+               //w/s_/type
+               (- /type 1)
+               //scheme_/fill)
+             (for-in-loop (cdr for-tmp)))
+            (#t #t)))
+    (set! /type var-save))
+  (vector-set! //w/s_/funct (- //t_/and 1) "and")
+  (vector-set! //w/s_/funct (- //t_/or 1) "or")
+  (vector-set! //w/s_/funct (- //t_/not 1) "not")
+  (vector-set!
+    //w/s_/type
+    (- //t_/equal 1)
+    //scheme_/special)
+  (vector-set!
+    //w/s_/type
+    (- //t_/not_/equal 1)
+    //scheme_/special)
+  (vector-set! //w/s_/funct (- //t_/less 1) "<")
+  (vector-set! //w/s_/funct (- //t_/greater 1) ">")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/less_/eq 1)
+    "<=")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/greater_/eq 1)
+    ">=")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/even 1)
+    "even?")
+  (vector-set! //w/s_/funct (- //t_/odd 1) "odd?")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/empty 1)
+    "null?")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/subset 1)
+    "@Set_Subset?")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/member 1)
+    "member")
+  (vector-set! //w/s_/funct (- //t_/in 1) "member")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/not_/in 1)
+    "not-member")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/forall 1)
+    "forall")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/exists 1)
+    "exists")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/implies 1)
+    "implies")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/sequenceq 1)
+    "sequence?")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/numberq 1)
+    "number?")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/stringq 1)
+    "string?")
+  (vector-set!
+    //w/s_/type
+    (- //t_/var_/lvalue 1)
+    //scheme_/literal)
+  (vector-set!
+    //w/s_/funct
+    (- //t_/var_/lvalue 1)
+    "")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/aref_/lvalue 1)
+    "@Aref_Lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/sub_/seg_/lvalue 1)
+    "@Sub_Seg_Lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/rel_/seg_/lvalue 1)
+    "@Rel_Seg_Lvalue")
+  (vector-set!
+    //w/s_/funct
+    (- //t_/final_/seg_/lvalue 1)
+    "@Final_Seg_Lvalue")
+  (vector-set!
+    //w/s_/type
+    (- //t_/struct_/lvalue 1)
+    //scheme_/special)
+  (set! /type /type-save))
+
+(define (@wsl_to_scheme //i //filename //input-par)
+  (let ((//input-save //input))
+    (set! //input //input-par)
+    (let ((//globals-save //globals)
+          (/floop_depth-save /floop_depth)
+          (/z_name-save /z_name)
+          (/m_one-save /m_one)
+          (/make_n-save /make_n)
+          (/make_name-save /make_name)
+          (/tmp_result-save /tmp_result)
+          (/tmp_var-save /tmp_var)
+          (/funct_result-save /funct_result)
+          (//call_/types-save //call_/types)
+          (//macros-save //macros))
+      (set! //globals '())
+      (set! /floop_depth 0)
+      (set! /z_name (@make_name "Z"))
+      (set! /m_one (@make //t_/number (- 1) '()))
+      (set! /make_n
+        (@make //t_/name (@make_name "@Make") '()))
+      (set! /make_name (@make_name "@Make_Name"))
+      (set! /tmp_result (@make_name "-result-"))
+      (set! /tmp_var "tmp-var")
+      (set! /funct_result "funct-result")
+      (set! //call_/types
+        (list //t_/proc_/call
+              //t_/funct_/call
+              //t_/b/funct_/call
+              //t_/m/w_/proc_/call
+              //t_/m/w_/funct_/call
+              //t_/m/w_/b/funct_/call
+              //t_/x_/proc_/call
+              //t_/x_/funct_/call
+              //t_/x_/b/funct_/call))
+      (set! //macros
+        (let ((l (list "@Size"
+                       "@Get_n"
+                       "@Spec_Type"
+                       "@ST"
+                       "@Gen_Type"
+                       "@GT"
+                       "@Value"
+                       "@V"
+                       "@Components"
+                       "@Cs"
+                       "@Components?"
+                       "@Cs?"
+                       "@Program"
+                       "@Item"
+                       "@I"
+                       "@Parent"
+                       "@GParent"
+                       "@Posn"
+                       "@Posn_n"
+                       "@Data"
+                       "@Buffer"
+                       "@Make"
+                       "@Right?"
+                       "@Right"
+                       "@Left?"
+                       "@Left"
+                       "@Up?"
+                       "@Up"
+                       "@Down?"
+                       "@Down"
+                       "@Down_Last"
+                       "@To"
+                       "@To_Last"
+                       "@Down_To"
+                       "@Cut"
+                       "@New_Program"
+                       "@Dtable_Get"
+                       "@Dtable_Value_Part"
+                       "@Dtable_Put"
+                       "@String"
+                       "@Make_Name"))
+              (map-result '()))
+          (let while-loop ()
+            (cond ((not (null? l))
+                   (set! map-result
+                     (cons (@make_name (car l)) map-result))
+                   (set! l (cdr l))
+                   (while-loop))
+                  (#t #t)))
+          (reverse map-result)))
+      (set! //macros '())
+      (@edit)
+      (@new_program //i)
+      (@foreach_statement
+        /foreach-wsl2scheme-1
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_expn
+        /foreach-wsl2scheme-2
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_statement
+        /foreach-wsl2scheme-3
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (@foreach_expn
+        /foreach-wsl2scheme-4
+        0
+        (@as_type)
+        0)
+      (cond ((null? (@program)) (@new_program (@skips))))
+      (let ((/inits-save /inits)
+            (/name-save /name)
+            (/n-save /n)
+            (/v-save /v)
+            (/make_name-save /make_name))
+        (set! /inits '())
+        (set! /name
+          (string-append
+            (string-append "%const__" //input)
+            "__"))
+        (set! /n 0)
+        (set! /v '())
+        (set! /make_name (@make_name "@Make_Name"))
+        (@foreach_expn
+          /foreach-wsl2scheme-5
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (cond ((not (null? /inits))
+               (@down)
+               (@paste_before
+                 (@make //t_/assignment '() (reverse /inits)))
+               (@up)))
+        (set! /inits /inits-save)
+        (set! /name /name-save)
+        (set! /n /n-save)
+        (set! /v /v-save)
+        (set! /make_name /make_name-save))
+      (let ((/arrays-save /arrays)
+            (/ref-save /ref)
+            (/set-save /set))
+        (set! /arrays
+          (let ((l (list "Eval_Op"
+                         "Has_Statements"
+                         "Identity_Value"
+                         "Inverse_Op"
+                         "Mth_Ord"
+                         "N_String_To_Symbol"
+                         "N_Symbol_Table"
+                         "N_Symbol_Table_Length"
+                         "PP_Closing"
+                         "PP_Indent"
+                         "PP_Opening"
+                         "PP_Operator"
+                         "PP_Operator1"
+                         "PP_Operator2"
+                         "PP_Prec"
+                         "PP_Split"
+                         "PP_Sub_Indent"
+                         "PP_Type"
+                         "Power_Op"
+                         "Reverse_Op"
+                         "Spec_To_Gen_Type"
+                         "Syntax_Comps"
+                         "Syntax_E_To_V"
+                         "Syntax_Name"
+                         "Syntax_Type"
+                         "Syntax_V_To_E"
+                         "Syntax_Value"
+                         "TRs_Code"
+                         "TRs_Data_Gen_Type"
+                         "TRs_Help"
+                         "TRs_Keywords"
+                         "TRs_Name"
+                         "TRs_Proc_Name"
+                         "TRs_Prompt"
+                         "TRs_Test"
+                         "WS_Funct"
+                         "WS_Indents"
+                         "WS_Type"
+                         "Zero_Value"
+                         "__Match_array"
+                         "orig_Bodies"
+                         "orig_Entries"))
+                (map-result '()))
+            (let while-loop ()
+              (cond ((not (null? l))
+                     (set! map-result
+                       (cons (@make_name (car l)) map-result))
+                     (set! l (cdr l))
+                     (while-loop))
+                    (#t #t)))
+            (reverse map-result)))
+        (set! /ref (@name (@make_name "vector-ref")))
+        (set! /set (@name (@make_name "vector-set!")))
+        (@foreach_expn
+          /foreach-wsl2scheme-6
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (@foreach_statement
+          /foreach-wsl2scheme-7
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (set! /arrays /arrays-save)
+        (set! /ref /ref-save)
+        (set! /set /set-save))
+      (let ((/args-save /args)
+            (/arg-save /arg)
+            (/rest-save /rest)
+            (/new '())
+            (/cons-save /cons)
+            (/string_append-save /string_append))
+        (set! /args '())
+        (set! /arg '())
+        (set! /rest '())
+        (set! /cons (@make_name "cons"))
+        (set! /string_append
+          (@make_name "string-append"))
+        (@foreach_expn
+          /foreach-wsl2scheme-8
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (set! /args /args-save)
+        (set! /arg /arg-save)
+        (set! /rest /rest-save)
+        (set! /cons /cons-save)
+        (set! /string_append /string_append-save))
+      (let ((/arg1-save /arg1))
+        (set! /arg1 '())
+        (@foreach_expn
+          /foreach-wsl2scheme-9
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (set! /arg1 /arg1-save))
+      (let ((/yy_print-save /yy_print))
+        (set! /yy_print (@make_name "@yy_PRINT"))
+        (@foreach_statement
+          /foreach-wsl2scheme-10
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (set! /yy_print /yy_print-save))
+      (let ((//a/s-save //a/s)
+            (/floop-save /floop)
+            (/var-save /var))
+        (set! //a/s (@as_type))
+        (set! /floop 0)
+        (set! /var '())
+        (@foreach_statement
+          /foreach-wsl2scheme-11
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (set! //a/s //a/s-save)
+        (set! /floop /floop-save)
+        (set! /var /var-save))
+      (let ((//num_/var_/types-save //num_/var_/types)
+            (//num_/funct_/types-save //num_/funct_/types)
+            (//num_/types-save //num_/types))
+        (set! //num_/var_/types (my-make-hash-table 16))
+        (set! //num_/funct_/types
+          (my-make-hash-table 16))
+        (set! //num_/types (my-make-hash-table 16))
+        (cond ((or (equal? //input "cond_parser")
+                   (equal? //input "exp_parser")
+                   (equal? //input "lexer")
+                   (equal? //input "parser"))
+               (puthash
+                 //num_/var_/types
+                 (@make_name "token1")
+                 1)))
+        (puthash //num_/var_/types (@make_name "ST") 1)
+        (puthash //num_/var_/types (@make_name "GT") 1)
+        (let ((var-save /var) (seq-save (@variables (@i))))
+          (if (vector? seq-save)
+            (set! seq-save (vector-elts seq-save)))
+          (let for-in-loop ((for-tmp seq-save))
+            (cond ((not (null? for-tmp))
+                   (set! /var (car for-tmp))
+                   (cond ((or (@starts_with? /var "T_")
+                              (@starts_with? /var "TR_"))
+                          (puthash //num_/var_/types /var 1)))
+                   (for-in-loop (cdr for-tmp)))
+                  (#t #t)))
+          (set! /var var-save))
+        (let ((var-save /name)
+              (seq-save
+                (let ((l (list "@ST" "@GT" "@Size" "@Posn_n"))
+                      (map-result '()))
+                  (let while-loop ()
+                    (cond ((not (null? l))
+                           (set! map-result
+                             (cons (@make_name (car l)) map-result))
+                           (set! l (cdr l))
+                           (while-loop))
+                          (#t #t)))
+                  (reverse map-result))))
+          (if (vector? seq-save)
+            (set! seq-save (vector-elts seq-save)))
+          (let for-in-loop ((for-tmp seq-save))
+            (cond ((not (null? for-tmp))
+                   (set! /name (car for-tmp))
+                   (puthash //num_/funct_/types /name 1)
+                   (for-in-loop (cdr for-tmp)))
+                  (#t #t)))
+          (set! /name var-save))
+        (let ((var-save /type)
+              (seq-save
+                (list //t_/plus
+                      //t_/minus
+                      //t_/times
+                      //t_/divide
+                      //t_/exponent
+                      //t_/max
+                      //t_/min
+                      //t_/number
+                      //t_/length
+                      //t_/slength)))
+          (if (vector? seq-save)
+            (set! seq-save (vector-elts seq-save)))
+          (let for-in-loop ((for-tmp seq-save))
+            (cond ((not (null? for-tmp))
+                   (set! /type (car for-tmp))
+                   (puthash //num_/types /type 1)
+                   (for-in-loop (cdr for-tmp)))
+                  (#t #t)))
+          (set! /type var-save))
+        (let ((/comps-save /comps))
+          (set! /comps '())
+          (@foreach_cond
+            /foreach-wsl2scheme-12
+            0
+            (@as_type)
+            0)
+          (cond ((null? (@program)) (@new_program (@skips))))
+          (set! /comps /comps-save))
+        (@foreach_cond
+          /foreach-wsl2scheme-13
+          0
+          (@as_type)
+          0)
+        (cond ((null? (@program)) (@new_program (@skips))))
+        (let ((/union1-save /union1)
+              (/union2-save /union2)
+              (/new_union-save /new_union)
+              (/intersect1-save /intersect1)
+              (/intersect2-save /intersect2)
+              (/new_intersect-save /new_intersect))
+          (set! /union1
+            (@make_name (string-append //backslash "/")))
+          (set! /union2
+            (@make_name
+              (string-append
+                (concat //backslash //backslash)
+                "/")))
+          (set! /new_union (@make_name "@Set_Union"))
+          (set! /intersect1
+            (@make_name (string-append "/" //backslash)))
+          (set! /intersect2
+            (@make_name
+              (concat
+                (string-append "/" //backslash)
+                //backslash)))
+          (set! /new_intersect
+            (@make_name "@Set_Intersect"))
+          (@foreach_expn
+            /foreach-wsl2scheme-14
+            0
+            (@as_type)
+            0)
+          (cond ((null? (@program)) (@new_program (@skips))))
+          (set! /union1 /union1-save)
+          (set! /union2 /union2-save)
+          (set! /new_union /new_union-save)
+          (set! /intersect1 /intersect1-save)
+          (set! /intersect2 /intersect2-save)
+          (set! /new_intersect /new_intersect-save))
+        (let ((/index_vars-save /index_vars))
+          (set! /index_vars '())
+          (@foreach_cond
+            /foreach-wsl2scheme-15
+            0
+            (@as_type)
+            0)
+          (cond ((null? (@program)) (@new_program (@skips))))
+          (set! /index_vars /index_vars-save))
+        (let ((//macro_/filename "")
+              (/stat '())
+              (/macro_decls '())
+              (/new '())
+              (//output_/port-save //output_/port))
+          (set! //output_/port '())
+          (cond ((equal? //filename "")
+                 (set! //macro_/filename ""))
+                ((equal?
+                   (let ((f (- (string-length //filename) 4)))
+                     (substring //filename f (+ f 4)))
+                   ".scm")
+                 (set! //macro_/filename
+                   (string-append
+                     (let ((f 0))
+                       (substring
+                         //filename
+                         f
+                         (+ f (- (string-length //filename) 4))))
+                     "-mac.scm")))
+                (#t
+                 (set! //macro_/filename
+                   (string-append //filename "-mac.scm"))))
+          (let ((var-save /stat) (seq-save (@cs (@program))))
+            (if (vector? seq-save)
+              (set! seq-save (vector-elts seq-save)))
+            (let for-in-loop ((for-tmp seq-save))
+              (cond ((not (null? for-tmp))
+                     (set! /stat (car for-tmp))
+                     (cond ((and (equal?
+                                   (vector-ref //w/s_/type (- (@st /stat) 1))
+                                   //scheme_/decl)
+                                 (member
+                                   (@v (list-ref /stat (+ 1 1)))
+                                   //macros))
+                            (set! /macro_decls (cons /stat /macro_decls))
+                            (set! /new
+                              (cons (@make //t_/comment
+                                           (string-append
+                                             " Macro declaration: "
+                                             (@n_string
+                                               (@v (list-ref /stat (+ 1 1)))))
+                                           '())
+                                    /new)))
+                           (#t (set! /new (cons /stat /new))))
+                     (for-in-loop (cdr for-tmp)))
+                    (#t #t)))
+            (set! /stat var-save))
+          (cond ((equal? //macro_/filename "")
+                 (set! //output_/port //standard_/output_/port))
+                (#t
+                 (set! //output_/port
+                   (@open_output_file //macro_/filename))))
+          (cond ((not (null? /macro_decls))
+                 (cond ((= //w/s/l_/option_/quiet 0)
+                        (begin
+                          (display
+                            (string-append "Writing: " //macro_/filename))
+                          (newline)
+                          (force-output))))
+                 (let ((var-save /stat)
+                       (seq-save (reverse /macro_decls)))
+                   (if (vector? seq-save)
+                     (set! seq-save (vector-elts seq-save)))
+                   (let for-in-loop ((for-tmp seq-save))
+                     (cond ((not (null? for-tmp))
+                            (set! /stat (car for-tmp))
+                            (begin (@ws_item /stat) (@wssl ""))
+                            (for-in-loop (cdr for-tmp)))
+                           (#t #t)))
+                   (set! /stat var-save))
+                 (@paste_over
+                   (@make //t_/statements '() (reverse /new)))))
+          (cond ((not (equal? //macro_/filename ""))
+                 (@close_output_port //output_/port)))
+          (set! //output_/port //output_/port-save))
+        (cond ((equal? //filename "")
+               (set! //output_/port //standard_/output_/port))
+              (#t
+               (set! //output_/port
+                 (@open_output_file //filename))
+               (cond ((= //w/s/l_/option_/quiet 0)
+                      (begin
+                        (display "Writing: ")
+                        (begin
+                          (display //filename)
+                          (newline)
+                          (force-output)))))))
+        (@wssl ";;; Scheme translation of WSL code")
+        (let ((/stat '()))
+          (let ((var-save /stat) (seq-save (@cs (@program))))
+            (if (vector? seq-save)
+              (set! seq-save (vector-elts seq-save)))
+            (let for-in-loop ((for-tmp seq-save))
+              (cond ((not (null? for-tmp))
+                     (set! /stat (car for-tmp))
+                     (cond ((= (@st /stat) //t_/m/w_/proc)
+                            (set! //globals
+                              (@set_union
+                                //globals
+                                (@set_difference
+                                  (@variables /stat)
+                                  (@variables (list-ref /stat (+ 1 2)))))))
+                           ((or (= (@st /stat) //t_/m/w_/funct)
+                                (= (@st /stat) //t_/m/w_/b/funct))
+                            (set! //globals
+                              (@set_union
+                                //globals
+                                (@set_difference
+                                  (@set_difference
+                                    (@variables /stat)
+                                    (@variables (list-ref /stat (+ 1 2))))
+                                  (@assigned (list-ref /stat (+ 1 3)))))))
+                           (#t
+                            (set! //globals
+                              (@set_union //globals (@variables /stat)))))
+                     (for-in-loop (cdr for-tmp)))
+                    (#t #t)))
+            (set! /stat var-save)))
+        (let ((/foreach-save /foreach)
+              (/name-save /name)
+              (/body_var-save /body_var)
+              (//s/t-save //s/t)
+              (//foreach_/types-save //foreach_/types)
+              (//only_/simple_/types-save
+                //only_/simple_/types))
+          (set! /foreach 0)
+          (set! /name "")
+          (set! /body_var '())
+          (set! //s/t 0)
+          (set! //foreach_/types
+            (@make_set
+              (list //t_/foreach_/stat
+                    //t_/foreach_/stats
+                    //t_/foreach_/t/s
+                    //t_/foreach_/t/ss
+                    //t_/foreach_/s/t/s
+                    //t_/foreach_/expn
+                    //t_/foreach_/cond
+                    //t_/foreach_/n/a/s
+                    //t_/foreach_/variable
+                    //t_/foreach_/global_/var
+                    //t_/foreach_/lvalue
+                    //t_/ateach_/stat
+                    //t_/ateach_/stats
+                    //t_/ateach_/t/s
+                    //t_/ateach_/t/ss
+                    //t_/ateach_/s/t/s
+                    //t_/ateach_/expn
+                    //t_/ateach_/cond
+                    //t_/ateach_/n/a/s
+                    //t_/ateach_/variable
+                    //t_/ateach_/global_/var
+                    //t_/ateach_/lvalue)))
+          (set! //only_/simple_/types
+            (list //t_/foreach_/s/t/s //t_/ateach_/s/t/s))
+          (cond ((not (null? (@set_intersect
+                               (@stat_types (@i))
+                               //foreach_/types)))
+                 (@foreach_statement
+                   /foreach-wsl2scheme-16
+                   0
+                   (@as_type)
+                   0)
+                 (cond ((null? (@program)) (@new_program (@skips))))))
+          (set! /foreach /foreach-save)
+          (set! /name /name-save)
+          (set! /body_var /body_var-save)
+          (set! //s/t //s/t-save)
+          (set! //foreach_/types //foreach_/types-save)
+          (set! //only_/simple_/types
+            //only_/simple_/types-save))
+        (set! //i (@program))
+        (@undo_edit)
+        (cond ((= (@gt //i) //t_/statements)
+               (@ws_items (@cs //i)))
+              (#t (@ws_item //i)))
+        (@wssl "")
+        (cond ((not (equal? //filename ""))
+               (@close_output_port //output_/port)))
+        (set! //num_/var_/types //num_/var_/types-save)
+        (set! //num_/funct_/types
+          //num_/funct_/types-save)
+        (set! //num_/types //num_/types-save))
+      (set! //globals //globals-save)
+      (set! /floop_depth /floop_depth-save)
+      (set! /z_name /z_name-save)
+      (set! /m_one /m_one-save)
+      (set! /make_n /make_n-save)
+      (set! /make_name /make_name-save)
+      (set! /tmp_result /tmp_result-save)
+      (set! /tmp_var /tmp_var-save)
+      (set! /funct_result /funct_result-save)
+      (set! //call_/types //call_/types-save)
+      (set! //macros //macros-save))
+    (set! //input //input-save)))
+
+(define (@ws_calls? /name-par //i)
+  (let ((/name-save /name)
+        (/calls 0)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! /name /name-par)
+    (set! /comps (@components //i))
+    (cond ((member (@st //i) //foreach_/types)
+           (set! /calls 1))
+          ((or (= (@st //i) //t_/maphash)
+               (= (@st //i) //t_/map)
+               (= (@st //i) //t_/reduce))
+           (set! /calls 1))
+          ((and (member (@st //i) //call_/types)
+                (not (equal? (@v (list-ref //i (+ 1 1))) /name))
+                (not (member (@v (list-ref //i (+ 1 1))) //macros)))
+           (set! /calls 1))
+          (#t
+           (let while-loop ()
+             (cond ((and (= /calls 0) (not (null? /comps)))
+                    (cond ((@ws_calls? /name (car /comps)) (set! /calls 1))
+                          (#t (set! /comps (cdr /comps))))
+                    (while-loop))
+                   (#t #t)))))
+    (set! funct-result (= /calls 1))
+    (set! /name /name-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@ws_item //i)
+  (let ((//s/t-save //s/t)
+        (/type-save /type)
+        (/funct ""))
+    (set! //s/t (@st //i))
+    (set! /type "")
+    (set! /type (vector-ref //w/s_/type (- //s/t 1)))
+    (cond ((or (= //s/t //t_/variable)
+               (= //s/t //t_/var_/lvalue))
+           (set! /funct
+             (concat
+               (vector-ref //w/s_/funct (- //s/t 1))
+               (@ws_name (@v //i)))))
+          ((or (= //s/t //t_/for)
+               (= //s/t //t_/struct)
+               (= //s/t //t_/struct_/lvalue)
+               (= //s/t //t_/proc_/call)
+               (= //s/t //t_/funct_/call)
+               (= //s/t //t_/action))
+           (set! /funct
+             (concat
+               (vector-ref //w/s_/funct (- //s/t 1))
+               (@ws_name (@v (list-ref //i (+ 1 1)))))))
+          ((= //s/t //t_/call)
+           (set! /funct
+             (string-append
+               (concat
+                 (vector-ref //w/s_/funct (- //s/t 1))
+                 (@ws_name (@v //i)))
+               "_a")))
+          ((and (@cs? //i)
+                (= (@st (list-ref //i (+ 1 1))) //t_/name))
+           (set! /funct
+             (concat
+               (vector-ref //w/s_/funct (- //s/t 1))
+               (@n_string (@v (list-ref //i (+ 1 1)))))))
+          (#t
+           (set! /funct
+             (concat
+               (vector-ref //w/s_/funct (- //s/t 1))
+               (@string (@value //i))))))
+    (cond (#f
+           (begin
+             (display "@WS_Item: ST = ")
+             (begin
+               (display (@type_name //s/t))
+               (begin
+                 (display " funct = ")
+                 (begin
+                   (display /funct)
+                   (begin
+                     (display " type = ")
+                     (begin (display /type) (newline) (force-output)))))))))
+    (cond ((equal? /type //scheme_/literal) (@wss /funct))
+          ((equal? /type //scheme_/funct)
+           (cond ((and (not (equal? /funct "")) (> (@size //i) 0))
+                  (set! /funct (string-append /funct " "))))
+           (@wss (string-append "(" /funct))
+           (cond ((and (= (@size //i) 1)
+                       (= (@gt (list-ref //i (+ 1 1))) //t_/expressions))
+                  (@ws_items (@cs (list-ref //i (+ 1 1)))))
+                 ((and (= (@size //i) 2)
+                       (= (@st (list-ref //i (+ 1 1))) //t_/name)
+                       (= (@gt (list-ref //i (+ 1 2))) //t_/expressions))
+                  (@ws_items (@cs (list-ref //i (+ 1 2)))))
+                 ((and (> (@size //i) 1)
+                       (= (@st (list-ref //i (+ 1 1))) //t_/name))
+                  (@ws_items (cdr (@cs //i))))
+                 (#t (@ws_items (@cs //i))))
+           (@wss ")"))
+          ((equal? /type //scheme_/call)
+           (cond ((and (not (equal? /funct ""))
+                       (or (> (@size (list-ref //i (+ 1 2))) 0)
+                           (and (> (@size //i) 2)
+                                (> (@size (list-ref //i (+ 1 3))) 0))))
+                  (set! /funct (string-append /funct " "))))
+           (let ((/var-save /var) (/res '()))
+             (set! /var '())
+             (cond ((and #f
+                         (equal? (@v (list-ref //i (+ 1 1))) /make_name)
+                         (= (@st (list-ref (list-ref //i (+ 1 2)) (+ 1 1)))
+                            //t_/string))
+                    (@wss (string-append "'" (@v (@get //i (list 1 1))))))
+                   ((or (= (@size //i) 2)
+                        (and (= (@size //i) 3)
+                             (= (@size (list-ref //i (+ 1 3))) 0)))
+                    (@wss (string-append "(" /funct))
+                    (@ws_items (@cs (list-ref //i (+ 1 2))))
+                    (@wss ")"))
+                   ((and (= (@size //i) 3)
+                         (= (@size (list-ref //i (+ 1 3))) 1))
+                    (@ws_assign
+                      (list-ref (list-ref //i (+ 1 3)) (+ 1 1))
+                      (@make_funct
+                        (@make_name /funct)
+                        (concat
+                          (@cs (list-ref //i (+ 1 2)))
+                          (@cs (list-ref //i (+ 1 3)))))))
+                   ((and (= (@size //i) 3)
+                         (> (@size (list-ref //i (+ 1 3))) 1))
+                    (@wss (string-append
+                            (string-append "(let ((" (@ws_name /tmp_result))
+                            " "))
+                    (@ws_item
+                      (@make_funct
+                        (@make_name /funct)
+                        (concat
+                          (@cs (list-ref //i (+ 1 2)))
+                          (@cs (list-ref //i (+ 1 3))))))
+                    (@wss "))")
+                    (set! /res (@make //t_/variable /tmp_result '()))
+                    (let ((var-save /var)
+                          (seq-save (@cs (list-ref //i (+ 1 3)))))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /var (car for-tmp))
+                               (begin
+                                 (@wssl "")
+                                 (@ws_assign
+                                   /var
+                                   (@make //t_/head '() (list /res)))
+                                 (@wss " ")
+                                 (@ws_assign
+                                   /res
+                                   (@make //t_/tail '() (list /res))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /var var-save))
+                    (@wss ")"))
+                   (#t
+                    (begin
+                      (display "Unknown format of Scheme_Call: ")
+                      (begin
+                        (display (@value //i))
+                        (newline)
+                        (force-output)))
+                    (@print_wsl //i "")))
+             (set! /var /var-save)))
+          ((equal? /type //scheme_/decl) (@ws_decl //i))
+          ((equal? /type //scheme_/ifmatch)
+           (@ws_ifmatch //i))
+          ((equal? /type //scheme_/fill) (@ws_fill //i))
+          ((equal? /type //scheme_/special)
+           (@ws_special //i))
+          (#t
+           (error (string-append "Unknown type: " (@string /type)))))
+    (set! //s/t //s/t-save)
+    (set! /type /type-save)))
+
+(define (@ws_ifmatch //i)
+  (let ((/vars-save /vars)
+        (/vals '())
+        (/n-save /n)
+        (/pairs '()))
+    (set! /vars (@match_vars (list-ref //i (+ 1 1))))
+    (set! /n 0)
+    (error "IFMATCH should be handeled by Ifmatch_Processing!")
+    (error "Old version of Ifmatch is deprecated")
+    (let ((var-save /var) (seq-save /vars))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /var (car for-tmp))
+               (set! /pairs
+                 (cons (list /var
+                             (string-append
+                               (concat
+                                 (concat
+                                   (string-append "(@Make_Name " //quote)
+                                   (@n_string /var))
+                                 //quote)
+                               ") "))
+                       /pairs))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /var var-save))
+    (@wss "(let* ((tab (list ")
+    (set! /n
+      (if (vector? /vars)
+        (vector-length /vars)
+        (length /vars)))
+    (let ((var-save /pair) (seq-save /pairs))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (begin
+                 (@wss (string-append
+                         (concat
+                           (string-append
+                             "(cons "
+                             (let ((name /pair))
+                               (if (vector? name)
+                                 (vector-ref name (- 2 1))
+                                 (list-ref name (- 2 1)))))
+                           (@ws_name
+                             (let ((name /pair))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))))
+                         ")"))
+                 (set! /n (- /n 1))
+                 (cond ((> /n 0) (@wssl ""))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    (@wssl "))")
+    (@wss "(res (@Match ")
+    (@wss "`")
+    (@write_raw_item
+      (list-ref //i (+ 1 1))
+      //output_/port)
+    (@wssl " (@I) tab)))")
+    (@wssl "(if (not (null? res))")
+    (@wss "(let (")
+    (let ((var-save /pair) (seq-save /pairs))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /pair (car for-tmp))
+               (begin
+                 (@wss (string-append
+                         "("
+                         (@ws_name
+                           (let ((name /pair))
+                             (if (vector? name)
+                               (vector-ref name (- 1 1))
+                               (list-ref name (- 1 1)))))))
+                 (@wssl (string-append
+                          (string-append
+                            " (cdr (assq "
+                            (let ((name /pair))
+                              (if (vector? name)
+                                (vector-ref name (- 2 1))
+                                (list-ref name (- 2 1)))))
+                          " (cdr res))))")))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /pair var-save))
+    (@wssl ")")
+    (@ws_item (list-ref //i (+ 1 2)))
+    (@wssl ")")
+    (@ws_item (list-ref //i (+ 1 3)))
+    (@wssl "))")
+    (set! /vars /vars-save)
+    (set! /n /n-save)))
+
+(define (@match_vars /pat)
+  (if (and (@all_pattern_type? (@st /pat))
+           (@has_value_type? (@st /pat)))
+    (list (@v /pat))
+    (let ((l (let ((l (@components /pat)) (map-result '()))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! map-result
+                          (cons (@match_vars (car l)) map-result))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               (reverse map-result)))
+          (reduce-result '()))
+      (cond ((null? l) '())
+            (#t
+             (set! reduce-result (car l))
+             (set! l (cdr l))
+             (let while-loop ()
+               (cond ((not (null? l))
+                      (set! reduce-result
+                        (@set_union reduce-result (car l)))
+                      (set! l (cdr l))
+                      (while-loop))
+                     (#t #t)))
+             reduce-result)))))
+
+(define (@ws_fill //i)
+  (let ((/v_to_e-save /v_to_e)
+        (/v_to_e_l-save /v_to_e_l)
+        (/e_to_v-save /e_to_v)
+        (/e_to_v_l-save /e_to_v_l))
+    (set! /v_to_e (@make_name "@Var_To_Expn"))
+    (set! /v_to_e_l (@make_name "@Var_To_Expn_List"))
+    (set! /e_to_v (@make_name "@Expn_To_Var"))
+    (set! /e_to_v_l (@make_name "@Expn_To_Var_List"))
+    (@ws_item
+      (@pattern_to_make2 (list-ref //i (+ 1 1))))
+    (set! /v_to_e /v_to_e-save)
+    (set! /v_to_e_l /v_to_e_l-save)
+    (set! /e_to_v /e_to_v-save)
+    (set! /e_to_v_l /e_to_v_l-save)))
+
+(define (@pattern_to_make //i)
+  (let ((/comp '())
+        (/new '())
+        (/tr_new '())
+        (/append (@make_name "append")))
+    (let ((var-save /comp) (seq-save (@components //i)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (cond ((or (@any_pattern_type? (@st /comp))
+                          (@many_pattern_type? (@st /comp)))
+                      (cond ((= (@gt /comp) //t_/expression)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /v_to_e_l
+                                       (@make //t_/variable (@v /comp) '()))
+                                     /new)))
+                            ((= (@gt /comp) //t_/lvalue)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /e_to_v_l
+                                       (@make //t_/variable (@v /comp) '()))
+                                     /new)))
+                            (#t
+                             (set! /new
+                               (cons (@make //t_/variable (@v /comp) '())
+                                     /new)))))
+                     (#t
+                      (set! /comp (@pattern_to_make /comp))
+                      (cond ((or (null? /new)
+                                 (not (= (@st (let ((name /new))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 1 1))
+                                                  (list-ref name (- 1 1)))))
+                                         //t_/expressions)))
+                             (set! /new
+                               (cons (@make //t_/expressions '() (list /comp))
+                                     /new)))
+                            (#t
+                             (if (vector? /new)
+                               (vector-set!
+                                 /new
+                                 (- 1 1)
+                                 (@make //t_/expressions
+                                        '()
+                                        (cons /comp
+                                              (@cs (let ((name /new))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 1 1))
+                                                       (list-ref
+                                                         name
+                                                         (- 1 1))))))))
+                               (set! /new
+                                 (replace-nth
+                                   /new
+                                   1
+                                   (@make //t_/expressions
+                                          '()
+                                          (cons /comp
+                                                (@cs (let ((name /new))
+                                                       (if (vector? name)
+                                                         (vector-ref
+                                                           name
+                                                           (- 1 1))
+                                                         (list-ref
+                                                           name
+                                                           (- 1 1))))))))))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (let ((var-save /comp) (seq-save /new))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (cond ((or (= (@st /comp) //t_/variable)
+                          (= (@st /comp) //t_/m/w_/funct_/call))
+                      (set! /tr_new (cons /comp /tr_new)))
+                     (#t
+                      (set! /tr_new
+                        (cons (@make //t_/sequence
+                                     '()
+                                     (list (@make //t_/expressions
+                                                  '()
+                                                  (reverse (@cs /comp)))))
+                              /tr_new))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (cond ((null? /tr_new)
+           (set! /tr_new
+             (@make //t_/sequence
+                    '()
+                    (list (@make //t_/expressions '() '())))))
+          ((= (if (vector? /tr_new)
+                (vector-length /tr_new)
+                (length /tr_new))
+              1)
+           (set! /tr_new (car /tr_new)))
+          (#t (set! /tr_new (@make_funct /append /tr_new))))
+    (if (@one_pattern_type? (@st //i))
+      (if (= (@gt //i) //t_/expression)
+        (@make_mwf
+          /v_to_e
+          (@make //t_/variable (@v //i) '()))
+        (if (= (@gt //i) //t_/lvalue)
+          (@make_mwf
+            /e_to_v
+            (@make //t_/variable (@v //i) '()))
+          (@make //t_/variable (@v //i) '())))
+      (@make_make (@st //i) (@value //i) /tr_new))))
+
+(define (@pattern_to_make2 //i)
+  (let ((/comp '())
+        (/new '())
+        (/tr_new '())
+        (/append (@make_name "append")))
+    (let ((var-save /comp) (seq-save (@components //i)))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (cond ((and (or (@any_pattern_type? (@st /comp))
+                               (@many_pattern_type? (@st /comp)))
+                           (> (@v /comp) 0))
+                      (cond ((= (@gt /comp) //t_/expression)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /v_to_e_l
+                                       (@make //t_/variable (@v /comp) '()))
+                                     /new)))
+                            ((= (@gt /comp) //t_/lvalue)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /e_to_v_l
+                                       (@make //t_/variable (@v /comp) '()))
+                                     /new)))
+                            (#t
+                             (set! /new
+                               (cons (@make //t_/variable (@v /comp) '())
+                                     /new)))))
+                     ((and (@any_int_type? (@st /comp))
+                           (not (= (@st (list-ref /comp (+ 1 1))) //t_/number)))
+                      (cond ((= (@gt /comp) //t_/expression)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /v_to_e_l
+                                       (list-ref /comp (+ 1 1)))
+                                     /new)))
+                            ((= (@gt /comp) //t_/lvalue)
+                             (set! /new
+                               (cons (@make_mwf
+                                       /e_to_v_l
+                                       (list-ref /comp (+ 1 1)))
+                                     /new)))
+                            (#t (set! /new (cons /comp /new)))))
+                     ((and (@any_var_type? (@st /comp))
+                           (> (@v /comp) 0))
+                      (error "Backreference variable interpolation ~*=var not valid in FILL!"))
+                     ((and (@one_var_type? (@st /comp))
+                           (> (@v /comp) 0))
+                      (error "Backreference variable interpolation ~?=var not valid in FILL!"))
+                     (#t
+                      (set! /comp (@pattern_to_make2 /comp))
+                      (cond ((or (null? /new)
+                                 (not (= (@st (let ((name /new))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 1 1))
+                                                  (list-ref name (- 1 1)))))
+                                         //t_/expressions)))
+                             (set! /new
+                               (cons (@make //t_/expressions '() (list /comp))
+                                     /new)))
+                            (#t
+                             (if (vector? /new)
+                               (vector-set!
+                                 /new
+                                 (- 1 1)
+                                 (@make //t_/expressions
+                                        '()
+                                        (cons /comp
+                                              (@cs (let ((name /new))
+                                                     (if (vector? name)
+                                                       (vector-ref name (- 1 1))
+                                                       (list-ref
+                                                         name
+                                                         (- 1 1))))))))
+                               (set! /new
+                                 (replace-nth
+                                   /new
+                                   1
+                                   (@make //t_/expressions
+                                          '()
+                                          (cons /comp
+                                                (@cs (let ((name /new))
+                                                       (if (vector? name)
+                                                         (vector-ref
+                                                           name
+                                                           (- 1 1))
+                                                         (list-ref
+                                                           name
+                                                           (- 1 1))))))))))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (let ((var-save /comp) (seq-save /new))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (cond ((or (= (@st /comp) //t_/variable)
+                          (= (@st /comp) //t_/m/w_/funct_/call))
+                      (set! /tr_new (cons /comp /tr_new)))
+                     ((and (@any_int_type? (@st /comp))
+                           (not (= (@st (list-ref /comp (+ 1 1))) //t_/number)))
+                      (set! /tr_new
+                        (cons (list-ref /comp (+ 1 1)) /tr_new)))
+                     (#t
+                      (set! /tr_new
+                        (cons (@make //t_/sequence
+                                     '()
+                                     (list (@make //t_/expressions
+                                                  '()
+                                                  (reverse (@cs /comp)))))
+                              /tr_new))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (cond ((null? /tr_new)
+           (set! /tr_new
+             (@make //t_/sequence
+                    '()
+                    (list (@make //t_/expressions '() '())))))
+          ((= (if (vector? /tr_new)
+                (vector-length /tr_new)
+                (length /tr_new))
+              1)
+           (set! /tr_new (car /tr_new)))
+          (#t (set! /tr_new (@make_funct /append /tr_new))))
+    (if (and (@one_pattern_type? (@st //i))
+             (> (@v //i) 0))
+      (if (= (@gt //i) //t_/expression)
+        (@make_mwf
+          /v_to_e
+          (@make //t_/variable (@v //i) '()))
+        (if (= (@gt //i) //t_/lvalue)
+          (@make_mwf
+            /e_to_v
+            (@make //t_/variable (@v //i) '()))
+          (@make //t_/variable (@v //i) '())))
+      (if (and (@one_int_type? (@st //i))
+               (not (= (@st (list-ref //i (+ 1 1))) //t_/number)))
+        (if (= (@gt //i) //t_/expression)
+          (@make_mwf /v_to_e (list-ref //i (+ 1 1)))
+          (if (= (@gt //i) //t_/lvalue)
+            (@make_mwf /e_to_v (list-ref //i (+ 1 1)))
+            (list-ref //i (+ 1 1))))
+        (@make_make (@st //i) (@value //i) /tr_new)))))
+
+(define (@make_make /type /value /comps)
+  (@make //t_/m/w_/funct_/call
+         '()
+         (list /make_n
+               (@make //t_/expressions
+                      '()
+                      (list (@make //t_/number /type '())
+                            (@ws_value_to_make /type /value)
+                            /comps)))))
+
+(define (@ws_value_to_make /type-par /value)
+  (let ((/type-save /type) (//r '()) (funct-result '()))
+    (set! /type /type-par)
+    (cond ((null? /value)
+           (set! //r
+             (@make //t_/sequence
+                    '()
+                    (list (@make //t_/expressions '() '())))))
+          ((or (= /type //t_/number) (= /type //t_/exit))
+           (set! //r (@make //t_/number /value '())))
+          ((or (= /type //t_/string) (= /type //t_/comment))
+           (set! //r (@make //t_/string /value '())))
+          ((@all_pattern_type? /type)
+           (cond ((> /value 0)
+                  (set! //r
+                    (@make_mwf
+                      /make_name
+                      (@make //t_/string (@n_string /value) '()))))
+                 (#t (set! //r (@make //t_/number /value '())))))
+          (#t
+           (set! //r
+             (@make_mwf
+               /make_name
+               (@make //t_/string (@n_string /value) '())))))
+    (set! funct-result //r)
+    (set! /type /type-save)
+    funct-result))
+
+(define (@ws_decl //i)
+  (let ((//s/t-save //s/t))
+    (set! //s/t (@st //i))
+    (cond ((= //s/t //t_/m/w_/proc)
+           (let ((/result '()))
+             (cond ((= (@size (list-ref //i (+ 1 3))) 1)
+                    (set! /result
+                      (list-ref (list-ref //i (+ 1 3)) (+ 1 1))))
+                   ((> (@size (list-ref //i (+ 1 3))) 1)
+                    (set! /result
+                      (@make //t_/sequence
+                             '()
+                             (list (@make //t_/expressions
+                                          '()
+                                          (let ((l (@cs (list-ref //i (+ 1 3))))
+                                                (map-result '()))
+                                            (let while-loop ()
+                                              (cond ((not (null? l))
+                                                     (set! map-result
+                                                       (cons (@lvalue_to_expn
+                                                               (car l))
+                                                             map-result))
+                                                     (set! l (cdr l))
+                                                     (while-loop))
+                                                    (#t #t)))
+                                            (reverse map-result))))))))
+             (@ws_funct_decl
+               (@v (list-ref //i (+ 1 1)))
+               (concat
+                 (@cs (list-ref //i (+ 1 2)))
+                 (@cs (list-ref //i (+ 1 3))))
+               '()
+               (list-ref //i (+ 1 4))
+               /result)))
+          ((or (= //s/t //t_/m/w_/funct)
+               (= //s/t //t_/m/w_/b/funct))
+           (@ws_funct_decl
+             (@v (list-ref //i (+ 1 1)))
+             (@cs (list-ref //i (+ 1 2)))
+             (@cs (list-ref //i (+ 1 3)))
+             (list-ref //i (+ 1 4))
+             (list-ref //i (+ 1 5))))
+          ((= //s/t //t_/proc)
+           (@wss (string-append
+                   (string-append
+                     "("
+                     (@ws_name (@v (list-ref //i (+ 1 1)))))
+                   " (lambda ("))
+           (@ws_items
+             (concat
+               (@cs (list-ref //i (+ 1 2)))
+               (@cs (list-ref //i (+ 1 3)))))
+           (@wssl ")")
+           (cond ((or (not (= (@size (list-ref //i (+ 1 4))) 1))
+                      (not (= (@st (list-ref (list-ref //i (+ 1 4)) (+ 1 1)))
+                              //t_/skip)))
+                  (@ws_items (@cs (list-ref //i (+ 1 4))))
+                  (@wssl "")))
+           (cond ((= (@size (list-ref //i (+ 1 3))) 0)
+                  (@wssl "#t))"))
+                 ((= (@size (list-ref //i (+ 1 3))) 1)
+                  (@ws_item
+                    (list-ref (list-ref //i (+ 1 3)) (+ 1 1)))
+                  (@wssl "))"))
+                 (#t
+                  (@wss "(list ")
+                  (@ws_items (@cs (list-ref //i (+ 1 3))))
+                  (@wssl ")))"))))
+          ((or (= //s/t //t_/funct) (= //s/t //t_/b/funct))
+           (@wss (string-append
+                   (string-append
+                     "("
+                     (@ws_name (@v (list-ref //i (+ 1 1)))))
+                   " (lambda ("))
+           (@ws_items (@cs (list-ref //i (+ 1 2))))
+           (@wssl ")")
+           (@wss "(let ")
+           (@ws_item (list-ref //i (+ 1 3)))
+           (@wssl "")
+           (cond ((= (@size //i) 5)
+                  (@ws_item (list-ref //i (+ 1 4)))
+                  (@wssl "")))
+           (@ws_item (list-ref //i (+ 1 (@size //i))))
+           (@wssl ")))"))
+          (#t
+           (begin
+             (display "Unknown Declaration type: ")
+             (begin (display //s/t) (newline) (force-output)))))
+    (set! //s/t //s/t-save)))
+
+(define (@ws_funct_decl
+         /name-par
+         /pars
+         /assigns
+         /body
+         /result)
+  (let ((/name-save /name))
+    (set! /name /name-par)
+    (let ((/globals '())
+          (/par '())
+          (/new_pars '())
+          (/big 0)
+          (/renames '()))
+      (cond ((and (= (@size /body) 1)
+                  (= (@st (list-ref /body (+ 1 1))) //t_/skip))
+             (set! /new_pars /pars))
+            ((or (@ws_calls? /name /body)
+                 (and (not (null? /result))
+                      (@ws_calls? /name /result)))
+             (let ((var-save /par) (seq-save /pars))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /par (car for-tmp))
+                        (cond ((member (@v /par) //globals)
+                               (set! /assigns
+                                 (cons (@make //t_/assign
+                                              '()
+                                              (list /par
+                                                    (@make //t_/variable
+                                                           (@ws_par /par)
+                                                           '())))
+                                       /assigns))
+                               (set! /renames (cons (@v /par) /renames))
+                               (set! /new_pars
+                                 (cons (@make //t_/var_/lvalue
+                                              (@ws_par /par)
+                                              '())
+                                       /new_pars)))
+                              (#t (set! /new_pars (cons /par /new_pars))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /par var-save))
+             (set! /new_pars (reverse /new_pars)))
+            (#t (set! /new_pars /pars)))
+      (cond ((member /name //macros)
+             (@wss (string-append
+                     (string-append "(defmacro " (@ws_name /name))
+                     " (")))
+            (#t
+             (@wss (string-append "(define (" (@ws_name /name)))
+             (cond ((not (null? /new_pars)) (@wss " ")))))
+      (@ws_items /new_pars)
+      (@wssl ")")
+      (cond ((or (not (null? /result))
+                 (> (if (vector? /assigns)
+                      (vector-length /assigns)
+                      (length /assigns))
+                    0)
+                 (> (@size /body) 1)
+                 (not (= (@st (list-ref /body (+ 1 1))) //t_/skip)))
+             (set! /big 1)))
+      (cond ((member /name //macros)
+             (set! /ws_macro_pars
+               (let ((l (let ((l /new_pars) (map-result '()))
+                          (let while-loop ()
+                            (cond ((not (null? l))
+                                   (set! map-result
+                                     (cons (@v (car l)) map-result))
+                                   (set! l (cdr l))
+                                   (while-loop))
+                                  (#t #t)))
+                          (reverse map-result)))
+                     (map-result '()))
+                 (let while-loop ()
+                   (cond ((not (null? l))
+                          (set! map-result
+                            (cons (@ws_name (car l)) map-result))
+                          (set! l (cdr l))
+                          (while-loop))
+                         (#t #t)))
+                 (reverse map-result)))
+             (cond ((= /big 1) (@wssl "`(begin"))
+                   (#t (@wss "`")))))
+      (cond ((null? /assigns)
+             (cond ((or (> (@size /body) 1)
+                        (not (= (@st (list-ref /body (+ 1 1))) //t_/skip)))
+                    (@ws_items (@cs /body))))
+             (cond ((not (null? /result))
+                    (@wssl "")
+                    (@ws_item /result))))
+            (#t
+             (@edit)
+             (let ((/new_assigns '())
+                   (/assign '())
+                   (/var-save /var))
+               (set! /var '())
+               (let ((var-save /assign) (seq-save /assigns))
+                 (if (vector? seq-save)
+                   (set! seq-save (vector-elts seq-save)))
+                 (let for-in-loop ((for-tmp seq-save))
+                   (cond ((not (null? for-tmp))
+                          (set! /assign (car for-tmp))
+                          (begin
+                            (@new_program /assign)
+                            (@down_to 2)
+                            (let ((var-save /var)
+                                  (seq-save
+                                    (@set_intersect
+                                      (@make_set /renames)
+                                      (@variables (@i)))))
+                              (if (vector? seq-save)
+                                (set! seq-save (vector-elts seq-save)))
+                              (let for-in-loop ((for-tmp seq-save))
+                                (cond ((not (null? for-tmp))
+                                       (set! /var (car for-tmp))
+                                       (@rename
+                                         /var
+                                         (@make_name
+                                           (string-append
+                                             (@n_string /var)
+                                             "-par")))
+                                       (for-in-loop (cdr for-tmp)))
+                                      (#t #t)))
+                              (set! /var var-save))
+                            (set! /new_assigns
+                              (cons (@program) /new_assigns)))
+                          (for-in-loop (cdr for-tmp)))
+                         (#t #t)))
+                 (set! /assign var-save))
+               (@ws_var_block
+                 /name
+                 (reverse /new_assigns)
+                 /body
+                 /result)
+               (set! /var /var-save))))
+      (cond ((member /name //macros)
+             (set! /ws_macro_pars '())))
+      (cond ((and (member /name //macros) (= /big 1))
+             (@wssl "))"))
+            (#t (@wssl ")"))))
+    (set! /name /name-save)))
+
+(define (@ws_par //i)
+  (@make_name
+    (string-append (@n_string (@v //i)) "-par")))
+
+(define (@ws_var_block /name-par /assigns /body /result)
+  (let ((/name-save /name))
+    (set! /name /name-par)
+    (let ((/globals '()) (/assign '()) (/n-save /n))
+      (set! /n 0)
+      (cond ((and (not (@ws_calls? /name /body))
+                  (or (null? /result)
+                      (not (@ws_calls? /name /result)))))
+            (#t
+             (let ((var-save /assign) (seq-save /assigns))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /assign (car for-tmp))
+                        (cond ((member
+                                 (@v (list-ref /assign (+ 1 1)))
+                                 //globals)
+                               (set! /globals
+                                 (cons (@v (list-ref /assign (+ 1 1)))
+                                       /globals))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /assign var-save))))
+      (cond ((null? /globals)
+             (@wss "(let (")
+             (set! /n
+               (if (vector? /assigns)
+                 (vector-length /assigns)
+                 (length /assigns)))
+             (let ((var-save /assign) (seq-save /assigns))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /assign (car for-tmp))
+                        (begin
+                          (@wss "(")
+                          (@ws_item (list-ref /assign (+ 1 1)))
+                          (@wss " ")
+                          (@ws_item (list-ref /assign (+ 1 2)))
+                          (@wss ")")
+                          (set! /n (- /n 1))
+                          (cond ((> /n 0) (@wssl ""))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /assign var-save))
+             (@wss ")")
+             (cond ((or (not (= (@size /body) 1))
+                        (not (= (@st (list-ref /body (+ 1 1))) //t_/skip)))
+                    (@wssl "")
+                    (@ws_items (@cs /body))))
+             (cond ((not (null? /result))
+                    (@wssl "")
+                    (@ws_item /result)))
+             (@wss ")"))
+            (#t
+             (@wss "(let (")
+             (set! /n
+               (if (vector? /assigns)
+                 (vector-length /assigns)
+                 (length /assigns)))
+             (let ((var-save /assign) (seq-save /assigns))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /assign (car for-tmp))
+                        (begin
+                          (cond ((member
+                                   (@v (list-ref /assign (+ 1 1)))
+                                   /globals)
+                                 (@wss "(")
+                                 (@ws_item (list-ref /assign (+ 1 1)))
+                                 (@wss "-save ")
+                                 (@ws_item (list-ref /assign (+ 1 1)))
+                                 (@wss ")"))
+                                (#t
+                                 (@wss "(")
+                                 (@ws_item (list-ref /assign (+ 1 1)))
+                                 (@wss " ")
+                                 (@ws_item (list-ref /assign (+ 1 2)))
+                                 (@wss ")")))
+                          (set! /n (- /n 1))
+                          (cond ((> /n 0) (@wssl ""))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /assign var-save))
+             (cond ((and (not (null? /result))
+                         (not (null? /globals)))
+                    (@wssl "")
+                    (@wss (string-append
+                            (string-append "(" /funct_result)
+                            " '())"))))
+             (@wss ")")
+             (let ((var-save /assign) (seq-save /assigns))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /assign (car for-tmp))
+                        (cond ((member (@v (list-ref /assign (+ 1 1))) /globals)
+                               (@wssl "")
+                               (@ws_assign
+                                 (list-ref /assign (+ 1 1))
+                                 (list-ref /assign (+ 1 2)))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /assign var-save))
+             (cond ((or (> (@size /body) 1)
+                        (not (= (@st (list-ref /body (+ 1 1))) //t_/skip)))
+                    (@wssl "")
+                    (@ws_items (@cs /body))))
+             (cond ((and (not (null? /result))
+                         (not (null? /globals)))
+                    (@wssl "")
+                    (@wss (string-append
+                            (string-append "(set! " /funct_result)
+                            " "))
+                    (@ws_item /result)
+                    (@wss ")")))
+             (let ((var-save /assign) (seq-save /assigns))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /assign (car for-tmp))
+                        (cond ((member (@v (list-ref /assign (+ 1 1))) /globals)
+                               (@wssl "")
+                               (@wss "(set! ")
+                               (@ws_item (list-ref /assign (+ 1 1)))
+                               (@wss " ")
+                               (@ws_item (list-ref /assign (+ 1 1)))
+                               (@wss "-save)")))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /assign var-save))
+             (cond ((not (null? /result))
+                    (@wssl "")
+                    (cond ((not (null? /globals)) (@wss /funct_result))
+                          (#t (@ws_item /result)))))
+             (@wss ")")))
+      (set! /n /n-save))
+    (set! /name /name-save)))
+
+(define (@ws_replace /from /to /str)
+  (let ((//r "")
+        (/n 0)
+        (/from_len (string-length /from)))
+    (cond ((null? /str) (set! /str "")))
+    (set! /n
+      (let ((index-result (substring? /from /str)))
+        (if index-result index-result -1)))
+    (let while-loop ()
+      (cond ((>= /n 0)
+             (begin
+               (set! //r
+                 (concat
+                   (concat
+                     //r
+                     (let ((f 0)) (substring /str f (+ f /n))))
+                   /to))
+               (set! /str
+                 (let ((s /str))
+                   (substring s (+ /n /from_len) (string-length s))))
+               (set! /n
+                 (let ((index-result (substring? /from /str)))
+                   (if index-result index-result -1))))
+             (while-loop))
+            (#t #t)))
+    (set! //r (concat //r /str))
+    //r))
+
+(define (@ws_special //i)
+  (let ((//s/t-save //s/t))
+    (set! //s/t (@st //i))
+    (cond ((= //s/t //t_/statements)
+           (cond ((= (@size //i) 1)
+                  (@ws_item (list-ref //i (+ 1 1))))
+                 (#t
+                  (@wssl "(begin")
+                  (@ws_items (@cs //i))
+                  (@wss ")"))))
+          ((= //s/t //t_/string)
+           (@wss (concat
+                   (concat //quote (@fix_quotes (@v //i)))
+                   //quote)))
+          ((= //s/t //t_/sequence)
+           (cond ((= (@size (list-ref //i (+ 1 1))) 0)
+                  (@wss "'()"))
+                 (#t
+                  (@wss "(list ")
+                  (@ws_items (@cs (list-ref //i (+ 1 1))))
+                  (@wss ")"))))
+          ((= //s/t //t_/comment)
+           (@wssl (string-append
+                    ";"
+                    (@ws_replace
+                      //newline
+                      (string-append //newline ";")
+                      (@v //i)))))
+          ((= //s/t //t_/assignment)
+           (cond ((= (@size //i) 1)
+                  (cond ((= (@st (list-ref //i (+ 1 1))) //t_/assign)
+                         (@ws_assign
+                           (@get //i (list 1 1))
+                           (@get //i (list 1 2))))
+                        (#t (@ws_item (list-ref //i (+ 1 1))))))
+                 ((null? (@set_intersect (@assigned //i) (@used //i)))
+                  (let ((/assign '()) (/n-save /n))
+                    (set! /n (@size //i))
+                    (let ((var-save /assign) (seq-save (@cs //i)))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /assign (car for-tmp))
+                               (begin
+                                 (cond ((= (@st /assign) //t_/assign)
+                                        (@ws_assign
+                                          (list-ref /assign (+ 1 1))
+                                          (list-ref /assign (+ 1 2))))
+                                       (#t (@ws_item /assign)))
+                                 (set! /n (- /n 1))
+                                 (cond ((> /n 0) (@wssl ""))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /assign var-save))
+                    (set! /n /n-save)))
+                 (#t
+                  (let ((/n-save /n) (/assign '()))
+                    (set! /n 1)
+                    (@wss "(let (")
+                    (set! /n (@size //i))
+                    (let ((var-save /assign) (seq-save (@cs //i)))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /assign (car for-tmp))
+                               (begin
+                                 (cond ((= (@st /assign) //t_/assign)
+                                        (@wss (string-append
+                                                (string-append
+                                                  "("
+                                                  (@ws_name
+                                                    (@make_name
+                                                      (concat
+                                                        /tmp_var
+                                                        (@string /n)))))
+                                                " "))
+                                        (@ws_item (list-ref /assign (+ 1 2)))
+                                        (@wss ")"))
+                                       (#t (@ws_item /assign)))
+                                 (set! /n (- /n 1))
+                                 (cond ((> /n 0) (@wssl ""))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /assign var-save))
+                    (@wssl ")")
+                    (set! /n (@size //i))
+                    (let ((var-save /assign) (seq-save (@cs //i)))
+                      (if (vector? seq-save)
+                        (set! seq-save (vector-elts seq-save)))
+                      (let for-in-loop ((for-tmp seq-save))
+                        (cond ((not (null? for-tmp))
+                               (set! /assign (car for-tmp))
+                               (begin
+                                 (cond ((= (@st /assign) //t_/assign)
+                                        (@ws_assign
+                                          (list-ref /assign (+ 1 1))
+                                          (@make //t_/variable
+                                                 (@make_name
+                                                   (concat
+                                                     /tmp_var
+                                                     (@string /n)))
+                                                 '())))
+                                       (#t (@ws_item /assign)))
+                                 (set! /n (- /n 1))
+                                 (cond ((> /n 0) (@wssl ""))))
+                               (for-in-loop (cdr for-tmp)))
+                              (#t #t)))
+                      (set! /assign var-save))
+                    (@wss ")")
+                    (set! /n /n-save)))))
+          ((= //s/t //t_/a_/s)
+           (let ((/action '()))
+             (@wssl "(call-with-current-continuation (lambda (//Z) (letrec (")
+             (let ((var-save /action)
+                   (seq-save (@cs (list-ref //i (+ 1 2)))))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /action (car for-tmp))
+                        (cond ((= (@st /action) //t_/action)
+                               (@wssl (string-append
+                                        (string-append
+                                          (string-append
+                                            "("
+                                            (@ws_name
+                                              (@v (list-ref /action (+ 1 1)))))
+                                          "_a")
+                                        " (lambda ()"))
+                               (@ws_item (list-ref /action (+ 1 2)))
+                               (@wssl "))"))
+                              (#t (@ws_item /action)))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /action var-save))
+             (@wssl ")")
+             (@wss (string-append
+                     (string-append
+                       (string-append
+                         "("
+                         (@ws_name (@v (list-ref //i (+ 1 1)))))
+                       "_a")
+                     "))))"))))
+          ((= //s/t //t_/call)
+           (cond ((equal? (@v //i) /z_name)
+                  (@wss (string-append
+                          (string-append "(" (@ws_name (@v //i)))
+                          " #t)")))
+                 (#t
+                  (@wss (string-append
+                          (string-append
+                            (string-append "(" (@ws_name (@v //i)))
+                            "_a")
+                          ")")))))
+          ((= //s/t //t_/d_/do)
+           (let ((/guard '()) (/n-save /n))
+             (set! /n 0)
+             (@wssl "(let D_Do_Loop ()")
+             (@wssl "(cond")
+             (set! /n (@size //i))
+             (let ((var-save /guard) (seq-save (@cs //i)))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /guard (car for-tmp))
+                        (begin
+                          (@wss "(")
+                          (@ws_item (list-ref /guard (+ 1 1)))
+                          (@wssl "")
+                          (@ws_items (@cs (list-ref /guard (+ 1 2))))
+                          (@wss " (D_Do_Loop))")
+                          (set! /n (- /n 1))
+                          (cond ((> /n 0) (@wssl ""))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /guard var-save))
+             (@wss ")")
+             (set! /n /n-save)))
+          ((or (= //s/t //t_/cond) (= //s/t //t_/d_/if))
+           (let ((/guard '()) (/comps-save /comps) (/n-save /n))
+             (set! /comps '())
+             (set! /n 0)
+             (@wssl "(cond")
+             (set! /comps (@cs //i))
+             (cond ((and (= //s/t //t_/cond)
+                         (= (@st (list-ref (last-1 /comps) (+ 1 1)))
+                            //t_/true)
+                         (= (@size (list-ref (last-1 /comps) (+ 1 2))) 1)
+                         (= (@st (@get (last-1 /comps) (list 2 1)))
+                            //t_/skip))
+                    (set! /comps (butlast-1 /comps))))
+             (set! /n
+               (if (vector? /comps)
+                 (vector-length /comps)
+                 (length /comps)))
+             (let ((var-save /guard) (seq-save /comps))
+               (if (vector? seq-save)
+                 (set! seq-save (vector-elts seq-save)))
+               (let for-in-loop ((for-tmp seq-save))
+                 (cond ((not (null? for-tmp))
+                        (set! /guard (car for-tmp))
+                        (begin
+                          (cond ((= (@st /guard) //t_/guarded)
+                                 (@wss "(")
+                                 (@ws_item (list-ref /guard (+ 1 1)))
+                                 (@wssl "")
+                                 (@ws_items (@cs (list-ref /guard (+ 1 2))))
+                                 (@wss ")"))
+                                (#t (@ws_item /guard)))
+                          (set! /n (- /n 1))
+                          (cond ((> /n 0) (@wssl ""))))
+                        (for-in-loop (cdr for-tmp)))
+                       (#t #t)))
+               (set! /guard var-save))
+             (@wss ")")
+             (set! /comps /comps-save)
+             (set! /n /n-save)))
+          ((= //s/t //t_/exit)
+           (let ((/tv (- /floop_depth (@v //i))))
+             (cond ((< /tv 0) (set! /tv 0)))
+             (@wss (string-append
+                     (string-append "(exit_" (@string /tv))
+                     " #t)"))))
+          ((= //s/t //t_/floop)
+           (@wssl (string-append
+                    "(floop exit_"
+                    (@string /floop_depth)))
+           (set! /floop_depth (+ /floop_depth 1))
+           (@ws_item (list-ref //i (+ 1 1)))
+           (set! /floop_depth (- /floop_depth 1))
+           (@wss ")"))
+          ((= //s/t //t_/var)
+           (@ws_var_block
+             '()
+             (@cs (list-ref //i (+ 1 1)))
+             (list-ref //i (+ 1 2))
+             '()))
+          ((= //s/t //t_/where)
+           (@wss "(letrec ")
+           (@ws_item (list-ref //i (+ 1 2)))
+           (@wssl "")
+           (@ws_item (list-ref //i (+ 1 1)))
+           (@wssl ")"))
+          ((= //s/t //t_/aref)
+           (@wss "(wsl-ref ")
+           (@ws_item (list-ref //i (+ 1 1)))
+           (@wss " ")
+           (@ws_items (@cs (list-ref //i (+ 1 2))))
+           (@wss ")"))
+          ((or (= //s/t //t_/struct)
+               (= //s/t //t_/struct_/lvalue))
+           (@ws_item (list-ref //i (+ 1 2)))
+           (@wss ".")
+           (@wss (@ws_name (@v (list-ref //i (+ 1 1))))))
+          ((= //s/t //t_/equal)
+           (cond ((or (@wc_numeric_exp? (list-ref //i (+ 1 2)))
+                      (@wc_numeric_exp? (list-ref //i (+ 1 1))))
+                  (@wss "(= "))
+                 (#t (@wss "(equal? ")))
+           (@ws_item (list-ref //i (+ 1 1)))
+           (@wss " ")
+           (@ws_item (list-ref //i (+ 1 2)))
+           (@wss ")"))
+          ((= //s/t //t_/not_/equal)
+           (@wss "(not ")
+           (@ws_item (@make //t_/equal '() (@cs //i)))
+           (@wss ")"))
+          ((= //s/t //t_/for)
+           (@wss (string-append
+                   (string-append
+                     "(for "
+                     (@ws_name (@v (list-ref //i (+ 1 1)))))
+                   " "))
+           (@ws_items (cdr (@cs //i)))
+           (@wss ")"))
+          ((= //s/t //t_/for_/in)
+           (@wss (string-append
+                   (string-append
+                     "(for-in "
+                     (@ws_name (@v (list-ref //i (+ 1 1)))))
+                   " "))
+           (@ws_items (cdr (@cs //i)))
+           (@wss ")"))
+          (#t
+           (begin
+             (display "Unknown Scheme_Special type: ")
+             (begin (display //s/t) (newline) (force-output)))))
+    (set! //s/t //s/t-save)))
+
+(define (@ws_items /list)
+  (let while-loop ()
+    (cond ((not (null? /list))
+           (begin
+             (cond ((and (= (@gt (car /list)) //t_/statements)
+                         (= //w/s_/indent_/pending 0))
+                    (@wssl "")))
+             (@ws_item (car /list))
+             (cond ((not (null? (cdr /list)))
+                    (cond ((= (@gt (car /list)) //t_/statement)
+                           (cond ((not (= (@st (car /list)) //t_/comment))
+                                  (@wssl ""))))
+                          (#t (@wss " ")))))
+             (set! /list (cdr /list)))
+           (while-loop))
+          (#t #t))))
+
+(define (@make_funct /name /comps)
+  (@make //t_/x_/funct_/call
+         '()
+         (list (@name /name)
+               (@make //t_/expressions
+                      '()
+                      (@var_to_expn_list /comps)))))
+
+(define (@make_bfunct /name /comps)
+  (@make //t_/x_/b/funct_/call
+         '()
+         (list (@name /name)
+               (@make //t_/expressions
+                      '()
+                      (@var_to_expn_list /comps)))))
+
+(define (@make_mwf /name /arg)
+  (@make //t_/m/w_/funct_/call
+         '()
+         (list (@name /name)
+               (@make //t_/expressions
+                      '()
+                      (list (@var_to_expn /arg))))))
+
+(define (@ws_assign /var-par /val)
+  (let ((/var-save /var))
+    (set! /var /var-par)
+    (cond ((and (or (= (@st /var) //t_/variable)
+                    (= (@st /var) //t_/var_/lvalue))
+                (@starts_with? (@v /var) "%const__"))
+           (@wss "(define ")
+           (@ws_item /var)
+           (@wss " ")
+           (@ws_item /val)
+           (@wss ")"))
+          ((or (= (@st /var) //t_/variable)
+               (= (@st /var) //t_/var_/lvalue)
+               (= (@st /var) //t_/struct)
+               (= (@st /var) //t_/struct_/lvalue)
+               (= (@st /var) //t_/lvalue_/pat_/one)
+               (= (@st /var) //t_/lvalue_/pat_/many)
+               (= (@st /var) //t_/lvalue_/pat_/any)
+               (= (@st /var) //t_/mem_/lvalue)
+               (= (@st /var) //t_/mem_/seg_/lvalue)
+               (= (@st /var) //t_/mem_/rel_/lvalue))
+           (@wss "(set! ")
+           (@ws_item /var)
+           (@wss " ")
+           (@ws_item /val)
+           (@wss ")"))
+          ((= (@st /var) //t_/aref_/lvalue)
+           (let ((/indexes '()))
+             (let while-loop ()
+               (cond ((= (@st /var) //t_/aref_/lvalue)
+                      (begin
+                        (set! /indexes
+                          (concat (@cs (list-ref /var (+ 1 2))) /indexes))
+                        (set! /var (list-ref /var (+ 1 1))))
+                      (while-loop))
+                     (#t #t)))
+             (@wss "(wsl-set! ")
+             (@ws_item /var)
+             (@wss " ")
+             (@ws_item /val)
+             (@wss " ")
+             (@ws_items /indexes)
+             (@wss ")")))
+          ((= (@st /var) //t_/sub_/seg_/lvalue)
+           (@ws_seg
+             (list-ref /var (+ 1 1))
+             (list-ref /var (+ 1 2))
+             (list-ref /var (+ 1 3))
+             /val))
+          ((= (@st /var) //t_/rel_/seg_/lvalue)
+           (@ws_seg
+             (list-ref /var (+ 1 1))
+             (list-ref /var (+ 1 2))
+             (@make //t_/plus
+                    '()
+                    (list (list-ref /var (+ 1 2))
+                          (list-ref /var (+ 1 3))
+                          /m_one))
+             /val))
+          ((= (@st /var) //t_/final_/seg_/lvalue)
+           (@ws_seg
+             (list-ref /var (+ 1 1))
+             (list-ref /var (+ 1 2))
+             (@make //t_/length
+                    '()
+                    (list (@lvalue_to_expn (list-ref /var (+ 1 1)))))
+             /val))
+          (#t
+           (begin
+             (display "Unknown type in LHS of assign: ")
+             (begin
+               (display (@st /var))
+               (newline)
+               (force-output)))))
+    (set! /var /var-save)))
+
+(define (@ws_seg /var-par /from /to /val)
+  (let ((/var-save /var))
+    (set! /var /var-par)
+    (@ws_assign
+      /var
+      (@make_funct
+        (@make_name "@Update_Segment")
+        (list /var /from /to /val)))
+    (set! /var /var-save)))
+
+(define (@ws_name /name-par)
+  (let ((/name-save /name)
+        (//r "")
+        (/i 0)
+        (/caps "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        (/prefix "/")
+        (funct-result '()))
+    (set! /name /name-par)
+    (cond ((< /name 0) (set! //r (@string (- /name))))
+          (#t
+           (set! /name (@n_string /name))
+           (cond ((equal?
+                    (let ((f 0)) (substring /name f (+ f 1)))
+                    "@")
+                  (set! //r /name))
+                 (#t
+                  (set! //r /prefix)
+                  (let ((var-save /i)
+                        (for-step 1)
+                        (for-end (- (string-length /name) 1)))
+                    (set! /i 0)
+                    (let for-loop ()
+                      (cond ((or (and (> 1 0) (<= /i for-end))
+                                 (and (< 1 0) (>= /i for-end)))
+                             (begin
+                               (cond ((>= (let ((index-result
+                                                  (substring?
+                                                    (let ((f /i))
+                                                      (substring
+                                                        /name
+                                                        f
+                                                        (+ f 1)))
+                                                    /caps)))
+                                            (if index-result index-result -1))
+                                          0)
+                                      (set! //r (concat //r /prefix))))
+                               (cond ((equal?
+                                        (let ((f /i))
+                                          (substring /name f (+ f 1)))
+                                        //backslash)
+                                      (set! //r (string-append //r "_bs_")))
+                                     (#t
+                                      (set! //r
+                                        (concat
+                                          //r
+                                          (let ((f /i))
+                                            (substring /name f (+ f 1))))))))
+                             (set! /i (+ /i for-step))
+                             (for-loop))
+                            (#t #t)))
+                    (set! /i var-save))))))
+    (set! funct-result
+      (if (member //r /ws_macro_pars)
+        (string-append "," //r)
+        //r))
+    (set! /name /name-save)
+    funct-result))
+
+(define (@wc_numeric_exp? //i)
+  (let ((//r 0))
+    (cond ((= (@st //i) //t_/variable)
+           (cond ((not (null? (gethash //num_/var_/types (@v //i))))
+                  (set! //r 1))))
+          ((= (@st //i) //t_/m/w_/funct_/call)
+           (cond ((not (null? (gethash
+                                //num_/funct_/types
+                                (@v (list-ref //i (+ 1 1))))))
+                  (set! //r 1))))
+          ((not (null? (gethash //num_/types (@st //i))))
+           (set! //r 1)))
+    (= //r 1)))
+
+(define (@ws_constant_fill? //i)
+  (let ((//r 1)
+        (//s/t-save //s/t)
+        (/comps-save /comps)
+        (funct-result '()))
+    (set! //s/t (@st //i))
+    (set! /comps '())
+    (cond ((or (@one_pattern_type? //s/t)
+               (@many_pattern_type? //s/t)
+               (@any_pattern_type? //s/t)
+               (@one_var_type? //s/t)
+               (@any_var_type? //s/t))
+           (cond ((> (@v //i) 0) (set! //r 0))))
+          ((or (@one_int_type? //s/t)
+               (@any_int_type? //s/t))
+           (cond ((not (= (@st (list-ref //i (+ 1 1))) //t_/number))
+                  (set! //r 0))))
+          ((@cs? //i)
+           (set! /comps (@cs //i))
+           (let while-loop ()
+             (cond ((and (= //r 1) (not (null? /comps)))
+                    (cond ((not (@ws_constant_fill? (car /comps)))
+                           (set! //r 0))
+                          (#t (set! /comps (cdr /comps))))
+                    (while-loop))
+                   (#t #t)))))
+    (set! funct-result (= //r 1))
+    (set! //s/t //s/t-save)
+    (set! /comps /comps-save)
+    funct-result))
+
+(define (@find_index_vars)
+  (let ((/vars-save /vars) (funct-result '()))
+    (set! /vars '())
+    (@foreach_expn
+      /foreach-wsl2scheme-17
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! funct-result /vars)
+    (set! /vars /vars-save)
+    funct-result))
+
+#t
+

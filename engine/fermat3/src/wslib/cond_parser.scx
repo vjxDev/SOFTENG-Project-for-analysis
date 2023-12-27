@@ -1,0 +1,581 @@
+(define (@yy_condition)
+  (let ((//l (list (@yy_b_term))) (//c '()))
+    (let while-loop ()
+      (cond ((= /token1 //s_/o/r)
+             (begin
+               (@yy_lex)
+               (set! //l (cons (@yy_b_term) //l)))
+             (while-loop))
+            (#t #t)))
+    (cond ((= (if (vector? //l)
+                (vector-length //l)
+                (length //l))
+              1)
+           (set! //c (car //l)))
+          (#t (set! //c (@make //t_/or '() (reverse //l)))))
+    //c))
+
+(define (@yy_b_term)
+  (let ((//l (list (@yy_b_factor))) (//c '()))
+    (let while-loop ()
+      (cond ((= /token1 //s_/a/n/d)
+             (begin
+               (@yy_lex)
+               (set! //l (cons (@yy_b_factor) //l)))
+             (while-loop))
+            (#t #t)))
+    (cond ((= (if (vector? //l)
+                (vector-length //l)
+                (length //l))
+              1)
+           (set! //c (car //l)))
+          (#t
+           (set! //c (@make //t_/and '() (reverse //l)))))
+    //c))
+
+(define (@yy_b_factor)
+  (let ((//c '()))
+    (cond ((= /token1 //s_/n/o/t)
+           (@yy_lex)
+           (set! //c
+             (@make //t_/not '() (list (@yy_b_factor)))))
+          (#t (set! //c (@yy_b_atom))))
+    //c))
+
+(define (@yy_b_atom)
+  (let ((//c '()) (//temp '()) (/op 0))
+    (cond ((or (= /token1 //s_/t/r/u/e)
+               (= /token1 //s_/f/a/l/s/e)
+               (= /token1 //s_/c/o/n/d_/p/l/a/c/e))
+           (set! /op (gethash //type_/table /token1))
+           (set! //c (@make /op '() '()))
+           (@yy_lex))
+          ((= (let ((name //prefix_/conds))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //c (@yy_prefix_cond)))
+          ((= /token1 //s_/p/l/i/n/k_/x/c)
+           (set! //c (@yy_x_bfunct_call)))
+          ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //c (@yy_cond_pattern)))
+          ((= /token1 //s_/a/t)
+           (set! //c (@yy_sr_parse_cond)))
+          ((not (= /token1 //s_/l/p/a/r/e/n))
+           (cond ((and (= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+                       (equal? (car (@yy_look)) //s_/q/u/e/r/y))
+                  (set! //c (@yy_bfunct_call)))
+                 (#t
+                  (set! //temp (@yy_expression))
+                  (cond ((= (let ((name //rel_/ops))
+                              (if (vector? name)
+                                (vector-ref name (- /token1 1))
+                                (list-ref name (- /token1 1))))
+                            0)
+                         (@syntax_error "Missing relational operator")
+                         (set! //c (@make //t_/cond_/place '() '())))
+                        (#t
+                         (set! /op (gethash //type_/table /token1))
+                         (@yy_lex)
+                         (set! //c
+                           (@make /op '() (list //temp (@yy_expression)))))))))
+          (#t (set! //c (@yy_sr_parse_cond))))
+    //c))
+
+(define (@yy_prefix_cond)
+  (let ((//s '()))
+    (cond ((or (= /token1 //s_/e/v/e/n)
+               (= /token1 //s_/o/d/d)
+               (= /token1 //s_/e/m/p/t/y)
+               (= /token1 //s_/s/t/r/i/n/g/b/f)
+               (= /token1 //s_/n/u/m/b/e/r/q)
+               (= /token1 //s_/s/e/q/u/e/n/c/e))
+           (set! //s (@yy_pc_unary)))
+          ((or (= /token1 //s_/s/u/b/s/e/t)
+               (= /token1 //s_/m/e/m/b/e/r))
+           (set! //s (@yy_pc_binary)))
+          (#t (set! //s (@yy_pc_forall))))
+    //s))
+
+(define (@yy_pc_unary)
+  (let ((/type (gethash //type_/table /token1))
+        (/arg '())
+        (//s '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/q/u/e/r/y
+      "Missing `?' after conditional function name")
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (@syntax_error "Missing argument")
+           (set! //s (@make //t_/cond_/place '() '())))
+          (#t
+           (cond ((= /type //t_/empty)
+                  (set! /arg (@yy_s_expression)))
+                 (#t (set! /arg (@yy_expression))))
+           (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+           (set! //s (@make /type '() (list /arg)))))
+    //s))
+
+(define (@yy_pc_binary)
+  (let ((/type (gethash //type_/table /token1))
+        (/args '())
+        (//s '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/q/u/e/r/y
+      "Missing `?' after conditional function name")
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument")
+    (cond ((= /token1 //s_/r/p/a/r/e/n)
+           (@syntax_error "Missing arguments")
+           (set! //s (@make //t_/cond_/place '() '())))
+          (#t
+           (set! /args (list (@yy_expression)))
+           (@yy_skip_symbol
+             //s_/c/o/m/m/a
+             "Missing `,' or 2nd argument")
+           (cond ((= /token1 //s_/r/p/a/r/e/n)
+                  (@syntax_error "Missing 2nd argument")
+                  (set! //s (@make //t_/cond_/place '() '())))
+                 (#t
+                  (set! /args (cons (@yy_s_expression) /args))
+                  (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'")
+                  (set! //s (@make /type '() (reverse /args)))))))
+    //s))
+
+(define (@yy_pc_forall)
+  (let ((/type (gethash //type_/table /token1))
+        (/vars '())
+        (/cond '()))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/l/a/n/g/l/e
+      (string-append
+        "Missing `<' in "
+        (vector-ref //syntax_/name (- /type 1))))
+    (set! /vars (@yy_lvalues))
+    (@yy_skip_symbol
+      //s_/r/a/n/g/l/e
+      (string-append
+        "Missing `>' in "
+        (vector-ref //syntax_/name (- /type 1))))
+    (@yy_skip_symbol
+      //s_/c/o/l/o/n
+      (string-append
+        "Missing `:' in "
+        (vector-ref //syntax_/name (- /type 1))))
+    (set! /cond (@yy_condition))
+    (@yy_skip_symbol
+      //s_/e/n/d
+      (string-append
+        "Missing `END' in "
+        (vector-ref //syntax_/name (- /type 1))))
+    (@make /type '() (list /vars /cond))))
+
+(define (@yy_bfunct_call)
+  (let ((/name '()) (/args '()))
+    (set! /name (@yy_name "BFUNCT"))
+    (cond ((= /token1 //s_/q/u/e/r/y)
+           (cond ((= (@st /name) //t_/name)
+                  (set! /name
+                    (@name (@make_name
+                             (string-append (@n_string (@v /name)) "?"))))))
+           (@yy_lex)))
+    (@yy_skip_symbol //s_/l/p/a/r/e/n "Missing `('")
+    (set! /args (@yy_expressions))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)' ")
+    (@make //t_/b/funct_/call '() (list /name /args))))
+
+(define (@yy_mw_bfunct_call)
+  (let ((/name '()) (/args '()))
+    (set! /name
+      (@make_name
+        (string-append
+          (string-append "@" (@string /token2))
+          "?")))
+    (@yy_lex)
+    (@yy_skip_symbol
+      //s_/q/u/e/r/y
+      "Missing `?' in bfunct call")
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (@yy_expressions))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)' ")
+    (@make //t_/m/w_/b/funct_/call
+           '()
+           (list (@make //t_/name /name '()) /args))))
+
+(define (@yy_x_bfunct_call)
+  (let ((/name '()) (/args '()) (//s '()))
+    (@yy_lex)
+    (set! /name (@yy_name "!XC call"))
+    (cond ((= /token1 //s_/q/u/e/r/y)
+           (cond ((= (@st /name) //t_/name)
+                  (set! /name
+                    (@name (@make_name
+                             (string-append (@n_string (@v /name)) "?"))))))
+           (@yy_lex)))
+    (@yy_skip_symbol
+      //s_/l/p/a/r/e/n
+      "Missing `(' or argument list")
+    (set! /args (@yy_expressions))
+    (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)' ")
+    (@make //t_/x_/b/funct_/call
+           '()
+           (list /name /args))))
+
+(define (@yy_cond_pattern)
+  (let ((/type /token1)
+        (/name '())
+        (//s '())
+        (/comps '())
+        (/cond '()))
+    (let ((/-result-
+            (@yy_parse_pattern /type /name /comps)))
+      (set! /name (car /-result-))
+      (set! /-result- (cdr /-result-))
+      (set! /comps (car /-result-))
+      (set! /-result- (cdr /-result-)))
+    (cond ((or (= /token1 //s_/e/x/p/o/n/e/n/t)
+               (= (let ((name //term_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1)
+               (= (let ((name //factor_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1)
+               (= (let ((name //s_/term_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1)
+               (= (let ((name //s_/factor_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1)
+               (= (let ((name //s_/atom_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1)
+               (= (let ((name //rel_/ops))
+                    (if (vector? name)
+                      (vector-ref name (- /token1 1))
+                      (list-ref name (- /token1 1))))
+                  1))
+           (set! /type
+             (gethash
+               /pattern_type
+               (list //t_/expression /type)))
+           (set! //s
+             (@yy_sr_cond_engine
+               (list (@make /type /name /comps)))))
+          (#t
+           (set! /type
+             (gethash
+               /pattern_type
+               (list //t_/condition /type)))
+           (set! //s (@make /type /name /comps))))
+    //s))
+
+(define (@yy_rest_of_cond //s)
+  (set! //s (@yy_sr_cond_engine (list //s)))
+  (let while-loop ()
+    (cond ((= /token1 //s_/a/n/d)
+           (begin
+             (@yy_lex)
+             (set! //s
+               (@make //t_/and '() (list //s (@yy_b_factor)))))
+           (while-loop))
+          (#t #t)))
+  (let while-loop ()
+    (cond ((= /token1 //s_/o/r)
+           (begin
+             (@yy_lex)
+             (set! //s
+               (@make //t_/or '() (list //s (@yy_b_term)))))
+           (while-loop))
+          (#t #t)))
+  //s)
+
+(define (@yy_sr_parse_cond)
+  (let ((//temp '()) (/stack '()) (/op 0))
+    (let while-loop ()
+      (cond ((= /token1 //s_/l/p/a/r/e/n)
+             (begin
+               (set! /stack (cons /token1 /stack))
+               (@yy_lex))
+             (while-loop))
+            (#t #t)))
+    (cond ((= /token1 //s_/n/o/t)
+           (@yy_lex)
+           (set! //temp
+             (@make //t_/not '() (list (@yy_b_factor)))))
+          ((or (= /token1 //s_/t/r/u/e)
+               (= /token1 //s_/f/a/l/s/e)
+               (= /token1 //s_/c/o/n/d_/p/l/a/c/e))
+           (set! /op (gethash //type_/table /token1))
+           (@yy_lex)
+           (set! //temp (@make /op '() '())))
+          ((= /token1 //s_/a/t)
+           (set! //temp (@yy_mw_call)))
+          ((= /token1 //s_/p/l/i/n/k_/x/c)
+           (set! //temp (@yy_x_bfunct_call)))
+          ((= (let ((name //prefix_/conds))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //temp (@yy_prefix_cond)))
+          ((= (let ((name //patterns))
+                (if (vector? name)
+                  (vector-ref name (- /token1 1))
+                  (list-ref name (- /token1 1))))
+              1)
+           (set! //temp (@yy_cond_pattern)))
+          ((and (= /token1 //s_/i/d/e/n/t/i/f/i/e/r)
+                (equal? (car (@yy_look)) //s_/q/u/e/r/y))
+           (set! //temp (@yy_bfunct_call)))
+          (#t (set! //temp (@yy_expression))))
+    (set! /stack (cons //temp /stack))
+    (@yy_sr_cond_engine /stack)))
+
+(define (@yy_sr_cond_engine /stack)
+  (let ((//c '()) (//temp '()) (/op '()))
+    (cond ((null? /stack) (set! /stack (list '()))))
+    (set! //temp (car /stack))
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (set! /fl_flag1 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag1 0)
+                        (cond ((not (= /token1 //s_/r/p/a/r/e/n))
+                               (set! /fl_flag1 1))
+                              (#t
+                               (cond ((null? /stack) (set! /stack (list '()))))
+                               (set! //temp (car /stack))
+                               (set! /stack (cdr /stack))
+                               (cond ((null? /stack) (set! /stack (list '()))))
+                               (cond ((not (equal?
+                                             (car /stack)
+                                             //s_/l/p/a/r/e/n))
+                                      (set! /stack (cons //temp /stack))
+                                      (set! /fl_flag1 2))
+                                     (#t
+                                      (set! /stack (cons //temp (cdr /stack)))
+                                      (@yy_lex)
+                                      (set! /fl_flag1 0)))))
+                        (while-loop))
+                       (#t #t)))
+               (cond ((= /fl_flag1 2) (set! /fl_flag2 1))
+                     (#t
+                      (cond ((null? /stack) (set! /stack (list '()))))
+                      (cond ((= (@gen_type (car /stack)) //t_/expression)
+                             (let while-loop ()
+                               (cond ((= /token1 //s_/l/b/r/a/c/k/e/t)
+                                      (begin
+                                        (if (vector? /stack)
+                                          (vector-set!
+                                            /stack
+                                            (- 1 1)
+                                            (@yy_array_ref
+                                              (let ((name /stack))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 1 1))
+                                                  (list-ref name (- 1 1))))))
+                                          (set! /stack
+                                            (replace-nth
+                                              /stack
+                                              1
+                                              (@yy_array_ref
+                                                (let ((name /stack))
+                                                  (if (vector? name)
+                                                    (vector-ref name (- 1 1))
+                                                    (list-ref
+                                                      name
+                                                      (- 1 1)))))))))
+                                      (while-loop))
+                                     (#t #t)))
+                             (cond ((and (= (let ((name //rel_/ops))
+                                              (if (vector? name)
+                                                (vector-ref name (- /token1 1))
+                                                (list-ref name (- /token1 1))))
+                                            0)
+                                         (= (let ((name //term_/ops))
+                                              (if (vector? name)
+                                                (vector-ref name (- /token1 1))
+                                                (list-ref name (- /token1 1))))
+                                            0)
+                                         (= (let ((name //factor_/ops))
+                                              (if (vector? name)
+                                                (vector-ref name (- /token1 1))
+                                                (list-ref name (- /token1 1))))
+                                            0)
+                                         (= (let ((name //s_/term_/ops))
+                                              (if (vector? name)
+                                                (vector-ref name (- /token1 1))
+                                                (list-ref name (- /token1 1))))
+                                            0)
+                                         (not (= /token1 //s_/e/x/p/o/n/e/n/t))
+                                         (= (let ((name //s_/factor_/ops))
+                                              (if (vector? name)
+                                                (vector-ref name (- /token1 1))
+                                                (list-ref name (- /token1 1))))
+                                            0))
+                                    (@syntax_error "Missing operator")
+                                    (set! /fl_flag2 1))
+                                   (#t
+                                    (set! //temp (car /stack))
+                                    (set! /stack (cdr /stack))
+                                    (set! /op (gethash //type_/table /token1))
+                                    (@yy_lex)
+                                    (cond ((or (= /op //t_/times)
+                                               (= /op //t_/divide))
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_factor)))))
+                                          ((or (= /op //t_/plus)
+                                               (= /op //t_/minus))
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp (@yy_term)))))
+                                          ((= /op //t_/exponent)
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_factor)))))
+                                          ((or (= /op //t_/set_/diff))
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_s_term)))))
+                                          ((or (= /op //t_/concat)
+                                               (= /op //t_/union))
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_s_factor)))))
+                                          ((or (= /op //t_/intersection))
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_s_atom)))))
+                                          (#t
+                                           (set! //c
+                                             (@make /op
+                                                    '()
+                                                    (list //temp
+                                                          (@yy_expression))))))
+                                    (set! /stack (cons //c /stack))
+                                    (set! /fl_flag2 0))))
+                            ((= (@gen_type (car /stack)) //t_/condition)
+                             (cond ((= (if (vector? /stack)
+                                         (vector-length /stack)
+                                         (length /stack))
+                                       1)
+                                    (set! /fl_flag2 1))
+                                   ((= /token1 //s_/r/p/a/r/e/n)
+                                    (set! /fl_flag2 0))
+                                   ((= (let ((name //bool_/ops))
+                                         (if (vector? name)
+                                           (vector-ref name (- /token1 1))
+                                           (list-ref name (- /token1 1))))
+                                       1)
+                                    (set! //temp (list (car /stack)))
+                                    (set! /stack (cdr /stack))
+                                    (let while-loop ()
+                                      (cond ((= /token1 //s_/a/n/d)
+                                             (begin
+                                               (@yy_lex)
+                                               (set! //temp
+                                                 (cons (@yy_b_factor) //temp)))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (cond ((not (= (if (vector? //temp)
+                                                     (vector-length //temp)
+                                                     (length //temp))
+                                                   1))
+                                           (set! //temp
+                                             (list (@make //t_/and
+                                                          '()
+                                                          (reverse //temp))))))
+                                    (let while-loop ()
+                                      (cond ((= /token1 //s_/o/r)
+                                             (begin
+                                               (@yy_lex)
+                                               (set! //temp
+                                                 (cons (@yy_b_term) //temp)))
+                                             (while-loop))
+                                            (#t #t)))
+                                    (cond ((= (if (vector? //temp)
+                                                (vector-length //temp)
+                                                (length //temp))
+                                              1)
+                                           (set! //c (car //temp)))
+                                          (#t
+                                           (set! //c
+                                             (@make //t_/or
+                                                    '()
+                                                    (reverse //temp)))))
+                                    (set! /stack (cons //c /stack))
+                                    (set! /fl_flag2 0))
+                                   (#t
+                                    (@syntax_error
+                                      "Malformed condition -  maybe missing ``)''?")
+                                    (set! /fl_flag2 1))))
+                            (#t (set! /fl_flag2 0))))))
+             (while-loop))
+            (#t #t)))
+    (cond ((null? /stack) (set! /stack (list '()))))
+    (set! //c (car /stack))
+    (cond ((not (= (@gen_type //c) //t_/condition))
+           (@syntax_error "Malformed condition")
+           (set! //c (@make //t_/cond_/place '() '()))))
+    //c))
+
+(define (@yy_mw_call)
+  (let ((/type '()) (/name '()) (/args '()))
+    (set! /name (string-append "@" /token2))
+    (@yy_lex)
+    (cond ((= /token1 //s_/q/u/e/r/y)
+           (set! /type //t_/m/w_/b/funct_/call)
+           (set! /name (string-append /name "?"))
+           (@yy_lex))
+          (#t (set! /type //t_/m/w_/funct_/call)))
+    (set! /name (@make_name /name))
+    (cond ((= /token1 //s_/l/p/a/r/e/n)
+           (@yy_lex)
+           (cond ((not (= /token1 //s_/r/p/a/r/e/n))
+                  (set! /args (@yy_expressions)))
+                 (#t
+                  (set! /args (@make //t_/expressions '() '()))))
+           (@yy_skip_symbol //s_/r/p/a/r/e/n "Missing `)'"))
+          (#t
+           (set! /args (@make //t_/expressions '() '()))))
+    (@make /type
+           '()
+           (list (@make //t_/name /name '()) /args))))
+

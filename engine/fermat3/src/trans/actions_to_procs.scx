@@ -1,0 +1,1278 @@
+(define (/foreach-actions_to_procs-1 //depth //a/s_/type)
+  (@down)
+  (let while-loop ()
+    (cond ((and (not (@is_improper?)) (@right?))
+           (@right)
+           (while-loop))
+          (#t #t)))
+  (cond ((@is_improper?)
+         (cond ((@right?) (@delete_rest)))))
+  (@up))
+
+(define (@actions_to_procs_test)
+  (cond ((not (= (@spec_type (@i)) //t_/a_/s))
+         (@fail "Not an action system."))
+        (#t
+         (let ((/start (@v (list-ref (@i) (+ 1 1)))))
+           (@down_last)
+           (@down)
+           (let ((/as (@as_type)))
+             (set! /fl_flag1 0)
+             (let while-loop ()
+               (cond ((= /fl_flag1 0)
+                      (begin
+                        (cond ((not (equal?
+                                      (@v (list-ref (@i) (+ 1 1)))
+                                      /start))
+                               (cond ((@atp_procable?
+                                        /as
+                                        (@calls (@i))
+                                        (@v (list-ref (@i) (+ 1 1))))
+                                      (@pass)
+                                      (set! /fl_flag1 1))
+                                     (#t (set! /fl_flag1 0))))
+                              (#t (set! /fl_flag1 0)))
+                        (cond ((= /fl_flag1 0)
+                               (cond ((not (@right?))
+                                      (@fail "No suitable actions.")
+                                      (set! /fl_flag1 1))
+                                     (#t (@right) (set! /fl_flag1 0))))))
+                      (while-loop))
+                     (#t #t))))))))
+
+(define (@actions_to_procs_code //data)
+  (let ((//z (@make_name "Z"))
+        (/start (@v (list-ref (@i) (+ 1 1))))
+        (/calls '())
+        (/dispatch (@make_name "dispatch"))
+        (//leave_/alone
+          (@make_set (@parse_string //data)))
+        (/dispatch_calls (@atp_dispatch_calls (@i)))
+        (/as (@as_type))
+        (/change-save /change)
+        (/found 0)
+        (/orig '()))
+    (set! /change 0)
+    (begin
+      (display "Actions_To_Procs Leave_Alone = ")
+      (begin (display //data) (newline) (force-output)))
+    (cond ((@regular_system? (@i))
+           (@ateach_stats
+             /foreach-actions_to_procs-1
+             0
+             (@as_type)
+             0)
+           (cond ((null? (@program)) (@new_program (@skips))))))
+    (set! /as (@as_type))
+    (set! /found 0)
+    (set! /orig (@i))
+    (@down_last)
+    (@down)
+    (begin
+      (display
+        "A2P: Finding actions which only call Z...")
+      (newline)
+      (force-output))
+    (set! /fl_flag2 0)
+    (let while-loop ()
+      (cond ((= /fl_flag2 0)
+             (begin
+               (set! /change 0)
+               (@to 1)
+               (set! /fl_flag1 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag1 0)
+                        (cond ((or (equal? (@v (list-ref (@i) (+ 1 1))) /start)
+                                   (equal?
+                                     (@v (list-ref (@i) (+ 1 1)))
+                                     /dispatch)
+                                   (member
+                                     (@v (list-ref (@i) (+ 1 1)))
+                                     /dispatch_calls))
+                               (cond ((not (@right?)) (set! /fl_flag1 1))
+                                     (#t (@right) (set! /fl_flag1 0))))
+                              (#t
+                               (set! /calls (@calls (@i)))
+                               (cond ((and (= (if (vector? /calls)
+                                                (vector-length /calls)
+                                                (length /calls))
+                                              1)
+                                           (equal?
+                                             (let ((name (let ((name /calls))
+                                                           (if (vector? name)
+                                                             (vector-ref
+                                                               name
+                                                               (- 1 1))
+                                                             (list-ref
+                                                               name
+                                                               (- 1 1))))))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             //z)
+                                           (<= (@stat_count (@i)) 2))
+                                      (set! /change (@atp_sad /change))
+                                      (set! /fl_flag1 0))
+                                     ((and (= (if (vector? /calls)
+                                                (vector-length /calls)
+                                                (length /calls))
+                                              1)
+                                           (equal?
+                                             (let ((name (let ((name /calls))
+                                                           (if (vector? name)
+                                                             (vector-ref
+                                                               name
+                                                               (- 1 1))
+                                                             (list-ref
+                                                               name
+                                                               (- 1 1))))))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             //z)
+                                           (@trans? //t/r_/make_/proc))
+                                      (@trans //t/r_/make_/proc "")
+                                      (set! /change (@atp_sad /change))
+                                      (set! /fl_flag1 0))
+                                     ((and (= (if (vector? /calls)
+                                                (vector-length /calls)
+                                                (length /calls))
+                                              1)
+                                           (equal?
+                                             (let ((name (let ((name /calls))
+                                                           (if (vector? name)
+                                                             (vector-ref
+                                                               name
+                                                               (- 1 1))
+                                                             (list-ref
+                                                               name
+                                                               (- 1 1))))))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             (@v (list-ref (@i) (+ 1 1)))))
+                                      (cond ((not (@right?)) (set! /fl_flag1 1))
+                                            (#t (@right) (set! /fl_flag1 0))))
+                                     ((and (= (if (vector? /calls)
+                                                (vector-length /calls)
+                                                (length /calls))
+                                              1)
+                                           (equal?
+                                             (let ((name (let ((name /calls))
+                                                           (if (vector? name)
+                                                             (vector-ref
+                                                               name
+                                                               (- 1 1))
+                                                             (list-ref
+                                                               name
+                                                               (- 1 1))))))
+                                               (if (vector? name)
+                                                 (vector-ref name (- 1 1))
+                                                 (list-ref name (- 1 1))))
+                                             (@v (list-ref (@i) (+ 1 1))))
+                                           (@trans? //t/r_/make_/proc))
+                                      (@trans //t/r_/make_/proc "")
+                                      (set! /change (@atp_sad /change))
+                                      (set! /fl_flag1 0))
+                                     ((not (@right?)) (set! /fl_flag1 1))
+                                     (#t (@right) (set! /fl_flag1 0)))))
+                        (while-loop))
+                       (#t #t)))
+               (cond ((= /change 0) (set! /fl_flag2 1))
+                     (#t (set! /found 1) (set! /fl_flag2 0))))
+             (while-loop))
+            (#t #t)))
+    (cond ((= /found 0)
+           (begin
+             (display
+               "Finding actions which call one other action...")
+             (newline)
+             (force-output))
+           (set! /fl_flag2 0)
+           (let while-loop ()
+             (cond ((= /fl_flag2 0)
+                    (begin
+                      (set! /change 0)
+                      (@to 1)
+                      (set! /fl_flag1 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag1 0)
+                               (begin
+                                 (set! /calls (@calls (@i)))
+                                 (cond ((and (not (equal?
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    /start))
+                                             (not (member
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    //leave_/alone))
+                                             (= (if (vector? /calls)
+                                                  (vector-length /calls)
+                                                  (length /calls))
+                                                1)
+                                             (null? (@set_intersect
+                                                      (@make_set
+                                                        (let ((l /calls)
+                                                              (map-result '()))
+                                                          (let while-loop ()
+                                                            (cond ((not (null? l))
+                                                                   (set! map-result
+                                                                     (cons (car (car l))
+                                                                           map-result))
+                                                                   (set! l
+                                                                     (cdr l))
+                                                                   (while-loop))
+                                                                  (#t #t)))
+                                                          (reverse map-result)))
+                                                      //leave_/alone))
+                                             (@atp_procable?
+                                               /as
+                                               /calls
+                                               (@v (list-ref (@i) (+ 1 1))))
+                                             (@trans? //t/r_/make_/proc))
+                                        (begin
+                                          (display "Action ")
+                                          (begin
+                                            (display
+                                              (@n_string
+                                                (@v (list-ref (@i) (+ 1 1)))))
+                                            (begin
+                                              (display " only calls ")
+                                              (begin
+                                                (display
+                                                  (@n_string
+                                                    (let ((name (let ((name /calls))
+                                                                  (if (vector?
+                                                                        name)
+                                                                    (vector-ref
+                                                                      name
+                                                                      (- 1 1))
+                                                                    (list-ref
+                                                                      name
+                                                                      (- 1
+                                                                         1))))))
+                                                      (if (vector? name)
+                                                        (vector-ref
+                                                          name
+                                                          (- 1 1))
+                                                        (list-ref
+                                                          name
+                                                          (- 1 1))))))
+                                                (newline)
+                                                (force-output)))))
+                                        (cond ((and (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 2))
+                                                              (+ 1 1)))
+                                                       //t_/comment)
+                                                    (= (@st (list-ref
+                                                              (list-ref
+                                                                (@i)
+                                                                (+ 1 2))
+                                                              (+ 1 2)))
+                                                       //t_/call)))
+                                              (#t
+                                               (@trans //t/r_/make_/proc "")))
+                                        (set! /change (@atp_sad /change))))
+                                 (cond ((not (@right?)) (set! /fl_flag1 1))
+                                       (#t (@right) (set! /fl_flag1 0))))
+                               (while-loop))
+                              (#t #t)))
+                      (cond ((= /change 0) (set! /fl_flag2 1))
+                            (#t (set! /found 1) (set! /fl_flag2 0))))
+                    (while-loop))
+                   (#t #t)))))
+    (cond ((= /found 0)
+           (set! /change 0)
+           (@to 1)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (set! /calls (@calls (@i)))
+                      (cond ((and (not (equal?
+                                         (@v (list-ref (@i) (+ 1 1)))
+                                         /start))
+                                  (not (member
+                                         (@v (list-ref (@i) (+ 1 1)))
+                                         //leave_/alone))
+                                  (null? (@set_intersect
+                                           (@make_set
+                                             (let ((l /calls) (map-result '()))
+                                               (let while-loop ()
+                                                 (cond ((not (null? l))
+                                                        (set! map-result
+                                                          (cons (car (car l))
+                                                                map-result))
+                                                        (set! l (cdr l))
+                                                        (while-loop))
+                                                       (#t #t)))
+                                               (reverse map-result)))
+                                           //leave_/alone))
+                                  (@atp_procable?
+                                    /as
+                                    /calls
+                                    (@v (list-ref (@i) (+ 1 1))))
+                                  (@trans? //t/r_/make_/proc))
+                             (cond ((= (if (vector? /calls)
+                                         (vector-length /calls)
+                                         (length /calls))
+                                       0)
+                                    (begin
+                                      (display "Action ")
+                                      (begin
+                                        (display
+                                          (@n_string
+                                            (@v (list-ref (@i) (+ 1 1)))))
+                                        (begin
+                                          (display " has no calls.")
+                                          (newline)
+                                          (force-output)))))
+                                   ((= (if (vector? /calls)
+                                         (vector-length /calls)
+                                         (length /calls))
+                                       2)
+                                    (begin
+                                      (display "Action ")
+                                      (begin
+                                        (display
+                                          (@n_string
+                                            (@v (list-ref (@i) (+ 1 1)))))
+                                        (begin
+                                          (display " only calls ")
+                                          (begin
+                                            (display
+                                              (@n_string
+                                                (let ((name (let ((name /calls))
+                                                              (if (vector? name)
+                                                                (vector-ref
+                                                                  name
+                                                                  (- 1 1))
+                                                                (list-ref
+                                                                  name
+                                                                  (- 1 1))))))
+                                                  (if (vector? name)
+                                                    (vector-ref name (- 1 1))
+                                                    (list-ref name (- 1 1))))))
+                                            (begin
+                                              (display " and ")
+                                              (begin
+                                                (display
+                                                  (@n_string
+                                                    (let ((name (let ((name /calls))
+                                                                  (if (vector?
+                                                                        name)
+                                                                    (vector-ref
+                                                                      name
+                                                                      (- 2 1))
+                                                                    (list-ref
+                                                                      name
+                                                                      (- 2
+                                                                         1))))))
+                                                      (if (vector? name)
+                                                        (vector-ref
+                                                          name
+                                                          (- 1 1))
+                                                        (list-ref
+                                                          name
+                                                          (- 1 1))))))
+                                                (newline)
+                                                (force-output))))))))
+                                   (#t
+                                    (begin
+                                      (display "Error in ATP_PROCable!!!")
+                                      (newline)
+                                      (force-output))))
+                             (@trans //t/r_/make_/proc "")
+                             (set! /change (@atp_sad /change))))
+                      (cond ((not (@right?)) (set! /fl_flag1 1))
+                            (#t (@right) (set! /fl_flag1 0))))
+                    (while-loop))
+                   (#t #t)))
+           (let while-loop ()
+             (cond ((not (= /change 0))
+                    (begin
+                      (set! /change 0)
+                      (@to 1)
+                      (set! /fl_flag1 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag1 0)
+                               (begin
+                                 (set! /calls (@calls (@i)))
+                                 (cond ((and (not (equal?
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    /start))
+                                             (not (member
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    //leave_/alone))
+                                             (null? (@set_intersect
+                                                      (@make_set
+                                                        (let ((l /calls)
+                                                              (map-result '()))
+                                                          (let while-loop ()
+                                                            (cond ((not (null? l))
+                                                                   (set! map-result
+                                                                     (cons (car (car l))
+                                                                           map-result))
+                                                                   (set! l
+                                                                     (cdr l))
+                                                                   (while-loop))
+                                                                  (#t #t)))
+                                                          (reverse map-result)))
+                                                      //leave_/alone))
+                                             (@atp_procable?
+                                               /as
+                                               /calls
+                                               (@v (list-ref (@i) (+ 1 1))))
+                                             (@trans? //t/r_/make_/proc))
+                                        (cond ((= (if (vector? /calls)
+                                                    (vector-length /calls)
+                                                    (length /calls))
+                                                  0)
+                                               (begin
+                                                 (display "Action ")
+                                                 (begin
+                                                   (display
+                                                     (@n_string
+                                                       (@v (list-ref
+                                                             (@i)
+                                                             (+ 1 1)))))
+                                                   (begin
+                                                     (display " has no calls.")
+                                                     (newline)
+                                                     (force-output)))))
+                                              ((= (if (vector? /calls)
+                                                    (vector-length /calls)
+                                                    (length /calls))
+                                                  2)
+                                               (begin
+                                                 (display "Action ")
+                                                 (begin
+                                                   (display
+                                                     (@n_string
+                                                       (@v (list-ref
+                                                             (@i)
+                                                             (+ 1 1)))))
+                                                   (begin
+                                                     (display " only calls ")
+                                                     (begin
+                                                       (display
+                                                         (@n_string
+                                                           (let ((name (let ((name /calls))
+                                                                         (if (vector?
+                                                                               name)
+                                                                           (vector-ref
+                                                                             name
+                                                                             (- 1
+                                                                                1))
+                                                                           (list-ref
+                                                                             name
+                                                                             (- 1
+                                                                                1))))))
+                                                             (if (vector? name)
+                                                               (vector-ref
+                                                                 name
+                                                                 (- 1 1))
+                                                               (list-ref
+                                                                 name
+                                                                 (- 1 1))))))
+                                                       (begin
+                                                         (display " and ")
+                                                         (begin
+                                                           (display
+                                                             (@n_string
+                                                               (let ((name (let ((name /calls))
+                                                                             (if (vector?
+                                                                                   name)
+                                                                               (vector-ref
+                                                                                 name
+                                                                                 (- 2
+                                                                                    1))
+                                                                               (list-ref
+                                                                                 name
+                                                                                 (- 2
+                                                                                    1))))))
+                                                                 (if (vector?
+                                                                       name)
+                                                                   (vector-ref
+                                                                     name
+                                                                     (- 1 1))
+                                                                   (list-ref
+                                                                     name
+                                                                     (- 1
+                                                                        1))))))
+                                                           (newline)
+                                                           (force-output))))))))
+                                              (#t
+                                               (begin
+                                                 (display
+                                                   "Error in ATP_PROCable!!!")
+                                                 (newline)
+                                                 (force-output))))
+                                        (@trans //t/r_/make_/proc "")
+                                        (set! /change (@atp_sad /change))))
+                                 (cond ((not (@right?)) (set! /fl_flag1 1))
+                                       (#t (@right) (set! /fl_flag1 0))))
+                               (while-loop))
+                              (#t #t))))
+                    (while-loop))
+                   (#t #t)))))
+    (let while-loop ()
+      (cond ((and (@up?) (not (= (@st (@i)) //t_/a_/s)))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (let while-loop ()
+      (cond ((not (@equal? /orig (@i)))
+             (begin
+               (set! /as (@as_type))
+               (set! /found 0)
+               (set! /orig (@i))
+               (@down_last)
+               (@down)
+               (begin
+                 (display
+                   "A2P: Finding actions which only call Z...")
+                 (newline)
+                 (force-output))
+               (set! /fl_flag2 0)
+               (let while-loop ()
+                 (cond ((= /fl_flag2 0)
+                        (begin
+                          (set! /change 0)
+                          (@to 1)
+                          (set! /fl_flag1 0)
+                          (let while-loop ()
+                            (cond ((= /fl_flag1 0)
+                                   (cond ((or (equal?
+                                                (@v (list-ref (@i) (+ 1 1)))
+                                                /start)
+                                              (equal?
+                                                (@v (list-ref (@i) (+ 1 1)))
+                                                /dispatch)
+                                              (member
+                                                (@v (list-ref (@i) (+ 1 1)))
+                                                /dispatch_calls))
+                                          (cond ((not (@right?))
+                                                 (set! /fl_flag1 1))
+                                                (#t
+                                                 (@right)
+                                                 (set! /fl_flag1 0))))
+                                         (#t
+                                          (set! /calls (@calls (@i)))
+                                          (cond ((and (= (if (vector? /calls)
+                                                           (vector-length
+                                                             /calls)
+                                                           (length /calls))
+                                                         1)
+                                                      (equal?
+                                                        (let ((name (let ((name /calls))
+                                                                      (if (vector?
+                                                                            name)
+                                                                        (vector-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))
+                                                                        (list-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))))))
+                                                          (if (vector? name)
+                                                            (vector-ref
+                                                              name
+                                                              (- 1 1))
+                                                            (list-ref
+                                                              name
+                                                              (- 1 1))))
+                                                        //z)
+                                                      (<= (@stat_count (@i)) 2))
+                                                 (set! /change
+                                                   (@atp_sad /change))
+                                                 (set! /fl_flag1 0))
+                                                ((and (= (if (vector? /calls)
+                                                           (vector-length
+                                                             /calls)
+                                                           (length /calls))
+                                                         1)
+                                                      (equal?
+                                                        (let ((name (let ((name /calls))
+                                                                      (if (vector?
+                                                                            name)
+                                                                        (vector-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))
+                                                                        (list-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))))))
+                                                          (if (vector? name)
+                                                            (vector-ref
+                                                              name
+                                                              (- 1 1))
+                                                            (list-ref
+                                                              name
+                                                              (- 1 1))))
+                                                        //z)
+                                                      (@trans?
+                                                        //t/r_/make_/proc))
+                                                 (@trans //t/r_/make_/proc "")
+                                                 (set! /change
+                                                   (@atp_sad /change))
+                                                 (set! /fl_flag1 0))
+                                                ((and (= (if (vector? /calls)
+                                                           (vector-length
+                                                             /calls)
+                                                           (length /calls))
+                                                         1)
+                                                      (equal?
+                                                        (let ((name (let ((name /calls))
+                                                                      (if (vector?
+                                                                            name)
+                                                                        (vector-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))
+                                                                        (list-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))))))
+                                                          (if (vector? name)
+                                                            (vector-ref
+                                                              name
+                                                              (- 1 1))
+                                                            (list-ref
+                                                              name
+                                                              (- 1 1))))
+                                                        (@v (list-ref
+                                                              (@i)
+                                                              (+ 1 1)))))
+                                                 (cond ((not (@right?))
+                                                        (set! /fl_flag1 1))
+                                                       (#t
+                                                        (@right)
+                                                        (set! /fl_flag1 0))))
+                                                ((and (= (if (vector? /calls)
+                                                           (vector-length
+                                                             /calls)
+                                                           (length /calls))
+                                                         1)
+                                                      (equal?
+                                                        (let ((name (let ((name /calls))
+                                                                      (if (vector?
+                                                                            name)
+                                                                        (vector-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))
+                                                                        (list-ref
+                                                                          name
+                                                                          (- 1
+                                                                             1))))))
+                                                          (if (vector? name)
+                                                            (vector-ref
+                                                              name
+                                                              (- 1 1))
+                                                            (list-ref
+                                                              name
+                                                              (- 1 1))))
+                                                        (@v (list-ref
+                                                              (@i)
+                                                              (+ 1 1))))
+                                                      (@trans?
+                                                        //t/r_/make_/proc))
+                                                 (@trans //t/r_/make_/proc "")
+                                                 (set! /change
+                                                   (@atp_sad /change))
+                                                 (set! /fl_flag1 0))
+                                                ((not (@right?))
+                                                 (set! /fl_flag1 1))
+                                                (#t
+                                                 (@right)
+                                                 (set! /fl_flag1 0)))))
+                                   (while-loop))
+                                  (#t #t)))
+                          (cond ((= /change 0) (set! /fl_flag2 1))
+                                (#t (set! /found 1) (set! /fl_flag2 0))))
+                        (while-loop))
+                       (#t #t)))
+               (cond ((= /found 0)
+                      (begin
+                        (display
+                          "Finding actions which call one other action...")
+                        (newline)
+                        (force-output))
+                      (set! /fl_flag2 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag2 0)
+                               (begin
+                                 (set! /change 0)
+                                 (@to 1)
+                                 (set! /fl_flag1 0)
+                                 (let while-loop ()
+                                   (cond ((= /fl_flag1 0)
+                                          (begin
+                                            (set! /calls (@calls (@i)))
+                                            (cond ((and (not (equal?
+                                                               (@v (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1)))
+                                                               /start))
+                                                        (not (member
+                                                               (@v (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1)))
+                                                               //leave_/alone))
+                                                        (= (if (vector? /calls)
+                                                             (vector-length
+                                                               /calls)
+                                                             (length /calls))
+                                                           1)
+                                                        (null? (@set_intersect
+                                                                 (@make_set
+                                                                   (let ((l /calls)
+                                                                         (map-result
+                                                                           '()))
+                                                                     (let while-loop ()
+                                                                       (cond ((not (null? l))
+                                                                              (set! map-result
+                                                                                (cons (car (car l))
+                                                                                      map-result))
+                                                                              (set! l
+                                                                                (cdr l))
+                                                                              (while-loop))
+                                                                             (#t
+                                                                              #t)))
+                                                                     (reverse
+                                                                       map-result)))
+                                                                 //leave_/alone))
+                                                        (@atp_procable?
+                                                          /as
+                                                          /calls
+                                                          (@v (list-ref
+                                                                (@i)
+                                                                (+ 1 1))))
+                                                        (@trans?
+                                                          //t/r_/make_/proc))
+                                                   (begin
+                                                     (display "Action ")
+                                                     (begin
+                                                       (display
+                                                         (@n_string
+                                                           (@v (list-ref
+                                                                 (@i)
+                                                                 (+ 1 1)))))
+                                                       (begin
+                                                         (display
+                                                           " only calls ")
+                                                         (begin
+                                                           (display
+                                                             (@n_string
+                                                               (let ((name (let ((name /calls))
+                                                                             (if (vector?
+                                                                                   name)
+                                                                               (vector-ref
+                                                                                 name
+                                                                                 (- 1
+                                                                                    1))
+                                                                               (list-ref
+                                                                                 name
+                                                                                 (- 1
+                                                                                    1))))))
+                                                                 (if (vector?
+                                                                       name)
+                                                                   (vector-ref
+                                                                     name
+                                                                     (- 1 1))
+                                                                   (list-ref
+                                                                     name
+                                                                     (- 1
+                                                                        1))))))
+                                                           (newline)
+                                                           (force-output)))))
+                                                   (cond ((and (= (@st (list-ref
+                                                                         (list-ref
+                                                                           (@i)
+                                                                           (+ 1
+                                                                              2))
+                                                                         (+ 1
+                                                                            1)))
+                                                                  //t_/comment)
+                                                               (= (@st (list-ref
+                                                                         (list-ref
+                                                                           (@i)
+                                                                           (+ 1
+                                                                              2))
+                                                                         (+ 1
+                                                                            2)))
+                                                                  //t_/call)))
+                                                         (#t
+                                                          (@trans
+                                                            //t/r_/make_/proc
+                                                            "")))
+                                                   (set! /change
+                                                     (@atp_sad /change))))
+                                            (cond ((not (@right?))
+                                                   (set! /fl_flag1 1))
+                                                  (#t
+                                                   (@right)
+                                                   (set! /fl_flag1 0))))
+                                          (while-loop))
+                                         (#t #t)))
+                                 (cond ((= /change 0) (set! /fl_flag2 1))
+                                       (#t (set! /found 1) (set! /fl_flag2 0))))
+                               (while-loop))
+                              (#t #t)))))
+               (cond ((= /found 0)
+                      (set! /change 0)
+                      (@to 1)
+                      (set! /fl_flag1 0)
+                      (let while-loop ()
+                        (cond ((= /fl_flag1 0)
+                               (begin
+                                 (set! /calls (@calls (@i)))
+                                 (cond ((and (not (equal?
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    /start))
+                                             (not (member
+                                                    (@v (list-ref (@i) (+ 1 1)))
+                                                    //leave_/alone))
+                                             (null? (@set_intersect
+                                                      (@make_set
+                                                        (let ((l /calls)
+                                                              (map-result '()))
+                                                          (let while-loop ()
+                                                            (cond ((not (null? l))
+                                                                   (set! map-result
+                                                                     (cons (car (car l))
+                                                                           map-result))
+                                                                   (set! l
+                                                                     (cdr l))
+                                                                   (while-loop))
+                                                                  (#t #t)))
+                                                          (reverse map-result)))
+                                                      //leave_/alone))
+                                             (@atp_procable?
+                                               /as
+                                               /calls
+                                               (@v (list-ref (@i) (+ 1 1))))
+                                             (@trans? //t/r_/make_/proc))
+                                        (cond ((= (if (vector? /calls)
+                                                    (vector-length /calls)
+                                                    (length /calls))
+                                                  0)
+                                               (begin
+                                                 (display "Action ")
+                                                 (begin
+                                                   (display
+                                                     (@n_string
+                                                       (@v (list-ref
+                                                             (@i)
+                                                             (+ 1 1)))))
+                                                   (begin
+                                                     (display " has no calls.")
+                                                     (newline)
+                                                     (force-output)))))
+                                              ((= (if (vector? /calls)
+                                                    (vector-length /calls)
+                                                    (length /calls))
+                                                  2)
+                                               (begin
+                                                 (display "Action ")
+                                                 (begin
+                                                   (display
+                                                     (@n_string
+                                                       (@v (list-ref
+                                                             (@i)
+                                                             (+ 1 1)))))
+                                                   (begin
+                                                     (display " only calls ")
+                                                     (begin
+                                                       (display
+                                                         (@n_string
+                                                           (let ((name (let ((name /calls))
+                                                                         (if (vector?
+                                                                               name)
+                                                                           (vector-ref
+                                                                             name
+                                                                             (- 1
+                                                                                1))
+                                                                           (list-ref
+                                                                             name
+                                                                             (- 1
+                                                                                1))))))
+                                                             (if (vector? name)
+                                                               (vector-ref
+                                                                 name
+                                                                 (- 1 1))
+                                                               (list-ref
+                                                                 name
+                                                                 (- 1 1))))))
+                                                       (begin
+                                                         (display " and ")
+                                                         (begin
+                                                           (display
+                                                             (@n_string
+                                                               (let ((name (let ((name /calls))
+                                                                             (if (vector?
+                                                                                   name)
+                                                                               (vector-ref
+                                                                                 name
+                                                                                 (- 2
+                                                                                    1))
+                                                                               (list-ref
+                                                                                 name
+                                                                                 (- 2
+                                                                                    1))))))
+                                                                 (if (vector?
+                                                                       name)
+                                                                   (vector-ref
+                                                                     name
+                                                                     (- 1 1))
+                                                                   (list-ref
+                                                                     name
+                                                                     (- 1
+                                                                        1))))))
+                                                           (newline)
+                                                           (force-output))))))))
+                                              (#t
+                                               (begin
+                                                 (display
+                                                   "Error in ATP_PROCable!!!")
+                                                 (newline)
+                                                 (force-output))))
+                                        (@trans //t/r_/make_/proc "")
+                                        (set! /change (@atp_sad /change))))
+                                 (cond ((not (@right?)) (set! /fl_flag1 1))
+                                       (#t (@right) (set! /fl_flag1 0))))
+                               (while-loop))
+                              (#t #t)))
+                      (let while-loop ()
+                        (cond ((not (= /change 0))
+                               (begin
+                                 (set! /change 0)
+                                 (@to 1)
+                                 (set! /fl_flag1 0)
+                                 (let while-loop ()
+                                   (cond ((= /fl_flag1 0)
+                                          (begin
+                                            (set! /calls (@calls (@i)))
+                                            (cond ((and (not (equal?
+                                                               (@v (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1)))
+                                                               /start))
+                                                        (not (member
+                                                               (@v (list-ref
+                                                                     (@i)
+                                                                     (+ 1 1)))
+                                                               //leave_/alone))
+                                                        (null? (@set_intersect
+                                                                 (@make_set
+                                                                   (let ((l /calls)
+                                                                         (map-result
+                                                                           '()))
+                                                                     (let while-loop ()
+                                                                       (cond ((not (null? l))
+                                                                              (set! map-result
+                                                                                (cons (car (car l))
+                                                                                      map-result))
+                                                                              (set! l
+                                                                                (cdr l))
+                                                                              (while-loop))
+                                                                             (#t
+                                                                              #t)))
+                                                                     (reverse
+                                                                       map-result)))
+                                                                 //leave_/alone))
+                                                        (@atp_procable?
+                                                          /as
+                                                          /calls
+                                                          (@v (list-ref
+                                                                (@i)
+                                                                (+ 1 1))))
+                                                        (@trans?
+                                                          //t/r_/make_/proc))
+                                                   (cond ((= (if (vector?
+                                                                   /calls)
+                                                               (vector-length
+                                                                 /calls)
+                                                               (length /calls))
+                                                             0)
+                                                          (begin
+                                                            (display "Action ")
+                                                            (begin
+                                                              (display
+                                                                (@n_string
+                                                                  (@v (list-ref
+                                                                        (@i)
+                                                                        (+ 1
+                                                                           1)))))
+                                                              (begin
+                                                                (display
+                                                                  " has no calls.")
+                                                                (newline)
+                                                                (force-output)))))
+                                                         ((= (if (vector?
+                                                                   /calls)
+                                                               (vector-length
+                                                                 /calls)
+                                                               (length /calls))
+                                                             2)
+                                                          (begin
+                                                            (display "Action ")
+                                                            (begin
+                                                              (display
+                                                                (@n_string
+                                                                  (@v (list-ref
+                                                                        (@i)
+                                                                        (+ 1
+                                                                           1)))))
+                                                              (begin
+                                                                (display
+                                                                  " only calls ")
+                                                                (begin
+                                                                  (display
+                                                                    (@n_string
+                                                                      (let ((name (let ((name /calls))
+                                                                                    (if (vector?
+                                                                                          name)
+                                                                                      (vector-ref
+                                                                                        name
+                                                                                        (- 1
+                                                                                           1))
+                                                                                      (list-ref
+                                                                                        name
+                                                                                        (- 1
+                                                                                           1))))))
+                                                                        (if (vector?
+                                                                              name)
+                                                                          (vector-ref
+                                                                            name
+                                                                            (- 1
+                                                                               1))
+                                                                          (list-ref
+                                                                            name
+                                                                            (- 1
+                                                                               1))))))
+                                                                  (begin
+                                                                    (display
+                                                                      " and ")
+                                                                    (begin
+                                                                      (display
+                                                                        (@n_string
+                                                                          (let ((name (let ((name /calls))
+                                                                                        (if (vector?
+                                                                                              name)
+                                                                                          (vector-ref
+                                                                                            name
+                                                                                            (- 2
+                                                                                               1))
+                                                                                          (list-ref
+                                                                                            name
+                                                                                            (- 2
+                                                                                               1))))))
+                                                                            (if (vector?
+                                                                                  name)
+                                                                              (vector-ref
+                                                                                name
+                                                                                (- 1
+                                                                                   1))
+                                                                              (list-ref
+                                                                                name
+                                                                                (- 1
+                                                                                   1))))))
+                                                                      (newline)
+                                                                      (force-output))))))))
+                                                         (#t
+                                                          (begin
+                                                            (display
+                                                              "Error in ATP_PROCable!!!")
+                                                            (newline)
+                                                            (force-output))))
+                                                   (@trans //t/r_/make_/proc "")
+                                                   (set! /change
+                                                     (@atp_sad /change))))
+                                            (cond ((not (@right?))
+                                                   (set! /fl_flag1 1))
+                                                  (#t
+                                                   (@right)
+                                                   (set! /fl_flag1 0))))
+                                          (while-loop))
+                                         (#t #t))))
+                               (while-loop))
+                              (#t #t)))))
+               (let while-loop ()
+                 (cond ((and (@up?) (not (= (@st (@i)) //t_/a_/s)))
+                        (@up)
+                        (while-loop))
+                       (#t #t))))
+             (while-loop))
+            (#t #t)))
+    (begin (display " ") (newline) (force-output))
+    (set! /change /change-save)))
+
+(define (@atp_sad /change-par)
+  (let ((/change-save /change) (funct-result '()))
+    (set! /change /change-par)
+    (let while-loop ()
+      (cond ((and (not (= (@spec_type (@i)) //t_/action))
+                  (@up?))
+             (@up)
+             (while-loop))
+            (#t #t)))
+    (cond ((not (= (@spec_type (@i)) //t_/action))
+           (error "ERROR in Actions_To_Proc -- can't get back to the action!"))
+          ((@trans? //t/r_/substitute_/and_/delete)
+           (@trans //t/r_/substitute_/and_/delete "")
+           (set! /change 1))
+          (#t
+           (begin
+             (display "Cannot Substitute_And_Delete: ")
+             (begin
+               (display
+                 (@n_string (@v (list-ref (@i) (+ 1 1)))))
+               (newline)
+               (force-output)))
+           (begin
+             (display (@fail_message))
+             (newline)
+             (force-output))
+           (error "ERROR in Actions_To_Proc -- ")
+           (@right)))
+    (set! funct-result /change)
+    (set! /change /change-save)
+    funct-result))
+
+(define (@atp_procable? /as /calls /name)
+  (let ((//o/k 0) (//z (@make_name "Z")))
+    (cond ((= (if (vector? /calls)
+                (vector-length /calls)
+                (length /calls))
+              0)
+           (set! //o/k 1))
+          ((and (= (if (vector? /calls)
+                     (vector-length /calls)
+                     (length /calls))
+                   2)
+                (equal? /as "Reg"))
+           (cond ((or (and (equal?
+                             (let ((name (let ((name /calls))
+                                           (if (vector? name)
+                                             (vector-ref name (- 1 1))
+                                             (list-ref name (- 1 1))))))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             //z)
+                           (not (equal?
+                                  (let ((name (let ((name /calls))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 2 1))
+                                                  (list-ref name (- 2 1))))))
+                                    (if (vector? name)
+                                      (vector-ref name (- 1 1))
+                                      (list-ref name (- 1 1))))
+                                  /name)))
+                      (and (equal?
+                             (let ((name (let ((name /calls))
+                                           (if (vector? name)
+                                             (vector-ref name (- 2 1))
+                                             (list-ref name (- 2 1))))))
+                               (if (vector? name)
+                                 (vector-ref name (- 1 1))
+                                 (list-ref name (- 1 1))))
+                             //z)
+                           (not (equal?
+                                  (let ((name (let ((name /calls))
+                                                (if (vector? name)
+                                                  (vector-ref name (- 1 1))
+                                                  (list-ref name (- 1 1))))))
+                                    (if (vector? name)
+                                      (vector-ref name (- 1 1))
+                                      (list-ref name (- 1 1))))
+                                  /name))))
+                  (set! //o/k 1))
+                 (#t (set! //o/k 0))))
+          ((> (if (vector? /calls)
+                (vector-length /calls)
+                (length /calls))
+              1)
+           (set! //o/k 0))
+          ((and (equal? /as "Rec")
+                (= (if (vector? /calls)
+                     (vector-length /calls)
+                     (length /calls))
+                   1)
+                (equal?
+                  (@v (list-ref (@i) (+ 1 1)))
+                  (let ((name (let ((name /calls))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))))
+           (set! //o/k 1))
+          ((equal?
+             (let ((name (let ((name /calls))
+                           (if (vector? name)
+                             (vector-ref name (- 1 1))
+                             (list-ref name (- 1 1))))))
+               (if (vector? name)
+                 (vector-ref name (- 1 1))
+                 (list-ref name (- 1 1))))
+             /name)
+           (set! //o/k 0))
+          ((equal? /as "Reg") (set! //o/k 1))
+          ((and (@regular? (@i))
+                (@sas_calls_terminal?
+                  (let ((name (let ((name /calls))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))
+                  /as))
+           (set! //o/k 1))
+          ((and (@regular? (@i))
+                (@sas_calls_terminal?
+                  (let ((name (let ((name /calls))
+                                (if (vector? name)
+                                  (vector-ref name (- 1 1))
+                                  (list-ref name (- 1 1))))))
+                    (if (vector? name)
+                      (vector-ref name (- 1 1))
+                      (list-ref name (- 1 1))))
+                  /as))
+           (set! //o/k 1))
+          (#t (set! //o/k 0)))
+    (= //o/k 1)))
+
+(define (@atp_dispatch_calls //i)
+  (let ((//r '()) (/dispatch (@make_name "dispatch")))
+    (@edit)
+    (@new_program //i)
+    (@down_last)
+    (@down_last)
+    (let while-loop ()
+      (cond ((and (not (= /dispatch (@st (@i)))) (@right?))
+             (@right)
+             (while-loop))
+            (#t #t)))
+    (cond ((= /dispatch (@st (@i)))
+           (set! //r
+             (let ((l (@calls (@i))) (map-result '()))
+               (let while-loop ()
+                 (cond ((not (null? l))
+                        (set! map-result (cons (car (car l)) map-result))
+                        (set! l (cdr l))
+                        (while-loop))
+                       (#t #t)))
+               (reverse map-result)))))
+    (@undo_edit)
+    //r))
+
+#t
+

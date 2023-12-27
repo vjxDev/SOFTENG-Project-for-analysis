@@ -1,0 +1,98 @@
+(define (/foreach-proc_to_funct-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/proc_/call)
+              (equal? (@v (list-ref (@i) (+ 1 1))) (@v /name)))
+         (set! /vals (list-ref (@i) (+ 1 2)))
+         (set! /par
+           (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1)))
+         (cond ((= /add_par 1)
+                (set! /vals
+                  (@make //t_/expressions
+                         '()
+                         (concat
+                           (@cs /vals)
+                           (list (@lvalue_to_expn /par)))))))
+         (@paste_over
+           (@make 110
+                  '()
+                  (list (@make 6
+                               '()
+                               (list (@expn_to_var /par) (@make 205 0 '()))))))
+         (@down)
+         (@down_last)
+         (@paste_over
+           (@make //t_/funct_/call '() (list /name /vals)))
+         (@up)
+         (@up))))
+
+(define (@proc_to_funct_test)
+  (cond ((not (= (@st (@i)) //t_/proc))
+         (@fail "Current item is not a procedure definition"))
+        ((< (if (vector? (@posn))
+              (vector-length (@posn))
+              (length (@posn)))
+            2)
+         (@fail "Cannot move up from here to the WHERE clause"))
+        ((not (= (@size (list-ref (@i) (+ 1 3))) 1))
+         (@fail "There must be exactly one VAR parameter in the definition"))
+        ((not (= (@st (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1)))
+                 //t_/var_/lvalue))
+         (@fail "VAR parameter is not a simple variable"))
+        (#t (@pass))))
+
+(define (@proc_to_funct_code //data)
+  (let ((/name-save /name)
+        (/vals-save /vals)
+        (/assigns '())
+        (/par-save /par)
+        (/body (list-ref (@i) (+ 1 4)))
+        (/add_par-save /add_par)
+        (/posn (@posn_n)))
+    (set! /name (list-ref (@i) (+ 1 1)))
+    (set! /vals (list-ref (@i) (+ 1 2)))
+    (set! /par
+      (list-ref (list-ref (@i) (+ 1 3)) (+ 1 1)))
+    (set! /add_par 0)
+    (cond ((member (@v /par) (@uba /body))
+           (set! /add_par 1)
+           (set! /assigns
+             (@make 13
+                    '()
+                    (list (@make 6
+                                 '()
+                                 (list (@expn_to_var /par)
+                                       (@var_to_expn /par))))))
+           (set! /vals
+             (@make //t_/lvalues
+                    '()
+                    (concat (@cs /vals) (list /par)))))
+          (#t
+           (set! /assigns
+             (@make 13
+                    '()
+                    (list (@make 6
+                                 '()
+                                 (list (@expn_to_var /par)
+                                       (@make 205 0 '()))))))))
+    (@paste_over
+      (@make //t_/funct
+             '()
+             (list /name
+                   /vals
+                   /assigns
+                   /body
+                   (@lvalue_to_expn /par))))
+    (@up)
+    (@up)
+    (@foreach_statement
+      /foreach-proc_to_funct-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /name /name-save)
+    (set! /vals /vals-save)
+    (set! /par /par-save)
+    (set! /add_par /add_par-save)))
+
+#t
+

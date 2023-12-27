@@ -1,0 +1,103 @@
+(define /%const__reverse_order__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17 '() (list (@make 107 -2 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 107 -3 '()))))))))
+
+(define /%const__reverse_order__2
+  (@make 227
+         '()
+         (list (@make 305 -1 '())
+               (@make 217 -2 '())
+               (@make 217 -3 '()))))
+
+(define (@reverse_order_test)
+  (cond ((= (@st (@i)) //t_/cond)
+         (cond ((= (@size (@i)) 2) (@pass))
+               (#t
+                (@fail "The `IF' statement does not have two branches."))))
+        ((or (= (@st (@i)) //t_/if)
+             (= (@st (@i)) //t_/equal)
+             (= (@st (@i)) //t_/not_/equal)
+             (= (@st (@i)) //t_/less)
+             (= (@st (@i)) //t_/greater)
+             (= (@st (@i)) //t_/less_/eq)
+             (= (@st (@i)) //t_/greater_/eq))
+         (@pass))
+        ((or (= (@st (@i)) //t_/assignment)
+             (= (@st (@i)) //t_/plus)
+             (= (@st (@i)) //t_/times)
+             (= (@st (@i)) //t_/max)
+             (= (@st (@i)) //t_/min)
+             (= (@st (@i)) //t_/and)
+             (= (@st (@i)) //t_/or))
+         (cond ((= (@size (@i)) 2) (@pass))
+               (#t
+                (@fail "The item does not have two components."))))
+        (#t
+         (@fail "The selected item is not of a suitable type."))))
+
+(define (@reverse_order_code //data)
+  (cond ((= (@st (@i)) //t_/cond)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__reverse_order__1
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s2_save //s2)
+                        (/__/s1_save //s1)
+                        (/__/b_save //b))
+                    (set! //s2 (vector-ref /__/match_array 2))
+                    (set! //s1 (vector-ref /__/match_array 1))
+                    (set! //b (vector-ref /__/match_array 0))
+                    (@paste_over
+                      (@make 114
+                             '()
+                             (list (@make 7
+                                          '()
+                                          (list (@not //b) (@make 17 '() //s2)))
+                                   (@make 7
+                                          '()
+                                          (list (@make 308 '() '())
+                                                (@make 17 '() //s1))))))
+                    (set! //s2 /__/s2_save)
+                    (set! //s1 /__/s1_save)
+                    (set! //b /__/b_save))))))
+        ((= (@st (@i)) //t_/if)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__reverse_order__2
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/e2_save //e2)
+                        (/__/e1_save //e1)
+                        (/__/b_save //b))
+                    (set! //e2 (vector-ref /__/match_array 2))
+                    (set! //e1 (vector-ref /__/match_array 1))
+                    (set! //b (vector-ref /__/match_array 0))
+                    (@paste_over
+                      (@make 227
+                             '()
+                             (list (@not //b)
+                                   (@var_to_expn //e2)
+                                   (@var_to_expn //e1))))
+                    (set! //e2 /__/e2_save)
+                    (set! //e1 /__/e1_save)
+                    (set! //b /__/b_save))))))
+        ((= (@st (@i)) //t_/assignment)
+         (@down)
+         (@cut)
+         (@paste_after (@buffer))
+         (@up))
+        (#t (@paste_over (@swap_expn (@i))))))
+

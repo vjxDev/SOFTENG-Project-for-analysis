@@ -1,0 +1,43 @@
+(set! //t/r_/align_/nested_/vars
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/align_/nested_/vars 1)
+  "Align_Nested_Vars")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/align_/nested_/vars 1)
+  "Align_Nested_Vars")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/align_/nested_/vars 1)
+  @align_nested_vars_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/align_/nested_/vars 1)
+  @align_nested_vars_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/align_/nested_/vars 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/align_/nested_/vars 1)
+  "Aligns nested VAR blocks into a single block if the variables are all different.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/align_/nested_/vars 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/align_/nested_/vars 1)
+  "")
+

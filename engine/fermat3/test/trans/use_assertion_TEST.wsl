@@ -1,0 +1,89 @@
+C:"
+==========================================================================
+FermaT Transformation System
+Copyright (C) 2001 Software Migrations Limited.
+Email: martin@gkc.org.uk
+Copyright (C) 2018 Doni Pracner
+Email: doni.pracner@dmi.uns.ac.rs
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+==========================================================================";
+
+@Test_Trans("Test 1 (ok assert) for Use_Assertion",
+(FILL Statements   tempa := 3;
+  {tempa = 3};
+  PRINT("some text", tempa);
+  tempa := 3;
+  PRINT(tempa) ENDFILL),
+  <2>,
+  TR_Use_Assertion,
+  < >,
+  (FILL Statements tempa := 3;
+{tempa = 3};
+PRINT("some text", tempa);
+SKIP;
+PRINT(tempa) ENDFILL));
+
+@Test_Trans("Test 2 (change of val) for Use_Assertion",
+(FILL Statements
+stack := < 11 >;
+  tempa := 3;
+  {tempa = 3};
+  POP(tempa, stack);
+  PRINT(tempa);
+  tempa := 3 ENDFILL),
+  <3>,
+  TR_Use_Assertion,
+  < >,
+  (FILL Statements stack := <11>;
+tempa := 3;
+{tempa = 3};
+POP(tempa, stack);
+PRINT(tempa);
+tempa := 3 ENDFILL));
+
+@Test_Trans("Test 3 (proc call) for Use_Assertion",
+(FILL Statements
+VAR<tempa :=0, tempb := 0, stack := < 8 > >:
+BEGIN
+  tempa := 3;  
+  {tempa = 3};
+  POP(tempb, stack);
+  PRINT(tempb, tempa);
+  a14(20);
+  tempa := 3;
+  PRINT(tempb, tempa);
+  SKIP
+WHERE
+  PROC a14(par) ==
+    PRINT(par);
+    tempa := par +1
+  END
+END ENDVAR ENDFILL),
+  <1,2,1,1,2>,
+  TR_Use_Assertion,
+  < >,
+  (FILL Statements VAR < tempa := 0, tempb := 0, stack := <8> >:
+BEGIN
+  tempa := 3;
+  {tempa = 3};
+  POP(tempb, stack);
+  PRINT(tempb, tempa);
+  a14(20);
+  tempa := 3;
+  PRINT(tempb, tempa);
+  SKIP
+WHERE
+  PROC a14(par) == PRINT(par); tempa := par + 1 END
+END ENDVAR ENDFILL))

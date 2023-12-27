@@ -1,0 +1,68 @@
+(define (str-upcase! str)
+  (do ((i (- (string-length str) 1) (- i 1)))
+      ((< i 0) str)
+    (string-set!
+      str
+      i
+      (char-upcase (string-ref str i)))))
+
+(define (my-string-upcase str)
+  (str-upcase! (string-copy str)))
+
+(define (str-downcase! str)
+  (do ((i (- (string-length str) 1) (- i 1)))
+      ((< i 0) str)
+    (string-set!
+      str
+      i
+      (char-downcase (string-ref str i)))))
+
+(define (my-string-downcase str)
+  (str-downcase! (string-copy str)))
+
+(define (str-swapcase! str)
+  (do ((i (- (string-length str) 1) (- i 1)))
+      ((< i 0) str)
+    (string-set!
+      str
+      i
+      (char-swapcase (string-ref str i)))))
+
+(define (string-swapcase str)
+  (str-swapcase! (string-copy str)))
+
+(define (char-swapcase c)
+  (if (char-upper-case? c)
+    (char-downcase c)
+    (char-upcase c)))
+
+(define (my-string-index str a-char)
+  (let loop ((pos 0))
+    (cond ((>= pos (string-length str)) #f)
+          ((char=? a-char (string-ref str pos)) pos)
+          (else (loop (+ 1 pos))))))
+
+(define (substring? pattern str)
+  (let* ((pat-len (string-length pattern))
+         (search-span (- (string-length str) pat-len))
+         (c1 (if (zero? pat-len) #f (string-ref pattern 0)))
+         (c2 (if (<= pat-len 1) #f (string-ref pattern 1))))
+    (cond ((not c1) 0)
+          ((not c2) (my-string-index str c1))
+          (else
+           (let outer ((pos 0))
+             (cond ((> pos search-span) #f)
+                   ((not (char=? c1 (string-ref str pos)))
+                    (outer (+ 1 pos)))
+                   ((not (char=? c2 (string-ref str (+ 1 pos))))
+                    (outer (+ 1 pos)))
+                   (else
+                    (let inner ((i-pat 2) (i-str (+ 2 pos)))
+                      (if (>= i-pat pat-len)
+                        pos
+                        (if (char=?
+                              (string-ref pattern i-pat)
+                              (string-ref str i-str))
+                          (inner (+ 1 i-pat) (+ 1 i-str))
+                          (outer (+ 1 pos))))))))))))
+

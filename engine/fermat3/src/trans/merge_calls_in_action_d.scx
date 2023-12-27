@@ -1,0 +1,43 @@
+(set! //t/r_/merge_/calls_/in_/action
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/merge_/calls_/in_/action 1)
+  "Merge Calls in Action")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/merge_/calls_/in_/action 1)
+  "Merge_Calls_In_Action")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/merge_/calls_/in_/action 1)
+  @merge_calls_in_action_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/merge_/calls_/in_/action 1)
+  @merge_calls_in_action_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/merge_/calls_/in_/action 1)
+  (list "Simplify"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/merge_/calls_/in_/action 1)
+  "Merge Calls in Action will attempt to merge calls which call the same action, in the selected action.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/merge_/calls_/in_/action 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/merge_/calls_/in_/action 1)
+  "")
+

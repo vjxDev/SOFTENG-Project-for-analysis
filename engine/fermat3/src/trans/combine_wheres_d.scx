@@ -1,0 +1,44 @@
+(set! //t/r_/combine_/wheres (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/combine_/wheres 1)
+  "Combine Where Structures")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/combine_/wheres 1)
+  "Combine_Wheres")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/combine_/wheres 1)
+  @combine_wheres_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/combine_/wheres 1)
+  @combine_wheres_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/combine_/wheres 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/combine_/wheres 1)
+  "`Combine Where Structures' will combine two nested WHERE structures into one structure which will contain the definitions from each of the original WHERE structures. 
+
+The selected WHERE structure will be merged into an enclosing one if there is one or, failing that, into an enclosed WHERE structure.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/combine_/wheres 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/combine_/wheres 1)
+  "")
+

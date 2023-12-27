@@ -1,0 +1,2159 @@
+C:"
+==========================================================================
+FermaT Transformation System
+Copyright (C) 2001 Software Migrations Limited.
+Email: martin@gkc.org.uk
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+==========================================================================";
+
+
+C:" ----------------------------------------------------------------------- ";
+C:"                           WSL Pretty Printer                            ";
+C:"                                                                         ";
+C:" The procedure @PP_Item(I, indent, Filename) takes a WSL program         ";
+C:" (a statement sequence), an identation value, and a filename             ";
+C:" and generates a WSL source file.                                        ";
+C:" ----------------------------------------------------------------------- ";
+
+
+C:" For HTML hide this many comments or more: ";
+PP_Hide_Comments := 3;
+
+
+C:" Save the current program in the given file: ";
+MW_PROC @Checkpoint(file) ==
+  IF file <> "" THEN PRINT("Saving to file: ", file) FI;
+  @PP_Item(@Program, 80, file) .;
+
+
+HTML := 0;
+Base_Name := "";
+Margin_Link := "";
+In_Details := 0;
+In_Comment := 0;
+Skip_Newline := 0;
+
+MW_PROC @PP_Item(I, width, Filename) ==
+  VAR < Text_Width := (ABS(width) * 2) DIV 3, Max_Indent := 0, Big_Indent := 0,
+	row_no := 1, col_no := 0, Output_Port := < >, len := SLENGTH(Filename),
+        registers := @Make_Set(MAP("@Make_Name",
+                                   <"r0", "r1", "r2", "r3", "r4", "r5",
+                                    "r6", "r7", "r8", "r9", "r10", "r11",
+                                    "r12", "r13", "r14", "r15">)),
+	Keywords := <"IF", "THEN", "ELSIF", "ELSE", "FI", "WHILE", "DO", "OD",
+                     "BEGIN", "WHERE", "END", "PROC">,
+        Max_Split_Line := 65,
+	FC_Business := "",
+	FC_Business_End := "",
+	FC_Tech := "<!--",
+	FC_Tech_End := "-->",
+        FC_Newline := "",
+	FC_Turn_On := "TURN ON",
+	FC_Turn_Off := "TURN OFF",
+	nbsp := " ",
+        struct_p := @Make_Name("struct_p"), str := "" >:
+  VAR < Qry_PP_Size := @Make_Name("Qry_PP_Size_" ++ @String(Text_Width)),
+	Qry_PP_String := @Make_Name("Qry_PP_String"),
+	Qry_PPH_String := @Make_Name("Qry_PPH_String"),
+	PP_NL_Types := @Make_Set(<T_Comment, T_Proc>),
+	PP_OL_Types := @Make_Set(<T_Equal, T_Not_Equal, T_Less, T_Greater,
+				  T_Less_Eq, T_Greater_Eq, T_In, T_Not_In,
+				  T_X_BFunct_Call, T_X_Funct_Call>),
+	HTML_Header := "<HTML>
+<HEAD>
+<link rel='stylesheet' type='text/css' href='PrettyWSL.css'>
+</HEAD>
+<BODY>",
+        HTML_Footer := "</BODY></HTML>",
+	Printing := 1,
+	Data := Data_File,
+        Data_Names := HASH_TABLE,
+        Data_Lengths := HASH_TABLE,
+        Data_Origlen := HASH_TABLE,
+        Data_Repeats := HASH_TABLE,
+        Data_Fields := HASH_TABLE,
+        Data_Types := HASH_TABLE,
+        Data_Values := HASH_TABLE,
+        Init_Types := HASH_TABLE,
+        Init_Values := HASH_TABLE,
+        Init_String := HASH_TABLE,
+        Equ_Symbol := HASH_TABLE,
+	DSECT_Tag := HASH_TABLE,
+        Comment := HASH_TABLE,
+        Orig_Name := HASH_TABLE,
+        CICS_Maps := HASH_TABLE,
+        Symbol_Equ := HASH_TABLE >:
+  IF width > 0
+    THEN Max_Indent := width - Text_Width;
+         Big_Indent := (Max_Indent DIV 2) + 1;
+    ELSE Max_Indent := Omega;
+         Big_Indent := 10 FI;
+
+  IF Filename = ""
+    THEN Output_Port := Standard_Output_Port
+    ELSE Output_Port := @Open_Output_File(Filename) FI;
+  IF len > 5 AND SUBSTR(Filename, len - 5, 5) = ".html"
+    THEN HTML := 1; Base_Name := SUBSTR(Filename, 0, len - 5);
+         C:" Check for LL file and rename WSL symbols to Orig_Name  ";
+         IF Data = ""
+	   THEN Data := Base_Name ++ ".ll" FI;
+         IF @File_Exists?(Data)
+           THEN @Load_File(Data VAR Data_Names, Data_Lengths, Data_Origlen,
+                                    Data_Repeats, Data_Fields, Data_Types, Data_Values,
+                                    Init_Types, Init_Values, Init_String,
+                                    Equ_Symbol, DSECT_Tag, Comment, Orig_Name, CICS_Maps)
+           ELSE PRINT("Warning: data file `", Data, "' not found!") FI;
+
+         FOR equ IN @Hash_Keys(Equ_Symbol) DO
+           Symbol_Equ.(Equ_Symbol.(equ)) := Symbol_Equ.(Equ_Symbol.(equ)) \/ <equ> OD;
+
+
+         @PH(@WS_Replace("'", Quote, HTML_Header));
+
+         @Edit;
+         @New_Program(I);
+
+         FOREACH Statement DO
+           IFMATCH Statement !P GOBACK(VAR os)
+             THEN @Delete ENDMATCH OD;
+
+         C:" Hex strings: ";
+
+         FOREACH Expression DO
+           IF @ST(@I) = T_String AND @Starts_With?(@V(@I), "hex 0x")
+             THEN @Paste_Over(@Make(T_Expn_Pseudo, SUBSTR(@V(@I), 4), < >)) FI OD;
+
+
+         @FC_Business_Tech_Process(Orig_Name, 0);
+
+
+         I := @Program;
+         @Undo_Edit;
+
+         @PPH(I, 0, 0);
+	 @PH(HTML_Footer)
+
+    ELSE HTML := 0;
+
+         C:" Check if renaming is needed ";
+	 IF width < 0 AND INDEX(".", Filename) > 0 
+	   THEN Base_Name := SUBSTR(Filename, 0, INDEX(".", Filename));
+                Data := Base_Name ++ ".ll";
+                IF @File_Exists?(Data)
+                  THEN PRINT("Loading data file: ", Data);
+                       @Load_File(Data VAR Data_Names, Data_Lengths, Data_Origlen,
+                                           Data_Repeats, Data_Fields, Data_Types, Data_Values,
+                                           Init_Types, Init_Values, Init_String,
+                                           Equ_Symbol, DSECT_Tag, Comment, Orig_Name, CICS_Maps)
+                  ELSE PRINT("Warning: data file `", Data, "' not found!") FI;
+
+                @Edit;
+		@New_Program(I);
+		@FC_Rename(Orig_Name);
+		I := @Program;
+		@Undo_Edit FI;
+
+         @PP(I, 0, 0) FI;
+
+  @PL("");
+
+  HTML := 0;
+  IF Filename <> "" THEN @Close_Output_Port(Output_Port) FI ENDVAR ENDVAR .;
+
+
+C:" Print String and Print Line routines -- similar to @WS and @WL, but they ";
+C:" keep track of col_no and row_no ";
+
+MW_PROC @PS(x) ==
+  IF STRING?(x)
+    THEN col_no := col_no + SLENGTH(x);
+         IF Printing = 1 THEN @Write(x, Output_Port) FI
+    ELSE col_no := col_no + SLENGTH(x[1]);
+         IF Printing = 0
+	   THEN SKIP
+         ELSIF HTML = 0
+	   THEN @Write(x[1], Output_Port)
+	   ELSE @Write(x[2], Output_Port) FI FI .;
+
+MW_PROC @PL(x) ==
+  In_Comment := 0;
+  col_no := 0;
+  row_no := row_no + 1;
+  IF Printing = 1
+    THEN IF Skip_Newline = 1
+           THEN @PS(x);
+	        Skip_Newline := 0
+         ELSIF STRING?(x)
+           THEN @Write_Line(x, Output_Port)
+	 ELSIF HTML = 0
+	   THEN @Write_Line(x[1], Output_Port)
+           ELSE @Write_Line(x[2], Output_Port) FI FI .;
+
+C:" Print HTML tag without updating col_no ";
+
+MW_PROC @PH(str) ==
+  IF Printing = 1 THEN @Write(str, Output_Port) FI .;
+
+
+C:" Set up tables for a typical infix operator: ";
+
+MW_PROC @PP_Infix(type, op, prec) ==
+  PP_Type[type]		:= Type_Infix;
+  PP_Opening[type]	:= "(";
+  PP_Operator[type]	:= " " ++ op ++ " ";
+  PP_Operator1[type]	:= "";
+  PP_Operator2[type]	:= op ++ " ";
+  PP_Sub_Indent[type]	:= PP_Indent[type] + SLENGTH(PP_Operator2[type]);
+  PP_Closing[type]	:= ")";
+  PP_Prec[type]		:= prec;
+  SKIP .;
+
+
+C:" Set up tables for a typical function-like expression or condition: ";
+
+MW_PROC @PP_Funct(type, op) ==
+  PP_Type[type]         := Type_Infix;
+  PP_Opening[type]      := op ++ "(";
+  PP_Indent[type]       := SLENGTH(PP_Opening[type]);
+  PP_Sub_Indent[type]	:= PP_Indent[type];
+  PP_Operator[type]     := ", ";
+  PP_Operator1[type]    := ",";
+  PP_Operator2[type]    := "";
+  PP_Closing[type]      := ")";
+  SKIP .;
+
+C:" Set up tables for a typical proc call with VAR parameters (if split = 1): ";
+
+MW_PROC @PP_Call(type, open, op1, split) ==
+  PP_Type[type]		:= Type_Split;
+  PP_Split[type]	:= split;
+  PP_Opening[type]	:= open;
+  IF split = 1
+    THEN PP_Operator[type]	:= <op1 ++ "(", " VAR ">;
+	 PP_Operator1[type]	:= <op1 ++ "(", "">;
+	 PP_Operator2[type]	:= <"", "VAR ">
+    ELSE PP_Operator[type]	:= <op1 ++ "(">;
+	 PP_Operator1[type]	:= <op1 ++ "(">;
+	 PP_Operator2[type]	:= <""> FI;
+  PP_Closing[type]	:= ")";
+  SKIP .;
+
+C:" Set up tables for a typical Simple type: ";
+
+MW_PROC @PP_Simple(type, opening, closing) ==
+  PP_Type[type]		:= Type_Simple;
+  PP_Opening[type]	:= opening;
+  PP_Closing[type]	:= closing;
+  SKIP .;
+
+
+C:" Set up tables for a FILL type: ";
+
+MW_PROC @PP_Fill(type, keyword) ==
+  PP_Type[type]		:= Type_Infix;
+  PP_Opening[type]	:= "FILL " ++ keyword ++ " ";
+  PP_Indent[type]	:= SLENGTH(PP_Opening[type]);
+  PP_Sub_Indent[type]	:= PP_Indent[type];
+  PP_Operator[type]	:= "";
+  PP_Operator1[type]	:= "";
+  PP_Operator2[type]	:= "";
+  PP_Closing[type]	:= " ENDFILL";
+  SKIP .;
+
+
+
+C:" Backslash any Backslash or Quote characters in the string ";
+C:" (so the parser will parse it correctly) ";
+
+MW_FUNCT @Fix_Quotes(str) ==
+  VAR < n1 := INDEX(Quote, str, 0), n2 := INDEX(Backslash, str, 0) >:
+  SKIP;
+  (IF n1 = n2
+     THEN str
+     ELSE IF n1 < 0
+            THEN SUBSTR(str, 0, n2) ++ Backslash ++ Backslash
+                   ++ @Fix_Quotes(SUBSTR(str, n2 + 1))
+          ELSE IF n2 < 0
+            THEN SUBSTR(str, 0, n1) ++ Backslash ++ Quote
+                   ++ @Fix_Quotes(SUBSTR(str, n1 + 1))
+          ELSE IF n1 < n2
+            THEN SUBSTR(str, 0, n1) ++ Backslash ++ Quote
+                   ++ @Fix_Quotes(SUBSTR(str, n1 + 1))
+            ELSE SUBSTR(str, 0, n2) ++ Backslash ++ Backslash
+                   ++ @Fix_Quotes(SUBSTR(str, n2 + 1)) FI FI FI FI) .;
+
+
+MW_FUNCT @QQ(str) == : SKIP;
+  (Quote ++ @Fix_Quotes(str) ++ Quote) .;
+
+
+C:" Compute the size required by the given item and return the result as a pair: ";
+C:" <lines, chars> where 'chars' is the number of characters on the last line. ";
+C:" 'chars' is needed so that we can check if any surrounding 'closing' keywords ";
+C:" need to be moved to the next line ";
+
+C:" Note that the size is independent of the current indentation. ";
+C:" Note also that we don't actually build a string until we know that ";
+C:" it will fit on one line ";
+
+C:" For expressions and conditions, the size may depend on the parent precidence ";
+C:" since this determines whether parentheses are needed. ";
+C:" Note that the Expressions item in an Aref is printed differently to elsewhere: ";
+C:" in the form [e1][e2][e3]... ";
+
+C:" Take a list of pairs of strings and return the pair of strings ";
+C:" formed by concatenating corresponding elements in each pair: ";
+
+MW_FUNCT @Pairs(L) == : SKIP;
+  (IF EMPTY?(L)
+     THEN L
+   ELSE IF LENGTH(L) = 1
+     THEN HEAD(L)
+   ELSE IF EMPTY?(L[1])
+     THEN @Pairs(TAIL(L))
+     ELSE @Pairs(<<L[1][1] ++ L[2][1], L[1][2] ++ L[2][2]>> ++ TAIL(TAIL(L))) FI FI FI) .;
+
+MW_FUNCT @PP_Size(I, parent_prec) ==
+  VAR < Printing := 0, row_no := 1, col_no := 0 >:
+  @PP(I, 0, parent_prec);
+  (<row_no, col_no>) .;
+
+MW_FUNCT @PPH_Size(I, parent_prec) ==
+  VAR < Printing := 0, row_no := 1, col_no := 0>:
+  @PPH(I, 0, parent_prec);
+  (<row_no, col_no>) .;
+
+
+MW_PROC @PPH(I, indent, parent_prec) ==
+  IF PP_Type[@ST(I)] = Type_Simple
+    THEN @PS(@H_Open(PP_Opening[@ST(I)]));
+         @PS(@Fix_Quotes(@Value_String(I)));
+	 @PS(@H_Close(PP_Closing[@ST(I)]))
+  ELSIF Printing = 1
+    THEN @PPH_Calc(I, indent, parent_prec)
+    ELSE C:" We only want the size, so check for a stored size ";
+	 VAR < Prev := @Dtable_Get(I, Qry_PP_Size) >:
+	 IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+	   THEN Prev := TAIL(@Dtable_Value_Part(Prev));
+		IF Prev[1] = 1
+		  THEN col_no := col_no + Prev[2]
+		  ELSE row_no := row_no + Prev[1] - 1; col_no := Prev[2] FI
+	   ELSE VAR < row_save := row_no, col_save := col_no, new := < > >:
+		@PPH_Calc(I, indent, parent_prec);
+		IF row_no = row_save
+		  THEN new := <parent_prec, 1, col_no - col_save>
+		  ELSE new := <parent_prec, row_no - row_save + 1, col_no> FI;
+		@Dtable_Put(I, Qry_PP_Size, new) ENDVAR FI ENDVAR FI .;
+
+
+MW_PROC @PP(I, indent, parent_prec) ==
+  IF PP_Type[@ST(I)] = Type_Simple
+    THEN @PS(PP_Opening[@ST(I)] ++ @Fix_Quotes(@Value_String(I)) ++ PP_Closing[@ST(I)])
+  ELSIF Printing = 1
+    THEN @PP_Calc(I, indent, parent_prec)
+    ELSE C:" We only want the size, so check for a stored size ";
+	 VAR < Prev := @Dtable_Get(I, Qry_PP_Size) >:
+	 IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+	   THEN Prev := TAIL(@Dtable_Value_Part(Prev));
+		IF Prev[1] = 1
+		  THEN col_no := col_no + Prev[2]
+		  ELSE row_no := row_no + Prev[1] - 1; col_no := Prev[2] FI
+	   ELSE VAR < row_save := row_no, col_save := col_no, new := < > >:
+		@PP_Calc(I, indent, parent_prec);
+		IF row_no = row_save
+		  THEN new := <parent_prec, 1, col_no - col_save>
+		  ELSE new := <parent_prec, row_no - row_save + 1, col_no> FI;
+		@Dtable_Put(I, Qry_PP_Size, new) ENDVAR FI ENDVAR FI .;
+
+
+MW_PROC @PPH_Calc(I, indent, parent_prec) ==
+  C:" Check if item will fit on one line ";
+  C:" -- first we compute the sizes of the components: ";
+  VAR < ST := @ST(I) >:
+  VAR < type := PP_Type[ST], prec := PP_Prec[ST],
+	size := @Size(I), chars := 0, lines := 0, pair := "",
+	sizes := < >, comp := < >, one_line := 1, 
+	open := PP_Opening[ST], close := PP_Closing[ST],
+	op := PP_Operator[ST], op1 := PP_Operator1[ST], op2 := PP_Operator2[ST],
+	comps := @Components(I), split := PP_Split[ST],  opening := "",
+	sub_indent := indent + PP_Indent[@ST(I)],
+	sub2_indent := indent + PP_Sub_Indent[@ST(I)], lastL := 0,
+	save_comps := < > >:
+  VAR < openL := SLENGTH(open), closeL := SLENGTH(close) >:
+  chars := @Value_Length(I);
+  IF type = Type_Split
+    THEN IF @ST(HEAD(comps)) IN <T_Name, T_Name_Pat_One, T_Name_Var_One>
+           THEN chars := @Value_Length(HEAD(comps))
+         ELSIF @ST(HEAD(comps)) = T_Name_Var_One
+	   THEN chars := HEAD(@PPH_Size(HEAD(comps), parent_prec)) FI;
+         @Split_Preprocess(ST VAR op, op1, op2, split, comps, size, close) FI;
+  save_comps := comps;
+  C:" Components of a non-assoc operator must be bracketed, ";
+  C:" so artificially increase my precidence: ";  
+  IF ST IN PP_Non_Assoc_Ops THEN prec := PP_Prec_Increment + prec FI;
+  FOR comp IN comps DO
+    sizes := <@PPH_Size(comp, prec)> ++ sizes;
+    lines := lines + sizes[1][1];
+    chars := chars + sizes[1][2];
+    IF sizes[1][1] > 1 THEN one_line := 0 FI OD;
+  sizes := REVERSE(sizes);
+  IF chars > Text_Width THEN one_line := 0 FI;
+  C:" Check for types which must be on a line by themselves: ";
+  IF one_line = 1 AND NOT EMPTY?(@Stat_Types(I) /\ PP_NL_Types) THEN one_line := 0 FI;
+  IF @ST(I) IN PP_OL_Types THEN one_line := 1 FI;
+  IF one_line = 0
+    THEN @PPH_N_Lines(I, indent, parent_prec)
+    ELSE VAR < Prev := @Dtable_Get(I, Qry_PPH_String) >:
+	 IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+	   THEN pair := HEAD(TAIL(@Dtable_Value_Part(Prev)))
+	   ELSE pair := @PPH_1_Line(I, parent_prec);
+		@Dtable_Put(I, Qry_PPH_String, <parent_prec, pair>) FI ENDVAR;
+	 IF SLENGTH(pair[1]) <= Text_Width OR @ST(I) IN PP_OL_Types
+	   THEN @PS(pair)
+	   ELSE comps := save_comps;
+		@PPH_N_Lines(I, indent, parent_prec) FI FI ENDVAR ENDVAR ENDVAR .;
+
+
+MW_PROC @PP_Calc(I, indent, parent_prec) ==
+  C:" Check if item will fit on one line ";
+  C:" -- first we compute the sizes of the components: ";
+  VAR < ST := @ST(I) >:
+  VAR < type := PP_Type[ST], prec := PP_Prec[ST],
+	size := @Size(I), chars := 0, lines := 0, str := "",
+	sizes := < >, comp := < >, one_line := 1, 
+	open := PP_Opening[ST], close := PP_Closing[ST],
+	op := PP_Operator[ST], op1 := PP_Operator1[ST], op2 := PP_Operator2[ST],
+	comps := @Components(I), split := PP_Split[ST],  opening := "",
+	sub_indent := indent + PP_Indent[@ST(I)],
+	sub2_indent := indent + PP_Sub_Indent[@ST(I)], lastL := 0,
+	save_comps := < > >:
+  VAR < openL := SLENGTH(open), closeL := SLENGTH(close) >:
+  chars := @Value_Length(I);
+  IF type = Type_Split
+    THEN IF @ST(HEAD(comps)) IN <T_Name, T_Name_Pat_One, T_Name_Var_One>
+           THEN chars := @Value_Length(HEAD(comps))
+         ELSIF @ST(HEAD(comps)) = T_Name_Var_One
+	   THEN chars := HEAD(@PP_Size(HEAD(comps), parent_prec)) FI;
+         @Split_Preprocess(ST VAR op, op1, op2, split, comps, size, close) FI;
+  save_comps := comps;
+  C:" Components of a non-assoc operator must be bracketed, ";
+  C:" so artificially increase my precidence: ";  
+  IF ST IN PP_Non_Assoc_Ops THEN prec := PP_Prec_Increment + prec FI;
+  FOR comp IN comps DO
+    sizes := <@PP_Size(comp, prec)> ++ sizes;
+    lines := lines + sizes[1][1];
+    chars := chars + sizes[1][2];
+    IF sizes[1][1] > 1 THEN one_line := 0 FI OD;
+  sizes := REVERSE(sizes);
+  IF chars > Text_Width THEN one_line := 0 FI;
+  IF one_line = 0
+    THEN @PP_N_Lines(I, indent, parent_prec)
+    ELSE VAR < Prev := @Dtable_Get(I, Qry_PP_String) >:
+	 IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+	   THEN str := HEAD(TAIL(@Dtable_Value_Part(Prev)))
+	   ELSE str := @PP_1_Line(I, parent_prec);
+		@Dtable_Put(I, Qry_PP_String, <parent_prec, str>) FI ENDVAR;
+	 IF SLENGTH(str) <= Text_Width
+	   THEN @PS(str)
+	   ELSE comps := save_comps;
+		@PP_N_Lines(I, indent, parent_prec) FI FI ENDVAR ENDVAR ENDVAR .;
+
+
+C:" Note that @PP_1_Line doesn't itself store the string in the dbase ";
+C:" -- this avoids unnecessarily saving lots of small strings. ";
+C:" Note also that we need to return the whole string and then print it ";
+C:" (rather than printing the bits), so that we can store the whole string ";
+C:" in the dbase table. ";
+
+C:" Set up the variables, then call @PP_1_Line ";
+
+MW_FUNCT @PPH_1(I, parent_prec) ==
+  VAR < Prev := @Dtable_Get(I, Qry_PPH_String), ST := @ST(I), R := < > >:
+  IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+    THEN R := HEAD(TAIL(@Dtable_Value_Part(Prev)))
+    ELSE VAR < type := PP_Type[ST], prec := PP_Prec[ST],
+	       size := @Size(I),
+	       open := PP_Opening[ST], close := PP_Closing[ST],
+	       op := PP_Operator[ST], op1 := PP_Operator1[ST], op2 := PP_Operator2[ST],
+	       comps := @Components(I), split := PP_Split[ST] >:
+	 VAR < openL := SLENGTH(open), closeL := SLENGTH(close) >:
+	 IF type = Type_Split
+	   THEN @Split_Preprocess(ST VAR op, op1, op2, split, comps, size, close) FI ;
+	 R := @PPH_1_Line(I, parent_prec);
+	 @Dtable_Put(I, Qry_PPH_String, <parent_prec, R>) ENDVAR ENDVAR FI;
+  (R) .;
+
+MW_FUNCT @PP_1(I, parent_prec) ==
+  VAR < Prev := @Dtable_Get(I, Qry_PP_String), ST := @ST(I), R := "" >:
+  IF NOT EMPTY?(Prev) AND parent_prec = HEAD(@Dtable_Value_Part(Prev))
+    THEN R := HEAD(TAIL(@Dtable_Value_Part(Prev)))
+    ELSE VAR < type := PP_Type[ST], prec := PP_Prec[ST],
+	       size := @Size(I),
+	       open := PP_Opening[ST], close := PP_Closing[ST],
+	       op := PP_Operator[ST], op1 := PP_Operator1[ST], op2 := PP_Operator2[ST],
+	       comps := @Components(I), split := PP_Split[ST] >:
+	 VAR < openL := SLENGTH(open), closeL := SLENGTH(close) >:
+	 IF type = Type_Split
+	   THEN @Split_Preprocess(ST VAR op, op1, op2, split, comps, size, close) FI ;
+	 R := @PP_1_Line(I, parent_prec);
+	 @Dtable_Put(I, Qry_PP_String, <parent_prec, R>) ENDVAR ENDVAR FI;
+  (R) .;
+
+
+space := <" ", " ">;
+
+C:" Surround the given string with the given span class, excluding spaces: ";
+
+MW_FUNCT @H_SPAN(class, str) ==
+  VAR < p1 := 0, p2 := SLENGTH(str) - 1, R := str,
+        nospan := "()[]," >:
+  IF p2 > 0
+    THEN WHILE p1 < p2 AND SUBSTR(str, p1, 1) = " " DO p1 := p1 + 1 OD;
+         WHILE p1 < p2 AND SUBSTR(str, p2, 1) = " " DO p2 := p2 - 1 OD;
+         IF p1 < p2 AND SUBSTR(str, p1, p2 - p1 + 1) IN Keywords
+	   THEN class := "KEY" FI;
+	 IF p1 > p2
+	   THEN C:" str is all spaces "
+         ELSIF p1 = p2 AND INDEX(SUBSTR(str, p1, 1), nospan) >= 0
+	   THEN C:" no span tags needed around this character "
+           ELSE R := SUBSTR(str, 0, p1)
+                       ++ "<SPAN class='" ++ class ++ "'>"
+		       ++ @HTML(SUBSTR(str, p1, p2 - p1 + 1))
+		       ++ "</SPAN>"
+		       ++ SUBSTR(str, p2 + 1) FI FI;
+  (R) .;
+
+
+MW_FUNCT @H_Open(str) == : SKIP;
+  (<str, @H_SPAN("OPEN", str)>) .;
+
+MW_FUNCT @H_Close(str) == : SKIP;
+  (<str, @H_SPAN("CLOSE", str)>) .;
+
+MW_FUNCT @H_Op(str) == : SKIP;
+  (<str, @H_SPAN("OPER", str)>) .;
+
+
+MW_FUNCT @H_Str(str) ==
+  VAR < R := @Fix_Quotes(str) >:
+  (<R, IF @Spaces?(str)
+         THEN str
+	 ELSE "<SPAN class='STRING'>" ++ @HTML(str) ++ "</SPAN>" FI>) .;
+
+MW_FUNCT @HTML(str) == : SKIP;
+  (IF str = "" THEN str
+   ELSE IF SUBSTR(str, 0, 1) = "<" THEN "&lt;" ++ @HTML(SUBSTR(str, 1))
+   ELSE IF SUBSTR(str, 0, 1) = ">" THEN "&gt;" ++ @HTML(SUBSTR(str, 1))
+   ELSE IF SUBSTR(str, 0, 1) = "&" THEN "&amp;" ++ @HTML(SUBSTR(str, 1))
+   ELSE IF SUBSTR(str, 0, 1) = Quote THEN "&quot;" ++ @HTML(SUBSTR(str, 1))
+   ELSE SUBSTR(str, 0, 1) ++ @HTML(SUBSTR(str, 1)) FI FI FI FI FI) .;
+
+C:" Return a pair of strings containing the value of the given item: ";
+
+MW_FUNCT @H_Value(I) ==
+  VAR < ST := @ST(I), str := "", R := < > >:
+  IF NOT @Has_Value_Type?(ST)
+    THEN R := <"", "">
+  ELSIF ST = T_String
+    THEN R := @H_Str(@V(I))
+  ELSIF ST = T_Comment
+    THEN ERROR("@H_Value called on a comment!")
+  ELSIF ST = T_Number OR ST = T_Exit
+    THEN str := @String(@V(I)); R := <str, str>
+  ELSIF ST = T_Name
+    THEN str := @H_Rename(@V(I)); R := <str, @H_SPAN("NAME", str)>
+  ELSIF ST = T_Call
+    THEN str := @H_Rename(@V(I)); R := <str, @H_SPAN("CALL", str)>
+  ELSIF ST = T_Variable OR ST = T_Var_Lvalue OR ST = T_Primed_Var
+    THEN str := @H_Rename(@V(I)); R := <str, @H_SPAN("VARIABLE", str)>
+  ELSIF @Any_Pattern_Type?(ST)
+    THEN str := @N_String(@V(I)); R := <str, str>
+  ELSIF ST = T_Expn_Pseudo OR ST = T_Lvalue_Pseudo
+          OR ST = T_Cond_Pseudo OR ST = T_Stat_Pseudo
+    THEN C:" NB: Quotes should already be fixed in the string: ";
+         str := @V(I); R := <str, str>
+    ELSE @Print_WSL(I, ""); ERROR("Unexpected type in @H_Value") FI;
+  (R) .;
+
+MW_FUNCT @H_Rename(name) == : SKIP;
+  (IF EMPTY?(Orig_Name.(name))
+     THEN @N_String(name)
+     ELSE @HTML(@N_String(Orig_Name.(name))) FI) .;
+
+
+C:" If the item has a name as first component, then return its value as a string, ";
+C:" otherwise return the empty string. ";
+
+MW_FUNCT @H_Name_Value(I) ==
+  VAR < ST := < >, str := "", R := < > >:
+  IF @Cs?(I)
+    THEN ST := @ST(I^1);
+         IF ST = T_Name
+           THEN str := @N_String(@V(I^1)); R := <str, @H_SPAN("NAME", str)>
+         ELSIF ST = T_Name_Pat_One
+           THEN str := "~?" ++ @N_String(@V(I^1)); R := <str, str>
+         ELSIF ST = T_Name_Var_One
+           THEN str := "~?=" ++ @N_String(@V(I^1)); R := <str, str>
+         ELSIF ST = T_Name_Int_One
+           THEN str := "~?(" ++ HEAD(@PPH_1(I^1^1, 0)) ++ ")"; R := <str, str>
+           ELSE R := <"", ""> FI 
+    ELSE R := <"", ""> FI;
+  (R) .;
+
+
+C:" Operators split over a line: ";
+
+MW_PROC @PP_NL(op1, sub_indent, op2) ==
+  IF In_Comment = 1
+    THEN @PS("<SPAN class='CO'>");
+         @PL(@H_Op(op1));
+	 @PP_Indent(sub_indent);
+	 @PS(@H_Op(op2));
+	 @PS("</SPAN>");
+         In_Comment := 0
+    ELSE @PL(@H_Op(op1));
+         @PP_Indent(sub_indent);
+	 @PS(@H_Op(op2)) FI .;
+
+
+MW_FUNCT @H_Comment_Orig(I) == 
+  VAR < line := "", str := "" >:
+  IF @H_FermaT?(I)
+    THEN line := SUBSTR(@V(I), 9, 8);
+         class := "COF";
+         str := "<A NAME=" ++ @QQ(line) ++ "></A>"
+	          ++ "<A HREF=" ++ @QQ("source/" ++ Base_Name ++ "-asm.htm#" ++ line)
+                  ++ " TARGET=" ++ @QQ("_blank") ++ "> "
+		  ++ "<SPAN class='COF'>"
+                  ++ @WS_Replace(" ", nbsp, @HTML(SUBSTR(@V(I), 0, 17)))
+                  ++ "</SPAN></A>"
+    ELSE str := @WS_Replace(" ", nbsp, @HTML(@V(I))) FI;
+  ("<SPAN class='CO'>" ++ str ++ "</SPAN>") .;
+
+
+MW_PROC @PPH_Comment(I) == 
+  VAR < line := "", str := "", arrow := "&#8594;" >:
+  IF @H_FermaT?(I)
+    THEN IF Printing = 1
+           THEN line := SUBSTR(@V(I), 9, 8);
+                Margin_Link := "<A NAME=" ++ @QQ(line) ++ "></A>"
+	                         ++ "<A HREF="
+                                 ++ @QQ("source/" ++ Base_Name ++ "-asm.htm#" ++ line)
+                                 ++ " style=" ++ @QQ("text-decoration:none") ++ ">"
+                                 ++ arrow ++ "</A>" FI
+    ELSE IF Printing = 1 THEN In_Comment := 1 FI;
+         @PS("<SPAN class='CO'>"
+               ++ @WS_Replace(" ", nbsp, @HTML(@V(I)))
+	       ++ "</SPAN>") FI ENDVAR .;
+
+
+MW_FUNCT @PPH_1_Line(I, parent_prec) ==
+  VAR < R := < > >:
+  IF @ST(I) = T_Proc_Call AND @Size(I^2) = 0 AND @Size(I^3) = 0
+    THEN VAR < str := @PP_1(I^1, parent_prec) >:
+         R := <str, "<A HREF=" ++ @QQ("#" ++ @N_String(@V(I^1))) ++ ">"
+	               ++ str ++ "</A>" ++ "()"> ENDVAR
+  ELSIF @ST(I) = T_String AND @Starts_With?(@V(I), "hex 0x")
+    THEN R := @H_Str(SUBSTR(@V(I), 4))
+  ELSIF type = Type_Simple
+    THEN R := @Pairs(<@H_Open(open), @H_Value(I), @H_Close(close)>)
+  ELSIF type = Type_Prefix
+    THEN IF @Cs?(I^1)
+	   THEN R := @Pairs(<@H_Op(op),
+                             @H_Open(open), @PPH_1(I^1, prec), @H_Close(close)>)
+	   ELSE R := @Pairs(<@H_Op(op), @PPH_1(I^1, prec)>) FI
+  ELSIF type = Type_Infix
+    THEN IF ST = T_Sequence AND @Size(I^1) = 0
+	   THEN R := @Pairs(<@H_Open(open), space, @H_Close(close)>)
+	   ELSE C:" Components of a non-assoc operator must be bracketed, ";
+		C:" so artificially increase my precidence: ";
+		VAR < new_prec := prec >:
+		IF ST IN PP_Non_Assoc_Ops
+		  THEN new_prec := PP_Prec_Increment + prec FI;
+		IF prec = 0 OR prec < parent_prec OR (prec = Prec_And AND parent_prec = Prec_Or)
+		  THEN R := @Pairs(<@H_Open(open),
+		                    @PPH_Join(comps, op, new_prec),
+				    @H_Close(close)>)
+		  ELSE R := @PPH_Join(comps, op, new_prec) FI ENDVAR FI
+  ELSIF type = Type_Split
+    THEN R := @Pairs(<@H_Open(open), @H_Name_Value(I)>);
+	 VAR < op_1 := < > >:
+	 FOR op_1 IN op DO
+	   R := @Pairs(<R, @H_Op(op_1), @PPH_1(HEAD(comps), prec)>);
+	   comps := TAIL(comps) OD ENDVAR;
+	 R := @Pairs(<R, @H_Close(close)>)
+  ELSIF type = Type_Ifmatch
+    THEN R := @Pairs(<@H_Open(open), @PPH_1(I^1, prec)>);
+	 R := @Pairs(<R, @H_Op(op[1]), @PPH_1(I^2, prec)>);
+	 C:" Check if there is an ELSE clause ";
+	 IF @Size(I^3) = 1 AND @ST(I^3) = T_Skip
+	   THEN SKIP
+	   ELSE R := @Pairs(<R, @H_Op(op[2]), @PPH_1(I^3, prec)>) FI;
+	 R := @Pairs(<R, @H_Close(close)>)
+  ELSIF ST = T_Cond
+    THEN R := @H_Open(open);
+	 VAR < B := < >, S := < > >:
+	 WHILE NOT EMPTY?(comps) DO
+	   C:" Check for T_Guarded_Pat_XXX types (0 or 1 components): ";
+	   IF @Size(HEAD(comps)) < 2
+	     THEN R := @Pairs(<R, @PPH_1(HEAD(comps), prec)>); comps := TAIL(comps)
+             ELSE B := HEAD(comps)^1; S := HEAD(comps)^2; comps := TAIL(comps);
+		  IF EMPTY?(comps) AND @ST(B) = T_True
+		    THEN IF @Size(S) = 1 AND @ST(S^1) = T_Skip
+			   THEN SKIP
+			   ELSE R := @Pairs(<R, @H_Op(op[3]), @PPH_1(S, prec)>) FI
+		    ELSE R := @Pairs(<R, @PPH_1(B, prec), @H_Op(op[1]), @PPH_1(S, prec)>) FI FI;
+           IF NOT EMPTY?(comps)
+                AND (NOT EMPTY?(TAIL(comps)) OR @Size(HEAD(comps)) < 2
+                     OR @ST(HEAD(comps)^1) <> T_True)
+             THEN R := @Pairs(<R, @H_Op(op[2])>) FI OD;
+	 R := @Pairs(<R, @H_Close(close)>) ENDVAR
+  ELSIF ST = T_Assignment
+    THEN C:" v := e  OR  < v1 := e1, v2 := e2 > ";
+	 IF size = 1
+	   THEN R := @PPH_1(I^1, prec)
+	   ELSE R := @PPH_1(@Make(T_Assigns, < >, comps), prec) FI
+  ELSIF ST = T_Aref OR ST = T_Aref_Lvalue
+    THEN C:" a[c1][c2] ";
+	 R := @Pairs(<@PPH_1(I^1, prec), @H_Open(open),
+	              @PPH_Join(@Cs(I^2), op, prec), @H_Close(close)>)
+  ELSIF ST = T_Struct OR ST = T_Struct_Lvalue
+    THEN C:" This is special because the second component comes first: ";
+         C:" comp.name ";
+	 R := @Pairs(<@PPH_1(I^2, prec), @H_Op(op), @H_Value(I^1)>)
+  ELSIF ST = T_Where
+    THEN C:" BEGIN sts WHERE defns END ";
+	 R := @Pairs(<@H_Open(open), space, @PPH_1(I^1, prec), space, @H_Op(op),
+	              space, @PPH_1(I^2, prec), space, @H_Close(close)>)
+    ELSE PRINT("UNRECOGNISED TYPE 3: " ++
+	       @Type_Name(@ST(I)) ++ "(" ++ @ST(I)  ++ ")") FI;
+  (R) .;
+
+
+MW_FUNCT @PP_1_Line(I, parent_prec) ==
+  VAR < R := "" >:
+  IF @ST(I) = T_String
+    THEN R := open ++ @Fix_Quotes(@Value_String(I)) ++ close
+  ELSIF type = Type_Simple
+    THEN R := open ++ @Value_String(I) ++ close
+  ELSIF type = Type_Prefix
+    THEN IF @Cs?(I^1)
+	   THEN R := op ++ open ++ @PP_1(I^1, prec) ++ close
+	   ELSE R := op ++ @PP_1(I^1, prec) FI
+  ELSIF type = Type_Infix
+    THEN IF ST = T_Sequence AND @Size(I^1) = 0
+	   THEN R := open ++ " " ++ close
+	   ELSE C:" Components of a non-assoc operator must be bracketed, ";
+		C:" so artificially increase my precidence: ";
+		VAR < new_prec := prec >:
+		IF ST IN PP_Non_Assoc_Ops
+		  THEN new_prec := PP_Prec_Increment + prec FI;
+		IF prec = 0 OR prec < parent_prec
+		  THEN R := open ++ @PP_Join(comps, op, new_prec) ++ close
+		  ELSE R := @PP_Join(comps, op, new_prec) FI ENDVAR FI
+  ELSIF type = Type_Split
+    THEN R := open ++ @Name_Value(I);
+	 VAR < op_1 := < > >:
+	 FOR op_1 IN op DO
+	   R := R ++ op_1 ++ @PP_1(HEAD(comps), prec);
+	   comps := TAIL(comps) OD ENDVAR;
+	 R := R ++ close
+  ELSIF type = Type_Ifmatch
+    THEN R := open ++ @PP_1(I^1, prec);
+	 R := R ++ op[1] ++ @PP_1(I^2, prec);
+	 C:" Check if there is an ELSE clause ";
+	 IF @Size(I^3) = 1 AND @ST(I^3) = T_Skip
+	   THEN SKIP
+	   ELSE R := R ++ op[2] ++ @PP_1(I^3, prec) FI;
+	 R := R ++ close
+  ELSIF ST = T_Cond
+    THEN R := open;
+	 VAR < B := < >, S := < > >:
+	 WHILE NOT EMPTY?(comps) DO
+	   C:" Check for T_Guarded_Pat_XXX types (0 or 1 components): ";
+	   IF @Size(HEAD(comps)) < 2
+	     THEN R := R ++ @PP_1(HEAD(comps), prec); comps := TAIL(comps)
+             ELSE B := HEAD(comps)^1; S := HEAD(comps)^2; comps := TAIL(comps);
+		  IF EMPTY?(comps) AND @ST(B) = T_True
+		    THEN IF @Size(S) = 1 AND @ST(S^1) = T_Skip
+			   THEN SKIP
+			   ELSE R := R ++ op[3] ++ @PP_1(S, prec) FI
+		    ELSE R := R ++ @PP_1(B, prec) ++ op[1] ++ @PP_1(S, prec) FI FI;
+           IF NOT EMPTY?(comps)
+                AND (NOT EMPTY?(TAIL(comps)) OR @Size(HEAD(comps)) < 2
+                     OR @ST(HEAD(comps)^1) <> T_True)
+             THEN R := R ++ op[2] FI OD;
+	 R := R ++ close ENDVAR
+  ELSIF ST = T_Assignment
+    THEN C:" v := e  OR  < v1 := e1, v2 := e2 > ";
+	 IF size = 1
+	   THEN R := @PP_1(I^1, prec)
+	   ELSE R := @PP_1(@Make(T_Assigns, < >, comps), prec) FI
+  ELSIF ST = T_Aref OR ST = T_Aref_Lvalue
+    THEN C:" a[c1][c2] ";
+	 R := @PP_1(I^1, prec) ++ open ++ @PP_Join(@Cs(I^2), op, prec) ++ close
+  ELSIF ST = T_Struct OR ST = T_Struct_Lvalue
+    THEN C:" This is special because the second component comes first: ";
+         C:" comp.name ";
+	 R := @PP_1(I^2, prec) ++ op ++ @N_String(@V(I^1))
+  ELSIF ST = T_Where
+    THEN C:" BEGIN sts WHERE defns END ";
+	 R := open ++ " " ++ @PP_1(I^1, prec) ++ " " ++ op ++ " "
+	        ++ @PP_1(I^2, prec) ++ " " ++ close
+    ELSE PRINT("UNRECOGNISED TYPE 3: " ++
+	       @Type_Name(@ST(I)) ++ "(" ++ @ST(I)  ++ ")") FI;
+  (R) .;
+
+
+C:" Print the item on several lines, at the given indent. ";
+C:" Cursor starts at the indent level on the first line. ";
+C:" Cursor finishes at the end of printing on the last line. ";
+
+MW_PROC @PPH_N_Lines(I, indent, parent_prec) ==
+  VAR < lastL := 0, last := < > >:
+  C:" lastL is the length of the last line of the last component: ";
+  lastL := HEAD(TAIL(LAST(sizes)));
+  IF @ST(I) = T_Comment OR @ST(I) = T_Proc_Call
+    THEN @PS(@PPH_1_Line(I, 0))
+  ELSIF type = Type_Simple
+    THEN @PS(@H_Open(open));
+         @PS(@Fix_Quotes(@Value_String(I)));
+	 @PS(@H_Close(close))
+  ELSIF type = Type_Prefix
+    THEN IF @Cs?(I^1)
+	   THEN C:" Include the brackets ";
+		@PS(@H_Op(op));
+		@PS(@H_Open(open));
+		@PPH(I^1, sub2_indent, prec);
+		@PS(@H_Close(close))
+	   ELSE @PS(@H_Op(op)); @PPH(I^1, sub2_indent, prec) FI
+  ELSIF type = Type_Infix
+    THEN C:" Each component goes on a new line ";
+	 C:" Components of a non-assoc operator must be bracketed, ";
+	 C:" so artificially increase my precidence: ";
+	 VAR < new_prec := prec >:
+	 IF ST IN PP_Non_Assoc_Ops
+	   THEN new_prec := PP_Prec_Increment + prec FI;
+	 IF prec = 0 OR prec < parent_prec OR (prec = Prec_And AND parent_prec = Prec_Or)
+	   THEN C:" Include the brackets ";
+		@PS(@H_Open(open));
+		C:" Check if the first item will fit within the indent ";
+		IF sizes[1][1] = 1 AND sizes[1][2] + openL <= sub_indent - indent
+		  THEN @PS(@PPH_1(HEAD(comps), new_prec)); @PS(@H_Op(op));
+		       comps := TAIL(comps) FI
+	   ELSE C:" Check if the first item will fit within the indent ";
+		IF sizes[1][1] = 1 AND sizes[1][2] <= sub_indent - indent
+		  THEN @PS(@PPH_1(HEAD(comps), new_prec)); @PS(@H_Op(op));
+		       comps := TAIL(comps) FI FI;
+         WHILE NOT EMPTY?(comps) DO
+           C:" Check for a section of comment statements: ";
+           IF @ST(HEAD(comps)) = T_Comment
+	     THEN C:" Take out op1 (= ';') for comments: ";
+	          @PPH_Comments("", sub_indent, op2 VAR comps)
+	     ELSE IF @ST(HEAD(comps)) = T_A_Proc_Call AND TPF_name IN @Assigned(HEAD(comps))
+                    THEN @PPH_TPF(HEAD(comps), sub2_indent, prec)
+                    ELSE @PPH(HEAD(comps), sub2_indent, prec) FI;
+		  last := HEAD(comps);
+                  comps := TAIL(comps);
+		  WHILE NOT EMPTY?(comps) AND @H_FermaT?(HEAD(comps)) DO
+		    @PPH_Comment(HEAD(comps));
+		    comps := TAIL(comps) OD;
+                  IF @H_Count_Comments(comps) >= PP_Hide_Comments
+		    THEN IF @ST(last) <> T_Comment THEN @PS(op1) FI
+		  ELSIF NOT EMPTY?(comps) AND @ST(HEAD(comps)) = T_Proc
+                    THEN @PL(<"", "">)
+		  ELSIF NOT EMPTY?(comps)
+                    THEN @PP_NL(op1, sub_indent, op2) FI FI OD;
+	 IF prec = 0 OR prec < parent_prec OR (prec = Prec_And AND parent_prec = Prec_Or)
+	   THEN @PP_Close(lastL, prec, indent, sub2_indent, close) FI ENDVAR
+  ELSIF type = Type_Split
+    THEN IF @ST(I) = T_Proc
+           THEN @PH("<HR>");
+	        @PP_Indent(indent);
+	        @PH("<A NAME=" ++ @QQ(@N_String(@V(I^1))) ++ ">") FI;
+         C:" Check if the split items will fit on the first line ";
+	 VAR < chars1 := 0, i := 0 >:
+	 chars1 := openL + @Name_Length(I);
+	 FOR i := 1 TO split STEP 1 DO
+	   IF sizes[i][1] > 1 THEN chars1 := Text_Width + 1 FI;
+	   chars1 := chars1 + SLENGTH(op[i]) + sizes[i][2] OD;
+	 IF chars1 <= Text_Width
+	   THEN C:" All the first section goes on one line ";
+		C:" No newline if this is short. ";
+		@PS(@H_Open(open)); @PS(@H_Name_Value(I));
+		FOR i := 1 TO split STEP 1 DO
+		  @PS(@H_Op(op[i])); @PS(@PPH_1(comps[i], prec)) OD;
+		IF split < size
+		  THEN IF @ST(I) = T_Proc AND @H_Count_Comments(@Cs(I^4)) >= PP_Hide_Comments
+                         THEN @PS(@H_Op(op[split + 1]))
+		       ELSIF chars1 > sub_indent - indent
+			 THEN IF @ST(comps[split + 1]) = T_Statements
+			            AND @H_FermaT?(comps[split + 1]^1)
+		                THEN @PPH_Comment(comps[split + 1]^1) FI;
+			      @PP_NL(op1[split + 1], sub_indent, op2[split + 1])
+			 ELSE @PS(@H_Op(op[split + 1])) FI FI
+	   ELSE C:" Split the first section on each component ";
+		C:" Check if open+val+op[1] needs to go on a separate line ";
+		chars1 := openL + @Name_Length(I) + SLENGTH(op[1]);
+		@PS(@H_Open(open)); @PS(@H_Name_Value(I));
+		IF chars1 <= Big_Indent
+		  THEN C:" First item goes on the first line: ";
+		       sub3_indent := indent + chars1;
+		       @PS(@H_Op(op[1])); 
+		       IF split > 0
+			 THEN @PPH(comps[1], sub3_indent + SLENGTH(op[1]), prec) FI
+		  ELSE C:" First item starts on the next line: ";
+		       sub3_indent := sub2_indent;
+		       @PP_NL(op1[1], sub3_indent, op2[1]);
+		       IF split > 0
+			 THEN @PPH(comps[1], sub3_indent + SLENGTH(op2[1]), prec) FI FI;
+		C:" Remaining items in the first section each go on a new line ";
+		FOR i := 2 TO split STEP 1 DO
+		  @PP_NL(op1[i], sub3_indent, op2[i]);
+		  @PPH(comps[i], sub3_indent + SLENGTH(op2[i]), prec) OD;
+		IF split < size
+		  THEN @PP_NL(op1[split + 1], sub_indent, op2[split + 1]) FI FI;
+         IF @ST(I) = T_Proc THEN @PH("</A>") FI;         
+	 C:" Print the items after the split, each on a separate line: ";
+	 FOR i := split + 1 TO size STEP 1 DO
+	   @PPH(comps[i], sub2_indent, prec);
+	   IF i < size
+	     THEN @PP_NL(op1[i + 1], sub_indent, op2[i + 1]) FI OD;
+         @PP_Close(lastL, prec, indent, sub2_indent, close) ENDVAR
+  ELSIF type = Type_Ifmatch
+    THEN C:" Each component goes on a separate line, ";
+	 C:" but check if we need a line for the ELSE clause ";
+	 @PS(@H_Open(open)); @PPH(I^1, indent + openL, prec);
+	 @PP_NL(op1[1], sub_indent, op2[1]);
+	 @PPH(I^2, sub2_indent, prec);
+	 IF @Size(I^3) = 1 AND @ST(I^3) = T_Skip
+	   THEN lastL := sizes[2][2]
+	   ELSE @PP_NL(op1[2], sub_indent, op2[2]);
+		@PPH(I^3, sub2_indent, prec) FI;
+	 @PP_Close(lastL, prec, indent, sub2_indent, close)
+  ELSIF ST = T_Cond
+    THEN C:" Split on each THEN/ELSE: ";
+	 @PS(@H_Open(open));
+	 VAR < B := < >, S := < >, sub3_indent := indent + openL >:
+	 WHILE NOT EMPTY?(comps) DO
+	   C:" Check for T_Guarded_Pat_XXX types (0 or 1 components): ";
+	   IF @Size(HEAD(comps)) < 2
+	     THEN @PPH(HEAD(comps), sub3_indent, prec); comps := TAIL(comps)
+	     ELSE B := HEAD(comps)^1; S := HEAD(comps)^2; comps := TAIL(comps);                  
+		  IF EMPTY?(comps) AND @ST(B) = T_True
+		    THEN IF @Size(S) = 1 AND @ST(S^1) = T_Skip
+			   THEN SKIP
+			   ELSE @PP_NL(op1[3], sub_indent, op2[3]);
+				@PPH(S, sub2_indent, prec) FI
+		    ELSE @PPH(B, sub3_indent, prec);
+			 @PP_NL(op1[1], sub_indent, op2[1]);
+			 @PPH(S, sub2_indent, prec) FI FI;
+           IF NOT EMPTY?(comps)
+                AND (NOT EMPTY?(TAIL(comps)) OR @Size(HEAD(comps)) < 2
+                     OR @ST(HEAD(comps)^1) <> T_True)
+             THEN @PP_NL(op1[2], indent, op2[2]);
+                  sub3_indent := indent + SLENGTH(op2[2]) FI OD;
+         @PP_Close(HEAD(TAIL(@PPH_Size(S, prec))), prec, indent, sub2_indent, close) ENDVAR
+  ELSIF ST = T_Assignment
+    THEN C:" v := e  OR  < v1 := e1, v2 := e2 > ";
+	 IF size = 1
+	   THEN @PPH(I^1, indent, prec)
+	   ELSE C:" Print the assigns ";
+		@PPH(@Make(T_Assigns, < >, comps), indent, prec) FI
+  ELSIF ST = T_Aref OR ST = T_Aref_Lvalue
+    THEN C:" a[x][y] ";
+	 @PPH(I^1, indent, prec); @PS(open);
+	 C:" Check if comp1+opening will fit inside the indent: ";
+	 IF sizes[1][1] = 1 AND sizes[1][2] + openL <= sub_indent - indent
+	   THEN sub_indent := indent + sizes[1][2];
+		sub2_indent := indent + sizes[1][2] + openL
+	   ELSE @PL(<"", "">); @PP_Indent(sub2_indent) FI;
+	 comps := @Cs(I^2);
+	 lastL := HEAD(TAIL(@PPH_Size(LAST(comps), prec)));
+	 WHILE NOT EMPTY?(comps) DO
+	   @PPH(HEAD(comps), sub2_indent, prec); comps := TAIL(comps);
+	   IF NOT EMPTY?(comps)
+	     THEN @PP_NL(op1, sub_indent, op2) FI OD;
+	 @PP_Close(lastL, prec, indent, sub2_indent, close)
+  ELSIF ST = T_Struct OR ST = T_Struct_Lvalue
+    THEN C:" comp.name ";
+	 @PPH(I^2, sub2_indent, prec);
+	 @PP_NL("", sub_indent, op);
+	 @PS(@H_Value(I^1))
+  ELSIF ST = T_Where
+    THEN C:" BEGIN stats WHERE defs END ";
+	 @PL(@H_Open(open)); @PP_Indent(sub2_indent);
+	 @PPH(I^1, sub2_indent, prec);
+         @PL(<"", "">);
+	 IF FALSE
+	   THEN @PL(<"", "">); @PP_Indent(sub_indent);
+	        @PL(@H_Op(op)); @PP_Indent(sub2_indent) FI;
+	 @PPH(I^2, sub2_indent, prec);
+	 @PL(<"", "">); @PP_Indent(sub_indent); @PS(@H_Close(close))
+    ELSE PRINT("UNRECOGNISED TYPE 4: " ++
+	       @Type_Name(@ST(I)) ++ "(" ++ @ST(I)  ++ ")") FI ENDVAR .;
+
+
+
+MW_PROC @PP_N_Lines(I, indent, parent_prec) ==
+  VAR < lastL := 0 >:
+  C:" lastL is the length of the last line of the last component: ";
+  lastL := HEAD(TAIL(LAST(sizes)));
+  IF @ST(I) = T_String
+    THEN @PS(open ++ @Fix_Quotes(@Value_String(I)) ++ close)
+  ELSIF type = Type_Simple
+    THEN @PS(open ++ @Value_String(I) ++ close)
+  ELSIF type = Type_Prefix
+    THEN IF @Cs?(I^1)
+	   THEN C:" Include the brackets ";
+		@PS(op);
+		@PS(open);
+		@PP(I^1, sub2_indent, prec);
+		@PS(close)
+	   ELSE @PS(op); @PP(I^1, sub2_indent, prec) FI
+  ELSIF type = Type_Infix
+    THEN C:" Each component goes on a new line ";
+	 C:" Components of a non-assoc operator must be bracketed, ";
+	 C:" so artificially increase my precidence: ";
+	 VAR < new_prec := prec >:
+	 IF ST IN PP_Non_Assoc_Ops
+	   THEN new_prec := PP_Prec_Increment + prec FI;
+	 IF prec = 0 OR prec < parent_prec
+	   THEN C:" Include the brackets ";
+		@PS(open);
+		C:" Check if the first item will fit within the indent ";
+		IF sizes[1][1] = 1 AND sizes[1][2] + openL <= sub_indent - indent
+		  THEN @PS(@PP_1(HEAD(comps), new_prec)); @PS(op);
+		       comps := TAIL(comps) FI
+	   ELSE C:" Check if the first item will fit within the indent ";
+		IF sizes[1][1] = 1 AND sizes[1][2] <= sub_indent - indent
+		  THEN @PS(@PP_1(HEAD(comps), new_prec)); @PS(op);
+		       comps := TAIL(comps) FI FI;
+	 WHILE NOT EMPTY?(comps) DO
+	   @PP(HEAD(comps), sub2_indent, prec);
+	   comps := TAIL(comps);
+	   IF NOT EMPTY?(comps)
+	     THEN @PL(op1); @PP_Indent(sub_indent); @PS(op2) FI OD;
+	 IF prec = 0 OR prec < parent_prec
+	   THEN @PP_Close(lastL, prec, indent, sub2_indent, close) FI ENDVAR
+  ELSIF type = Type_Split
+    THEN C:" Check if the split items will fit on the first line ";
+	 VAR < chars1 := 0, i := 0 >:
+	 chars1 := openL + @Name_Length(I);
+	 FOR i := 1 TO split STEP 1 DO
+	   IF sizes[i][1] > 1 THEN chars1 := Text_Width + 1 FI;
+	   chars1 := chars1 + SLENGTH(op[i]) + sizes[i][2] OD;
+	 IF chars1 <= Text_Width
+	   THEN C:" All the first section goes on one line ";
+		C:" No newline if this is short. ";
+		@PS(open); @PS(@Name_Value(I));
+		FOR i := 1 TO split STEP 1 DO
+		  @PS(op[i] ++ @PP_1(comps[i], prec)) OD;
+		IF split < size
+		  THEN IF chars1 > sub_indent - indent
+			 THEN @PL(op1[split + 1]);
+			      @PP_Indent(sub_indent);
+			      @PS(op2[split + 1])
+			 ELSE @PS(op[split + 1]) FI FI
+	   ELSE C:" Split the first section on each component ";
+		C:" Check if open+val+op[1] needs to go on a separate line ";
+		chars1 := openL + @Name_Length(I) + SLENGTH(op[1]);
+		@PS(open); @PS(@Name_Value(I));
+		IF chars1 <= Big_Indent
+		  THEN C:" First item goes on the first line: ";
+		       sub3_indent := indent + chars1;
+		       @PS(op[1]); 
+		       IF split > 0
+			 THEN @PP(comps[1], sub3_indent + SLENGTH(op[1]), prec) FI
+		  ELSE C:" First item starts on the next line: ";
+		       sub3_indent := sub2_indent;
+		       @PL(op1[1]); @PP_Indent(sub3_indent); @PS(op2[1]);
+		       IF split > 0
+			 THEN @PP(comps[1], sub3_indent + SLENGTH(op2[1]), prec) FI FI;
+		C:" Remaining items in the first section each go on a new line ";
+		FOR i := 2 TO split STEP 1 DO
+		  @PL(op1[i]); @PP_Indent(sub3_indent); @PS(op2[i]);
+		  @PP(comps[i], sub3_indent + SLENGTH(op2[i]), prec) OD;
+		IF split < size
+		  THEN @PL(op1[split + 1]);
+		       @PP_Indent(sub_indent);
+		       @PS(op2[split + 1]) FI FI;
+	 C:" Print the items after the split, each on a separate line: ";
+	 FOR i := split + 1 TO size STEP 1 DO
+	   @PP(comps[i], sub2_indent, prec);
+	   IF i < size
+	     THEN @PL(op1[i + 1]); @PP_Indent(sub_indent); @PS(op2[i + 1]) FI OD;
+	 @PP_Close(lastL, prec, indent, sub2_indent, close) ENDVAR
+  ELSIF type = Type_Ifmatch
+    THEN C:" Each component goes on a separate line, ";
+	 C:" but check if we need a line for the ELSE clause ";
+	 @PS(open); @PP(I^1, indent + openL, prec);
+	 @PL(op1[1]); @PP_Indent(sub_indent); @PS(op2[1]);
+	 @PP(I^2, sub2_indent, prec);
+	 IF @Size(I^3) = 1 AND @ST(I^3) = T_Skip
+	   THEN lastL := sizes[2][2]
+	   ELSE @PL(op1[2]); @PP_Indent(sub_indent); @PS(op2[2]);
+		@PP(I^3, sub2_indent, prec) FI;
+	 @PP_Close(lastL, prec, indent, sub2_indent, close)
+  ELSIF ST = T_Cond
+    THEN C:" Split on each THEN/ELSE: ";
+	 @PS(open);
+	 VAR < B := < >, S := < >, sub3_indent := indent + openL >:
+	 WHILE NOT EMPTY?(comps) DO
+	   C:" Check for T_Guarded_Pat_XXX types (0 or 1 components): ";
+	   IF @Size(HEAD(comps)) < 2
+	     THEN @PP(HEAD(comps), sub3_indent, prec); comps := TAIL(comps)
+	     ELSE B := HEAD(comps)^1; S := HEAD(comps)^2; comps := TAIL(comps);
+		  IF EMPTY?(comps) AND @ST(B) = T_True
+		    THEN IF @Size(S) = 1 AND @ST(S^1) = T_Skip
+			   THEN SKIP
+			   ELSE @PL(op1[3]); @PP_Indent(sub_indent); @PS(op2[3]);
+				@PP(S, sub2_indent, prec) FI
+		    ELSE @PP(B, sub3_indent, prec);
+			 @PL(op1[1]); @PP_Indent(sub_indent); @PS(op2[1]);
+			 @PP(S, sub2_indent, prec) FI FI;
+           IF NOT EMPTY?(comps)
+                AND (NOT EMPTY?(TAIL(comps)) OR @Size(HEAD(comps)) < 2
+                     OR @ST(HEAD(comps)^1) <> T_True)
+             THEN @PL(op1[2]); @PP_Indent(indent); @PS(op2[2]);
+                  sub3_indent := indent + SLENGTH(op2[2]) FI OD;
+	 @PP_Close(HEAD(TAIL(@PP_Size(S, prec))), prec, indent, sub2_indent, close) ENDVAR
+  ELSIF ST = T_Assignment
+    THEN C:" v := e  OR  < v1 := e1, v2 := e2 > ";
+	 IF size = 1
+	   THEN @PP(I^1, indent, prec)
+	   ELSE C:" Print the assigns ";
+		@PP(@Make(T_Assigns, < >, comps), indent, prec) FI
+  ELSIF ST = T_Aref OR ST = T_Aref_Lvalue
+    THEN C:" a[x][y] ";
+	 @PP(I^1, indent, prec); @PS(open);
+	 C:" Check if comp1+opening will fit inside the indent: ";
+	 IF sizes[1][1] = 1 AND sizes[1][2] + openL <= sub_indent - indent
+	   THEN sub_indent := indent + sizes[1][2];
+		sub2_indent := indent + sizes[1][2] + openL
+	   ELSE @PL(""); @PP_Indent(sub2_indent) FI;
+	 comps := @Cs(I^2);
+	 lastL := HEAD(TAIL(@PP_Size(LAST(comps), prec)));
+	 WHILE NOT EMPTY?(comps) DO
+	   @PP(HEAD(comps), sub2_indent, prec); comps := TAIL(comps);
+	   IF NOT EMPTY?(comps)
+	     THEN @PL(op1); @PP_Indent(sub_indent); @PS(op2) FI OD;
+	 @PP_Close(lastL, prec, indent, sub2_indent, close)
+  ELSIF ST = T_Struct OR ST = T_Struct_Lvalue
+    THEN C:" comp.name ";
+	 @PP(I^2, sub2_indent, prec);
+	 @PL(""); @PP_Indent(sub_indent); @PS(op ++ @N_String(@V(I^1)))
+  ELSIF ST = T_Where
+    THEN C:" BEGIN stats WHERE defs END ";
+	 @PL(open); @PP_Indent(sub2_indent);
+	 @PP(I^1, sub2_indent, prec);
+	 @PL(""); @PP_Indent(sub_indent); @PL(op); @PP_Indent(sub2_indent);
+	 @PP(I^2, sub2_indent, prec);
+	 @PL(""); @PP_Indent(sub_indent); @PS(close)
+    ELSE PRINT("UNRECOGNISED TYPE 4: " ++
+	       @Type_Name(@ST(I)) ++ "(" ++ @ST(I)  ++ ")") FI ENDVAR .;
+
+
+C:" Check if the closing string needs to go on a new line: ";
+C:" Have just printed `chars' at indent `sub_indent', if there is enough space ";
+C:" for `closing' then print it, otherwise start a new line and print `closing' ";
+C:" at indent `indent'. In the latter case, strip an initial space from `closing' ";
+
+MW_PROC @PP_Close(chars, prec, indent, sub_indent, closing) ==
+  VAR < len := SLENGTH(closing) >:
+  IF HTML = 1 AND (closing = " FI" OR closing = " OD" OR closing = " END")
+    THEN C:" Put on next line for HTML: ";
+         @PL(<"", "">); @PP_Indent(indent);
+	 @PS(@H_Close(SUBSTR(closing, 1)))
+  ELSIF len <= 1 OR (sub_indent - indent + chars + len <= Text_Width AND Margin_Link = "")
+    THEN @PS(@H_Close(closing))
+    ELSE In_Details := 0;
+         @PL(<"", "">); @PP_Indent(indent);
+	 IF len > 0 AND SUBSTR(closing, 0, 1) = " "
+	   THEN @PS(@H_Close(SUBSTR(closing, 1)))
+	   ELSE @PS(@H_Close(closing)) FI FI ENDVAR .;
+
+
+C:" Print the appropriate number of indentation spaces: ";
+
+MW_PROC @PP_Indent(indent) ==
+  IF HTML = 0
+    THEN @PS(SUBSTR(Spaces, 0, indent MOD Max_Indent))
+    ELSE col_no := col_no + indent;
+         IF Margin_Link <> "" AND In_Details = 0 AND Printing = 1
+	   THEN @PH(Margin_Link);
+		Margin_Link := ""
+         ELSIF TRUE
+	   THEN @PH(nbsp)
+	   ELSE C:" Version for variable-width fonts: ";
+	        @PH("<span style=" ++ @QQ("color: white") ++ ">&#8594;</span>") FI;
+         FOR i := 1 TO indent STEP 1 DO
+           @PH(nbsp) OD FI .;
+
+
+C:" Is this item a FermaT comment? ";
+
+MW_BFUNCT @H_FermaT?(I) == : SKIP;
+  (@ST(I) = T_Comment AND SLENGTH(@V(I)) > 17 
+      AND SUBSTR(@V(I), 0, 9) = "<FermaT> ") .;
+
+C:" Pretty-print one or more HTML comments at the start of comps, one per line: ";
+
+MW_PROC @PPH_Comments(op1, sub_indent, op2 VAR comps) ==
+  VAR < n := 0, comments := < >, indent_str := "" >:
+  WHILE NOT EMPTY?(comps) AND @ST(HEAD(comps)) = T_Comment DO
+    IF @H_FermaT?(HEAD(comps))
+      THEN @PPH_Comment(HEAD(comps))
+      ELSE comments := <HEAD(comps)> ++ comments FI;
+    comps := TAIL(comps) OD;
+  n := LENGTH(comments);
+  IF n = 0
+    THEN C:" There were only FermaT comments "
+    ELSE C:" Put any FermaT comment link after the comments, not on the first comment! ";
+         In_Details := 1;
+         IF n >= PP_Hide_Comments
+           THEN In_Details := 1;
+	        indent_str := "";
+		FOR i := 1 TO sub_indent - 1 STEP 1 DO
+		  indent_str := indent_str ++ nbsp OD;
+	        @PH("<BR><DETAILS class='CO'><SUMMARY>" ++ indent_str ++ "===== " ++ @String(n)
+                     ++ " Comments hidden (click to expand)" 
+                     ++ " =====</SUMMARY>");
+                @PP_Indent(sub_indent); @PS(@H_Op(op2)) FI;
+         comments := REVERSE(comments);
+         WHILE NOT EMPTY?(comments) DO
+           @PPH_Comment(HEAD(comments));
+           comments := TAIL(comments);
+           IF NOT EMPTY?(comments)
+             THEN @PP_NL(op1, sub_indent, op2) FI OD;
+        IF n >= PP_Hide_Comments AND NOT EMPTY?(comps)
+           THEN @PL(@H_Op(op1));
+                @PH("</DETAILS>");
+		In_Details := 0;
+		In_Comment := 0;
+		@PP_Indent(sub_indent);
+                @PS(@H_Op(op2))
+         ELSIF n >= PP_Hide_Comments AND EMPTY?(comps)
+           THEN C:" We have to put a newline here at the end of the list ";
+	        C:" so suppress the newline which would start the next section: ";
+	        @PH("</DETAILS>");
+		In_Details := 0;
+		In_Comment := 0;
+		IF Printing = 1 THEN Skip_Newline := 1 FI
+         ELSIF NOT EMPTY?(comps)
+           THEN In_Details := 0;
+	        @PP_NL(op1, sub_indent, op2) 
+           ELSE In_Details := 0 FI FI ENDVAR .;
+
+
+C:" Count the number of normal comments at the start of comps ";
+
+MW_FUNCT @H_Count_Comments(comps) ==
+  VAR < n := 0 >:
+  WHILE NOT EMPTY?(comps) AND @ST(HEAD(comps)) = T_Comment DO
+     IF NOT @H_FermaT?(HEAD(comps))
+       THEN n := n + 1 FI;
+     comps := TAIL(comps) OD;
+  (n) .;
+
+
+C:" Pretty-print the given components on one line, with the given operator: ";
+
+MW_FUNCT @PPH_Join(comps, op, prec) ==
+  VAR < R := <"", ""> >:
+  WHILE NOT EMPTY?(comps) DO
+    R := @Pairs(<R, @PPH_1(HEAD(comps), prec)>); comps := TAIL(comps);
+    IF NOT EMPTY?(comps) THEN R := @Pairs(<R, @H_Op(op)>) FI OD;
+  (R) .;
+
+
+C:" Current item is a !P which is a TPF macro ";
+
+MW_PROC @PPH_TPF(I, indent, prec) ==
+  VAR < open := "<SPAN class='TPF'>", close := "</SPAN>" >:
+  @PH(open);
+  @PS(@HTML(@N_String(@V(I^1))));
+  IF @V(I^1) = @Make_Name("SENDA") AND @Size(I^2) > 0 AND @ST(I^2^1) = T_String
+       AND @Starts_With?(@V(I^2^1), "MSG='")
+    THEN @PS(" " ++ SUBSTR(@V(I^2^1), 4))
+  ELSIF @Size(I^2) >= 1
+    THEN @PS(" "); @PS(@HTML(@PP_1(I^2^1, prec))) FI;
+  @PH(close);
+  C:" Check for a descriptive string: ";
+  FOR comp IN @Cs(I^2) DO
+    IF @ST(comp) = T_String AND @Starts_With?(@V(comp), "CALL={")
+      THEN @PL(<"", "">); @PP_Indent(indent);
+           @PH(open);
+	   @PH(@HTML(SUBSTR(@V(comp), 5)));
+	   @PH(close) FI;
+    IF @ST(comp) = T_String AND @Starts_With?(@V(comp), "DESC={")
+      THEN @PL(<"", "">); @PP_Indent(indent);
+           @PH(open);
+	   @PH(@HTML(SUBSTR(@V(comp), 5)));
+	   @PH(close) FI OD ENDVAR .;
+
+
+MW_FUNCT @PP_Join(comps, op, prec) ==
+  VAR < R := "" >:
+  WHILE NOT EMPTY?(comps) DO
+    R := R ++ @PP_1(HEAD(comps), prec); comps := TAIL(comps);
+    IF NOT EMPTY?(comps) THEN R := R ++ op FI OD;
+  (R) .;
+
+
+C:" Pre-process a split item to delete empty lvalues (and the corresponding op) ";
+C:" This applies to 2nd and subsequent elements only ";
+C:" For MW Proc/Funct calls, also delete first element (if empty) ";
+C:" This omits the brackets in @I etc. ";
+C:" Also, delete an initial T_Name from the comps list. ";
+
+MW_PROC @Split_Preprocess(ST VAR op, op1, op2, split, comps, size, close) ==
+  VAR < i := 0, n := 0 >:
+  IF @ST(HEAD(comps)) IN <T_Name, T_Name_Pat_One, T_Name_Int_One, T_Name_Var_One>
+    THEN comps := TAIL(comps); size := size - 1 FI;
+  FOR i := 2 TO LENGTH(comps) STEP 1 DO
+    IF @ST(comps[i]) = T_Lvalues AND @Size(comps[i]) = 0
+      THEN n := i FI OD;
+  IF n > 0
+    THEN op := op[1..n-1] ++ op[n+1..];
+	 op1 := op1[1..n-1] ++ op1[n+1..];
+	 op2 := op2[1..n-1] ++ op2[n+1..];
+	 comps := comps[1..n-1] ++ comps[n+1..];
+	 size := size - 1;
+	 IF n <= split THEN split := split - 1 FI FI;
+  IF ST IN PP_No_Parentheses AND size = 1 AND @Size(HEAD(comps)) = 0
+    THEN C:" Remove the ()s ";
+	 op[1] := ""; op1[1] := ""; op2[1] := ""; close := "" FI ENDVAR .;
+
+
+
+C:" Initialisation section: (was @PP_Init): ";
+
+  VAR < type := 0 >:
+
+  Spaces := "                                                             ";
+  Spaces := Spaces ++ Spaces ++ Spaces ++ Spaces;
+
+  C:" The different types of layout: ";
+  Type_Special := 0;
+  C:" Special case code for each specific type. ";
+
+  Type_Simple := 1;
+  C:" Just print the Opening string, plus the value (if any), plus the Closing ";
+
+  Type_Prefix := 2;
+  C:" Opening Operator comp1 Closing ";
+  C:" A Type_Prefix item only has one component. ";
+
+  Type_Infix := 3;
+  C:" Opening comp1 Operator comp2 ... Closing ";
+  C:" If we have to split onto several lines, then Operator1 goes ";
+  C:" at the end of one line and Operator2 at the beginning of the next. ";
+
+  Type_Split := 4;
+  C:" possibly split the item into two parts (if first part fits on one line) ";
+  C:" opening+value+op1+comp1+op2+comp2+...+opN+compN+closing ";
+  C:" Eg if split = 1 and first part fits on one line: ";
+  C:" opening+value+op1+comp1+op2 ";
+  C:"    comp2+...+opN+compN+closing ";
+  C:" The Split types have a fixed number of components, the PP_Operator ";
+  C:" arrays contain a list of operators (one per component) ";
+
+  Type_Ifmatch := 5;
+  C:" Opening comp1 op1 comp2 op2 comp3 Closing ";
+  C:" If comp3 is a single SKIP, then the ELSE comp3 may be omitted. ";
+
+  PP_Type       := ARRAY(1999, 0);
+
+  C:" For Type_Infix, the default values: ";
+  PP_Opening    := ARRAY(1999, "");
+  PP_Indent     := ARRAY(1999, 2);
+  PP_Sub_Indent := ARRAY(1999, 2);
+  PP_Split      := ARRAY(1999, 0);
+  PP_Operator   := ARRAY(1999, "");
+  PP_Operator1  := ARRAY(1999, "");
+  PP_Operator2  := ARRAY(1999, "");
+  PP_Closing    := ARRAY(1999, "");
+  PP_Prec       := ARRAY(1999, 0);
+
+  C:" PP_Indent is the indentation for each operator, ";
+  C:" PP_Sub_Indent is the indentation for each sub-component. ";
+
+
+  C:" Data for each type: ";
+
+  PP_Type[T_Statements]         := Type_Infix;
+  PP_Operator[T_Statements]     := "; ";
+  PP_Operator1[T_Statements]    := ";";
+  PP_Indent[T_Statements]       := 0;
+  PP_Sub_Indent[T_Statements]   := 0;
+
+  PP_Type[T_Expressions]        := Type_Infix;
+  PP_Operator[T_Expressions]    := ", ";
+  PP_Operator1[T_Expressions]   := ",";
+  PP_Indent[T_Expressions]      := 0;
+  PP_Sub_Indent[T_Expressions]  := 0;
+
+  PP_Type[T_Lvalues]            := Type_Infix;
+  PP_Operator[T_Lvalues]        := ", ";
+  PP_Operator1[T_Lvalues]       := ",";
+
+  C:" The assignment statement is special, all other assigns include the <...> ";
+  PP_Type[T_Assigns]            := Type_Infix;
+  PP_Opening[T_Assigns]         := "< ";
+  PP_Operator[T_Assigns]        := ", ";
+  PP_Operator1[T_Assigns]       := ",";
+  PP_Closing[T_Assigns]         := " >";
+
+  PP_Type[T_Definitions]        := Type_Infix;
+  PP_Operator[T_Definitions]    := " ";
+  PP_Operator1[T_Definitions]   := "";
+  PP_Indent[T_Definitions]      := 0;
+  PP_Sub_Indent[T_Definitions]  := 0;
+
+  PP_Type[T_Assign]             := Type_Infix;
+  PP_Operator[T_Assign]         := " := ";
+  PP_Operator1[T_Assign]        := "";
+  PP_Operator2[T_Assign]        := ":= ";
+  PP_Sub_Indent[T_Assign]       := 5;
+
+  C:" Note that the -> operators are spaced to the same size as a THEN ";
+  PP_Type[T_Guarded]            := Type_Infix;
+  PP_Operator[T_Guarded]        := "  ->  ";
+  PP_Operator2[T_Guarded]       := "  -> ";
+
+  @PP_Simple(T_Abort, "ABORT", "");
+  @PP_Simple(T_Skip, "SKIP", "");
+  @PP_Simple(T_True, "TRUE", "");
+  @PP_Simple(T_False, "FALSE", "");
+  @PP_Simple(T_Hash_Table, "HASH_TABLE", "");
+  @PP_Simple(T_Expn_Place, "$Expn$", "");
+  @PP_Simple(T_Var_Place, "$Var$", "");
+  @PP_Simple(T_Cond_Place, "$Condition$", "");
+  @PP_Simple(T_Stat_Place, "$Statement$", "");
+
+  @PP_Simple(T_Expn_Pseudo,   "", "");
+  @PP_Simple(T_Lvalue_Pseudo, "", "");
+  @PP_Simple(T_Stat_Pseudo,   "", "");
+  @PP_Simple(T_Cond_Pseudo,   "", "");
+
+  FOR type IN <T_Stat_Pat_One, T_Expn_Pat_One, T_Cond_Pat_One,
+               T_Defn_Pat_One, T_Lvalue_Pat_One, T_Assign_Pat_One,
+               T_Guarded_Pat_One, T_Action_Pat_One, T_Name_Pat_One> DO
+    PP_Type[type]    := Type_Simple;
+    PP_Opening[type] := "~?" OD;
+
+  FOR type IN <T_Stat_Pat_Many, T_Expn_Pat_Many, T_Cond_Pat_Many,
+               T_Defn_Pat_Many, T_Lvalue_Pat_Many, T_Assign_Pat_Many,
+               T_Guarded_Pat_Many, T_Action_Pat_Many> DO
+    PP_Type[type]    := Type_Simple;
+    PP_Opening[type] := "~+" OD;
+
+  FOR type IN <T_Stat_Pat_Any, T_Expn_Pat_Any, T_Cond_Pat_Any,
+               T_Defn_Pat_Any, T_Lvalue_Pat_Any, T_Assign_Pat_Any,
+               T_Guarded_Pat_Any, T_Action_Pat_Any> DO
+    PP_Type[type]    := Type_Simple;
+    PP_Opening[type] := "~*" OD;
+
+  FOR type IN <T_Stat_Var_One, T_Expn_Var_One, T_Cond_Var_One,
+               T_Defn_Var_One, T_Lvalue_Var_One, T_Assign_Var_One,
+               T_Guarded_Var_One, T_Action_Var_One, T_Name_Var_One> DO
+    PP_Type[type]    := Type_Simple;
+    PP_Opening[type] := "~?=" OD;
+
+  FOR type IN <T_Stat_Var_Any, T_Expn_Var_Any, T_Cond_Var_Any,
+               T_Defn_Var_Any, T_Lvalue_Var_Any, T_Assign_Var_Any,
+               T_Guarded_Var_Any, T_Action_Var_Any> DO
+    PP_Type[type]    := Type_Simple;
+    PP_Opening[type] := "~*=" OD;
+
+  FOR type IN <T_Stat_Int_One, T_Expn_Int_One, T_Cond_Int_One,
+               T_Defn_Int_One, T_Lvalue_Int_One, T_Assign_Int_One,
+               T_Guarded_Int_One, T_Action_Int_One, T_Name_Int_One> DO
+    @PP_Funct(type, "~?") OD;
+
+  FOR type IN <T_Stat_Int_Any, T_Expn_Int_Any, T_Cond_Int_Any,
+               T_Defn_Int_Any, T_Lvalue_Int_Any, T_Assign_Int_Any,
+               T_Guarded_Int_Any, T_Action_Int_Any> DO
+   @PP_Funct(type, "~*") OD;
+
+  C:" Simple function-like types: opening+value+?(comp1 VAR comp2) ";
+  C:" Split on the VAR (if there are two components) ";
+  C:" If there is one component, split = 0 ";
+
+  @PP_Call(T_Print, "PRINT", "", 0);
+  @PP_Call(T_Prinflush, "PRINFLUSH", "", 0);
+  @PP_Call(T_Error, "ERROR", "", 0);
+  @PP_Call(T_A_Proc_Call, "!P ", "", 1);
+  @PP_Call(T_Proc_Call, "", "", 1);
+  @PP_Call(T_MW_Proc_Call, "", "", 1);
+  @PP_Call(T_X_Proc_Call, "!XP ", "", 0);
+  @PP_Call(T_X_Funct_Call, "!XF ", "", 0);
+  @PP_Call(T_MW_Funct_Call, "", "", 0);
+  @PP_Call(T_Funct_Call, "", "", 0);
+  @PP_Call(T_X_BFunct_Call, "!XC ", "", 0);
+  @PP_Call(T_MW_BFunct_Call, "", "", 0);
+  @PP_Call(T_BFunct_Call, "", "", 0);
+
+  PP_Type[T_Assert]             := Type_Infix;
+  PP_Opening[T_Assert]          := "{";
+  PP_Closing[T_Assert]          := "}";
+  PP_Indent[T_Assert]           := 1;
+  PP_Sub_Indent[T_Assert]       := 1;
+
+  C:" The assignment statement omits the <...> if there is one assign: ";
+  PP_Type[T_Assignment]         := Type_Special;
+
+  PP_Type[T_A_S]                := Type_Split;
+  PP_Split[T_A_S]               := 0;
+  PP_Opening[T_A_S]             := "ACTIONS ";
+  PP_Operator[T_A_S]            := <": ">;
+  PP_Operator1[T_A_S]           := <":">;
+  PP_Operator2[T_A_S]           := <"">;
+  PP_Closing[T_A_S]             := " ENDACTIONS";
+
+  PP_Type[T_Actions]            := Type_Infix;
+  PP_Opening[T_Actions]         := "";
+  PP_Operator[T_Actions]        := " ";
+  PP_Indent[T_Actions]          := 0;
+  PP_Sub_Indent[T_Actions]      := 0;
+  PP_Closing[T_Actions]         := "";
+
+  PP_Type[T_Action]             := Type_Split;
+  PP_Split[T_Action]            := 0;
+  PP_Operator[T_Action]         := <" == ">;
+  PP_Operator1[T_Action]        := <" ==">;
+  PP_Operator2[T_Action]        := <"">;
+  PP_Closing[T_Action]          := " END";
+
+  PP_Type[T_Map]                := Type_Split;
+  PP_Split[T_Map]               := 0;
+  PP_Opening[T_Map]             := "MAP(" ++ Quote;
+  PP_Operator[T_Map]            := <Quote ++ ", ">;
+  PP_Operator1[T_Map]           := <Quote ++ ",">;
+  PP_Operator2[T_Map]           := <"">;
+  PP_Closing[T_Map]             := ")";
+
+  PP_Type[T_Reduce]             := Type_Split;
+  PP_Opening[T_Reduce]          := "REDUCE(" ++ Quote;
+  PP_Split[T_Reduce]            := 0;
+  PP_Operator[T_Reduce]         := <Quote ++ ", ">;
+  PP_Operator1[T_Reduce]        := <Quote ++ ",">;
+  PP_Operator2[T_Reduce]        := <"">;
+  PP_Closing[T_Reduce]          := ")";
+
+  PP_Type[T_Maphash]            := Type_Split;
+  PP_Split[T_Maphash]           := 0;
+  PP_Opening[T_Maphash]         := "MAPHASH(" ++ Quote;
+  PP_Operator[T_Maphash]        := <Quote ++ ", ">;
+  PP_Operator1[T_Maphash]       := <Quote ++ ",">;
+  PP_Operator2[T_Maphash]       := <"">;
+  PP_Closing[T_Maphash]         := ")";
+
+  PP_Type[T_Puthash]            := Type_Split;
+  PP_Split[T_Puthash]           := 2;
+  PP_Opening[T_Puthash]         := "";
+  PP_Operator[T_Puthash]        := <"", ".(", ") := ">;
+  PP_Operator1[T_Puthash]       := <"", ".(", ")">;
+  PP_Operator2[T_Puthash]       := <"", "", ":= ">;
+  PP_Closing[T_Puthash]         := "";
+
+  @PP_Simple(T_Call, "CALL ", "");
+  @PP_Simple(T_Comment, "C:" ++ Quote, Quote);
+
+  PP_Type[T_Cond]               := Type_Special;
+  PP_Opening[T_Cond]            := "IF ";
+  PP_Operator[T_Cond]           := <" THEN ", " ELSIF ", " ELSE ">;
+  PP_Operator1[T_Cond]          := <"", "", "">;
+  PP_Operator2[T_Cond]          := <"THEN ", "ELSIF ", "ELSE ">;
+  PP_Sub_Indent[T_Cond]         := 7;
+  PP_Closing[T_Cond]            := " FI";
+
+  PP_Type[T_D_If]               := Type_Infix;
+  PP_Opening[T_D_If]            := "D_IF ";
+  PP_Operator[T_D_If]           := " [] ";
+  PP_Operator2[T_D_If]          := "[] ";
+  PP_Sub_Indent[T_D_If]         := 5;
+  PP_Closing[T_D_If]            := " FI";
+
+  PP_Type[T_D_Do]               := Type_Infix;
+  PP_Opening[T_D_Do]            := "D_DO ";
+  PP_Operator[T_D_Do]           := " [] ";
+  PP_Operator2[T_D_Do]          := "[] ";
+  PP_Sub_Indent[T_D_Do]         := 5;
+  PP_Closing[T_D_Do]            := " OD";
+
+  @PP_Simple(T_Exit, "EXIT(", ")");
+
+  PP_Type[T_For]                := Type_Split;
+  PP_Split[T_For]               := 4;  
+  PP_Opening[T_For]             := "FOR ";
+  PP_Operator[T_For]            := <"", " := ", " TO ", " STEP ", " DO ">;
+  PP_Operator1[T_For]           := <"", " := ", "", "", " DO">;
+  PP_Operator2[T_For]           := <"", "", "TO ", "STEP ", "">;
+  PP_Closing[T_For]             := " OD";
+
+  PP_Type[T_For_In]             := Type_Split;
+  PP_Split[T_For_In]            := 2;  
+  PP_Opening[T_For_In]          := "FOR ";
+  PP_Operator[T_For_In]         := <"", " IN ", " DO ">;
+  PP_Operator1[T_For_In]        := <"", " IN ", " DO">;
+  PP_Operator2[T_For_In]        := <"", "", "">;
+  PP_Closing[T_For_In]          := " OD";
+
+  C:" FOREACH types ";
+
+  PP_Type[T_Foreach_Stat]       := Type_Infix;
+  PP_Opening[T_Foreach_Stat]    := "FOREACH Statement DO ";
+  PP_Closing[T_Foreach_Stat]    := " OD";
+
+  PP_Type[T_Foreach_NAS]        := Type_Infix;
+  PP_Opening[T_Foreach_NAS]     := "FOREACH NAS DO ";
+  PP_Closing[T_Foreach_NAS]     := " OD";
+
+  PP_Type[T_Foreach_Stats]      := Type_Infix;
+  PP_Opening[T_Foreach_Stats]   := "FOREACH Statements DO ";
+  PP_Closing[T_Foreach_Stats]   := " OD";
+
+  PP_Type[T_Foreach_TS]         := Type_Infix;
+  PP_Opening[T_Foreach_TS]      := "FOREACH Terminal Statement DO ";
+  PP_Closing[T_Foreach_TS]      := " OD";
+
+  PP_Type[T_Foreach_TSs]        := Type_Infix;
+  PP_Opening[T_Foreach_TSs]     := "FOREACH Terminal Statements DO ";
+  PP_Closing[T_Foreach_TSs]     := " OD";
+
+  PP_Type[T_Foreach_STS]        := Type_Infix;
+  PP_Opening[T_Foreach_STS]     := "FOREACH STS DO ";
+  PP_Closing[T_Foreach_STS]     := " OD";
+
+  PP_Type[T_Foreach_Cond]       := Type_Infix;
+  PP_Opening[T_Foreach_Cond]    := "FOREACH Condition DO ";
+  PP_Closing[T_Foreach_Cond]    := " OD";
+
+  PP_Type[T_Foreach_Expn]       := Type_Infix;
+  PP_Opening[T_Foreach_Expn]    := "FOREACH Expression DO ";
+  PP_Closing[T_Foreach_Expn]    := " OD";
+
+  PP_Type[T_Foreach_Lvalue]     := Type_Infix;
+  PP_Opening[T_Foreach_Lvalue]  := "FOREACH Lvalue DO ";
+  PP_Closing[T_Foreach_Lvalue]  := " OD";
+
+  PP_Type[T_Foreach_Variable]   := Type_Infix;
+  PP_Opening[T_Foreach_Variable]:= "FOREACH Variable DO ";
+  PP_Closing[T_Foreach_Variable]:= " OD";
+
+  PP_Type[T_Foreach_Global_Var] := Type_Infix;
+  PP_Opening[T_Foreach_Global_Var] := "FOREACH Global Variable DO ";
+  PP_Closing[T_Foreach_Global_Var] := " OD";
+
+  C:" ATEACH types ";
+
+  PP_Type[T_Ateach_Stat]        := Type_Infix;
+  PP_Opening[T_Ateach_Stat]     := "ATEACH Statement DO ";
+  PP_Closing[T_Ateach_Stat]     := " OD";
+
+  PP_Type[T_Ateach_NAS]         := Type_Infix;
+  PP_Opening[T_Ateach_NAS]      := "ATEACH NAS DO ";
+  PP_Closing[T_Ateach_NAS]      := " OD";
+
+  PP_Type[T_Ateach_Stats]       := Type_Infix;
+  PP_Opening[T_Ateach_Stats]    := "ATEACH Statements DO ";
+  PP_Closing[T_Ateach_Stats]    := " OD";
+
+  PP_Type[T_Ateach_TS]          := Type_Infix;
+  PP_Opening[T_Ateach_TS]       := "ATEACH Terminal Statement DO ";
+  PP_Closing[T_Ateach_TS]       := " OD";
+
+  PP_Type[T_Ateach_TSs]         := Type_Infix;
+  PP_Opening[T_Ateach_TSs]      := "ATEACH Terminal Statements DO ";
+  PP_Closing[T_Ateach_TSs]      := " OD";
+
+  PP_Type[T_Ateach_STS]         := Type_Infix;
+  PP_Opening[T_Ateach_STS]      := "ATEACH STS DO ";
+  PP_Closing[T_Ateach_STS]      := " OD";
+
+  PP_Type[T_Ateach_Cond]        := Type_Infix;
+  PP_Opening[T_Ateach_Cond]     := "ATEACH Condition DO ";
+  PP_Closing[T_Ateach_Cond]     := " OD";
+
+  PP_Type[T_Ateach_Expn]        := Type_Infix;
+  PP_Opening[T_Ateach_Expn]     := "ATEACH Expression DO ";
+  PP_Closing[T_Ateach_Expn]     := " OD";
+
+  PP_Type[T_Ateach_Lvalue]      := Type_Infix;
+  PP_Opening[T_Ateach_Lvalue]   := "ATEACH Lvalue DO ";
+  PP_Closing[T_Ateach_Lvalue]   := " OD";
+
+  PP_Type[T_Ateach_Variable]    := Type_Infix;
+  PP_Opening[T_Ateach_Variable] := "ATEACH Variable DO ";
+  PP_Closing[T_Ateach_Variable] := " OD";
+
+  PP_Type[T_Ateach_Global_Var]  := Type_Infix;
+  PP_Opening[T_Ateach_Global_Var] := "ATEACH Global Variable DO ";
+  PP_Closing[T_Ateach_Global_Var] := " OD";
+
+
+  PP_Type[T_Floop]              := Type_Infix;
+  PP_Opening[T_Floop]           := "DO ";
+  PP_Closing[T_Floop]           := " OD";
+  PP_Indent[T_Floop]            := 3;
+  PP_Sub_Indent[T_Floop]        := 3;
+
+  PP_Type[T_Join]               := Type_Infix;
+  PP_Opening[T_Join]            := "JOIN ";
+  PP_Operator[T_Join]           := ", ";
+  PP_Operator1[T_Join]          := ",";
+  PP_Closing[T_Join]            := " ENDJOIN";
+
+  @PP_Funct(T_Pop, "POP");
+  @PP_Funct(T_Push, "PUSH");
+
+  PP_Type[T_Where]              := Type_Special;
+  PP_Opening[T_Where]           := "BEGIN";
+  PP_Operator[T_Where]          := "WHERE";
+  PP_Operator1[T_Where]         := "WHERE";
+  PP_Closing[T_Where]           := "END";
+  PP_Indent[T_Where]            := 0;
+  PP_Sub_Indent[T_Where]        := 2;
+
+  PP_Type[T_Var]                := Type_Split;
+  PP_Split[T_Var]               := 1;
+  PP_Opening[T_Var]             := "VAR ";
+  PP_Operator[T_Var]            := <"", ": ">;
+  PP_Operator1[T_Var]           := <"", ":">;
+  PP_Operator2[T_Var]           := <"", "">;
+  PP_Closing[T_Var]             := " ENDVAR";
+  PP_Indent[T_Var]              := 0;
+  PP_Sub_Indent[T_Var]          := 0;
+
+  PP_Type[T_While]              := Type_Split;
+  PP_Split[T_While]             := 1;
+  PP_Opening[T_While]           := "WHILE ";
+  PP_Operator[T_While]          := <"", " DO ">;
+  PP_Operator1[T_While]         := <"", " DO">;
+  PP_Operator2[T_While]         := <"", "">;
+  PP_Closing[T_While]           := " OD";
+
+  PP_Type[T_Spec]               := Type_Split;
+  PP_Split[T_Spec]              := 1;
+  PP_Opening[T_Spec]            := "SPEC <";
+  PP_Operator[T_Spec]           := <"", ">: ">;
+  PP_Operator1[T_Spec]          := <"", ">:">;
+  PP_Operator2[T_Spec]          := <"", "">;
+  PP_Closing[T_Spec]            := " ENDSPEC";
+  PP_Indent[T_Spec]             := 0;
+  PP_Sub_Indent[T_Spec]         := 0;
+
+  PP_Type[T_Forall]             := Type_Split;
+  PP_Split[T_Forall]            := 1;
+  PP_Opening[T_Forall]          := "FORALL <";
+  PP_Operator[T_Forall]         := <"", ">: ">;
+  PP_Operator1[T_Forall]        := <"", ">:">;
+  PP_Operator2[T_Forall]        := <"", "">;
+  PP_Closing[T_Forall]          := " END";
+  PP_Indent[T_Forall]           := 0;
+  PP_Sub_Indent[T_Forall]       := 0;
+
+  PP_Type[T_Exists]             := Type_Split;
+  PP_Split[T_Exists]            := 1;
+  PP_Opening[T_Exists]          := "EXISTS <";
+  PP_Operator[T_Exists]         := <"", ">: ">;
+  PP_Operator1[T_Exists]        := <"", ">:">;
+  PP_Operator2[T_Exists]        := <"", "">;
+  PP_Closing[T_Exists]          := " END";
+  PP_Indent[T_Exists]           := 0;
+  PP_Sub_Indent[T_Exists]       := 0;
+
+  PP_Type[T_MW_Proc]            := Type_Split;
+  PP_Split[T_MW_Proc]           := 2;
+  PP_Opening[T_MW_Proc]         := "MW_PROC ";
+  PP_Operator[T_MW_Proc]        := <"(", " VAR ", ") == ">;
+  PP_Operator1[T_MW_Proc]       := <"(", "", ") ==">;
+  PP_Operator2[T_MW_Proc]       := <"", "VAR ", "">;
+  PP_Closing[T_MW_Proc]         := " END";
+
+  PP_Type[T_MW_Funct]           := Type_Split;
+  PP_Split[T_MW_Funct]          := 1;
+  PP_Opening[T_MW_Funct]        := "MW_FUNCT ";
+  PP_Operator[T_MW_Funct]       := <"(", ") == VAR ", ": ", "; (">;
+  PP_Operator1[T_MW_Funct]      := <"(", ") ==", ":", ";">;
+  PP_Operator2[T_MW_Funct]      := <"", "VAR ", "", "(">;
+  PP_Closing[T_MW_Funct]        := ") END";
+
+  PP_Type[T_MW_BFunct]          := Type_Split;
+  PP_Split[T_MW_BFunct]         := 1;
+  PP_Opening[T_MW_BFunct]       := "MW_BFUNCT ";
+  PP_Operator[T_MW_BFunct]      := <"(", ") == VAR ", ": ", "; (">;
+  PP_Operator1[T_MW_BFunct]     := <"(", ") ==", ":", ";">;
+  PP_Operator2[T_MW_BFunct]     := <"", "VAR ", "", "(">;
+  PP_Closing[T_MW_BFunct]       := ") END";
+
+  PP_Type[T_Proc]               := Type_Split;
+  PP_Split[T_Proc]              := 2;
+  PP_Opening[T_Proc]            := "PROC ";
+  PP_Operator[T_Proc]           := <"(", " VAR ", ") == ">;
+  PP_Operator1[T_Proc]          := <"(", "", ") ==">;
+  PP_Operator2[T_Proc]          := <"", "VAR ", "">;
+  PP_Closing[T_Proc]            := " END";
+
+  PP_Type[T_Funct]              := Type_Split;
+  PP_Split[T_Funct]             := 1;
+  PP_Opening[T_Funct]           := "FUNCT ";
+  PP_Operator[T_Funct]          := <"(", ") == VAR ", ": ", "; (">;
+  PP_Operator1[T_Funct]         := <"(", ") ==", ":", ";">;
+  PP_Operator2[T_Funct]         := <"", "VAR ", "", "(">;
+  PP_Closing[T_Funct]           := ") END";
+
+  PP_Type[T_BFunct]             := Type_Split;
+  PP_Split[T_BFunct]            := 1;
+  PP_Opening[T_BFunct]          := "BFUNCT ";
+  PP_Operator[T_BFunct]         := <"(", ") == VAR ", ": ", "; (">;
+  PP_Operator1[T_BFunct]        := <"(", ") ==", ":", ";">;
+  PP_Operator2[T_BFunct]        := <"", "VAR ", "", "(">;
+  PP_Closing[T_BFunct]          := ") END";
+
+
+  FOR type IN <T_Ifmatch_Stat, T_Ifmatch_Expn, T_Ifmatch_Cond, T_Ifmatch_Defn,
+               T_Ifmatch_Lvalue, T_Ifmatch_Assign, T_Ifmatch_Guarded,
+               T_Ifmatch_Action, T_Ifmatch_Stats, T_Ifmatch_Expns,
+               T_Ifmatch_Lvalues, T_Ifmatch_Assigns,
+               T_Ifmatch_Defns> DO
+    PP_Type[type]       := Type_Ifmatch;
+    PP_Operator[type]   := <" THEN ", " ELSE ">;
+    PP_Operator1[type]  := <"", "">;
+    PP_Operator2[type]  := <"THEN ", "ELSE ">;
+    PP_Closing[type]    := " ENDMATCH" OD;
+
+  PP_Opening[T_Ifmatch_Stat]    := "IFMATCH Statement ";
+  PP_Opening[T_Ifmatch_Expn]    := "IFMATCH Expression ";
+  PP_Opening[T_Ifmatch_Cond]    := "IFMATCH Condition ";
+  PP_Opening[T_Ifmatch_Defn]    := "IFMATCH Definition ";
+  PP_Opening[T_Ifmatch_Lvalue]  := "IFMATCH Lvalue ";
+  PP_Opening[T_Ifmatch_Assign]  := "IFMATCH Assign ";
+  PP_Opening[T_Ifmatch_Guarded] := "IFMATCH Guarded ";
+  PP_Opening[T_Ifmatch_Action]  := "IFMATCH Action ";
+  PP_Opening[T_Ifmatch_Stats]   := "IFMATCH Statements ";
+  PP_Opening[T_Ifmatch_Expns]   := "IFMATCH Expressions ";
+  PP_Opening[T_Ifmatch_Lvalues] := "IFMATCH Lvalues ";
+  PP_Opening[T_Ifmatch_Assigns] := "IFMATCH Assigns ";
+  PP_Opening[T_Ifmatch_Defns]   := "IFMATCH Definitions ";
+
+  @PP_Simple(T_Number, "", "");
+  @PP_Simple(T_Name, "", "");
+  @PP_Simple(T_String, Quote, Quote);
+  @PP_Simple(T_Variable, "", "");
+  @PP_Simple(T_Var_Lvalue, "", "");
+  @PP_Simple(T_Primed_Var, "", "'");
+
+  PP_Type[T_Gethash]            := Type_Infix;
+  PP_Operator[T_Gethash]        := ".(";
+  PP_Operator2[T_Gethash]       := ".(";
+  PP_Closing[T_Gethash]         := ")";
+
+  PP_Type[T_Sequence]           := Type_Infix;
+  PP_Opening[T_Sequence]        := "<";
+  PP_Operator[T_Sequence]       := ", ";
+  PP_Operator1[T_Sequence]      := ",";
+  PP_Closing[T_Sequence]        := ">";
+  PP_Indent[T_Sequence]         := 1;
+  PP_Sub_Indent[T_Sequence]     := 1;
+
+  PP_Type[T_Aref]               := Type_Special;
+  PP_Opening[T_Aref]            := "[";
+  PP_Operator[T_Aref]           := "][";
+  PP_Operator1[T_Aref]          := "]";
+  PP_Operator2[T_Aref]          := "[";
+  PP_Closing[T_Aref]            := "]";
+  PP_Sub_Indent[T_Aref]         := 3;
+
+  PP_Type[T_Aref_Lvalue]        := Type_Special;
+  PP_Opening[T_Aref_Lvalue]     := "[";
+  PP_Operator[T_Aref_Lvalue]    := "][";
+  PP_Operator1[T_Aref_Lvalue]   := "]";
+  PP_Operator2[T_Aref_Lvalue]   := "[";
+  PP_Closing[T_Aref_Lvalue]     := "]";
+  PP_Sub_Indent[T_Aref_Lvalue]  := 3;
+
+  PP_Type[T_Sub_Seg]            := Type_Split;
+  PP_Split[T_Sub_Seg]           := 1;
+  PP_Opening[T_Sub_Seg]         := "";
+  PP_Operator[T_Sub_Seg]        := <"", "[", "..">;
+  PP_Operator1[T_Sub_Seg]       := <"", "",  "">;
+  PP_Operator2[T_Sub_Seg]       := <"", "[", "..">;
+  PP_Closing[T_Sub_Seg]         := "]";
+
+  PP_Type[T_Sub_Seg_Lvalue]     := Type_Split;
+  PP_Split[T_Sub_Seg_Lvalue]    := 1;
+  PP_Opening[T_Sub_Seg_Lvalue]  := "";
+  PP_Operator[T_Sub_Seg_Lvalue] := <"", "[", "..">;
+  PP_Operator1[T_Sub_Seg_Lvalue]:= <"", "",  "">;
+  PP_Operator2[T_Sub_Seg_Lvalue]:= <"", "[", "..">;
+  PP_Closing[T_Sub_Seg_Lvalue]  := "]";
+
+  PP_Type[T_Rel_Seg]            := Type_Split;
+  PP_Split[T_Rel_Seg]           := 1;
+  PP_Opening[T_Rel_Seg]         := "";
+  PP_Operator[T_Rel_Seg]        := <"", "[", ", ">;
+  PP_Operator1[T_Rel_Seg]       := <"", "",  ",">;
+  PP_Operator2[T_Rel_Seg]       := <"", "[", "">;
+  PP_Closing[T_Rel_Seg]         := "]";
+
+  PP_Type[T_Rel_Seg_Lvalue]     := Type_Split;
+  PP_Split[T_Rel_Seg_Lvalue]    := 1;
+  PP_Opening[T_Rel_Seg_Lvalue]  := "";
+  PP_Operator[T_Rel_Seg_Lvalue] := <"", "[", ", ">;
+  PP_Operator1[T_Rel_Seg_Lvalue]:= <"", "",  ",">;
+  PP_Operator2[T_Rel_Seg_Lvalue]:= <"", "[", "">;
+  PP_Closing[T_Rel_Seg_Lvalue]  := "]";
+
+  PP_Type[T_Final_Seg]          := Type_Infix;
+  PP_Opening[T_Final_Seg]       := "";
+  PP_Operator[T_Final_Seg]      := "[";
+  PP_Operator1[T_Final_Seg]     := "";
+  PP_Operator2[T_Final_Seg]     := "[";
+  PP_Closing[T_Final_Seg]       := "..]";
+
+  PP_Type[T_Final_Seg_Lvalue]      := Type_Infix;
+  PP_Opening[T_Final_Seg_Lvalue]   := "";
+  PP_Operator[T_Final_Seg_Lvalue]  := "[";
+  PP_Operator1[T_Final_Seg_Lvalue] := "";
+  PP_Operator2[T_Final_Seg_Lvalue] := "[";
+  PP_Closing[T_Final_Seg_Lvalue]   := "..]";
+
+  PP_Type[T_Mem]                  := Type_Infix;
+  PP_Opening[T_Mem]               := "@[";
+  PP_Operator[T_Mem]              := ", ";
+  PP_Operator1[T_Mem]             := ",";
+  PP_Closing[T_Mem]               := "]";
+  PP_Indent[T_Mem]                := 2;
+  PP_Sub_Indent[T_Mem]            := 2;
+
+  PP_Type[T_Mem_Lvalue]           := Type_Infix;
+  PP_Opening[T_Mem_Lvalue]        := "@[";
+  PP_Operator[T_Mem_Lvalue]       := ", ";
+  PP_Operator1[T_Mem_Lvalue]      := ",";
+  PP_Closing[T_Mem_Lvalue]        := "]";
+  PP_Indent[T_Mem_Lvalue]         := 2;
+  PP_Sub_Indent[T_Mem_Lvalue]     := 2;
+
+  PP_Type[T_Mem_Seg]              := Type_Infix;
+  PP_Opening[T_Mem_Seg]           := "@[";
+  PP_Operator[T_Mem_Seg]          := "..";
+  PP_Operator1[T_Mem_Seg]         := "..";
+  PP_Closing[T_Mem_Seg]           := "]";
+  PP_Indent[T_Mem_Seg]            := 2;
+  PP_Sub_Indent[T_Mem_Seg]        := 2;
+
+  PP_Type[T_Mem_Seg_Lvalue]       := Type_Infix;
+  PP_Opening[T_Mem_Seg_Lvalue]    := "@[";
+  PP_Operator[T_Mem_Seg_Lvalue]   := "..";
+  PP_Operator1[T_Mem_Seg_Lvalue]  := "..";
+  PP_Closing[T_Mem_Seg_Lvalue]    := "]";
+  PP_Indent[T_Mem_Seg_Lvalue]     := 2;
+  PP_Sub_Indent[T_Mem_Seg_Lvalue] := 2;
+
+  PP_Type[T_Mem_Rel]              := Type_Infix;
+  PP_Opening[T_Mem_Rel]           := "@[";
+  PP_Operator[T_Mem_Rel]          := ", ";
+  PP_Operator1[T_Mem_Rel]         := ",";
+  PP_Closing[T_Mem_Rel]           := "]";
+  PP_Indent[T_Mem_Rel]            := 2;
+  PP_Sub_Indent[T_Mem_Rel]        := 2;
+
+  PP_Type[T_Mem_Rel_Lvalue]       := Type_Infix;
+  PP_Opening[T_Mem_Rel_Lvalue]    := "@[";
+  PP_Operator[T_Mem_Rel_Lvalue]   := ", ";
+  PP_Operator1[T_Mem_Rel_Lvalue]  := ",";
+  PP_Closing[T_Mem_Rel_Lvalue]    := "]";
+  PP_Indent[T_Mem_Rel_Lvalue]     := 2;
+  PP_Sub_Indent[T_Mem_Rel_Lvalue] := 2;
+
+  C:" The basic infix operators with () as Opening and Closing ";
+  C:" Operator precidences: ";
+  Prec_Struct := 130;
+  Prec_Get := 120;
+  Prec_Exponent := 110;
+  Prec_Times := 100;
+  Prec_Mod := 95;
+  Prec_Plus := 90;
+  Prec_Intersection := 70;
+  Prec_Union := 60;
+  Prec_Diff :=  50;
+  Prec_Rel := 40;
+  Prec_Not := 30;
+  Prec_And := 20;
+  Prec_Or := 10;
+
+  C:" List of non-associative operators: ";
+  PP_Non_Assoc_Ops := <T_Minus, T_Divide, T_Set_Diff>;
+
+  PP_Prec_Increment := 3;
+
+  C:" List of Type_Split types where we may omit the parentheses ";
+  C:" (a special test in Split_Preprocess) ";
+  PP_No_Parentheses := <T_MW_Proc_Call, T_MW_Funct_Call, T_MW_BFunct_Call>;
+
+  PP_Type[T_Struct]             := Type_Special;
+  PP_Opening[T_Struct]          := "";
+  PP_Operator[T_Struct]         := ".";
+  PP_Operator1[T_Struct]        := "";
+  PP_Operator2[T_Struct]        := ".";
+  PP_Closing[T_Struct]          := "";
+  PP_Indent[T_Struct]           := 0;
+  PP_Sub_Indent[T_Struct]       := 0;
+  PP_Prec[T_Struct]             := Prec_Struct;
+
+  PP_Type[T_Struct_Lvalue]      := Type_Special;
+  PP_Opening[T_Struct_Lvalue]   := "";
+  PP_Operator[T_Struct_Lvalue]  := ".";
+  PP_Operator1[T_Struct_Lvalue] := "";
+  PP_Operator2[T_Struct_Lvalue] := ".";
+  PP_Closing[T_Struct_Lvalue]   := "";
+  PP_Indent[T_Struct_Lvalue]    := 0;
+  PP_Sub_Indent[T_Struct_Lvalue]:= 0;
+  PP_Prec[T_Struct_Lvalue]      := Prec_Struct;
+
+  PP_Type[T_Not]                := Type_Prefix;
+  PP_Opening[T_Not]             := "(";
+  PP_Operator[T_Not]            := "NOT ";
+  PP_Operator1[T_Not]           := "";
+  PP_Operator2[T_Not]           := "NOT ";
+  PP_Closing[T_Not]             := ")";
+  PP_Prec[T_Not]                := Prec_Not;
+
+  @PP_Infix(T_Plus, "+", Prec_Plus);
+  @PP_Infix(T_Minus, "-", Prec_Plus);
+  @PP_Infix(T_Times, "*", Prec_Times);
+  @PP_Infix(T_Divide, "/", Prec_Times);
+  @PP_Infix(T_Exponent, "**", Prec_Exponent);
+  @PP_Infix(T_Mod, "MOD", Prec_Mod);
+  @PP_Infix(T_Div, "DIV", Prec_Mod);
+  @PP_Infix(T_Intersection, "/" ++ Backslash, Prec_Intersection);
+  @PP_Infix(T_Union, Backslash ++ "/", Prec_Union);
+  @PP_Infix(T_Set_Diff, Backslash, Prec_Diff);
+  @PP_Infix(T_Concat, "++", Prec_Union);
+  @PP_Infix(T_And, "AND", Prec_And);
+  @PP_Infix(T_Or, "OR", Prec_Or);
+  @PP_Infix(T_Equal, "=", Prec_Rel);
+  @PP_Infix(T_Not_Equal, "<>", Prec_Rel);
+  @PP_Infix(T_Less, "<", Prec_Rel);
+  @PP_Infix(T_Greater, ">", Prec_Rel);
+  @PP_Infix(T_Less_Eq, "<=", Prec_Rel);
+  @PP_Infix(T_Greater_Eq, ">=", Prec_Rel);
+  @PP_Infix(T_In, "IN", Prec_Rel);
+  @PP_Infix(T_Not_In, "NOTIN", Prec_Rel);
+
+  PP_Type[T_Get_n]              := Type_Infix;
+  PP_Operator[T_Get_n]          := "^";
+  PP_Operator2[T_Get_n]         := "^";
+  PP_Prec[T_Get_n]              := Prec_Get;
+
+  PP_Type[T_Get]                := Type_Infix;
+  PP_Operator[T_Get]            := "^^";
+  PP_Operator2[T_Get]           := "^^";
+  PP_Prec[T_Get]                := Prec_Get;
+
+  PP_Type[T_If]                 := Type_Split;
+  PP_Split[T_If]                := 1;
+  PP_Opening[T_If]              := "IF ";
+  PP_Operator[T_If]             := <"", " THEN ", " ELSE ">;
+  PP_Operator1[T_If]            := <"", "", "", "">;
+  PP_Operator2[T_If]            := <"", "THEN ", "ELSE ">;
+  PP_Closing[T_If]              := " FI";
+
+  C:" Function-like expressions and conditions: ";
+  @PP_Funct(T_Abs, "ABS");
+  @PP_Funct(T_Frac, "FRAC");
+  @PP_Funct(T_Int, "INT");
+  @PP_Funct(T_Sgn, "SGN");
+  @PP_Funct(T_Max, "MAX");
+  @PP_Funct(T_Min, "MIN");
+  @PP_Funct(T_Powerset, "POWERSET");
+  @PP_Funct(T_Array, "ARRAY");
+  @PP_Funct(T_Head, "HEAD");
+  @PP_Funct(T_Tail, "TAIL");
+  @PP_Funct(T_Last, "LAST");
+  @PP_Funct(T_Butlast, "BUTLAST");
+  @PP_Funct(T_Length, "LENGTH");
+  @PP_Funct(T_Slength, "SLENGTH");
+  @PP_Funct(T_Index, "INDEX");
+  @PP_Funct(T_Substr, "SUBSTR");
+  @PP_Funct(T_Reverse, "REVERSE");
+  @PP_Funct(T_Even, "EVEN?");
+  @PP_Funct(T_Odd, "ODD?");
+  @PP_Funct(T_Empty, "EMPTY?");
+  @PP_Funct(T_Subset, "SUBSET?");
+  @PP_Funct(T_Member, "MEMBER?");
+  @PP_Funct(T_Implies, "IMPLIES?");
+  @PP_Funct(T_Sequenceq, "SEQUENCE?");
+  @PP_Funct(T_Numberq, "NUMBER?");
+  @PP_Funct(T_Stringq, "STRING?");
+  @PP_Funct(T_Address_Of, "ADDRESS_OF");
+
+  PP_Type[T_Set]        := Type_Infix;
+  PP_Opening[T_Set]     := "{";
+  PP_Operator[T_Set]    := "|";
+  PP_Operator1[T_Set]   := "";
+  PP_Operator2[T_Set]   := "|";
+  PP_Closing[T_Set]     := "}";
+
+  C:" These are `prefix' operators: ";
+
+  PP_Type[T_Negate]             := Type_Prefix;
+  PP_Opening[T_Negate]          := "(";
+  PP_Operator[T_Negate]         := "-";
+  PP_Operator1[T_Negate]        := "";
+  PP_Operator2[T_Negate]        := "-";
+  PP_Closing[T_Negate]          := ")";
+  PP_Prec[T_Negate]             := Prec_Plus;
+
+  PP_Type[T_Invert]             := Type_Prefix;
+  PP_Opening[T_Invert]          := "(";
+  PP_Operator[T_Invert]         := "1/";
+  PP_Operator1[T_Invert]        := "";
+  PP_Operator2[T_Invert]        := "1/";
+  PP_Closing[T_Invert]          := ")";
+  PP_Prec[T_Invert]             := Prec_Times;
+
+  @PP_Fill(T_Fill_Stat, "Statement");
+  @PP_Fill(T_Fill_Expn, "Expression");
+  @PP_Fill(T_Fill_Cond, "Condition");
+  @PP_Fill(T_Fill_Defn, "Definition");
+  @PP_Fill(T_Fill_Lvalue, "Lvalue");
+  @PP_Fill(T_Fill_Assign, "Assign");
+  @PP_Fill(T_Fill_Guarded, "Guarded");
+  @PP_Fill(T_Fill_Action, "Action");
+  @PP_Fill(T_Fill_Stats, "Statements");
+  @PP_Fill(T_Fill_Expns, "Expressions");
+  @PP_Fill(T_Fill_Lvalues, "Lvalues");
+  @PP_Fill(T_Fill_Assigns, "Assigns");
+  @PP_Fill(T_Fill_Defns, "Definitions");
+
+  C:" End of @PP_Init ";
+  SKIP ENDVAR; 
+
+
+MW_PROC @PP_dummy() ==
+  PRINT(Data_Names, Data_Lengths, Data_Origlen,
+        Data_Repeats, Data_Fields, Data_Types, Data_Values,
+        Init_Types, Init_Values, Init_String,
+        Equ_Symbol, DSECT_Tag, Comment, Orig_Name, CICS_Maps);
+  PRINT(Symbol_Equ, Max_Split_Line);
+  PRINT(FC_Business, FC_Business_End, FC_Tech, FC_Tech_End, FC_Newline,
+        FC_Turn_On, FC_Turn_Off) .;
+
+
+C:" ----------------------------------------------------------------------- "

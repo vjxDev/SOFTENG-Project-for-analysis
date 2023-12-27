@@ -1,0 +1,3616 @@
+(set! //syntax_/list 1)
+
+(set! //syntax_/one_/pattern 2)
+
+(set! //syntax_/many_/pattern 3)
+
+(set! //syntax_/any_/pattern 4)
+
+(set! //syntax_/ifmatch 5)
+
+(set! //syntax_/fill 6)
+
+(set! //syntax_/one_/int 9)
+
+(set! //syntax_/any_/int 10)
+
+(set! //syntax_/one_/var 11)
+
+(set! //syntax_/any_/var 12)
+
+(set! //syntax_/type (make-vector 1999 0))
+
+(set! //syntax_/comps (make-vector 1999 '()))
+
+(set! //syntax_/name
+  (make-vector 1999 "UNKNOWN"))
+
+(set! //syntax_/v_/to_/e (make-vector 1999 0))
+
+(set! //syntax_/e_/to_/v (make-vector 1999 0))
+
+(set! //syntax_/value (make-vector 1999 0))
+
+(set! //t_/statement 1)
+
+(set! //t_/expression 2)
+
+(set! //t_/condition 3)
+
+(set! //t_/definition 4)
+
+(set! //t_/lvalue 5)
+
+(set! //t_/assign 6)
+
+(set! //t_/guarded 7)
+
+(set! //t_/action 8)
+
+(set! //t_/name 9)
+
+(set! //t_/expressions 10)
+
+(set! //t_/lvalues 12)
+
+(set! //t_/assigns 13)
+
+(set! //t_/definitions 14)
+
+(set! //t_/actions 15)
+
+(set! //t_/guardeds 16)
+
+(set! //t_/statements 17)
+
+(set! //t_/datatype 18)
+
+(set! //t_/a_/proc_/call 101)
+
+(set! //t_/m/w_/proc_/call 102)
+
+(set! //t_/x_/proc_/call 103)
+
+(set! //t_/stat_/place 104)
+
+(set! //t_/stat_/pat_/one 105)
+
+(set! //t_/stat_/pat_/many 106)
+
+(set! //t_/stat_/pat_/any 107)
+
+(set! //t_/abort 108)
+
+(set! //t_/assert 109)
+
+(set! //t_/assignment 110)
+
+(set! //t_/a_/s 111)
+
+(set! //t_/call 112)
+
+(set! //t_/comment 113)
+
+(set! //t_/cond 114)
+
+(set! //t_/d_/if 115)
+
+(set! //t_/d_/do 116)
+
+(set! //t_/exit 117)
+
+(set! //t_/for 118)
+
+(set! //t_/foreach_/stat 119)
+
+(set! //t_/foreach_/stats 120)
+
+(set! //t_/foreach_/t/s 121)
+
+(set! //t_/foreach_/t/ss 122)
+
+(set! //t_/foreach_/s/t/s 123)
+
+(set! //t_/foreach_/expn 124)
+
+(set! //t_/foreach_/cond 125)
+
+(set! //t_/ateach_/stat 126)
+
+(set! //t_/ateach_/stats 127)
+
+(set! //t_/ateach_/t/s 128)
+
+(set! //t_/ateach_/t/ss 129)
+
+(set! //t_/ateach_/s/t/s 130)
+
+(set! //t_/ateach_/expn 131)
+
+(set! //t_/ateach_/cond 132)
+
+(set! //t_/floop 133)
+
+(set! //t_/join 134)
+
+(set! //t_/pop 135)
+
+(set! //t_/proc_/call 136)
+
+(set! //t_/push 137)
+
+(set! //t_/spec 138)
+
+(set! //t_/var 139)
+
+(set! //t_/where 140)
+
+(set! //t_/while 141)
+
+(set! //t_/m/w_/proc 142)
+
+(set! //t_/m/w_/funct 143)
+
+(set! //t_/m/w_/b/funct 144)
+
+(set! //t_/skip 145)
+
+(set! //t_/foreach_/n/a/s 146)
+
+(set! //t_/ateach_/n/a/s 147)
+
+(set! //t_/foreach_/variable 148)
+
+(set! //t_/foreach_/global_/var 149)
+
+(set! //t_/ateach_/variable 150)
+
+(set! //t_/ateach_/global_/var 151)
+
+(set! //t_/foreach_/lvalue 152)
+
+(set! //t_/ateach_/lvalue 153)
+
+(set! //t_/for_/in 154)
+
+(set! //t_/puthash 155)
+
+(set! //t_/print 156)
+
+(set! //t_/prinflush 157)
+
+(set! //t_/maphash 158)
+
+(set! //t_/error 159)
+
+(set! //t_/stat_/int_/one 160)
+
+(set! //t_/stat_/int_/any 161)
+
+(set! //t_/stat_/var_/one 162)
+
+(set! //t_/stat_/var_/any 163)
+
+(set! //t_/declare_/datatype 164)
+
+(set! //t_/typedef 165)
+
+(set! //t_/stat_/pseudo 166)
+
+(set! //t_/ifmatch_/stat 180)
+
+(set! //t_/ifmatch_/expn 181)
+
+(set! //t_/ifmatch_/cond 182)
+
+(set! //t_/ifmatch_/defn 183)
+
+(set! //t_/ifmatch_/lvalue 184)
+
+(set! //t_/ifmatch_/assign 185)
+
+(set! //t_/ifmatch_/guarded 186)
+
+(set! //t_/ifmatch_/action 187)
+
+(set! //t_/ifmatch_/stats 188)
+
+(set! //t_/ifmatch_/expns 189)
+
+(set! //t_/ifmatch_/lvalues 191)
+
+(set! //t_/ifmatch_/assigns 192)
+
+(set! //t_/ifmatch_/defns 193)
+
+(set! //t_/x_/funct_/call 201)
+
+(set! //t_/m/w_/funct_/call 202)
+
+(set! //t_/expn_/place 203)
+
+(set! //t_/var_/place 204)
+
+(set! //t_/number 205)
+
+(set! //t_/string 206)
+
+(set! //t_/variable 207)
+
+(set! //t_/primed_/var 208)
+
+(set! //t_/sequence 209)
+
+(set! //t_/aref 210)
+
+(set! //t_/sub_/seg 211)
+
+(set! //t_/rel_/seg 212)
+
+(set! //t_/final_/seg 213)
+
+(set! //t_/funct_/call 214)
+
+(set! //t_/map 215)
+
+(set! //t_/reduce 216)
+
+(set! //t_/expn_/pat_/one 217)
+
+(set! //t_/expn_/pat_/many 218)
+
+(set! //t_/expn_/pat_/any 219)
+
+(set! //t_/plus 220)
+
+(set! //t_/minus 221)
+
+(set! //t_/times 222)
+
+(set! //t_/divide 223)
+
+(set! //t_/exponent 224)
+
+(set! //t_/mod 225)
+
+(set! //t_/div 226)
+
+(set! //t_/if 227)
+
+(set! //t_/abs 228)
+
+(set! //t_/frac 229)
+
+(set! //t_/int 230)
+
+(set! //t_/sgn 231)
+
+(set! //t_/max 232)
+
+(set! //t_/min 233)
+
+(set! //t_/intersection 234)
+
+(set! //t_/union 235)
+
+(set! //t_/set_/diff 236)
+
+(set! //t_/powerset 237)
+
+(set! //t_/set 238)
+
+(set! //t_/array 239)
+
+(set! //t_/head 240)
+
+(set! //t_/tail 241)
+
+(set! //t_/last 242)
+
+(set! //t_/butlast 243)
+
+(set! //t_/length 244)
+
+(set! //t_/reverse 245)
+
+(set! //t_/concat 246)
+
+(set! //t_/negate 251)
+
+(set! //t_/invert 252)
+
+(set! //t_/struct 253)
+
+(set! //t_/get_n 254)
+
+(set! //t_/get 255)
+
+(set! //t_/gethash 256)
+
+(set! //t_/hash_/table 257)
+
+(set! //t_/slength 258)
+
+(set! //t_/substr 259)
+
+(set! //t_/index 260)
+
+(set! //t_/expn_/int_/one 261)
+
+(set! //t_/expn_/int_/any 262)
+
+(set! //t_/expn_/var_/one 263)
+
+(set! //t_/expn_/var_/any 264)
+
+(set! //t_/expn_/datatype 265)
+
+(set! //t_/mem 266)
+
+(set! //t_/mem_/seg 267)
+
+(set! //t_/mem_/rel 268)
+
+(set! //t_/address_/of 269)
+
+(set! //t_/expn_/pseudo 270)
+
+(set! //t_/fill_/stat 281)
+
+(set! //t_/fill_/expn 282)
+
+(set! //t_/fill_/cond 283)
+
+(set! //t_/fill_/defn 284)
+
+(set! //t_/fill_/lvalue 285)
+
+(set! //t_/fill_/assign 286)
+
+(set! //t_/fill_/guarded 287)
+
+(set! //t_/fill_/action 288)
+
+(set! //t_/fill_/stats 289)
+
+(set! //t_/fill_/expns 290)
+
+(set! //t_/fill_/lvalues 292)
+
+(set! //t_/fill_/assigns 293)
+
+(set! //t_/fill_/defns 294)
+
+(set! //t_/x_/b/funct_/call 301)
+
+(set! //t_/m/w_/b/funct_/call 302)
+
+(set! //t_/cond_/place 303)
+
+(set! //t_/b/funct_/call 304)
+
+(set! //t_/cond_/pat_/one 305)
+
+(set! //t_/cond_/pat_/many 306)
+
+(set! //t_/cond_/pat_/any 307)
+
+(set! //t_/true 308)
+
+(set! //t_/false 309)
+
+(set! //t_/and 310)
+
+(set! //t_/or 311)
+
+(set! //t_/not 312)
+
+(set! //t_/equal 313)
+
+(set! //t_/less 314)
+
+(set! //t_/greater 315)
+
+(set! //t_/less_/eq 316)
+
+(set! //t_/greater_/eq 317)
+
+(set! //t_/not_/equal 318)
+
+(set! //t_/even 319)
+
+(set! //t_/odd 320)
+
+(set! //t_/empty 321)
+
+(set! //t_/subset 322)
+
+(set! //t_/member 323)
+
+(set! //t_/forall 324)
+
+(set! //t_/exists 325)
+
+(set! //t_/implies 326)
+
+(set! //t_/sequenceq 327)
+
+(set! //t_/numberq 328)
+
+(set! //t_/stringq 329)
+
+(set! //t_/in 330)
+
+(set! //t_/not_/in 331)
+
+(set! //t_/cond_/int_/one 332)
+
+(set! //t_/cond_/int_/any 333)
+
+(set! //t_/cond_/var_/one 334)
+
+(set! //t_/cond_/var_/any 335)
+
+(set! //t_/cond_/pseudo 336)
+
+(set! //t_/proc 401)
+
+(set! //t_/funct 402)
+
+(set! //t_/b/funct 403)
+
+(set! //t_/defn_/pat_/one 404)
+
+(set! //t_/defn_/pat_/many 405)
+
+(set! //t_/defn_/pat_/any 406)
+
+(set! //t_/defn_/int_/one 407)
+
+(set! //t_/defn_/int_/any 408)
+
+(set! //t_/defn_/var_/one 409)
+
+(set! //t_/defn_/var_/any 410)
+
+(set! //t_/var_/lvalue 501)
+
+(set! //t_/aref_/lvalue 502)
+
+(set! //t_/sub_/seg_/lvalue 503)
+
+(set! //t_/rel_/seg_/lvalue 504)
+
+(set! //t_/final_/seg_/lvalue 505)
+
+(set! //t_/lvalue_/pat_/one 506)
+
+(set! //t_/lvalue_/pat_/many 507)
+
+(set! //t_/lvalue_/pat_/any 508)
+
+(set! //t_/struct_/lvalue 509)
+
+(set! //t_/lvalue_/int_/one 510)
+
+(set! //t_/lvalue_/int_/any 511)
+
+(set! //t_/lvalue_/var_/one 512)
+
+(set! //t_/lvalue_/var_/any 513)
+
+(set! //t_/lvalue_/datatype 514)
+
+(set! //t_/mem_/lvalue 515)
+
+(set! //t_/mem_/seg_/lvalue 516)
+
+(set! //t_/mem_/rel_/lvalue 517)
+
+(set! //t_/lvalue_/pseudo 518)
+
+(set! //t_/assign_/pat_/one 601)
+
+(set! //t_/assign_/pat_/any 602)
+
+(set! //t_/assign_/pat_/many 603)
+
+(set! //t_/assign_/int_/one 604)
+
+(set! //t_/assign_/int_/any 605)
+
+(set! //t_/assign_/var_/one 606)
+
+(set! //t_/assign_/var_/any 607)
+
+(set! //t_/guarded_/pat_/one 701)
+
+(set! //t_/guarded_/pat_/any 702)
+
+(set! //t_/guarded_/pat_/many 703)
+
+(set! //t_/guarded_/int_/one 704)
+
+(set! //t_/guarded_/int_/any 705)
+
+(set! //t_/guarded_/var_/one 706)
+
+(set! //t_/guarded_/var_/any 707)
+
+(set! //t_/action_/pat_/one 801)
+
+(set! //t_/action_/pat_/any 802)
+
+(set! //t_/action_/pat_/many 803)
+
+(set! //t_/action_/int_/one 804)
+
+(set! //t_/action_/int_/any 805)
+
+(set! //t_/action_/var_/one 806)
+
+(set! //t_/action_/var_/any 807)
+
+(set! //t_/name_/pat_/one 901)
+
+(set! //t_/name_/int_/one 902)
+
+(set! //t_/name_/var_/one 903)
+
+(set! //t_/datatype_/integer 1801)
+
+(set! //t_/datatype_/string 1802)
+
+(set! //t_/datatype_/struct 1803)
+
+(set! //t_/datatype_/array 1804)
+
+(vector-set!
+  //syntax_/name
+  (- //t_/statement 1)
+  "Statement")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expression 1)
+  "Expression")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/condition 1)
+  "Condition")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/definition 1)
+  "Definition")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue 1)
+  "Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign 1)
+  "Assign")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded 1)
+  "Guarded")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action 1)
+  "Action")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/statements 1)
+  "Statements")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expressions 1)
+  "Expressions")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalues 1)
+  "Lvalues")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assigns 1)
+  "Assigns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/definitions 1)
+  "Definitions")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/actions 1)
+  "Actions")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guardeds 1)
+  "Guardeds")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/name 1)
+  "Name")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/a_/proc_/call 1)
+  "A_Proc_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/proc_/call 1)
+  "MW_Proc_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/x_/proc_/call 1)
+  "X_Proc_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/place 1)
+  "Stat_Place")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/pat_/one 1)
+  "Stat_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/pat_/many 1)
+  "Stat_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/pat_/any 1)
+  "Stat_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/int_/one 1)
+  "Stat_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/int_/any 1)
+  "Stat_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/var_/one 1)
+  "Stat_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/var_/any 1)
+  "Stat_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/abort 1)
+  "Abort")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assert 1)
+  "Assert")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assignment 1)
+  "Assignment")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/a_/s 1)
+  "A_S")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/call 1)
+  "Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/comment 1)
+  "Comment")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond 1)
+  "Cond")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/d_/if 1)
+  "D_If")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/d_/do 1)
+  "D_Do")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/exit 1)
+  "Exit")
+
+(vector-set! //syntax_/name (- //t_/for 1) "For")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/stat 1)
+  "Foreach_Stat")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/stats 1)
+  "Foreach_Stats")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/t/s 1)
+  "Foreach_TS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/t/ss 1)
+  "Foreach_TSs")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/s/t/s 1)
+  "Foreach_STS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/expn 1)
+  "Foreach_Expn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/cond 1)
+  "Foreach_Cond")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/stat 1)
+  "Ateach_Stat")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/stats 1)
+  "Ateach_Stats")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/t/s 1)
+  "Ateach_TS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/t/ss 1)
+  "Ateach_TSs")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/s/t/s 1)
+  "Ateach_STS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/expn 1)
+  "Ateach_Expn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/cond 1)
+  "Ateach_Cond")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/floop 1)
+  "Floop")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/join 1)
+  "Join")
+
+(vector-set! //syntax_/name (- //t_/pop 1) "Pop")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/proc_/call 1)
+  "Proc_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/push 1)
+  "Push")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/spec 1)
+  "Spec")
+
+(vector-set! //syntax_/name (- //t_/var 1) "Var")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/where 1)
+  "Where")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/while 1)
+  "While")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/proc 1)
+  "MW_Proc")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/funct 1)
+  "MW_Funct")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/b/funct 1)
+  "MW_BFunct")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/skip 1)
+  "Skip")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/n/a/s 1)
+  "Foreach_NAS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/n/a/s 1)
+  "Ateach_NAS")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/variable 1)
+  "Foreach_Variable")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/global_/var 1)
+  "Foreach_Global_Var")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/variable 1)
+  "Ateach_Variable")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/global_/var 1)
+  "Ateach_Global_Var")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/foreach_/lvalue 1)
+  "Foreach_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ateach_/lvalue 1)
+  "Ateach_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/for_/in 1)
+  "For_In")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/puthash 1)
+  "Puthash")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/print 1)
+  "Print")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/prinflush 1)
+  "Prinflush")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/maphash 1)
+  "Maphash")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/error 1)
+  "Error")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/stat 1)
+  "Ifmatch_Stat")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/expn 1)
+  "Ifmatch_Expn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/cond 1)
+  "Ifmatch_Cond")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/defn 1)
+  "Ifmatch_Defn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/lvalue 1)
+  "Ifmatch_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/assign 1)
+  "Ifmatch_Assign")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/guarded 1)
+  "Ifmatch_Guarded")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/action 1)
+  "Ifmatch_Action")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/stats 1)
+  "Ifmatch_Stats")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/expns 1)
+  "Ifmatch_Expns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/lvalues 1)
+  "Ifmatch_Lvalues")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/assigns 1)
+  "Ifmatch_Assigns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/ifmatch_/defns 1)
+  "Ifmatch_Defns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/x_/funct_/call 1)
+  "X_Funct_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/funct_/call 1)
+  "MW_Funct_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/place 1)
+  "Expn_Place")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/var_/place 1)
+  "Var_Place")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/number 1)
+  "Number")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/string 1)
+  "String")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/variable 1)
+  "Variable")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/primed_/var 1)
+  "Primed_Var")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/sequence 1)
+  "Sequence")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/aref 1)
+  "Aref")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/sub_/seg 1)
+  "Sub_Seg")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/rel_/seg 1)
+  "Rel_Seg")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/final_/seg 1)
+  "Final_Seg")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/funct_/call 1)
+  "Funct_Call")
+
+(vector-set! //syntax_/name (- //t_/map 1) "Map")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/reduce 1)
+  "Reduce")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/pat_/one 1)
+  "Expn_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/pat_/many 1)
+  "Expn_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/pat_/any 1)
+  "Expn_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/int_/one 1)
+  "Expn_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/int_/any 1)
+  "Expn_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/var_/one 1)
+  "Expn_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/var_/any 1)
+  "Expn_Var_Any")
+
+(vector-set! //syntax_/name (- //t_/mem 1) "Mem")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/mem_/seg 1)
+  "Mem_Seg")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/mem_/rel 1)
+  "Mem_Rel")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/plus 1)
+  "Plus")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/minus 1)
+  "Minus")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/times 1)
+  "Times")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/divide 1)
+  "Divide")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/exponent 1)
+  "Exponent")
+
+(vector-set! //syntax_/name (- //t_/mod 1) "Mod")
+
+(vector-set! //syntax_/name (- //t_/div 1) "Div")
+
+(vector-set! //syntax_/name (- //t_/if 1) "If")
+
+(vector-set! //syntax_/name (- //t_/abs 1) "Abs")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/frac 1)
+  "Frac")
+
+(vector-set! //syntax_/name (- //t_/int 1) "Int")
+
+(vector-set! //syntax_/name (- //t_/sgn 1) "Sgn")
+
+(vector-set! //syntax_/name (- //t_/max 1) "Max")
+
+(vector-set! //syntax_/name (- //t_/min 1) "Min")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/address_/of 1)
+  "Address_Of")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/intersection 1)
+  "Intersection")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/union 1)
+  "Union")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/set_/diff 1)
+  "Set_Diff")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/powerset 1)
+  "Powerset")
+
+(vector-set! //syntax_/name (- //t_/set 1) "Set")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/array 1)
+  "Array")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/head 1)
+  "Head")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/tail 1)
+  "Tail")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/last 1)
+  "Last")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/butlast 1)
+  "Butlast")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/length 1)
+  "Length")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/reverse 1)
+  "Reverse")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/concat 1)
+  "Concat")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/negate 1)
+  "Negate")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/invert 1)
+  "Invert")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/struct 1)
+  "Struct")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/get_n 1)
+  "Get_n")
+
+(vector-set! //syntax_/name (- //t_/get 1) "Get")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/gethash 1)
+  "Gethash")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/hash_/table 1)
+  "Hash_Table")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/slength 1)
+  "Slength")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/substr 1)
+  "Substr")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/index 1)
+  "Index")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/stat 1)
+  "Fill_Stat")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/expn 1)
+  "Fill_Expn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/cond 1)
+  "Fill_Cond")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/defn 1)
+  "Fill_Defn")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/lvalue 1)
+  "Fill_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/assign 1)
+  "Fill_Assign")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/guarded 1)
+  "Fill_Guarded")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/action 1)
+  "Fill_Action")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/stats 1)
+  "Fill_Stats")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/expns 1)
+  "Fill_Expns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/lvalues 1)
+  "Fill_Lvalues")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/assigns 1)
+  "Fill_Assigns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/fill_/defns 1)
+  "Fill_Defns")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/x_/b/funct_/call 1)
+  "X_BFunct_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/m/w_/b/funct_/call 1)
+  "MW_BFunct_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/place 1)
+  "Cond_Place")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/b/funct_/call 1)
+  "BFunct_Call")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/pat_/one 1)
+  "Cond_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/pat_/many 1)
+  "Cond_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/pat_/any 1)
+  "Cond_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/int_/one 1)
+  "Cond_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/int_/any 1)
+  "Cond_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/var_/one 1)
+  "Cond_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/var_/any 1)
+  "Cond_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/true 1)
+  "True")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/false 1)
+  "False")
+
+(vector-set! //syntax_/name (- //t_/and 1) "And")
+
+(vector-set! //syntax_/name (- //t_/or 1) "Or")
+
+(vector-set! //syntax_/name (- //t_/not 1) "Not")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/equal 1)
+  "Equal")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/less 1)
+  "Less")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/greater 1)
+  "Greater")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/less_/eq 1)
+  "Less_Eq")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/greater_/eq 1)
+  "Greater_Eq")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/not_/equal 1)
+  "Not_Equal")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/even 1)
+  "Even")
+
+(vector-set! //syntax_/name (- //t_/odd 1) "Odd")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/empty 1)
+  "Empty")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/subset 1)
+  "Subset")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/member 1)
+  "Member")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/forall 1)
+  "Forall")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/exists 1)
+  "Exists")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/implies 1)
+  "Implies")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/sequenceq 1)
+  "Sequenceq")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/numberq 1)
+  "Numberq")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stringq 1)
+  "Stringq")
+
+(vector-set! //syntax_/name (- //t_/in 1) "In")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/not_/in 1)
+  "Not_In")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/proc 1)
+  "Proc")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/funct 1)
+  "Funct")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/b/funct 1)
+  "BFunct")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/pat_/one 1)
+  "Defn_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/pat_/many 1)
+  "Defn_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/pat_/any 1)
+  "Defn_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/int_/one 1)
+  "Defn_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/int_/any 1)
+  "Defn_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/var_/one 1)
+  "Defn_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/defn_/var_/any 1)
+  "Defn_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/var_/lvalue 1)
+  "Var_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/aref_/lvalue 1)
+  "Aref_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/sub_/seg_/lvalue 1)
+  "Sub_Seg_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/rel_/seg_/lvalue 1)
+  "Rel_Seg_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/final_/seg_/lvalue 1)
+  "Final_Seg_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/pat_/one 1)
+  "Lvalue_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/pat_/many 1)
+  "Lvalue_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/pat_/any 1)
+  "Lvalue_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/struct_/lvalue 1)
+  "Struct_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/mem_/lvalue 1)
+  "Mem_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/mem_/seg_/lvalue 1)
+  "Mem_Seg_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/mem_/rel_/lvalue 1)
+  "Mem_Rel_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/pat_/one 1)
+  "Assign_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/pat_/any 1)
+  "Assign_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/pat_/many 1)
+  "Assign_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/pat_/one 1)
+  "Guarded_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/pat_/any 1)
+  "Guarded_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/pat_/many 1)
+  "Guarded_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/pat_/one 1)
+  "Action_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/pat_/any 1)
+  "Action_Pat_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/pat_/many 1)
+  "Action_Pat_Many")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/name_/pat_/one 1)
+  "Name_Pat_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/int_/one 1)
+  "Lvalue_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/int_/any 1)
+  "Lvalue_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/var_/one 1)
+  "Lvalue_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/var_/any 1)
+  "Lvalue_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/struct_/lvalue 1)
+  "Struct_Lvalue")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/int_/one 1)
+  "Assign_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/int_/any 1)
+  "Assign_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/var_/one 1)
+  "Assign_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/assign_/var_/any 1)
+  "Assign_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/int_/one 1)
+  "Guarded_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/int_/any 1)
+  "Guarded_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/var_/one 1)
+  "Guarded_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/guarded_/var_/any 1)
+  "Guarded_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/int_/one 1)
+  "Action_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/int_/any 1)
+  "Action_Int_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/var_/one 1)
+  "Action_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/action_/var_/any 1)
+  "Action_Var_Any")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/name_/int_/one 1)
+  "Name_Int_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/name_/var_/one 1)
+  "Name_Var_One")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/stat_/pseudo 1)
+  "Stat_Pseudo")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/expn_/pseudo 1)
+  "Expn_Pseudo")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/lvalue_/pseudo 1)
+  "Lvalue_Pseudo")
+
+(vector-set!
+  //syntax_/name
+  (- //t_/cond_/pseudo 1)
+  "Cond_Pseudo")
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/statements 1)
+  (list //t_/statement))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/expressions 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/lvalues 1)
+  (list //t_/lvalue))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assigns 1)
+  (list //t_/assign))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/definitions 1)
+  (list //t_/definition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assign 1)
+  (list //t_/lvalue //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/guarded 1)
+  (list //t_/condition //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/action 1)
+  (list //t_/name //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/print 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/prinflush 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/maphash 1)
+  (list //t_/name //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/error 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/a_/proc_/call 1)
+  (list //t_/name //t_/expressions //t_/lvalues))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/x_/proc_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assert 1)
+  (list //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assignment 1)
+  (list //t_/assign))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/a_/s 1)
+  (list //t_/name //t_/actions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/actions 1)
+  (list //t_/action))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/cond 1)
+  (list //t_/guarded))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/d_/if 1)
+  (list //t_/guarded))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/d_/do 1)
+  (list //t_/guarded))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/for 1)
+  (list //t_/lvalue
+        //t_/expression
+        //t_/expression
+        //t_/expression
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/for_/in 1)
+  (list //t_/lvalue
+        //t_/expression
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/stat 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/n/a/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/stats 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/t/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/t/ss 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/s/t/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/cond 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/expn 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/lvalue 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/variable 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/foreach_/global_/var 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/stat 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/stats 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/t/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/t/ss 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/n/a/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/s/t/s 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/cond 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/expn 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/lvalue 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/variable 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ateach_/global_/var 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/floop 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/join 1)
+  (list //t_/statements //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/pop 1)
+  (list //t_/lvalue //t_/lvalue))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/puthash 1)
+  (list //t_/lvalue
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/proc_/call 1)
+  (list //t_/name //t_/expressions //t_/lvalues))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/push 1)
+  (list //t_/lvalue //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/spec 1)
+  (list //t_/lvalues //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/var 1)
+  (list //t_/assigns //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/where 1)
+  (list //t_/statements //t_/definitions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/while 1)
+  (list //t_/condition //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/proc 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/lvalues
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/funct 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/assigns
+        //t_/statements
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/b/funct 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/assigns
+        //t_/statements
+        //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/proc_/call 1)
+  (list //t_/name //t_/expressions //t_/lvalues))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/stat 1)
+  (list //t_/statement
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/expn 1)
+  (list //t_/expression
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/cond 1)
+  (list //t_/condition
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/defn 1)
+  (list //t_/definition
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/lvalue 1)
+  (list //t_/lvalue
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/assign 1)
+  (list //t_/assign
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/guarded 1)
+  (list //t_/guarded
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/action 1)
+  (list //t_/action
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/stats 1)
+  (list //t_/statements
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/expns 1)
+  (list //t_/expressions
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/lvalues 1)
+  (list //t_/lvalues
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/assigns 1)
+  (list //t_/assigns
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/ifmatch_/defns 1)
+  (list //t_/definitions
+        //t_/statements
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/get_n 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/get 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/gethash 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/slength 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/substr 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/index 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/x_/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/sequence 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/aref 1)
+  (list //t_/expression //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/sub_/seg 1)
+  (list //t_/expression
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/rel_/seg 1)
+  (list //t_/expression
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/final_/seg 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/map 1)
+  (list //t_/name //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/reduce 1)
+  (list //t_/name //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/plus 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/minus 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/times 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/divide 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/exponent 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mod 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/div 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/if 1)
+  (list //t_/condition
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/abs 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/frac 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/int 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/sgn 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/max 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/min 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/address_/of 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem_/seg 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem_/rel 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem_/lvalue 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem_/seg_/lvalue 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/mem_/rel_/lvalue 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/intersection 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/union 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/set_/diff 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/powerset 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/set 1)
+  (list //t_/expression //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/array 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/head 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/tail 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/last 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/butlast 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/length 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/reverse 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/concat 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/negate 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/invert 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/struct 1)
+  (list //t_/name //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/stat 1)
+  (list //t_/statement))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/expn 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/cond 1)
+  (list //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/defn 1)
+  (list //t_/definition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/lvalue 1)
+  (list //t_/lvalue))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/assign 1)
+  (list //t_/assign))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/guarded 1)
+  (list //t_/guarded))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/action 1)
+  (list //t_/action))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/stats 1)
+  (list //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/expns 1)
+  (list //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/lvalues 1)
+  (list //t_/lvalues))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/assigns 1)
+  (list //t_/assigns))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/fill_/defns 1)
+  (list //t_/definitions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/x_/b/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/m/w_/b/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/b/funct_/call 1)
+  (list //t_/name //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/and 1)
+  (list //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/or 1)
+  (list //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/not 1)
+  (list //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/equal 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/not_/equal 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/less 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/greater 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/less_/eq 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/greater_/eq 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/even 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/odd 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/empty 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/subset 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/member 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/in 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/not_/in 1)
+  (list //t_/expression //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/forall 1)
+  (list //t_/lvalues //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/exists 1)
+  (list //t_/lvalues //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/implies 1)
+  (list //t_/condition //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/sequenceq 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/numberq 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/stringq 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/proc 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/lvalues
+        //t_/statements))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/funct 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/assigns
+        //t_/statements
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/b/funct 1)
+  (list //t_/name
+        //t_/lvalues
+        //t_/assigns
+        //t_/statements
+        //t_/condition))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/aref_/lvalue 1)
+  (list //t_/lvalue //t_/expressions))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/sub_/seg_/lvalue 1)
+  (list //t_/lvalue
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/rel_/seg_/lvalue 1)
+  (list //t_/lvalue
+        //t_/expression
+        //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/final_/seg_/lvalue 1)
+  (list //t_/lvalue //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/struct_/lvalue 1)
+  (list //t_/name //t_/lvalue))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/stat_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/stat_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/expn_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/expn_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/cond_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/cond_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/defn_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/defn_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/lvalue_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/lvalue_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assign_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/assign_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/guarded_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/guarded_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/action_/int_/one 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/action_/int_/any 1)
+  (list //t_/expression))
+
+(vector-set!
+  //syntax_/comps
+  (- //t_/name_/int_/one 1)
+  (list //t_/expression))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/assignment
+              //t_/cond
+              //t_/d_/if
+              //t_/d_/do
+              //t_/plus
+              //t_/minus
+              //t_/times
+              //t_/divide
+              //t_/exponent
+              //t_/max
+              //t_/min
+              //t_/intersection
+              //t_/union
+              //t_/concat
+              //t_/and
+              //t_/or
+              //t_/statements
+              //t_/expressions
+              //t_/lvalues
+              //t_/assigns
+              //t_/definitions
+              //t_/actions)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/list)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/pat_/one
+              //t_/expn_/pat_/one
+              //t_/cond_/pat_/one
+              //t_/lvalue_/pat_/one
+              //t_/defn_/pat_/one
+              //t_/assign_/pat_/one
+              //t_/guarded_/pat_/one
+              //t_/action_/pat_/one
+              //t_/name_/pat_/one)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/one_/pattern)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/pat_/many
+              //t_/expn_/pat_/many
+              //t_/cond_/pat_/many
+              //t_/lvalue_/pat_/many
+              //t_/defn_/pat_/many
+              //t_/assign_/pat_/many
+              //t_/guarded_/pat_/many
+              //t_/action_/pat_/many)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/many_/pattern)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/pat_/any
+              //t_/expn_/pat_/any
+              //t_/cond_/pat_/any
+              //t_/lvalue_/pat_/any
+              //t_/defn_/pat_/any
+              //t_/assign_/pat_/any
+              //t_/guarded_/pat_/any
+              //t_/action_/pat_/any)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/any_/pattern)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/int_/one
+              //t_/expn_/int_/one
+              //t_/cond_/int_/one
+              //t_/lvalue_/int_/one
+              //t_/defn_/int_/one
+              //t_/assign_/int_/one
+              //t_/guarded_/int_/one
+              //t_/action_/int_/one
+              //t_/name_/int_/one)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/one_/int)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/int_/any
+              //t_/expn_/int_/any
+              //t_/cond_/int_/any
+              //t_/lvalue_/int_/any
+              //t_/defn_/int_/any
+              //t_/assign_/int_/any
+              //t_/guarded_/int_/any
+              //t_/action_/int_/any)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/any_/int)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/var_/one
+              //t_/expn_/var_/one
+              //t_/cond_/var_/one
+              //t_/lvalue_/var_/one
+              //t_/defn_/var_/one
+              //t_/assign_/var_/one
+              //t_/guarded_/var_/one
+              //t_/action_/var_/one
+              //t_/name_/var_/one)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/one_/var)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/stat_/var_/any
+              //t_/expn_/var_/any
+              //t_/cond_/var_/any
+              //t_/lvalue_/var_/any
+              //t_/defn_/var_/any
+              //t_/assign_/var_/any
+              //t_/guarded_/var_/any
+              //t_/action_/var_/any)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/any_/var)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/ifmatch_/stat
+              //t_/ifmatch_/expn
+              //t_/ifmatch_/cond
+              //t_/ifmatch_/defn
+              //t_/ifmatch_/lvalue
+              //t_/ifmatch_/assign
+              //t_/ifmatch_/guarded
+              //t_/ifmatch_/action
+              //t_/ifmatch_/stats
+              //t_/ifmatch_/expns
+              //t_/ifmatch_/lvalues
+              //t_/ifmatch_/assigns
+              //t_/ifmatch_/defns)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/ifmatch)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type)
+      (seq-save
+        (list //t_/fill_/stat
+              //t_/fill_/expn
+              //t_/fill_/cond
+              //t_/fill_/defn
+              //t_/fill_/lvalue
+              //t_/fill_/assign
+              //t_/fill_/guarded
+              //t_/fill_/action
+              //t_/fill_/stats
+              //t_/fill_/stats
+              //t_/fill_/lvalues
+              //t_/fill_/assigns
+              //t_/fill_/defns)))
+  (if (vector? seq-save)
+    (set! seq-save (vector-elts seq-save)))
+  (let for-in-loop ((for-tmp seq-save))
+    (cond ((not (null? for-tmp))
+           (set! /type (car for-tmp))
+           (vector-set!
+             //syntax_/type
+             (- /type 1)
+             //syntax_/fill)
+           (for-in-loop (cdr for-tmp)))
+          (#t #t)))
+  (set! /type var-save))
+
+(let ((var-save /type) (for-step 1) (for-end 1999))
+  (set! /type 1)
+  (let for-loop ()
+    (cond ((or (and (> 1 0) (<= /type for-end))
+               (and (< 1 0) (>= /type for-end)))
+           (begin
+             (vector-set!
+               //syntax_/v_/to_/e
+               (- /type 1)
+               /type)
+             (vector-set!
+               //syntax_/e_/to_/v
+               (- /type 1)
+               /type))
+           (set! /type (+ /type for-step))
+           (for-loop))
+          (#t #t)))
+  (set! /type var-save))
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/var_/lvalue 1)
+  //t_/variable)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/aref_/lvalue 1)
+  //t_/aref)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/sub_/seg_/lvalue 1)
+  //t_/sub_/seg)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/rel_/seg_/lvalue 1)
+  //t_/rel_/seg)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/final_/seg_/lvalue 1)
+  //t_/final_/seg)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/struct_/lvalue 1)
+  //t_/struct)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/mem_/lvalue 1)
+  //t_/mem)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/mem_/seg_/lvalue 1)
+  //t_/mem_/seg)
+
+(vector-set!
+  //syntax_/v_/to_/e
+  (- //t_/mem_/rel_/lvalue 1)
+  //t_/mem_/rel)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/variable 1)
+  //t_/var_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/aref 1)
+  //t_/aref_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/sub_/seg 1)
+  //t_/sub_/seg_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/rel_/seg 1)
+  //t_/rel_/seg_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/final_/seg 1)
+  //t_/final_/seg_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/struct 1)
+  //t_/struct_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/mem 1)
+  //t_/mem_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/mem_/seg 1)
+  //t_/mem_/seg_/lvalue)
+
+(vector-set!
+  //syntax_/e_/to_/v
+  (- //t_/mem_/rel 1)
+  //t_/mem_/rel_/lvalue)
+
+(vector-set! //syntax_/value (- //t_/name 1) 1)
+
+(vector-set! //syntax_/value (- //t_/call 1) 1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/comment 1)
+  1)
+
+(vector-set! //syntax_/value (- //t_/exit 1) 1)
+
+(vector-set! //syntax_/value (- //t_/number 1) 1)
+
+(vector-set! //syntax_/value (- //t_/string 1) 1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/variable 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/var_/lvalue 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/primed_/var 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/defn_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/defn_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/defn_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/assign_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/assign_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/assign_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/guarded_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/guarded_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/guarded_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/action_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/action_/pat_/many 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/action_/pat_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/name_/pat_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/defn_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/defn_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/assign_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/assign_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/guarded_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/guarded_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/action_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/action_/var_/any 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/name_/var_/one 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/stat_/pseudo 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/expn_/pseudo 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/lvalue_/pseudo 1)
+  1)
+
+(vector-set!
+  //syntax_/value
+  (- //t_/cond_/pseudo 1)
+  1)
+
+(define (@list_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/list))
+
+(define (@all_pattern_type? /type)
+  (or (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/one_/pattern)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/many_/pattern)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/pattern)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/one_/int)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/int)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/one_/var)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/var)))
+
+(define (@one_pattern_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/one_/pattern))
+
+(define (@many_pattern_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/many_/pattern))
+
+(define (@any_pattern_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/any_/pattern))
+
+(define (@one_int_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/one_/int))
+
+(define (@any_int_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/any_/int))
+
+(define (@one_var_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/one_/var))
+
+(define (@any_var_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/any_/var))
+
+(define (@star_match_type? /type)
+  (or (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/many_/pattern)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/pattern)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/int)
+      (equal?
+        (vector-ref //syntax_/type (- /type 1))
+        //syntax_/any_/var)))
+
+(define (@ifmatch_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/ifmatch))
+
+(define (@fill_type? /type)
+  (equal?
+    (vector-ref //syntax_/type (- /type 1))
+    //syntax_/fill))
+
+(define (@syntax /type)
+  (vector-ref //syntax_/comps (- /type 1)))
+
+(define (@type_name /type)
+  (vector-ref //syntax_/name (- /type 1)))
+
+(define (@var_to_expn_type /type)
+  (vector-ref //syntax_/v_/to_/e (- /type 1)))
+
+(define (@expn_to_var_type /type)
+  (vector-ref //syntax_/e_/to_/v (- /type 1)))
+
+(define (@var_to_expn //i)
+  (@make (vector-ref //syntax_/v_/to_/e (- (@st //i) 1))
+         (@value //i)
+         (if (equal?
+               (vector-ref //syntax_/type (- (@st //i) 1))
+               //syntax_/fill)
+           (@components //i)
+           (let ((l (@components //i)) (map-result '()))
+             (let while-loop ()
+               (cond ((not (null? l))
+                      (set! map-result
+                        (cons (@var_to_expn (car l)) map-result))
+                      (set! l (cdr l))
+                      (while-loop))
+                     (#t #t)))
+             (reverse map-result)))))
+
+(define (@expn_to_var //i)
+  (if (member
+        (@st //i)
+        (list //t_/aref //t_/sub_/seg //t_/rel_/seg))
+    (@make (vector-ref //syntax_/e_/to_/v (- (@st //i) 1))
+           (@value //i)
+           (cons (@expn_to_var (list-ref //i (+ 1 1)))
+                 (cdr (@components //i))))
+    (if (= (@st //i) //t_/struct)
+      (@make //t_/struct_/lvalue
+             '()
+             (list (list-ref //i (+ 1 1))
+                   (@expn_to_var (list-ref //i (+ 1 2)))))
+      (@make (vector-ref //syntax_/e_/to_/v (- (@st //i) 1))
+             (@value //i)
+             (@components //i)))))
+
+(define (@var_to_expn_list //l)
+  (let ((l //l) (map-result '()))
+    (let while-loop ()
+      (cond ((not (null? l))
+             (set! map-result
+               (cons (@var_to_expn (car l)) map-result))
+             (set! l (cdr l))
+             (while-loop))
+            (#t #t)))
+    (reverse map-result)))
+
+(define (@expn_to_var_list //l)
+  (let ((l //l) (map-result '()))
+    (let while-loop ()
+      (cond ((not (null? l))
+             (set! map-result
+               (cons (@expn_to_var (car l)) map-result))
+             (set! l (cdr l))
+             (while-loop))
+            (#t #t)))
+    (reverse map-result)))
+
+(define (@has_value_type? /type)
+  (= (vector-ref //syntax_/value (- /type 1)) 1))
+
+(define (@has_comps_type? /type)
+  (= (vector-ref //syntax_/value (- /type 1)) 0))
+
+(define (@has_value? //i)
+  (= (vector-ref //syntax_/value (- (@st //i) 1))
+     1))
+
+(define (@has_comps? //i)
+  (= (vector-ref //syntax_/value (- (@st //i) 1))
+     0))
+
+(set! //call_/types_/set
+  (@make_set
+    (list //t_/x_/proc_/call
+          //t_/m/w_/proc_/call
+          //t_/call
+          //t_/proc_/call)))
+
+(set! //ext_/call_/types_/set
+  (@make_set
+    (list //t_/m/w_/proc_/call //t_/x_/proc_/call)))
+
+#t
+

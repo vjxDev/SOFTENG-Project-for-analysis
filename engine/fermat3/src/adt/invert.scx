@@ -1,0 +1,412 @@
+(define (/foreach-invert-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/variable)
+              (member (@v (@i)) /vars))
+         (let ((var-save /assign) (seq-save /assigns))
+           (if (vector? seq-save)
+             (set! seq-save (vector-elts seq-save)))
+           (let for-in-loop ((for-tmp seq-save))
+             (cond ((not (null? for-tmp))
+                    (set! /assign (car for-tmp))
+                    (cond ((and (= (@st (list-ref /assign (+ 1 1)))
+                                   //t_/var_/lvalue)
+                                (equal?
+                                  (@v (list-ref /assign (+ 1 1)))
+                                  (@v (@i))))
+                           (set! /new
+                             (@invert
+                               (@i)
+                               (@v (list-ref /assign (+ 1 1)))
+                               (list-ref /assign (+ 1 2))))))
+                    (for-in-loop (cdr for-tmp)))
+                   (#t #t)))
+           (set! /assign var-save))
+         (cond ((null? /new)
+                (@print_wsl
+                  (@make //t_/assignment '() /assigns)
+                  "")
+                (@print_wsl (@i) "")
+                (error "@Invert_All: cannot invert!"))
+               (#t (@paste_over /new))))))
+
+(define /%const__invert__1
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 205 1 '()))))
+
+(define /%const__invert__2
+  (@make 220
+         '()
+         (list (@make 205 1 '())
+               (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__3
+  (@make 221
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 205 1 '()))))
+
+(define /%const__invert__4
+  (@make 221
+         '()
+         (list (@make 205 1 '())
+               (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__5
+  (@make 221
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '())
+               (@make 207 (@make_name "c") '()))))
+
+(define /%const__invert__6
+  (@make 221
+         '()
+         (list (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '())
+               (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "c") '()))))
+
+(define /%const__invert__7
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '())
+               (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "c") '()))))
+
+(define /%const__invert__8
+  (@make 222
+         '()
+         (list (@make 205 2 '())
+               (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__9
+  (@make 222
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '()))))
+
+(define /%const__invert__10
+  (@make 223
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '()))))
+
+(define /%const__invert__11
+  (@make 223
+         '()
+         (list (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "b") '())
+               (@make 207 (@make_name "c") '()))))
+
+(define /%const__invert__12
+  (@make 220
+         '()
+         (list (@make 222
+                      '()
+                      (list (@make 205 2 '())
+                            (@make 207 (@make_name "v") '())))
+               (@make 205 1 '()))))
+
+(define /%const__invert__13
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "a") '())
+               (@make 222
+                      '()
+                      (list (@make 205 2 '())
+                            (@make 220
+                                   '()
+                                   (list (@make 207 (@make_name "v") '())
+                                         (@make 207 (@make_name "b") '())))))
+               (@make 207 (@make_name "c") '()))))
+
+(define /%const__invert__14
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "a") '())
+               (@make 207 (@make_name "b") '()))))
+
+(define /%const__invert__15
+  (@make 251
+         '()
+         (list (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__16
+  (@make 223
+         '()
+         (list (@make 205 1 '())
+               (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__17
+  (@make 223
+         '()
+         (list (@make 205 1 '())
+               (@make 221
+                      '()
+                      (list (@make 205 1 '())
+                            (@make 223
+                                   '()
+                                   (list (@make 205 1 '())
+                                         (@make 221
+                                                '()
+                                                (list (@make 205 1 '())
+                                                      (@make 207
+                                                             (@make_name "v")
+                                                             '()))))))))))
+
+(define /%const__invert__18
+  (@make 223
+         '()
+         (list (@make 205 1 '())
+               (@make 220
+                      '()
+                      (list (@make 222
+                                   '()
+                                   (list (@make 207 (@make_name "v") '())
+                                         (@make 205 2 '())))
+                            (@make 205 1 '()))))))
+
+(define /%const__invert__19
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 222
+                      '()
+                      (list (@make 205 2 '())
+                            (@make 207 (@make_name "v") '()))))))
+
+(define /%const__invert__20
+  (@make 220
+         '()
+         (list (@make 207 (@make_name "v") '())
+               (@make 207 (@make_name "v") '()))))
+
+(define /%const__invert__21
+  (@make 221
+         '()
+         (list (@make 205 1 '())
+               (@make 222
+                      '()
+                      (list (@make 207 (@make_name "v") '())
+                            (@make 205 2 '()))))))
+
+(define /%const__invert__22
+  (@make 207 (@make_name "v") '()))
+
+(define (@invert /x /v-par /exp-par)
+  (let ((/exp-save /exp)
+        (/v-save /v)
+        (//r '())
+        (/pos 0)
+        (//s/t (@st /exp-par))
+        (funct-result '()))
+    (set! /exp /exp-par)
+    (set! /v /v-par)
+    (cond ((= //s/t //t_/variable)
+           (cond ((equal? (@v /exp) /v) (set! //r /x))))
+          ((and (= //s/t //t_/concat)
+                (= (@st (list-ref /exp (+ 1 1))) //t_/sequence)
+                (= (@size /exp) 2))
+           (set! /pos (@invert_find_var /v (@cs /exp)))
+           (cond ((= /pos 2)
+                  (let ((/new-save /new))
+                    (set! /new /x)
+                    (let ((var-save /i)
+                          (for-step 1)
+                          (for-end
+                            (@size (list-ref (list-ref /exp (+ 1 1)) (+ 1 1)))))
+                      (set! /i 1)
+                      (let for-loop ()
+                        (cond ((or (and (> 1 0) (<= /i for-end))
+                                   (and (< 1 0) (>= /i for-end)))
+                               (set! /new (@make //t_/tail '() (list /new)))
+                               (set! /i (+ /i for-step))
+                               (for-loop))
+                              (#t #t)))
+                      (set! /i var-save))
+                    (set! //r
+                      (@invert /new /v (list-ref /exp (+ 1 2))))
+                    (set! /new /new-save)))))
+          ((and (not (= //s/t //t_/plus))
+                (not (= //s/t //t_/minus))
+                (not (= //s/t //t_/times))
+                (not (= //s/t //t_/divide))
+                (not (= //s/t //t_/negate))
+                (not (= //s/t //t_/invert)))
+           (set! //r '()))
+          (#t
+           (set! /pos (@invert_find_var /v (@cs /exp)))
+           (cond ((> /pos 0)
+                  (let ((/new-save /new)
+                        (/rest (concat
+                                 (@get_l /exp 1 (- /pos 1))
+                                 (@get_l /exp (+ /pos 1) (@size /exp)))))
+                    (set! /new '())
+                    (cond ((= //s/t //t_/plus)
+                           (set! /new
+                             (@make //t_/minus '() (cons /x /rest))))
+                          ((and (= //s/t //t_/minus) (= /pos 1))
+                           (set! /new (@make //t_/plus '() (cons /x /rest))))
+                          ((and (= //s/t //t_/minus) (> /pos 1))
+                           (set! /new
+                             (@make //t_/minus
+                                    '()
+                                    (cons (car /rest) (cons /x (cdr /rest))))))
+                          ((= //s/t //t_/times)
+                           (set! /new
+                             (@make //t_/divide '() (cons /x /rest))))
+                          ((and (= //s/t //t_/divide) (= /pos 1))
+                           (set! /new
+                             (@make //t_/times '() (cons /x /rest))))
+                          ((and (= //s/t //t_/divide) (> /pos 1))
+                           (set! /new
+                             (@make //t_/divide
+                                    '()
+                                    (cons (car /rest) (cons /x (cdr /rest))))))
+                          ((= //s/t //t_/negate)
+                           (set! /new (@make //t_/negate '() (list /x))))
+                          ((= //s/t //t_/invert)
+                           (set! /new (@make //t_/invert '() (list /x)))))
+                    (set! //r
+                      (@invert /new /v (list-ref /exp (+ 1 /pos))))
+                    (set! /new /new-save))))))
+    (set! funct-result //r)
+    (set! /exp /exp-save)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@invert_find_var /v-par /comps)
+  (let ((/v-save /v)
+        (/pos 0)
+        (/comp '())
+        (/i 0)
+        (funct-result '()))
+    (set! /v /v-par)
+    (let ((var-save /comp) (seq-save /comps))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! /comp (car for-tmp))
+               (begin
+                 (set! /i (+ /i 1))
+                 (cond ((member /v (@variables /comp))
+                        (cond ((= /pos 0) (set! /pos /i))
+                              (#t (set! /pos (- 1)))))))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! /comp var-save))
+    (set! funct-result /pos)
+    (set! /v /v-save)
+    funct-result))
+
+(define (@invertible? /vars-par /assigns-par)
+  (let ((/assigns-save /assigns)
+        (/vars-save /vars)
+        (//o/k 1)
+        (/assign-save /assign)
+        (/x (@make //t_/variable (@make_name "x") '()))
+        (funct-result '()))
+    (set! /assigns /assigns-par)
+    (set! /vars /vars-par)
+    (set! /assign '())
+    (let while-loop ()
+      (cond ((and (= //o/k 1) (not (null? /assigns)))
+             (begin
+               (set! /assign (car /assigns))
+               (set! /assigns (cdr /assigns))
+               (cond ((and (not (null? (@set_intersect
+                                         (@assigned (list-ref /assign (+ 1 1)))
+                                         /vars)))
+                           (not (= (@st (list-ref /assign (+ 1 1)))
+                                   //t_/var_/lvalue)))
+                      (set! //o/k 0))
+                     ((and (member (@v (list-ref /assign (+ 1 1))) /vars)
+                           (null? (@invert
+                                    /x
+                                    (@v (list-ref /assign (+ 1 1)))
+                                    (list-ref /assign (+ 1 2)))))
+                      (set! //o/k 0))))
+             (while-loop))
+            (#t #t)))
+    (set! funct-result (= //o/k 1))
+    (set! /assigns /assigns-save)
+    (set! /vars /vars-save)
+    (set! /assign /assign-save)
+    funct-result))
+
+(define (@invert_all /vars-par /assigns-par)
+  (let ((/assigns-save /assigns) (/vars-save /vars))
+    (set! /assigns /assigns-par)
+    (set! /vars /vars-par)
+    (@foreach_global_var
+      /foreach-invert-1
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (set! /assigns /assigns-save)
+    (set! /vars /vars-save)))
+
+(cond (#f
+       (set! /tests
+         (list /%const__invert__1
+               /%const__invert__2
+               /%const__invert__3
+               /%const__invert__4
+               /%const__invert__5
+               /%const__invert__6
+               /%const__invert__7
+               /%const__invert__8
+               /%const__invert__9
+               /%const__invert__10
+               /%const__invert__11
+               /%const__invert__12
+               /%const__invert__13
+               /%const__invert__14
+               /%const__invert__15
+               /%const__invert__16
+               /%const__invert__17
+               /%const__invert__18
+               /%const__invert__19
+               /%const__invert__20
+               /%const__invert__21
+               /%const__invert__22))
+       (let ((var-save /exp) (seq-save /tests))
+         (if (vector? seq-save)
+           (set! seq-save (vector-elts seq-save)))
+         (let for-in-loop ((for-tmp seq-save))
+           (cond ((not (null? for-tmp))
+                  (set! /exp (car for-tmp))
+                  (begin
+                    (begin (display "x := ") (force-output))
+                    (@new_program /exp)
+                    (@checkpoint "")
+                    (set! /exp
+                      (@invert
+                        (@make //t_/variable (@make_name "x") '())
+                        (@make_name "v")
+                        /exp))
+                    (cond ((null? /exp)
+                           (begin
+                             (display "-- not invertible")
+                             (newline)
+                             (force-output)))
+                          (#t
+                           (@paste_over /exp)
+                           (begin (display "v := ") (force-output))
+                           (@checkpoint "")))
+                    (begin (display "") (newline) (force-output)))
+                  (for-in-loop (cdr for-tmp)))
+                 (#t #t)))
+         (set! /exp var-save))
+       #t))
+
+#t
+

@@ -1,0 +1,156 @@
+(define /%const__while_to_for_in__1
+  (@make 141
+         '()
+         (list (@make 312
+                      '()
+                      (list (@make 321 '() (list (@make 217 -1 '())))))
+               (@make 17
+                      '()
+                      (list (@make 107 -2 '())
+                            (@make 110
+                                   '()
+                                   (list (@make 6
+                                                '()
+                                                (list (@make 512 -1 '())
+                                                      (@make 241
+                                                             '()
+                                                             (list (@make 263
+                                                                          -1
+                                                                          '()))))))))))))
+
+(define /%const__while_to_for_in__2
+  (@make 141
+         '()
+         (list (@make 312
+                      '()
+                      (list (@make 321 '() (list (@make 217 -1 '())))))
+               (@make 17
+                      '()
+                      (list (@make 107 -2 '())
+                            (@make 110
+                                   '()
+                                   (list (@make 602 -3 '())
+                                         (@make 6
+                                                '()
+                                                (list (@make 512 -1 '())
+                                                      (@make 241
+                                                             '()
+                                                             (list (@make 263
+                                                                          -1
+                                                                          '()))))))))))))
+
+(define (@while_to_for_in_test)
+  (cond ((not (= (@st (@i)) //t_/while))
+         (@fail "Current item is not a While loop"))
+        (#t
+         (@edit)
+         (@wf_fix)
+         (let ((/__/o/k 1))
+           (set! /__/o/k
+             (@new_match
+               /%const__while_to_for_in__1
+               (@i)
+               /__/o/k))
+           (cond ((= /__/o/k 1)
+                  (let ((/__/s_save //s) (/__v_save /v))
+                    (set! //s (vector-ref /__/match_array 1))
+                    (set! /v (vector-ref /__/match_array 0))
+                    (cond ((@elt_clash?
+                             (@elts_assigned (@make //t_/statements '() //s))
+                             (@elements /v))
+                           (@fail "The variable is altered in the loop body"))
+                          (#t (@pass)))
+                    (set! //s /__/s_save)
+                    (set! /v /__v_save)))
+                 (#t
+                  (@fail "While loop is not in a suitable form"))))
+         (@undo_edit))))
+
+(define (@while_to_for_in_code //data)
+  (let ((/elt (@make_name "elt"))
+        (/n 0)
+        (/v1 '())
+        (/e '()))
+    (@wf_fix)
+    (let while-loop ()
+      (cond ((member /elt (@variables (@i)))
+             (begin
+               (set! /n (+ /n 1))
+               (set! /elt
+                 (@make_name (string-append "elt_" (@string /n)))))
+             (while-loop))
+            (#t #t)))
+    (let ((/__/o/k 1))
+      (set! /__/o/k
+        (@new_match
+          /%const__while_to_for_in__1
+          (@i)
+          /__/o/k))
+      (cond ((= /__/o/k 1)
+             (let ((/__/s_save //s) (/__v_save /v))
+               (set! //s (vector-ref /__/match_array 1))
+               (set! /v (vector-ref /__/match_array 0))
+               (set! /v1 (@make //t_/var_/lvalue /elt '()))
+               (set! /e (@make //t_/variable /elt '()))
+               (@paste_over
+                 (@make 154
+                        '()
+                        (list (@expn_to_var /v1)
+                              (@var_to_expn /v)
+                              (@make 17 '() //s))))
+               (set! /v (@lvalue_to_expn /v))
+               (@paste_over
+                 (@replace
+                   (@i)
+                   /e
+                   (@make 240 '() (list (@var_to_expn /v)))))
+               (set! //s /__/s_save)
+               (set! /v /__v_save)))
+            (#t (error "Bug in While_To_For_In!"))))))
+
+(define (@wf_fix)
+  (let ((/__/o/k 1))
+    (set! /__/o/k
+      (@new_match
+        /%const__while_to_for_in__2
+        (@i)
+        /__/o/k))
+    (cond ((= /__/o/k 1)
+           (let ((/__a_save /a) (/__/s_save //s) (/__v_save /v))
+             (set! /a (vector-ref /__/match_array 2))
+             (set! //s (vector-ref /__/match_array 1))
+             (set! /v (vector-ref /__/match_array 0))
+             (cond ((not (null? /a))
+                    (set! //s
+                      (concat
+                        //s
+                        (list (@make //t_/assignment '() /a))))
+                    (@paste_over
+                      (@make 141
+                             '()
+                             (list (@make 312
+                                          '()
+                                          (list (@make 321
+                                                       '()
+                                                       (list (@var_to_expn
+                                                               /v)))))
+                                   (@make 17
+                                          '()
+                                          (append
+                                            //s
+                                            (list (@make 110
+                                                         '()
+                                                         (list (@make 6
+                                                                      '()
+                                                                      (list (@expn_to_var
+                                                                              /v)
+                                                                            (@make 241
+                                                                                   '()
+                                                                                   (list (@var_to_expn
+                                                                                           /v)))))))))))))))
+             (set! /a /__a_save)
+             (set! //s /__/s_save)
+             (set! /v /__v_save))))))
+
+#t
+

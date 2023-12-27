@@ -1,0 +1,42 @@
+(set! //t/r_/delete_/item (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/delete_/item 1)
+  "Delete_Item")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/delete_/item 1)
+  @delete_item_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/delete_/item 1)
+  @delete_item_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/delete_/item 1)
+  "Delete Item")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/delete_/item 1)
+  (list "Delete"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/delete_/item 1)
+  "This transformation will delete a program item that is redundant or unreachable.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/delete_/item 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/delete_/item 1)
+  "")
+

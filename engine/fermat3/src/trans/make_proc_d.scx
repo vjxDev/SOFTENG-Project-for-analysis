@@ -1,0 +1,42 @@
+(set! //t/r_/make_/proc (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/make_/proc 1)
+  "Make Procedure")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/make_/proc 1)
+  "Make_Proc")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/make_/proc 1)
+  @make_proc_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/make_/proc 1)
+  @make_proc_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/make_/proc 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/make_/proc 1)
+  "`Make Procedure' will make a procedure from the body of an action or from a list of statements.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/make_/proc 1)
+  "Type in the name for the new Procedure")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/make_/proc 1)
+  "Expression")
+

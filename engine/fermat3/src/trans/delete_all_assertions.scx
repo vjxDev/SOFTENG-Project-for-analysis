@@ -1,0 +1,19 @@
+(define (/foreach-delete_all_assertions-1
+         //depth
+         //a/s_/type)
+  (cond ((= (@spec_type (@item)) //t_/assert) (@delete))))
+
+(define (@delete_all_assertions_test)
+  (cond ((member //t_/assert (@stat_types (@item)))
+         (@pass))
+        (#t
+         (@fail "The selected item did not include a `ASSERT' statement."))))
+
+(define (@delete_all_assertions_code //data)
+  (@foreach_statement
+    /foreach-delete_all_assertions-1
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips)))))
+

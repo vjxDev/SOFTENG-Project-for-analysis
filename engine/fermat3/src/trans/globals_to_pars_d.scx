@@ -1,0 +1,42 @@
+(set! //t/r_/globals_/to_/pars (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/globals_/to_/pars 1)
+  "Globals_To_Pars")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/globals_/to_/pars 1)
+  "Globals_To_Pars")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/globals_/to_/pars 1)
+  @globals_to_pars_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/globals_/to_/pars 1)
+  @globals_to_pars_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/globals_/to_/pars 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/globals_/to_/pars 1)
+  "Convert global variables in procs to extra VAR parameters.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/globals_/to_/pars 1)
+  "Enter a prefix for the local variables [var]:")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/globals_/to_/pars 1)
+  "")
+

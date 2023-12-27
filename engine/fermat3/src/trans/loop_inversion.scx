@@ -1,0 +1,131 @@
+(define /%const__loop_inversion__1
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 305 -1 '())
+                            (@make 17 '() (list (@make 117 1 '())))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define /%const__loop_inversion__2
+  (@make 114
+         '()
+         (list (@make 7
+                      '()
+                      (list (@make 332 '() (list (@make 205 1 '())))
+                            (@make 17
+                                   '()
+                                   (list (@make 133
+                                                '()
+                                                (list (@make 17
+                                                             '()
+                                                             (list (@make 107
+                                                                          -2
+                                                                          '())))))))))
+               (@make 7
+                      '()
+                      (list (@make 308 '() '())
+                            (@make 17 '() (list (@make 145 '() '()))))))))
+
+(define (@loop_inversion_test)
+  (cond ((and (= (@gt (@i)) //t_/assign)
+              (@up?)
+              (not (@left?))
+              (not (@right?)))
+         (@up)))
+  (cond ((not (= (@gt (@i)) //t_/statement))
+         (@fail "Selected item is not a Statement"))
+        ((or (< (if (vector? (@posn))
+                  (vector-length (@posn))
+                  (length (@posn)))
+                2)
+             (not (= (@st (@gparent)) //t_/floop)))
+         (@fail "Selected statement is not at the top level of an Floop body"))
+        ((= (@posn_n) 1)
+         (@fail "Selected statement is already the first statement in the loop"))
+        (#t (@pass))))
+
+(define (@loop_inversion_code //data)
+  (let ((//s1 '())
+        (//s2 '())
+        (//s '())
+        (/assert '())
+        (/test '())
+        (/done 0))
+    (cond ((and (= (@gt (@i)) //t_/assign)
+                (@up?)
+                (not (@left?))
+                (not (@right?)))
+           (@up)))
+    (cond ((not (@right?))
+           (let ((/__/o/k 1))
+             (set! /__/o/k
+               (@new_match
+                 /%const__loop_inversion__1
+                 (@i)
+                 /__/o/k))
+             (cond ((= /__/o/k 1)
+                    (let ((/__/b_save //b))
+                      (set! //b (vector-ref /__/match_array 0))
+                      (set! /test //b)
+                      (set! //b /__/b_save)))))))
+    (@left)
+    (@cut_rest)
+    (set! //s1 (@cs (@parent)))
+    (set! //s2 (@buffer))
+    (@up)
+    (@up)
+    (cond ((not (null? /test))
+           (set! /assert (@look_for_assertion /assert))
+           (cond ((and (not (null? /assert))
+                       (@implies? /assert (@not /test)))
+                  (@paste_over
+                    (@make 133
+                           '()
+                           (list (@make 17 '() (append //s2 //s1)))))
+                  (set! /done 1)
+                  (cond ((>= (if (vector? (@posn))
+                               (vector-length (@posn))
+                               (length (@posn)))
+                             3)
+                         (let ((/posn (@posn)))
+                           (@up)
+                           (@up)
+                           (@up)
+                           (let ((/__/o/k 1))
+                             (vector-set! /__/match_array 0 /assert)
+                             (set! /__/o/k
+                               (@new_match
+                                 /%const__loop_inversion__2
+                                 (@i)
+                                 /__/o/k))
+                             (cond ((= /__/o/k 1)
+                                    (let ((/__/s_save //s))
+                                      (set! //s (vector-ref /__/match_array 1))
+                                      (@paste_over
+                                        (@make 133
+                                               '()
+                                               (list (@make 17 '() //s))))
+                                      (set! //s /__/s_save)))
+                                   (#t (@goto /posn)))))))))))
+    (cond ((= /done 0)
+           (set! //s
+             (@increment
+               (@make 133
+                      '()
+                      (list (@make 17 '() (append //s2 //s1))))
+               (@as_type)
+               1
+               0))
+           (@paste_over
+             (@make 133
+                    '()
+                    (list (@make 17 '() (append //s1 //s)))))
+           (cond ((@trans? //t/r_/remove_/dummy_/loop)
+                  (@trans //t/r_/remove_/dummy_/loop '())))))))
+
+#t
+

@@ -1,0 +1,61 @@
+(define (@collapse_all_systems_test)
+  (cond ((and (= (@spec_type (@item)) //t_/where)
+              (equal? (@posn) (list 1)))
+         (@pass))
+        (#t (@fail "Not a suitable structure"))))
+
+(define (@collapse_all_systems_code //data)
+  (let ((/n 0))
+    (@goto (list 1 2))
+    (set! /n (@size (@item)))
+    (@goto (list 1 1 1))
+    (cond ((= (@spec_type (@item)) //t_/a_/s)
+           (begin (display " ") (newline) (force-output))
+           (begin
+             (display
+               "+++++++++++++++++++++++++++++++++++++++++ ")
+             (newline)
+             (force-output))
+           (begin
+             (display "Collapsing Action System ")
+             (begin
+               (display (@value (@item)))
+               (newline)
+               (force-output)))
+           (begin
+             (display
+               "+++++++++++++++++++++++++++++++++++++++++ ")
+             (newline)
+             (force-output))
+           (@trans //t/r_/collapse_/action_/system "")))
+    (let ((var-save /i) (for-step 1) (for-end /n))
+      (set! /i 1)
+      (let for-loop ()
+        (cond ((or (and (> 1 0) (<= /i for-end))
+                   (and (< 1 0) (>= /i for-end)))
+               (begin
+                 (@goto (list 1 2 /i 3 1 2 1))
+                 (cond ((= (@spec_type (@item)) //t_/a_/s)
+                        (begin (display " ") (newline) (force-output))
+                        (begin
+                          (display
+                            "+++++++++++++++++++++++++++++++++++++++++ ")
+                          (newline)
+                          (force-output))
+                        (begin
+                          (display "Collapsing Action System ")
+                          (begin
+                            (display (@value (@item)))
+                            (newline)
+                            (force-output)))
+                        (begin
+                          (display
+                            "+++++++++++++++++++++++++++++++++++++++++ ")
+                          (newline)
+                          (force-output))
+                        (@trans //t/r_/collapse_/action_/system ""))))
+               (set! /i (+ /i for-step))
+               (for-loop))
+              (#t #t)))
+      (set! /i var-save))))
+

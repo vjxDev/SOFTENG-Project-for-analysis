@@ -1,0 +1,59 @@
+(define (/foreach-force_double_to_single_loop-1
+         //depth
+         //a/s_/type)
+  (@down)
+  (cond ((and (member 1 (@tvs))
+              (@trans? //t/r_/fully_/absorb_/right))
+         (@trans //t/r_/fully_/absorb_/right "")))
+  (let while-loop ()
+    (cond ((@right?)
+           (begin
+             (@right)
+             (cond ((and (member 1 (@tvs))
+                         (@trans? //t/r_/fully_/absorb_/right))
+                    (@trans //t/r_/fully_/absorb_/right ""))))
+           (while-loop))
+          (#t #t))))
+
+(define (@force_double_to_single_loop_test)
+  (cond ((not (= (@st (@i)) //t_/floop))
+         (@fail "Not a do-loop"))
+        ((@trans? //t/r_/double_/to_/single_/loop)
+         (@fail "Can be done more simply"))
+        (#t
+         (@down)
+         (@down)
+         (cond ((and (= (@st (@i)) //t_/floop) (not (@right?)))
+                (@pass))
+               (#t (@fail "Not a double loop"))))))
+
+(define (@force_double_to_single_loop_code //data)
+  (@down)
+  (@down)
+  (cond ((@trans? //t/r_/delete_/unreachable_/code)
+         (@trans //t/r_/delete_/unreachable_/code "")))
+  (@down)
+  (let while-loop ()
+    (cond ((not (@is_reducible?))
+           (begin
+             (@up)
+             (let ((//a/s/type (@as_type)))
+               (@foreach_stats
+                 /foreach-force_double_to_single_loop-1
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips)))))
+             (@down))
+           (while-loop))
+          (#t #t)))
+  (@up)
+  (@splice_over
+    (@cs (@increment
+           (list-ref (@i) (+ 1 1))
+           (@as_type)
+           (- 1)
+           1)))
+  (@up)
+  (@up))
+

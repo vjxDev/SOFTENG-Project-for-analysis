@@ -1,0 +1,70 @@
+(define (@for_to_while_test)
+  (cond ((not (= (@st (@i)) //t_/for))
+         (@fail "Selected item is not a FOR loop."))
+        (#t (@pass))))
+
+(define (@for_to_while_code //data)
+  (let ((/var (list-ref (@i) (+ 1 1)))
+        (/init (list-ref (@i) (+ 1 2)))
+        (/final (list-ref (@i) (+ 1 3)))
+        (/step (list-ref (@i) (+ 1 4)))
+        (/body (@cs (list-ref (@i) (+ 1 5))))
+        (//b '()))
+    (set! //b
+      (@simplify_cond
+        (@make 311
+               '()
+               (list (@make 310
+                            '()
+                            (list (@make 315
+                                         '()
+                                         (list (@var_to_expn /step)
+                                               (@make 205 0 '())))
+                                  (@make 316
+                                         '()
+                                         (list (@var_to_expn /var)
+                                               (@var_to_expn /final)))))
+                     (@make 310
+                            '()
+                            (list (@make 314
+                                         '()
+                                         (list (@var_to_expn /step)
+                                               (@make 205 0 '())))
+                                  (@make 317
+                                         '()
+                                         (list (@var_to_expn /var)
+                                               (@var_to_expn /final)))))))))
+    (set! /step
+      (@simplify_expn
+        (@make 220
+               '()
+               (list (@var_to_expn /var) (@var_to_expn /step)))))
+    (@paste_over
+      (@make 139
+             '()
+             (list (@make 13
+                          '()
+                          (list (@make 6
+                                       '()
+                                       (list (@expn_to_var /var)
+                                             (@var_to_expn /init)))))
+                   (@make 17
+                          '()
+                          (list (@make 141
+                                       '()
+                                       (list //b
+                                             (@make 17
+                                                    '()
+                                                    (append
+                                                      /body
+                                                      (list (@make 110
+                                                                   '()
+                                                                   (list (@make 6
+                                                                                '()
+                                                                                (list (@expn_to_var
+                                                                                        /var)
+                                                                                      (@var_to_expn
+                                                                                        /step)))))))))))))))))
+
+#t
+

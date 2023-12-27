@@ -1,0 +1,42 @@
+(set! //t/r_/move_/comments (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/move_/comments 1)
+  "Move Comments")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/move_/comments 1)
+  "Move_Comments")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/move_/comments 1)
+  @move_comments_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/move_/comments 1)
+  @move_comments_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/move_/comments 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/move_/comments 1)
+  "Move Comments will move any comments which appear at the end of actions within an action system and which follow a call. The comments will  be moved in front of the call. This will help tidy up the output of the Herma assembly translator.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/move_/comments 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/move_/comments 1)
+  "")
+

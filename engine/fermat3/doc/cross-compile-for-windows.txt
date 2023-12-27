@@ -1,0 +1,27 @@
+To cross-compile for Windows, first install the MinGW cross-compiler
+(see http://www.stats.ox.ac.uk/pub/Rtools/mingw-cross.tar.bz2 for
+Linux binaries, http://www.stats.ox.ac.uk/pub/Rtools/sources-cross/
+for sources).  Put the bin directory (which contains mingw32-gcc etc.)
+in your path.  Build the native scmfmt and then run "make-fermat
+-mingw -install" in FermaT/src to build a scmfmt.exe for windows
+in the FermaT/MinGW directory.
+
+Note:  If you are using gcc 3.2 and have problems building FermaT,
+either switch to gcc 2.95.3 or 2.96 or try adding the -debug option
+to the make-fermat command in the Makefile ie:
+
+	cd src; make-fermat -install -debug
+
+This will compile FermaT with optimisation turned off, the result will
+be much slower but should at least work!
+
+
+NB: Compiling on genesis (ia64) use /usr/bin/gcc for linking (2.96)
+instead of /usr/local/bin/gcc (3.4.4) to avoid "undefined symbol: __udivdi3"
+
+
+MinGW uses cross-compiler build scripts x86-mingw32-build-1.0.1-sh.tar.bz2
+See: http://www.mingw.org/wiki/LinuxCrossMinGW
+This version of gcc has a bug which causes a crash when compiling eval.c
+with optimisation turned on.
+mingw32-gcc-4.3.2 seems to work OK.

@@ -1,0 +1,45 @@
+(set! //t/r_/replace_/with_/variable
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/replace_/with_/variable 1)
+  "Replace_With_Variable")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/replace_/with_/variable 1)
+  "Replace_With_Variable")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/replace_/with_/variable 1)
+  @replace_with_variable_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/replace_/with_/variable 1)
+  @replace_with_variable_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/replace_/with_/variable 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/replace_/with_/variable 1)
+  "This transformation will search for a variable
+which is assigned to the selected expression. If found, it will replace the expression
+with the variable.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/replace_/with_/variable 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/replace_/with_/variable 1)
+  "")
+

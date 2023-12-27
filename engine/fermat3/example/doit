@@ -1,0 +1,2 @@
+dotrans TR_Reverse_If test_reverse_if-1.wsl type=T_Cond
+cat test_reverse_if-2.wsl

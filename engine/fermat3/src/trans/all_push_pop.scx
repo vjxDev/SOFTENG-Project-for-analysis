@@ -1,0 +1,53 @@
+(define (/foreach-all_push_pop-1 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/push_/pop))
+         (@pass))))
+
+(define (/foreach-all_push_pop-2 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/push_/pop))
+         (@trans //t/r_/push_/pop "")
+         (set! /done 0))))
+
+(define (/foreach-all_push_pop-3 //depth //a/s_/type)
+  (cond ((and (= (@st (@i)) //t_/push)
+              (@trans? //t/r_/push_/pop))
+         (@trans //t/r_/push_/pop "")
+         (set! /done 0))))
+
+(define (@all_push_pop_test)
+  (@ateach_statement
+    /foreach-all_push_pop-1
+    0
+    (@as_type)
+    0)
+  (cond ((null? (@program)) (@new_program (@skips))))
+  (cond ((not (@passed?))
+         (@fail "No suitable PUSH statement found"))))
+
+(define (@all_push_pop_code //data)
+  (let ((/done-save /done))
+    (set! /done 0)
+    (set! /done 1)
+    (@ateach_statement
+      /foreach-all_push_pop-2
+      0
+      (@as_type)
+      0)
+    (cond ((null? (@program)) (@new_program (@skips))))
+    (let while-loop ()
+      (cond ((not (= /done 1))
+             (begin
+               (set! /done 1)
+               (@ateach_statement
+                 /foreach-all_push_pop-3
+                 0
+                 (@as_type)
+                 0)
+               (cond ((null? (@program)) (@new_program (@skips)))))
+             (while-loop))
+            (#t #t)))
+    (set! /done /done-save)))
+
+#t
+

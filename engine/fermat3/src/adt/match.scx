@@ -1,0 +1,453 @@
+(set! /__/match_array (make-vector 1999 '()))
+
+(define (@new_match /pat /dat //o/k-par)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k //o/k-par)
+    (let ((/type (vector-ref //syntax_/type (- (@st /pat) 1))))
+      (cond ((equal? /type //syntax_/one_/pattern)
+             (vector-set!
+               /__/match_array
+               (- (+ (@v /pat) 1))
+               /dat))
+            ((equal? /type //syntax_/one_/int)
+             (cond ((not (@lr_equal?
+                           (vector-ref
+                             /__/match_array
+                             (- (@v (list-ref /pat (+ 1 1))) 1))
+                           /dat))
+                    (set! //o/k 0))))
+            ((equal? /type //syntax_/one_/var)
+             (cond ((not (@lr_equal?
+                           (vector-ref /__/match_array (- (+ (@v /pat) 1)))
+                           /dat))
+                    (set! //o/k 0))))
+            ((not (= (@st /pat) (@st /dat))) (set! //o/k 0))
+            ((@has_value_type? (@st /pat))
+             (cond ((not (equal? (@v /pat) (@v /dat)))
+                    (set! //o/k 0))))
+            (#t
+             (set! //o/k
+               (@new_match_list (@cs /pat) (@cs /dat) //o/k)))))
+    (set! funct-result //o/k)
+    (set! //o/k //o/k-save)
+    funct-result))
+
+(define (@new_match_list /pats /dats //o/k-par)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k //o/k-par)
+    (cond ((and (null? /pats) (null? /dats)) #t)
+          ((null? /pats) (set! //o/k 0))
+          (#t
+           (set! //o/k
+             (@new_match_list_sub
+               /pats
+               /dats
+               (vector-ref
+                 //syntax_/type
+                 (- (@st (car /pats)) 1))
+               //o/k))))
+    (set! funct-result //o/k)
+    (set! //o/k //o/k-save)
+    funct-result))
+
+(define (@new_match_list_sub /pats /dats /type //o/k-par)
+  (let ((//o/k-save //o/k) (funct-result '()))
+    (set! //o/k //o/k-par)
+    (cond ((null? /dats)
+           (cond ((not (null? (cdr /pats))) (set! //o/k 0))
+                 ((equal? /type //syntax_/any_/int)
+                  (cond ((not (null? (vector-ref
+                                       /__/match_array
+                                       (- (@v (list-ref (car /pats) (+ 1 1)))
+                                          1))))
+                         (set! //o/k 0))))
+                 ((equal? /type //syntax_/any_/var)
+                  (cond ((not (null? (vector-ref
+                                       /__/match_array
+                                       (- (+ (@v (car /pats)) 1)))))
+                         (set! //o/k 0))))
+                 ((equal? /type //syntax_/any_/pattern)
+                  (vector-set!
+                    /__/match_array
+                    (- (+ (@v (car /pats)) 1))
+                    '()))
+                 (#t (set! //o/k 0))))
+          ((or (equal? /type //syntax_/any_/pattern)
+               (equal? /type //syntax_/many_/pattern))
+           (cond ((not (@star_patterns? (cdr /pats)))
+                  (let ((/dats1 '())
+                        (/len (if (vector? (cdr /pats))
+                                (vector-length (cdr /pats))
+                                (length (cdr /pats)))))
+                    (cond ((< (if (vector? /dats)
+                                (vector-length /dats)
+                                (length /dats))
+                              /len)
+                           (set! //o/k 0))
+                          ((and (equal? /type //syntax_/many_/pattern)
+                                (= (if (vector? /dats)
+                                     (vector-length /dats)
+                                     (length /dats))
+                                   /len))
+                           (set! //o/k 0))
+                          (#t
+                           (vector-set!
+                             /__/match_array
+                             (- (+ (@v (car /pats)) 1))
+                             (@sub_seg
+                               /dats
+                               1
+                               (- (if (vector? /dats)
+                                    (vector-length /dats)
+                                    (length /dats))
+                                  /len)))
+                           (set! //o/k
+                             (@new_match_list
+                               (cdr /pats)
+                               (@final_seg
+                                 /dats
+                                 (+ (- (if (vector? /dats)
+                                         (vector-length /dats)
+                                         (length /dats))
+                                       /len)
+                                    1))
+                               //o/k))))))
+                 (#t
+                  (let ((/match '()) (/i (- (@v (car /pats)))))
+                    (cond ((equal? /type //syntax_/many_/pattern)
+                           (set! /match (list (car /dats)))
+                           (set! /dats (cdr /dats))))
+                    (set! /pats (cdr /pats))
+                    (set! /fl_flag1 0)
+                    (let while-loop ()
+                      (cond ((= /fl_flag1 0)
+                             (begin
+                               (vector-set!
+                                 /__/match_array
+                                 (- /i 1)
+                                 (reverse /match))
+                               (set! //o/k (@new_match_list /pats /dats //o/k))
+                               (cond ((= //o/k 1) (set! /fl_flag1 1))
+                                     ((null? /dats)
+                                      (set! //o/k 0)
+                                      (set! /fl_flag1 1))
+                                     (#t
+                                      (set! //o/k 1)
+                                      (set! /match (cons (car /dats) /match))
+                                      (set! /dats (cdr /dats))
+                                      (set! /fl_flag1 0))))
+                             (while-loop))
+                            (#t #t)))))))
+          ((or (equal? /type //syntax_/any_/int)
+               (equal? /type //syntax_/any_/var))
+           (let ((/match 0))
+             (cond ((equal? /type //syntax_/any_/int)
+                    (set! /match
+                      (vector-ref
+                        /__/match_array
+                        (- (@v (list-ref (car /pats) (+ 1 1))) 1))))
+                   (#t
+                    (set! /match
+                      (vector-ref
+                        /__/match_array
+                        (- (+ (@v (car /pats)) 1))))))
+             (cond ((not (@lr_seq_equal?
+                           /match
+                           (@sub_seg
+                             /dats
+                             1
+                             (if (vector? /match)
+                               (vector-length /match)
+                               (length /match)))))
+                    (set! //o/k 0))
+                   (#t
+                    (set! //o/k
+                      (@new_match_list
+                        (cdr /pats)
+                        (@final_seg
+                          /dats
+                          (+ (if (vector? /match)
+                               (vector-length /match)
+                               (length /match))
+                             1))
+                        //o/k))))))
+          (#t
+           (set! //o/k
+             (@new_match (car /pats) (car /dats) //o/k))
+           (cond ((= //o/k 1)
+                  (set! //o/k
+                    (@new_match_list (cdr /pats) (cdr /dats) //o/k))))))
+    (set! funct-result //o/k)
+    (set! //o/k //o/k-save)
+    funct-result))
+
+(define (@star_patterns? /pats)
+  (and (not (null? /pats))
+       (or (@star_match_type? (@st (car /pats)))
+           (@star_patterns? (cdr /pats)))))
+
+(define (@match //pattern //data //table)
+  (let ((//result (@do_match //pattern //data //table 0)))
+    (cond ((and (number? //result) (= //result 1))
+           (set! //result (list "T")))
+          ((and (not (null? //result))
+                (or (not (number? //result))
+                    (not (= //result 1))))
+           (set! //result (cons "T" //result))))
+    //result))
+
+(define (@do_match //pattern //data //table //seq_/more)
+  (let ((//new-save //new)
+        (//temp '())
+        (//pat (if (null? //pattern)
+                 '()
+                 (@components //pattern)))
+        (//dat (if (null? //data) '() (@components //data)))
+        (//hd_/pat
+          (if (or (null? //pattern)
+                  (null? (@components //pattern)))
+            '()
+            (car (@components //pattern))))
+        (//hd_/dat
+          (if (or (null? //data) (null? (@components //data)))
+            '()
+            (car (@components //data))))
+        (//tl_/pat
+          (if (or (null? //pattern)
+                  (null? (@components //pattern)))
+            '()
+            (cdr (@components //pattern))))
+        (//tl_/dat
+          (if (or (null? //data) (null? (@components //data)))
+            '()
+            (cdr (@components //data))))
+        (funct-result '()))
+    (set! //new '())
+    (cond ((null? //pattern)
+           (cond ((null? //data) (set! //new (@pat_true //table)))))
+          ((@one_pattern_type? (@spec_type //pattern))
+           (set! //temp
+             (@pat_rcl (@value //pattern) //table))
+           (cond ((null? //temp)
+                  (set! //new
+                    (@pat_sto (@value //pattern) //data //table)))
+                 ((@lr_equal? (cdr //temp) //data)
+                  (set! //new //table))))
+          ((not (@components? //pattern))
+           (set! //new
+             (if (@equal? //pattern //data)
+               (@pat_true //table)
+               '())))
+          ((and (equal?
+                  (@spec_type //pattern)
+                  (@spec_type //data))
+                (equal? (@value //pattern) (@value //data)))
+           (set! //new
+             (@do_match_sequence
+               //pat
+               //hd_/pat
+               //tl_/pat
+               //dat
+               //hd_/dat
+               //tl_/dat
+               //table
+               //seq_/more
+               //new))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@do_match_list //pat //dat //table //seq_/more)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new '())
+    (cond ((null? //pat)
+           (cond ((null? //dat) (set! //new (@pat_true //table)))))
+          ((not (sequence? //pat))
+           (set! //new
+             (if (@lr_seq_equal? //pat //dat)
+               (@pat_true //table)
+               '())))
+          (#t
+           (set! //new
+             (@do_match_sequence
+               //pat
+               (if (null? //pat) '() (car //pat))
+               (if (null? //pat) '() (cdr //pat))
+               //dat
+               (if (null? //dat) '() (car //dat))
+               (if (null? //dat) '() (cdr //dat))
+               //table
+               //seq_/more
+               //new))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@do_match_sequence
+         //pat
+         //hd_/pat
+         //tl_/pat
+         //dat
+         //hd_/dat
+         //tl_/dat
+         //table
+         //seq_/more
+         //new-par)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new //new-par)
+    (cond ((and (not (null? //hd_/pat))
+                (@any_pattern_type? (@spec_type //hd_/pat)))
+           (set! //new
+             (@do_match_any
+               //pat
+               //hd_/pat
+               //tl_/pat
+               //dat
+               //hd_/dat
+               //tl_/dat
+               //table
+               //seq_/more
+               //new)))
+          ((and (not (null? //hd_/pat))
+                (@many_pattern_type? (@spec_type //hd_/pat)))
+           (set! //new
+             (@do_match_many
+               //pat
+               //hd_/pat
+               //tl_/pat
+               //dat
+               //hd_/dat
+               //tl_/dat
+               //table
+               //seq_/more
+               //new)))
+          ((and (not (null? //pat)) (not (null? //dat)))
+           (set! //new
+             (@do_match //hd_/pat //hd_/dat //table 0))
+           (cond ((not (null? //new))
+                  (set! //new
+                    (@do_match_list //tl_/pat //tl_/dat //new 0)))))
+          (#t (set! //new '())))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@do_match_any
+         //pat
+         //hd_/pat
+         //tl_/pat
+         //dat
+         //hd_/dat
+         //tl_/dat
+         //table
+         //seq_/more
+         //new-par)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new //new-par)
+    (let ((//temp (@pat_rcl (@value //hd_/pat) //table)))
+      (cond ((and (not (null? //temp)) (= //seq_/more 0))
+             (set! //new
+               (@do_match_list
+                 (concat (cdr //temp) //tl_/pat)
+                 //dat
+                 //table
+                 0)))
+            (#t
+             (cond ((and (sequence? //dat) (not (null? //dat)))
+                    (set! //new
+                      (@pat_add (@value //hd_/pat) //hd_/dat //table))
+                    (set! //new
+                      (@do_match_list //pat //tl_/dat //new 1))))
+             (cond ((null? //new)
+                    (cond ((null? //temp)
+                           (set! //new
+                             (@pat_add (@value //hd_/pat) '() //table)))
+                          (#t (set! //new //table)))
+                    (set! //new
+                      (@do_match_list //tl_/pat //dat //new 0)))))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@do_match_many
+         //pat
+         //hd_/pat
+         //tl_/pat
+         //dat
+         //hd_/dat
+         //tl_/dat
+         //table
+         //seq_/more
+         //new-par)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new //new-par)
+    (let ((//temp (@pat_rcl (@value //hd_/pat) //table)))
+      (cond ((and (not (null? //temp)) (= //seq_/more 0))
+             (set! //new
+               (@do_match_list
+                 (concat (cdr //temp) //tl_/pat)
+                 //dat
+                 //table
+                 0)))
+            ((not (null? //dat))
+             (set! //new
+               (@pat_add (@value //hd_/pat) //hd_/dat //table))
+             (set! //new
+               (@do_match_list //tl_/pat //tl_/dat //new 0))
+             (cond ((null? //new)
+                    (set! //new
+                      (@pat_add (@value //hd_/pat) //hd_/dat //table))
+                    (set! //new
+                      (@do_match_list //pat //tl_/dat //new 1)))))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@pat_sto //key //data //table)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new '())
+    (cond ((or (null? //table)
+               (and (number? //table) (= //table 1)))
+           (set! //new (list (cons //key //data))))
+          (#t
+           (cond ((equal? (car (car //table)) //key)
+                  (set! //new
+                    (cons (cons //key //data) (cdr //table))))
+                 (#t
+                  (set! //new
+                    (cons (car //table)
+                          (@pat_sto //key //data (cdr //table))))))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@pat_add //key //data //table)
+  (let ((//new-save //new) (funct-result '()))
+    (set! //new '())
+    (cond ((or (null? //table)
+               (and (number? //table) (= //table 1)))
+           (cond ((null? //data) (set! //new (list (list //key))))
+                 (#t (set! //new (list (list //key //data))))))
+          (#t
+           (cond ((equal? (car (car //table)) //key)
+                  (cond ((null? //data)
+                         (set! //new (cons (car //table) (cdr //table))))
+                        (#t
+                         (set! //new
+                           (cons (concat (car //table) (list //data))
+                                 (cdr //table))))))
+                 (#t
+                  (set! //new
+                    (cons (car //table)
+                          (@pat_add //key //data (cdr //table))))))))
+    (set! funct-result //new)
+    (set! //new //new-save)
+    funct-result))
+
+(define (@pat_rcl //key //table)
+  (let ((/r (@assoc //key //table)))
+    (if (or (null? /r) (null? (cdr /r))) '() /r)))
+
+(define (@pat_true //table)
+  (if (null? //table) 1 //table))
+

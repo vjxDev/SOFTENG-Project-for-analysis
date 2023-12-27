@@ -1,0 +1,45 @@
+(set! //t/r_/replace_/with_/value
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/replace_/with_/value 1)
+  "Replace With Value")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/replace_/with_/value 1)
+  "Replace_With_Value")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/replace_/with_/value 1)
+  @replace_with_value_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/replace_/with_/value 1)
+  @replace_with_value_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/replace_/with_/value 1)
+  (list "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/replace_/with_/value 1)
+  "This transformation will replace a variable
+(in an expression) by its value -- provided that that value can be uniquely determined
+at that point in the program.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/replace_/with_/value 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/replace_/with_/value 1)
+  "")
+

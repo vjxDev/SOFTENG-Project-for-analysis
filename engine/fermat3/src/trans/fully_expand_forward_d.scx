@@ -1,0 +1,43 @@
+(set! //t/r_/fully_/expand_/forward
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/fully_/expand_/forward 1)
+  "Fully Expand Forward")
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/fully_/expand_/forward 1)
+  "Fully_Expand_Forward")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/fully_/expand_/forward 1)
+  @fully_expand_forward_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/fully_/expand_/forward 1)
+  @fully_expand_forward_code)
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/fully_/expand_/forward 1)
+  (list "Join"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/fully_/expand_/forward 1)
+  "Apply Expand Forward as often as possible.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/fully_/expand_/forward 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/fully_/expand_/forward 1)
+  "")
+

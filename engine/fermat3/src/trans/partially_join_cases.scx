@@ -1,0 +1,259 @@
+(define (@partially_join_cases_test)
+  (cond ((not (= (@st (@i)) //t_/cond))
+         (@fail "Not an IF statement"))
+        (#t
+         (@down)
+         (let ((//s1 (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+               (//s2 '()))
+           (@right)
+           (set! /fl_flag1 0)
+           (let while-loop ()
+             (cond ((= /fl_flag1 0)
+                    (begin
+                      (set! //s2
+                        (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+                      (cond ((and (not (= (@st //s1) //t_/comment))
+                                  (@equal? //s1 //s2))
+                             (@pass)
+                             (set! /fl_flag1 1))
+                            (#t
+                             (set! //s1 //s2)
+                             (cond ((not (@right?))
+                                    (@fail "The `If' statement does not have two adjacent, and partially repeated, guards.")
+                                    (set! /fl_flag1 1))
+                                   (#t (@right) (set! /fl_flag1 0))))))
+                    (while-loop))
+                   (#t #t)))))))
+
+(define (@partially_join_cases_code //data)
+  (let ((//g1 '())
+        (//g/g '())
+        (//s1 '())
+        (//s/s '())
+        (/posn (@posn))
+        (//b '())
+        (//b1 '())
+        (//s '())
+        (/n 0)
+        (/tmp '())
+        (/add_assertions 0))
+    (cond ((> (@string_to_num (@string //data)) 0)
+           (set! /add_assertions 1)))
+    (@down)
+    (set! //s1
+      (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+    (set! //g1 (@i))
+    (set! /n (@posn_n))
+    (@right)
+    (let while-loop ()
+      (cond ((or (= //t_/comment (@st //s1))
+                 (not (@equal?
+                        //s1
+                        (last-1 (@cs (list-ref (@i) (+ 1 2)))))))
+             (begin
+               (set! //s1
+                 (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+               (set! //g1 (@i))
+               (set! /n (@posn_n))
+               (@right))
+             (while-loop))
+            (#t #t)))
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (set! //g/g (concat //g/g (list (@i))))
+               (cond ((not (@right?)) (@delete) (set! /fl_flag1 1))
+                     (#t
+                      (@delete)
+                      (cond ((not (@equal?
+                                    //s1
+                                    (last-1 (@cs (list-ref (@i) (+ 1 2))))))
+                             (set! /fl_flag1 1))
+                            (#t (set! /fl_flag1 0))))))
+             (while-loop))
+            (#t #t)))
+    (@to /n)
+    (set! //b (list-ref //g1 (+ 1 1)))
+    (set! //s/s
+      (list (cdr (reverse (@cs (list-ref //g1 (+ 1 2)))))))
+    (let ((var-save //g) (seq-save //g/g))
+      (if (vector? seq-save)
+        (set! seq-save (vector-elts seq-save)))
+      (let for-in-loop ((for-tmp seq-save))
+        (cond ((not (null? for-tmp))
+               (set! //g (car for-tmp))
+               (begin
+                 (set! //b (@or //b (list-ref //g (+ 1 1))))
+                 (set! //s/s
+                   (cons (cdr (reverse (@cs (list-ref //g (+ 1 2)))))
+                         //s/s)))
+               (for-in-loop (cdr for-tmp)))
+              (#t #t)))
+      (set! //g var-save))
+    (set! //s/s (reverse //s/s))
+    (set! //s (list //s1))
+    (set! /fl_flag1 0)
+    (let while-loop ()
+      (cond ((= /fl_flag1 0)
+             (begin
+               (set! /tmp //s/s)
+               (cond ((null? (car //s/s)) (set! /fl_flag1 1))
+                     (#t
+                      (set! //s1 (car (car //s/s)))
+                      (let while-loop ()
+                        (cond ((and (not (null? /tmp))
+                                    (not (null? (car /tmp)))
+                                    (@equal? (car (car /tmp)) //s1))
+                               (set! /tmp (cdr /tmp))
+                               (while-loop))
+                              (#t #t)))
+                      (cond ((and (not (null? /tmp)) (null? (car /tmp)))
+                             (set! /fl_flag1 1))
+                            ((and (not (null? /tmp))
+                                  (not (@equal? (car (car /tmp)) //s1)))
+                             (set! /fl_flag1 1))
+                            (#t
+                             (set! //s (cons //s1 //s))
+                             (set! /tmp //s/s)
+                             (set! //s/s '())
+                             (let while-loop ()
+                               (cond ((not (null? /tmp))
+                                      (begin
+                                        (set! //s/s
+                                          (cons (cdr (car /tmp)) //s/s))
+                                        (set! /tmp (cdr /tmp)))
+                                      (while-loop))
+                                     (#t #t)))
+                             (set! //s/s (reverse //s/s))
+                             (set! /fl_flag1 0))))))
+             (while-loop))
+            (#t #t)))
+    (set! /tmp (cons //g1 //g/g))
+    (set! //g/g '())
+    (let while-loop ()
+      (cond ((not (null? /tmp))
+             (begin
+               (cond ((null? (cdr /tmp))
+                      (set! //b1 (@make //t_/true '() '())))
+                     (#t (set! //b1 (list-ref (car /tmp) (+ 1 1)))))
+               (set! //b1
+                 (@simplify_cond
+                   (@mth_simplify_using //b1 //b 20)))
+               (cond ((= /add_assertions 1)
+                      (set! //s1
+                        (cons (@make //t_/assert
+                                     '()
+                                     (list (list-ref (car /tmp) (+ 1 1))))
+                              (reverse (car //s/s)))))
+                     (#t (set! //s1 (reverse (car //s/s)))))
+               (cond ((null? //s1) (set! //s1 (list (@skip)))))
+               (set! //g/g
+                 (cons (@make //t_/guarded
+                              '()
+                              (list //b1 (@make //t_/statements '() //s1)))
+                       //g/g))
+               (set! /tmp (cdr /tmp))
+               (set! //s/s (cdr //s/s)))
+             (while-loop))
+            (#t #t)))
+    (set! //g/g (reverse //g/g))
+    (@paste_over
+      (@make //t_/guarded
+             '()
+             (list //b
+                   (@make //t_/statements
+                          '()
+                          (cons (@make //t_/cond '() //g/g) //s)))))
+    (@down)
+    (@trans //t/r_/simplify_/item "")
+    (@goto /posn)
+    (@fix_cond)
+    (@trans //t/r_/simplify_/item "")))
+
+(define (@partially_join_cases_code_orig //data)
+  (let ((//g1 '())
+        (//b1 '())
+        (//b2 '())
+        (//s1 '())
+        (//s2 '())
+        (//b '())
+        (//s '())
+        (/posn (@posn)))
+    (@down)
+    (set! //s1
+      (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+    (set! //g1 (@i))
+    (@right)
+    (set! //s2
+      (last-1 (@cs (list-ref (@i) (+ 1 2)))))
+    (let while-loop ()
+      (cond ((not (@equal? //s1 //s2))
+             (begin
+               (set! //s1 //s2)
+               (set! //g1 (@i))
+               (@right)
+               (set! //s2
+                 (last-1 (@cs (list-ref (@i) (+ 1 2))))))
+             (while-loop))
+            (#t #t)))
+    (@pass)
+    (set! //b1 (list-ref //g1 (+ 1 1)))
+    (set! //b2 (list-ref (@i) (+ 1 1)))
+    (set! //b (@or //b1 //b2))
+    (set! //s1
+      (reverse (@cs (list-ref //g1 (+ 1 2)))))
+    (set! //s2
+      (reverse (@cs (list-ref (@i) (+ 1 2)))))
+    (let while-loop ()
+      (cond ((and (not (null? //s1))
+                  (not (null? //s2))
+                  (@equal? (car //s1) (car //s2)))
+             (begin
+               (set! //s (cons (car //s1) //s))
+               (set! //s1 (cdr //s1))
+               (set! //s2 (cdr //s2)))
+             (while-loop))
+            (#t #t)))
+    (set! //s1 (reverse //s1))
+    (set! //s2 (reverse //s2))
+    (@delete)
+    (@left)
+    (@down)
+    (@paste_over //b)
+    (@right)
+    (@paste_over
+      (@make 17
+             '()
+             (append
+               (list (@make 114
+                            '()
+                            (list (@make 7
+                                         '()
+                                         (list //b1
+                                               (@make 17
+                                                      '()
+                                                      (append
+                                                        (list (@make 109
+                                                                     '()
+                                                                     (list //b1)))
+                                                        //s1))))
+                                  (@make 7
+                                         '()
+                                         (list (@make 308 '() '())
+                                               (@make 17
+                                                      '()
+                                                      (append
+                                                        (list (@make 109
+                                                                     '()
+                                                                     (list //b2)))
+                                                        //s2)))))))
+               //s)))
+    (@down)
+    (@trans //t/r_/simplify_/item "")
+    (@goto /posn)
+    (@fix_cond)
+    (@trans //t/r_/simplify_/item "")))
+
+#t
+

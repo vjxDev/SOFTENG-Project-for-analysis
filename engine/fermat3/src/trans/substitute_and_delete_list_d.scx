@@ -1,0 +1,46 @@
+(set! //t/r_/substitute_/and_/delete_/list
+  (@new_tr_number))
+
+(vector-set!
+  //t/rs_/proc_/name
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  "Substitute_And_Delete_List")
+
+(vector-set!
+  //t/rs_/test
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  @substitute_and_delete_list_test)
+
+(vector-set!
+  //t/rs_/code
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  @substitute_and_delete_list_code)
+
+(vector-set!
+  //t/rs_/name
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  "Substitute and Delete List")
+
+(vector-set!
+  //t/rs_/keywords
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  (list "Hidden" "Rewrite"))
+
+(vector-set!
+  //t/rs_/help
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  "Substitute and Delete List will replace all calls to any action
+within the selected list of actions with the corresponding definition
+and delete the definition. Actions which are called more than  once
+will not be affected.")
+
+(vector-set!
+  //t/rs_/prompt
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  "")
+
+(vector-set!
+  //t/rs_/data_/gen_/type
+  (- //t/r_/substitute_/and_/delete_/list 1)
+  "")
+
